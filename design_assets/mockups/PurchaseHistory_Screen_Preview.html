@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử Giao dịch - Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F6F7F9;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+        <!-- HEADER -->
+        <div class="bg-white shrink-0 shadow-sm relative z-20 pb-0 flex flex-col pt-0 border-b border-gray-100">
+            <!-- Status Bar -->
+            <div class="flex justify-between items-center px-6 pt-4 text-black font-medium relative z-10 bg-white">
+                <div class="font-semibold text-[15px] tracking-tight">9:41</div>
+                <div class="flex items-center gap-[5px]">
+                    <div class="flex items-end gap-[2px] h-[12px]">
+                        <div class="w-[3px] h-1.5 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-2 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-2.5 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-3 bg-black rounded-[1px]"></div>
+                    </div>
+                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <div class="w-6 h-3 rounded-sm border border-black p-[1px] relative ml-1">
+                        <div class="bg-black w-[80%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-1 top-1 w-[2px] h-1 bg-black rounded-r-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Bar -->
+            <div class="flex items-center justify-between px-4 pt-4 pb-3 relative z-10 w-full">
+                <button onclick="window.history.back()"
+                    class="w-10 h-10 flex items-center justify-center rounded-full active:bg-gray-100 transition-colors text-gray-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <h1 class="text-[17.5px] font-bold text-gray-900 tracking-tight text-center flex-1">Quản lý gói</h1>
+                <div class="w-10"></div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="flex-1 overflow-y-auto pb-10 px-4 pt-5 gap-5 flex flex-col">
+
+            <!-- GROUP 1: ĐANG SỬ DỤNG -->
+            <div>
+                <h2
+                    class="text-[17px] font-extrabold text-gray-900 uppercase tracking-wide mb-3 mt-1 flex items-center gap-2">
+                    <div class="relative flex items-center justify-center text-emerald-500">
+                        <span
+                            class="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-emerald-400 opacity-40"></span>
+                        <svg class="w-5 h-5 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    Gói đang dùng
+                </h2>
+
+                <div class="flex flex-col gap-3">
+                    <!-- ACTIVE ITEM 1: SUBSCRIPTION -->
+                    <div
+                        class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-hidden flex flex-col">
+
+                        <!-- Purple accent subtle top border -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-purple-500"></div>
+
+                        <div class="flex items-start gap-3.5 relative z-10 mb-4 mt-1">
+                            <!-- Icon -->
+                            <div
+                                class="w-[48px] h-[48px] bg-purple-50 rounded-xl flex items-center justify-center text-[24px] shrink-0 border border-purple-100">
+                                💎
+                            </div>
+
+                            <!-- Text Info -->
+                            <div class="flex-1 min-w-0 pt-0.5">
+                                <h3 class="font-bold text-[16px] text-gray-900 leading-tight">Gói Kim Cương 1 Năm</h3>
+
+                                <div
+                                    class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    GIA HẠN TỰ ĐỘNG
+                                </div>
+
+                                <div class="text-[12.5px] text-gray-700 mt-3 flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Ngày mua:</span>
+                                        <strong class="text-gray-900">25/12/2025</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Đã thanh toán:</span>
+                                        <strong class="text-gray-900">1.990.000đ</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-1 pt-2 border-t border-gray-100">
+                                        <span class="text-purple-700 font-medium">Gia hạn tiếp theo:</span>
+                                        <strong class="text-purple-700">26/12/2026</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="w-full mt-auto">
+                            <button
+                                class="w-full bg-gray-50 active:bg-gray-100 text-gray-700 font-semibold py-2.5 rounded-xl text-[13.5px] border border-gray-200"
+                                onclick="alert('Quản lý gia hạn')">
+                                Quản lý gia hạn
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVE ITEM 2: SUBSCRIPTION OFF -->
+                    <div
+                        class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-hidden flex flex-col">
+
+                        <!-- Orange accent subtle top border -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-amber-400"></div>
+
+                        <div class="flex items-start gap-3.5 relative z-10 mb-4 mt-1">
+                            <!-- Icon -->
+                            <div
+                                class="w-[48px] h-[48px] bg-orange-50 rounded-xl flex items-center justify-center text-[24px] shrink-0 border border-orange-100">
+                                🌟
+                            </div>
+
+                            <!-- Text Info -->
+                            <div class="flex-1 min-w-0 pt-0.5">
+                                <h3 class="font-bold text-[16px] text-gray-900 leading-tight">Gói Vàng 6 Tháng</h3>
+
+                                <div
+                                    class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                    </svg>
+                                    ĐÃ TẮT GIA HẠN
+                                </div>
+
+                                <div class="text-[12.5px] text-gray-700 mt-3 flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Ngày mua:</span>
+                                        <strong class="text-gray-900">01/11/2025</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Đã thanh toán:</span>
+                                        <strong class="text-gray-900">499.000đ</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-1 pt-2 border-t border-gray-100">
+                                        <span class="text-gray-500">Hạn sử dụng:</span>
+                                        <strong class="text-gray-600">01/05/2026</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="w-full mt-auto">
+                            <button
+                                class="w-full bg-amber-500 active:bg-amber-600 text-white font-semibold py-2.5 rounded-xl text-[13.5px] flex items-center justify-center gap-2"
+                                onclick="alert('Bật gia hạn')">
+                                <svg class="w-[16px] h-[16px]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Bật gia hạn gói
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVE ITEM 3: LIFETIME PACKAGE -->
+                    <div
+                        class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-hidden flex flex-col">
+
+                        <!-- Slate accent subtle top border -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-slate-400"></div>
+
+                        <div class="flex items-start gap-3.5 relative z-10 mt-1">
+                            <!-- Icon -->
+                            <div
+                                class="w-[48px] h-[48px] bg-slate-50 rounded-xl flex items-center justify-center text-[24px] shrink-0 border border-slate-200">
+                                🛡️
+                            </div>
+
+                            <!-- Text Info -->
+                            <div class="flex-1 min-w-0 pt-0.5">
+                                <h3 class="font-bold text-[16px] text-gray-900 leading-tight">Gói Bạc Trọn Đời</h3>
+
+                                <div
+                                    class="bg-gray-100 text-gray-600 border border-gray-200 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    MUA 1 LẦN
+                                </div>
+
+                                <div class="text-[12.5px] text-gray-700 mt-3 flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Ngày mua:</span>
+                                        <strong class="text-gray-900">12/08/2025</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Đã thanh toán:</span>
+                                        <strong class="text-gray-900">499.000đ</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-1 pt-2 border-t border-gray-100">
+                                        <span class="text-gray-500">Hạn sử dụng:</span>
+                                        <strong class="text-gray-600">Trọn đời</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVE ITEM 4: ONE-OFF PURCHASE -->
+                    <div
+                        class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-hidden flex flex-col">
+
+                        <!-- Emerald accent subtle top border -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-400"></div>
+
+                        <div class="flex items-start gap-3.5 relative z-10 mt-1">
+                            <!-- Icon -->
+                            <div
+                                class="w-[48px] h-[48px] bg-emerald-50 rounded-xl flex items-center justify-center text-[24px] shrink-0 border border-emerald-100">
+                                🔮
+                            </div>
+
+                            <!-- Text Info -->
+                            <div class="flex-1 min-w-0 pt-0.5">
+                                <h3 class="font-bold text-[16px] text-gray-900 leading-tight">Tử vi Vận hạn 2026</h3>
+
+                                <div
+                                    class="bg-gray-100 text-gray-600 border border-gray-200 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    MUA 1 LẦN
+                                </div>
+
+                                <div class="text-[12.5px] text-gray-700 mt-3 flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Ngày mua:</span>
+                                        <strong class="text-gray-900">01/01/2026</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Đã thanh toán:</span>
+                                        <strong class="text-gray-900">299.000đ</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-1 pt-2 border-t border-gray-100">
+                                        <span class="text-gray-500">Hạn sử dụng:</span>
+                                        <strong class="text-gray-600">Trọn đời (Năm 2026)</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ACTIVE ITEM 5: PAYMENT FAILED (GRACE PERIOD) -->
+                    <div class="bg-white rounded-[16px] p-4 shadow-sm border border-red-300 relative flex flex-col">
+
+                        <!-- Red accent top border -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-red-500 rounded-t-[15px]"></div>
+
+                        <div class="flex items-start gap-3.5 relative z-10 mb-4 mt-1">
+                            <!-- Icon -->
+                            <div
+                                class="w-[48px] h-[48px] bg-red-50 rounded-xl flex items-center justify-center text-[24px] shrink-0 border border-red-100">
+                                💳
+                            </div>
+
+                            <!-- Text Info -->
+                            <div class="flex-1 min-w-0 pt-0.5">
+                                <h3 class="font-bold text-[16px] text-gray-900 leading-tight">Gói Bạc 1 Tháng</h3>
+
+                                <div
+                                    class="bg-red-50 text-red-600 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    LỖI THANH TOÁN
+                                </div>
+
+                                <div class="text-[12.5px] text-gray-700 mt-3 flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Kỳ thanh toán:</span>
+                                        <strong class="text-gray-900">10/03 - 10/04</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Cần thanh toán:</span>
+                                        <strong class="text-gray-900">99.000đ</strong>
+                                    </div>
+                                    <div
+                                        class="mt-1 bg-red-50 border border-red-100 rounded-[8px] p-2 flex items-start gap-2">
+                                        <span class="text-red-700 text-[11px] font-medium leading-snug">
+                                            Thanh toán thất bại do thẻ không đủ tiền. Cập nhật ngay để tiếp tục sử dụng
+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="w-full mt-auto relative">
+                            <button
+                                class="w-full bg-red-500 active:bg-red-600 text-white font-semibold py-2.5 rounded-xl text-[13.5px] flex items-center justify-center gap-1.5"
+                                onclick="document.getElementById('ux-note').classList.toggle('hidden')">
+                                Cập nhật thẻ ngay
+                            </button>
+
+                            <!-- Tooltip Modal for Boss -->
+                            <div id="ux-note"
+                                class="hidden absolute bottom-full left-0 right-0 mb-3 p-3.5 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl z-50 transition-all">
+                                <div
+                                    class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-b border-r border-gray-700 rotate-45">
+                                </div>
+                                <strong
+                                    class="text-[12.5px] text-red-500 flex items-center gap-1.5 mb-2 uppercase tracking-widest border-b border-gray-700 pb-2">
+                                    💡 KỊCH BẢN UX/FLOW:
+                                </strong>
+                                <ul class="text-[11.5px] text-gray-300 leading-relaxed space-y-2.5">
+                                    <li><span class="text-amber-400 font-bold">1. Xảy ra khi:</span> Apple/Google trừ
+                                        tiền KHÔNG THÀNH CÔNG vào đúng ngày đến hạn (Do thẻ hết hạn/hết tiền).</li>
+                                    <li><span class="text-amber-400 font-bold">2. Tồn tại trong:</span> 3 đến 16 ngày
+                                        (Tùy cấu hình Grace Period). Hết X ngày này, gói sẽ thành gói đã hết hạn.</li>
+                                    <li><span class="text-emerald-400 font-bold">3. Nút bấm:</span> Mở ra trang Cài đặt
+                                        thanh toán của iOS/Android để khách tự đổi thẻ (Không nhập thẻ trên App vì bị
+                                        cấm).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACTIVE ITEM 6: DIRECT SALE / BANK TRANSFER -->
+                    <div
+                        class="bg-white rounded-[16px] p-4 shadow-sm border border-cyan-200 relative overflow-hidden flex flex-col">
+
+                        <!-- Cyan accent top border -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-cyan-400"></div>
+
+                        <div class="flex items-start gap-3.5 relative z-10 mb-4 mt-1">
+                            <!-- Icon -->
+                            <div
+                                class="w-[48px] h-[48px] bg-cyan-50 rounded-xl flex items-center justify-center text-[24px] shrink-0 border border-cyan-100">
+                                🌟
+                            </div>
+
+                            <!-- Text Info -->
+                            <div class="flex-1 min-w-0 pt-0.5">
+                                <h3 class="font-bold text-[16px] text-gray-900 leading-tight">Gói Vàng 1 Năm</h3>
+
+                                <div
+                                    class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1 border border-gray-200">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    CHUYỂN KHOẢN TRỰC TIẾP
+                                </div>
+
+                                <div class="text-[12.5px] text-gray-700 mt-3 flex flex-col gap-1.5">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Ngày kích hoạt:</span>
+                                        <strong class="text-gray-900">01/01/2026</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-500">Đã thanh toán:</span>
+                                        <strong class="text-gray-900">399.000đ</strong>
+                                    </div>
+                                    <div class="flex justify-between items-center mt-1 pt-2 border-t border-gray-100">
+                                        <span class="text-gray-500">Hạn sử dụng:</span>
+                                        <strong class="text-gray-900 font-bold">01/01/2027</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="w-full mt-auto">
+                            <button
+                                class="w-full bg-cyan-50 active:bg-cyan-100 text-cyan-700 font-semibold py-2.5 rounded-xl text-[13.5px] border border-cyan-200 flex items-center justify-center gap-1.5"
+                                onclick="alert('Nhắn Zalo Sale')">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                </svg>
+                                Nhắn CSKH để gia hạn
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- GROUP 2: ĐÃ QUA SỬ DỤNG -->
+            <div class="mt-2 text-left">
+                <h2
+                    class="text-[17px] font-extrabold text-gray-900 uppercase tracking-wide mb-3 flex items-center gap-2 relative">
+                    <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Gói đã hết hạn
+                </h2>
+
+                <!-- EXPIRED ITEM 1: NORMAL AVAILABLE PACKAGE -->
+                <div
+                    class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-visible flex flex-col gap-3.5 mb-3">
+                    <div class="flex items-start gap-3.5">
+                        <div
+                            class="w-[44px] h-[44px] bg-gray-50 rounded-xl flex items-center justify-center text-[22px] shrink-0 border border-gray-200">
+                            <span class="grayscale opacity-60">🌟</span>
+                        </div>
+
+                        <div class="flex-1 min-w-0 pt-0.5">
+                            <h3 class="font-semibold text-[15px] text-gray-800 tracking-tight">Gói Vàng 6 Tháng</h3>
+                            <div class="text-[12.5px] text-gray-500 mt-2.5 flex flex-col gap-1.5">
+                                <div class="flex justify-between items-center">
+                                    <span>Ngày mua:</span>
+                                    <strong class="font-medium text-gray-700">15/06/2025</strong>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Đã thanh toán:</span>
+                                    <strong class="font-medium text-gray-700">199.000đ</strong>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Ngày hết hạn:</span>
+                                    <strong class="font-medium text-gray-700">15/12/2025</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative w-full">
+                        <button
+                            class="w-full bg-blue-500 active:bg-blue-600 text-white font-semibold py-2.5 rounded-xl text-[13.5px] flex items-center justify-center gap-1.5 relative z-10"
+                            onclick="document.getElementById('ux-note-renew').classList.toggle('hidden')">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M12 6v12M6 12h12" />
+                            </svg>
+                            Đăng ký lại
+                        </button>
+
+                        <!-- Tooltip Modal for Boss: Normal Renew -->
+                        <div id="ux-note-renew"
+                            class="hidden absolute bottom-full left-0 right-0 mb-3 p-3.5 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl z-50 transition-all text-left">
+                            <div
+                                class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-b border-r border-gray-700 rotate-45">
+                            </div>
+                            <strong
+                                class="text-[12.5px] text-blue-400 flex items-center gap-1.5 mb-2 uppercase tracking-widest border-b border-gray-700 pb-2">
+                                💡 TRƯỜNG HỢP: GÓI CÒN BÁN
+                            </strong>
+                            <ul class="text-[11.5px] text-gray-300 leading-relaxed space-y-2.5">
+                                <li><span class="text-blue-300 font-bold">👉 Hiển thị nút:</span> "Đăng ký lại".</li>
+                                <li><span class="text-emerald-400 font-bold">🎯 Đích đến:</span> Nhấn vào ra màn đăng ký
+                                    dịch vụ chọn đúng gói đó.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPIRED ITEM 1.5: DISCONTINUED PACKAGE -->
+                <div
+                    class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-visible flex flex-col gap-3.5 mb-3">
+                    <div class="flex items-start gap-3.5">
+                        <div
+                            class="w-[44px] h-[44px] bg-gray-50 rounded-xl flex items-center justify-center text-[22px] shrink-0 border border-gray-200">
+                            <span class="grayscale opacity-60">🥈</span>
+                        </div>
+
+                        <div class="flex-1 min-w-0 pt-0.5">
+                            <h3 class="font-semibold text-[15px] text-gray-800 tracking-tight">Gói Bạc 3 Tháng (Gói Cũ)
+                            </h3>
+                            <div class="text-[12.5px] text-gray-500 mt-2.5 flex flex-col gap-1.5">
+                                <div class="flex justify-between items-center">
+                                    <span>Ngày mua:</span>
+                                    <strong class="font-medium text-gray-700">15/06/2025</strong>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Đã thanh toán:</span>
+                                    <strong class="font-medium text-gray-700">69.000đ</strong>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Ngày hết hạn:</span>
+                                    <strong class="font-medium text-gray-700">15/09/2025</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative w-full">
+                        <button
+                            class="w-full bg-blue-500 active:bg-blue-600 text-white font-semibold py-2.5 rounded-xl text-[13.5px] flex items-center justify-center gap-1.5 relative z-10"
+                            onclick="document.getElementById('ux-note-discontinued').classList.toggle('hidden')">
+                            Đăng ký gói mới
+                        </button>
+
+                        <!-- Tooltip Modal for Boss: Discontinued -->
+                        <div id="ux-note-discontinued"
+                            class="hidden absolute bottom-full left-0 right-0 mb-3 p-3.5 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl z-50 transition-all text-left">
+                            <div
+                                class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 border-b border-r border-gray-700 rotate-45">
+                            </div>
+                            <strong
+                                class="text-[12.5px] text-amber-500 flex items-center gap-1.5 mb-2 uppercase tracking-widest border-b border-gray-700 pb-2">
+                                💡 TRƯỜNG HỢP: GÓI BỊ KHAI TỬ
+                            </strong>
+                            <ul class="text-[11.5px] text-gray-300 leading-relaxed space-y-2.5">
+                                <li><span class="text-amber-400 font-bold">👉 Tình huống:</span> Khi gói này không còn
+                                    hiển thị ở màn đăng ký dịch vụ nữa.</li>
+                                <li><span class="text-amber-400 font-bold">👉 Đổi Nút CTA:</span> Nút Đăng ký lại sẽ
+                                    được
+                                    thay thế bằng nút <strong>"Đăng ký gói mới"</strong>.</li>
+                                <li><span class="text-emerald-400 font-bold">🎯 Đích đến:</span> Chuyển tới màn đăng ký
+                                    dịch vụ chọn gói mới.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPIRED ITEM 2: UPGRADED PACKAGE -->
+                <div
+                    class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-hidden flex flex-col gap-3.5 mb-3 opacity-70">
+                    <div class="flex items-start gap-3.5">
+                        <div
+                            class="w-[44px] h-[44px] bg-gray-50 rounded-xl flex items-center justify-center text-[22px] shrink-0 border border-gray-200">
+                            <span class="grayscale opacity-50">🥈</span>
+                        </div>
+
+                        <div class="flex-1 min-w-0 pt-0.5">
+                            <h3 class="font-semibold text-[15px] text-gray-800 tracking-tight">Gói Bạc 1 Tháng</h3>
+                            <div
+                                class="bg-gray-100 text-gray-500 border border-gray-200 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M5 13l4 4L19 7" />
+                                </svg>
+                                ĐÃ NÂNG CẤP
+                            </div>
+                            <div class="text-[12.5px] text-gray-500 mt-2.5 flex flex-col gap-1.5">
+                                <div class="flex justify-between items-center">
+                                    <span>Ngày mua:</span>
+                                    <strong class="text-gray-700 font-medium">10/01/2026</strong>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span>Đã thanh toán:</span>
+                                    <strong class="text-gray-700 font-medium">49.000đ</strong>
+                                </div>
+                                <div class="flex justify-between items-center text-orange-600">
+                                    <span>Kết thúc sớm:</span>
+                                    <strong class="font-medium">20/01/2026</strong>
+                                </div>
+                                <div
+                                    class="mt-1 bg-blue-50 border border-blue-100 rounded-[8px] p-2.5 flex items-start gap-2">
+                                    <svg class="w-4 h-4 text-blue-500 mt-[1px] shrink-0" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span class="text-blue-700 leading-snug text-[11px] font-medium">
+                                        Thời gian còn dư đã được tự động quy đổi và giảm trừ trực tiếp vào <strong>Gói
+                                            Vàng</strong> ở trên.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPIRED ITEM 3: REFUNDED PACKAGE -->
+                <div
+                    class="bg-white rounded-[16px] p-4 shadow-sm border border-gray-200 relative overflow-hidden flex flex-col gap-3.5 mb-3 opacity-60">
+                    <div class="flex items-start gap-3.5">
+                        <div
+                            class="w-[44px] h-[44px] bg-red-50 rounded-xl flex items-center justify-center text-[22px] shrink-0 border border-red-100">
+                            <span class="grayscale opacity-50">💎</span>
+                        </div>
+
+                        <div class="flex-1 min-w-0 pt-0.5">
+                            <h3 class="font-semibold text-[15px] text-gray-800 tracking-tight">Gói Kim Cương 1 Tháng
+                            </h3>
+                            <div
+                                class="bg-red-50 text-red-600 border border-red-100 px-2 py-0.5 rounded text-[10.5px] font-bold w-fit mt-1.5 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                ĐÃ HOÀN TIỀN
+                            </div>
+                            <div class="text-[12.5px] text-gray-500 mt-2.5 flex flex-col gap-1.5">
+                                <div class="flex justify-between items-center">
+                                    <span>Ngày mua:</span>
+                                    <strong class="text-gray-700 font-medium">01/02/2026</strong>
+                                </div>
+                                <div class="flex justify-between items-center text-red-600">
+                                    <span>Thực thu:</span>
+                                    <strong class="font-medium">0đ <span
+                                            class="text-gray-400 line-through text-[11px] font-normal ml-1">199.000đ</span></strong>
+                                </div>
+                                <div class="flex justify-between items-center text-gray-400">
+                                    <span>Trạng thái:</span>
+                                    <strong class="font-medium">Đã thu hồi gói</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END OF LIST -->
+            <div class="flex justify-center flex-col items-center py-6 mt-2 opacity-50">
+                <div class="w-1 h-1 bg-gray-300 rounded-full mb-1"></div>
+                <div class="w-1 h-1 bg-gray-300 rounded-full mb-1"></div>
+                <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+            </div>
+
+        </div> <!-- End Main Content -->
+    </div>
+</body>
+
+</html>

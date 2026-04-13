@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện Dịch vụ Khách hàng - Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Mô phỏng khung điện thoại */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F4F5F7;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Style cho thanh cuộn */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Ẩn thanh cuộn cho danh sách cuộn ngang */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+        <!-- KHU VỰC CỐ ĐỊNH PHÍA TRÊN (HEADER & CÁ NHÂN) -->
+        <div id="header-bg"
+            class="bg-gradient-to-b from-[#FDE56D] to-[#FFF8D6] pb-5 shrink-0 border-b border-yellow-100 shadow-sm relative overflow-hidden transition-colors duration-500">
+            <!-- Status Bar -->
+            <div class="flex justify-between items-center px-6 pt-4 text-black font-medium relative z-10">
+                <div class="font-semibold text-[15px] tracking-tight">9:41</div>
+                <div class="flex items-center gap-[5px]">
+                    <!-- Tín hiệu mạng -->
+                    <div class="flex items-end gap-[2px] h-[12px]">
+                        <div class="w-[3px] h-1.5 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-2 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-2.5 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-3 bg-black rounded-[1px]"></div>
+                    </div>
+                    <!-- Wifi -->
+                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <!-- Pin -->
+                    <div class="w-6 h-3 rounded-sm border border-black p-[1px] relative ml-1">
+                        <div class="bg-black w-[80%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-1 top-1 w-[2px] h-1 bg-black rounded-r-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Bar (Top Navigation) -->
+            <div class="grid grid-cols-[40px_1fr_auto] items-center px-5 pt-3 relative z-10 w-full mb-2 gap-2">
+                <!-- Hamburger Menu -->
+                <button onclick="toggleMockMenu()"
+                    class="flex flex-col justify-center items-center gap-[4.5px] p-2 w-10 h-10 hover:bg-black/5 rounded-full transition-colors cursor-pointer"
+                    title="Cài đặt Mockup">
+                    <div
+                        class="header-icon-line w-[20px] h-[2.5px] bg-gray-800 rounded-full pointer-events-none transition-colors">
+                    </div>
+                    <div
+                        class="header-icon-line w-[20px] h-[2.5px] bg-gray-800 rounded-full pointer-events-none transition-colors">
+                    </div>
+                    <div
+                        class="header-icon-line w-[20px] h-[2.5px] bg-gray-800 rounded-full pointer-events-none transition-colors">
+                    </div>
+                </button>
+
+                <!-- Page Title -->
+                <h1 class="text-[17.5px] font-bold text-gray-900 tracking-tight text-center truncate">Dịch vụ & Tiện ích
+                </h1>
+
+                <!-- Action Group -->
+                <div class="flex items-center gap-0.5">
+                    <!-- History/Receipt Icon -->
+                    <a href="PurchaseHistory_Screen_Preview.html"
+                        class="relative w-9 h-9 flex items-center justify-center text-gray-800 hover:bg-black/5 rounded-full cursor-pointer transition-colors focus:outline-none"
+                        title="Lịch sử mua gói">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </a>
+
+                    <!-- Notification Icon -->
+                    <button
+                        class="relative w-9 h-9 flex items-center justify-center text-gray-800 hover:bg-black/5 rounded-full cursor-pointer transition-colors focus:outline-none">
+                        <svg class="w-[21px] h-[21px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <!-- Red Unread Badge -->
+                        <span
+                            class="absolute top-[7px] right-[7px] w-[7px] h-[7px] bg-red-500 rounded-full border-2 border-white"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- User Info Row -->
+            <div class="flex items-center gap-3 px-6 pt-1 pb-1 relative z-10">
+                <!-- Avatar Area -->
+                <div class="relative flex-shrink-0 cursor-pointer">
+                    <!-- Sparkles -->
+                    <svg class="absolute -top-1 left-2 w-3.5 h-3.5 text-white opacity-90" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" />
+                    </svg>
+                    <svg class="absolute top-0 -left-6 w-5 h-5 text-white/80" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" />
+                    </svg>
+                    <svg class="absolute top-6 -right-5 w-2 h-2 text-white/80" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" />
+                    </svg>
+                    <svg class="absolute bottom-1 -left-4 w-3 h-3 text-white/90" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" />
+                    </svg>
+                    <svg class="absolute -bottom-3 right-6 w-4 h-4 text-white/90" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path d="M12 0l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" />
+                    </svg>
+
+                    <!-- Avatar Circle -->
+                    <div id="avatar-ring"
+                        class="w-[62px] h-[62px] rounded-full bg-gradient-to-b from-[#FBC335] to-[#E25421] p-[2px] shadow-sm relative z-10 transition-colors duration-500">
+                        <div id="avatar-inner-border" class="w-full h-full rounded-full bg-[#FFEFC6] p-[1.5px]">
+                            <div id="avatar-inner-bg"
+                                class="w-full h-full rounded-full bg-[#FAF0E1] flex items-center justify-center overflow-hidden border border-[#FBE396] relative transition-colors duration-500">
+                                <img id="user-avatar-img"
+                                    src="https://api.dicebear.com/7.x/fun-emoji/svg?seed=tiger&backgroundColor=transparent"
+                                    alt="Tiger"
+                                    class="w-9 h-9 object-contain translate-y-0.5 drop-shadow-sm transition-opacity duration-300" />
+                                <div id="user-avatar-diamond"
+                                    class="absolute inset-0 hidden items-center justify-center text-[28px] drop-shadow-sm transition-opacity duration-300">
+                                    💎</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Star Badge (Gold) -->
+                    <div data-show-for="vang" class="absolute -top-1 -right-2 z-20">
+                        <svg class="w-[28px] h-[28px] text-[#FFD123]"
+                            style="filter: drop-shadow(0px 1px 2px rgba(220, 120, 10, 0.4));" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                        </svg>
+                    </div>
+
+                    <!-- Diamond Badge (Kim Cương) -->
+                    <div data-show-for="kimcuong" class="absolute -top-[3px] -right-[6px] z-20 hidden">
+                        <div class="text-[20px] drop-shadow-[0_2px_4px_rgba(99,102,241,0.5)]">💎</div>
+                    </div>
+                    <!-- Star Badge (Silver) -->
+                    <div data-show-for="bac" class="absolute -top-1 -right-2 z-20 hidden">
+                        <svg class="w-[26px] h-[26px] text-gray-200"
+                            style="filter: drop-shadow(0px 2px 3px rgba(100, 110, 140, 0.3)); stroke: #9CA3AF; stroke-width: 0.5px;"
+                            viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- User Text Details -->
+                <div class="flex flex-col flex-1 pl-3 pb-2 pt-1 gap-2">
+                    <div class="flex items-center gap-2">
+                        <h2 class="text-[20px] font-bold text-black tracking-tight leading-none mb-1">Hoang Quoc Hoan
+                        </h2>
+                        <button
+                            class="text-[#005CAC] hover:text-[#004080] p-1 rounded-full hover:bg-black/5 transition-colors mb-0.5">
+                            <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                        <div id="user-badge-container"
+                            class="bg-gradient-to-r from-[#FFF484] to-[#FDB01B] px-[16px] py-[3px] rounded-full shadow-sm shrink-0">
+                            <span id="user-badge-text" class="text-[#8B4600] font-bold text-[14px]">Vàng</span>
+                        </div>
+                        <span class="text-gray-800 font-medium text-[14.5px] shrink-0">Đinh
+                            Mão</span>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /HEADER -->
+
+        <!-- KHU VỰC CÓ THỂ CUỘN PHÍA DƯỚI -->
+        <div class="flex-1 overflow-y-auto overflow-x-hidden pb-10">
+
+            <!-- Tiến Trình Nâng Cấp -->
+            <div class="px-5 mt-6">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="mb-5">
+                        <h3 id="membership-tier-title"
+                            class="text-[16px] font-bold text-gray-800 transition-colors duration-500">Hạng Thành Viên
+                        </h3>
+                    </div>
+
+                    <!-- Khu vực Tiến trình (Progress Section) -->
+                    <div class="mt-8 mb-6 relative px-2">
+                        <!-- Tooltip chỉ xuống hạng hiện tại -->
+                        <div id="progress-tooltip"
+                            class="absolute -top-7 left-[30%] -translate-x-1/2 flex flex-col items-center z-20 transition-all duration-500">
+                            <div id="tooltip-bg"
+                                class="bg-gradient-to-r from-gray-400 to-gray-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded shadow-md flex items-center gap-1 whitespace-nowrap transition-colors duration-500">
+                                <svg id="tooltip-icon" class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24"
+                                    fill="currentColor">
+                                    <path
+                                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                </svg>
+                                <span id="tooltip-label">HẠNG BẠC</span>
+                            </div>
+                            <div id="tooltip-arrow"
+                                class="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[5px] border-transparent border-t-gray-500 transition-colors duration-500">
+                            </div>
+                        </div>
+
+                        <!-- Thanh Process Bar -->
+                        <div class="relative h-2.5 w-full bg-gray-100 rounded-full">
+                            <!-- Đường fill -->
+                            <div id="progress-fill"
+                                class="absolute top-0 left-0 h-full w-[30%] bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full shadow-inner transition-all duration-300">
+                            </div>
+
+                            <!-- Các mốc điểm (Cơ bản -> Bạc -> Vàng -> KC) -->
+                            <!-- Điểm 0% -->
+                            <div class="absolute top-1/2 left-0 -translate-y-1/2 w-8 h-8 -ml-4 z-20 cursor-pointer flex items-center justify-center group"
+                                onclick="switchTier('coban', 0)">
+                                <div id="dot-0"
+                                    class="w-4 h-4 bg-orange-400 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20">
+                                </div>
+                            </div>
+
+                            <!-- Điểm 30% -->
+                            <div class="absolute top-1/2 left-[30%] -translate-y-1/2 w-8 h-8 -ml-4 z-20 cursor-pointer flex items-center justify-center group"
+                                onclick="switchTier('bac', 30)">
+                                <div id="dot-30"
+                                    class="w-4 h-4 bg-orange-400 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20">
+                                </div>
+                            </div>
+
+                            <!-- Mốc hiện tại (Vàng 70%) -->
+                            <div class="absolute top-1/2 left-[70%] -translate-y-1/2 w-8 h-8 -ml-4 z-20 cursor-pointer flex items-center justify-center group"
+                                onclick="switchTier('vang', 70)">
+                                <div id="dot-70"
+                                    class="w-5 h-5 bg-gradient-to-b from-yellow-300 to-yellow-500 rounded-full border-[3px] border-white shadow-md flex items-center justify-center transition-all duration-300 ring-4 ring-yellow-400/30 scale-110 relative z-30">
+                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <!-- Điểm 100% -->
+                            <div class="absolute top-1/2 right-0 -translate-y-1/2 w-8 h-8 -mr-4 z-20 cursor-pointer flex items-center justify-center group"
+                                onclick="switchTier('kimcuong', 100)">
+                                <div id="dot-100"
+                                    class="w-4 h-4 bg-gray-200 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tên các cấp độ bên dưới -->
+                        <div class="relative w-full h-4 mt-2">
+                            <span id="label-0" onclick="switchTier('coban', 0)"
+                                class="absolute left-0 -translate-x-1/2 text-[10px] font-bold w-12 text-center cursor-pointer transition-colors">Cơ
+                                bản</span>
+                            <span id="label-30" onclick="switchTier('bac', 30)"
+                                class="absolute left-[30%] -translate-x-1/2 text-[10px] font-bold w-12 text-center cursor-pointer transition-colors">Bạc</span>
+                            <span id="label-70" onclick="switchTier('vang', 70)"
+                                class="absolute left-[70%] -translate-x-1/2 text-[10px] font-bold w-12 text-center cursor-pointer transition-colors">Vàng</span>
+                            <span id="label-100" onclick="switchTier('kimcuong', 100)"
+                                class="absolute right-0 translate-x-[10%] text-[10px] font-bold w-14 text-center cursor-pointer transition-colors">Kim
+                                cương</span>
+                        </div>
+                    </div>
+
+                    <!-- Upsell Hạng Bạc dưới thanh tiến trình (Dành cho Cơ bản) -->
+                    <div data-show-for="coban"
+                        class="mt-5 bg-gradient-to-r from-gray-50 to-slate-50 p-4 rounded-xl border border-gray-200 flex flex-col gap-3">
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="bg-white p-2 rounded-lg shadow-sm text-gray-600 shrink-0 border border-gray-200">
+                                <!-- Icon chặn quảng cáo / khiên -->
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <p class="text-[13px] text-gray-700 leading-snug">Nâng cấp hạng <span
+                                    class="font-bold text-transparent bg-clip-text bg-gradient-to-b from-gray-500 to-gray-800">Bạc</span>
+                                để bỏ quảng cáo, lướt app mượt mà!</p>
+                        </div>
+                        <button onclick="switchTier('bac', 30)"
+                            class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold py-2.5 rounded-lg shadow-[0_4px_12px_rgba(59,130,246,0.3)] hover:-translate-y-0.5 transition-all text-[14px] active:translate-y-0 active:shadow-sm flex items-center justify-center gap-2 hover:shadow-[0_6px_16px_rgba(59,130,246,0.4)]">
+                            <span>Nâng cấp ngay</span>
+                            <span
+                                class="bg-white/20 px-2 py-0.5 rounded-md text-[11px] font-bold border border-white/10">39.000đ/tháng</span>
+                        </button>
+                    </div>
+
+                    <!-- Upsell Hạng Kim Cương dưới thanh tiến trình (Dành cho Bạc, Vàng) -->
+                    <div data-show-for="bac,vang"
+                        class="hidden mt-5 bg-[#FCF8FF] p-4 rounded-xl border border-[#F3E8FF] flex flex-col gap-3.5 shadow-sm">
+                        <div class="flex items-start gap-3.5">
+                            <div
+                                class="bg-white w-[38px] h-[38px] rounded-[10px] shadow-sm text-purple-600 shrink-0 border border-purple-50 flex items-center justify-center mt-0.5">
+                                <!-- Icon lấp lánh (Sparkles) -->
+                                <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                </svg>
+                            </div>
+                            <p class="text-[13.5px] text-gray-700 leading-[1.45] pr-1">Nâng cấp lên <span
+                                    class="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">Kim
+                                    Cương</span> để sở hữu toàn bộ đặc quyền cao cấp của Lịch Việt!</p>
+                        </div>
+                        <!-- Nút Nâng cấp ngay dùng Javascript Interceptor để hiện Toast -->
+                        <button
+                            class="w-full group bg-gradient-to-r from-[#A855F7] to-[#EC4899] text-white font-bold py-[11.5px] rounded-xl shadow-[0_4px_14px_rgba(168,85,247,0.4)] hover:shadow-[0_6px_20px_rgba(236,72,153,0.5)] hover:-translate-y-0.5 transition-all duration-300 text-[14px] active:scale-[0.98] active:shadow-sm flex items-center justify-center gap-1.5">
+                            <span>Nâng cấp ngay</span>
+                            <svg class="w-[18px] h-[18px] opacity-90 transition-transform group-hover:translate-x-1"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tính Năng Định Kỳ -->
+            <div id="benefits-vang" class="benefits-section px-5 mt-8 block animate-[fadeIn_0.3s_ease-in-out]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-[17px] font-bold text-gray-800 tracking-tight" data-show-for="vang,kimcuong">Sử dụng
+                        Đặc quyền Vàng</h3>
+                    <h3 class="text-[17px] font-bold text-gray-800 tracking-tight hidden" data-show-for="bac,coban">Đặc
+                        quyền Hạng Vàng</h3>
+                </div>
+
+                <!-- Thông báo (i) cho VIP Kim Cương -->
+                <div data-show-for="kimcuong"
+                    class="bg-purple-50 p-3.5 rounded-xl border border-purple-100 mb-5 flex gap-3 items-start hidden">
+                    <svg class="w-5 h-5 text-purple-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-[13px] text-purple-800 leading-snug">Bạn đang ở <span
+                            class="font-bold mb-[1px] inline-block -translate-y-px">hạng Kim cương</span>. <span
+                            class="font-bold">Toàn bộ đặc quyền Bạc, Vàng</span> bạn đều sở hữu.</p>
+                </div>
+
+                <!-- Lock Banner dành cho Bạc, Cơ bản -->
+                <div data-show-for="bac,coban"
+                    class="hidden mb-4 bg-[#FFFAEB] p-4 rounded-xl border border-[#FDE68A] flex items-start gap-4">
+                    <div
+                        class="bg-white p-2.5 flex items-center justify-center rounded-xl shadow-[0_2px_8px_rgba(251,191,36,0.25)] text-[#D97706] shrink-0 border border-[#FEF3C7] text-lg">
+                        🔒</div>
+                    <div>
+                        <h4 class="text-[14px] font-bold text-[#92400E]">Sở hữu Đặc quyền Vàng</h4>
+                        <p class="text-[12px] text-[#B45309] mt-1 leading-[1.35]">
+                            Bao gồm trọn bộ Đặc quyền Bạc và thêm các tính năng chuyên sâu dưới đây.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chế độ xem List dọc (Cho user Đã Mua Vàng - có hạn sử dụng) -->
+                <div id="gold-features-vertical" class="flex flex-col gap-3">
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Xem Ngày Tốt</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Tất cả các việc</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide"
+                                data-show-for="vang,kimcuong">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1">
+                            ☯️
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Gieo Quẻ Hỏi Việc</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Dự đoán cát hung nhanh chóng
+                            </p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide"
+                                data-show-for="vang,kimcuong">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1">
+                            🧭
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Xem Phong Thuỷ</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Tư vấn hướng nhà, hướng bếp</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ <span
+                                    class="text-orange-600 font-bold bg-orange-50 px-1.5 py-0.5 rounded-md mt-0.5">Còn
+                                    15 ngày</span>
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1">
+                            📝
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Chọn Tên Hay</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Đặt tên con, phân tích họ tên</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div> <!-- Đóng 4th item -->
+                </div> <!-- Đóng gold-features-vertical -->
+
+                <!-- Chế độ xem Grid 2x2 (Cho user Chưa Mua Vàng - không có hạn sử dụng) -->
+                <div id="gold-features-grid" class="hidden">
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    📅</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Xem Ngày Tốt</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Tất cả các việc</p>
+                        </button>
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    🧭</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Xem Phong Thuỷ</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Nhà cửa & Bếp</p>
+                        </button>
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    ☯️</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Gieo Quẻ Hỏi Việc</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Hỏi việc cát hung</p>
+                        </button>
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    📝</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Chọn Tên Hay</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Đặt tên, phân
+                                tích tên</p>
+                        </button>
+                    </div>
+                </div>
+                <!-- TÍNH NĂNG KẾ THỪA TỪ HẠNG BẠC -->
+                <div id="ke-thua-bac" class="hidden">
+                    <div class="mt-6 mb-4 flex items-center gap-3">
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center">Bao gồm
+                            trọn
+                            bộ Đặc quyền Bạc</span>
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div class="bg-white p-3 rounded-xl shadow-md border border-gray-100 flex items-start gap-2.5">
+                            <div class="text-[22px] shrink-0 mt-0.5">🎂</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Giải Mã Ngày Sinh</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl shadow-md border border-gray-100 flex items-start gap-2.5">
+                            <div class="text-[22px] shrink-0 mt-0.5">🔢</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Thần Số Học</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl shadow-md border border-gray-100 flex items-start gap-2.5">
+                            <div class="text-[22px] shrink-0 mt-0.5">💞</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Mức Độ Hợp Nhau</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl shadow-md border border-gray-100 flex items-start gap-2.5">
+                            <div class="text-[22px] shrink-0 mt-0.5">🌟</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Tổng Quan Vận Mệnh</h4>
+                                <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide"
+                                    data-show-for="vang,kimcuong">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- TÍNH NĂNG MUA LẺ & UPSELL KIM CƯƠNG (Dành riêng cho Hạng Vàng) -->
+                <!-- Nút điều hướng khám phá Vàng (dành cho Bạc, Cơ bản) -->
+                <div class="mt-6 mb-2 hidden" data-show-for="bac,coban">
+                    <button onclick="alert('Mô phỏng Mở màn hình Thanh toán/In-app purchase gói Vàng 99.000đ/tháng...')"
+                        class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-orange-950 py-3.5 rounded-xl font-bold text-[14px] shadow-[0_4px_16px_rgba(251,191,36,0.3)] hover:-translate-y-0.5 hover:shadow-lg transition-all active:scale-[0.98] flex flex-col items-center justify-center gap-1 group">
+                        <span class="flex items-center gap-2 text-[15px]">🔥 Nâng cấp Hạng Vàng</span>
+                        <span class="text-[12px] opacity-90 font-medium tracking-wide">Gói siêu tiết kiệm chỉ từ <b
+                                class="text-[13px]">99k/tháng</b></span>
+                    </button>
+                </div>
+
+                <!-- Nút điều hướng về Tab Kim Cương cho User KC -->
+                <div class="mt-6 mb-2 hidden" data-show-for="kimcuong">
+                    <button onclick="switchTier('kimcuong', 100)"
+                        class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-bold text-[14px] shadow-[0_4px_16px_rgba(139,92,246,0.3)] hover:-translate-y-0.5 hover:shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 group">
+                        Sử dụng Đặc quyền Kim Cương
+                        <svg class="w-4 h-4 mt-0.5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Đặc quyền Kim Cương (Ẩn mặc định) -->
+            <div id="benefits-kimcuong" class="benefits-section px-5 mt-8 hidden animate-[fadeIn_0.3s_ease-in-out]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 data-show-for="coban,bac,vang" class="text-[17px] font-bold text-gray-800">Đặc quyền Kim Cương
+                    </h3>
+                    <h3 data-show-for="kimcuong" class="hidden text-[17px] font-bold text-gray-800">Sử dụng Đặc quyền
+                        Kim Cương</h3>
+                </div>
+                <!-- Lock Banner dành cho user chưa mua Kim Cương -->
+                <div data-show-for="coban,bac,vang"
+                    class="hidden mb-4 bg-purple-50/70 p-4 rounded-xl border border-purple-200 flex items-start gap-4">
+                    <div
+                        class="bg-white p-2.5 flex items-center justify-center rounded-xl shadow-[0_2px_8px_rgba(147,51,234,0.15)] text-purple-600 shrink-0 border border-purple-100 text-lg">
+                        🔒</div>
+                    <div>
+                        <h4 class="text-[14px] font-bold text-purple-900">Hạng Cao Cấp nhất!</h4>
+                        <p class="text-[12px] text-purple-800 mt-1 leading-[1.35]">
+                            Bao gồm trọn bộ Đặc quyền Vàng, Bạc và thêm trọn bộ Tử vi chuyên sâu.
+                        </p>
+                    </div>
+                </div>
+                <!-- Khối Upsell Kim Cương (Dành cho cơ bản, bạc, vàng) -->
+                <div data-show-for="coban,bac,vang"
+                    class="group relative px-5 pb-5 pt-8 mt-10 flex flex-col items-center text-center transition-all hover:-translate-y-1">
+                    <!-- Background Layer with hidden overflow -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-purple-200 shadow-sm group-hover:shadow-md transition-all overflow-hidden z-0">
+                        <!-- Decorative background element -->
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-purple-300 rounded-full blur-3xl opacity-20">
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-indigo-300 rounded-full blur-3xl opacity-20">
+                        </div>
+                    </div>
+
+                    <!-- Centered Floating Diamond Icon -->
+                    <div
+                        class="absolute -top-6 w-[48px] h-[48px] bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-[0_8px_16px_rgba(147,51,234,0.25)] z-20 transition-transform group-hover:scale-105">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M6 5h12l4 6-10 10L2 11l4-6zm0 0l6 6m6-6l-6 6m0 0v10" />
+                        </svg>
+                    </div>
+
+                    <div class="z-10 relative w-full flex flex-col items-center">
+                        <div class="flex items-center justify-center gap-2 mb-2 flex-wrap">
+                            <h4
+                                class="text-[19px] font-black text-gray-900 leading-tight group-hover:text-purple-700 transition-colors tracking-tight">
+                                Xem tử vi</h4>
+                        </div>
+                        <p class="text-[13px] text-gray-600 leading-snug mb-4 max-w-[90%]">Khám phá trọn vẹn vận mệnh
+                            chuyên sâu của bạn, chuẩn xác như chuyên gia.</p>
+
+                        <!-- Sub features list -->
+                        <div class="bg-white/60 p-3.5 rounded-xl border border-white/50 w-full mb-1">
+                            <div
+                                class="grid grid-cols-2 gap-y-2.5 gap-x-2 text-[12px] font-medium text-gray-700 text-left pl-3">
+                                <div class="flex items-center gap-2 font-bold text-purple-700"><span
+                                        class="text-xl">🌌</span> Tổng quan</div>
+                                <div class="flex items-center gap-2 font-bold text-purple-700"><span
+                                        class="text-xl">🏔️</span> Vận hạn năm</div>
+                                <div class="flex items-center gap-2"><span class="text-xl">🌅</span> Hôm nay</div>
+                                <div class="flex items-center gap-2"><span class="text-xl">📜</span> Lá số tử vi</div>
+                                <div class="flex items-center gap-2"><span class="text-xl">💼</span> Nghề nghiệp</div>
+                                <div class="flex items-center gap-2"><span class="text-xl">💰</span> Tài chính</div>
+                                <div class="flex items-center gap-2"><span class="text-xl">💖</span> Tình duyên</div>
+                                <div class="flex items-center gap-2"><span class="text-xl">💞</span> Mức độ hợp nhau
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inline Cross-Selling Action Area -->
+                        <div class="w-full mt-4 flex flex-col gap-2.5">
+                            <!-- Option 1: The No-brainer Deal (Diamond) -->
+                            <button
+                                class="relative w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3.5 rounded-xl shadow-[0_4px_16px_rgba(147,51,234,0.3)] hover:-translate-y-0.5 transition-transform flex flex-col items-center justify-center border border-purple-400 group/btn overflow-hidden"
+                                onclick="alert('Mở Overlay hướng dẫn thanh toán Gói Kim Cương 89k/tháng...')">
+                                <div
+                                    class="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300">
+                                </div>
+                                <span class="relative z-10 flex items-center justify-center gap-2 text-[15px]">
+                                    🔥 Nâng Cấp Kim Cương
+                                    <span
+                                        class="bg-yellow-400 text-yellow-900 text-[10px] px-1.5 py-0.5 rounded-md uppercase font-extrabold tracking-wide">-80%</span>
+                                </span>
+                                <span
+                                    class="relative z-10 text-[12px] text-purple-100 font-medium mt-0.5 tracking-wide">Gói
+                                    siêu tiết kiệm chỉ từ <b class="text-white">199k/tháng</b></span>
+                            </button>
+
+                            <!-- Option 2: Try / Retail -->
+                            <div class="mt-3.5 w-full mb-1">
+                                <button onclick="alert('Chuyển hướng vào màn hình Tử Vi để dùng thử...')"
+                                    class="w-full bg-purple-50/80 text-purple-700 hover:bg-purple-100 py-2.5 rounded-full transition-all flex flex-col items-center justify-center gap-0.5 active:scale-95 border border-purple-100 shadow-sm">
+                                    <span class="text-[13.5px] font-bold flex items-center gap-1.5">Trải nghiệm tính
+                                        năng Tử vi 🧭</span>
+                                    <span class="text-[11px] font-medium text-purple-500">Mua riêng lẻ: 299.000đ/chuyên
+                                        mục</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khối DÀNH RIÊNG cho user Kim Cương (Sử dụng tính năng) -->
+                <div data-show-for="kimcuong" class="hidden mt-2 animate-[fadeIn_0.3s_ease-in-out]">
+
+                    <!-- Chế độ xem List dọc (Của hạng Kim Cương, giống khối Vàng) -->
+                    <div class="flex flex-col gap-3">
+
+                        <div
+                            class="bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 hover:border-purple-200 transition-colors">
+                            <!-- Header row -->
+                            <div class="flex items-center gap-4 cursor-pointer group/header"
+                                onclick="alert('Mở màn danh sách các tính năng Tử vi chuyên sâu')">
+                                <div
+                                    class="w-[46px] h-[46px] bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl flex items-center justify-center text-purple-600 border border-purple-100 shrink-0 text-xl text-center pb-1 relative group-hover/header:scale-105 transition-transform">
+                                    🌌
+                                    <span class="absolute -top-2 -right-2 text-[16px] drop-shadow-md">💎</span>
+                                </div>
+                                <div class="flex-1">
+                                    <h4
+                                        class="text-[15px] font-bold text-gray-800 group-hover/header:text-purple-700 transition-colors">
+                                        Trọn bộ Tử Vi</h4>
+                                    <p class="text-[13px] text-gray-500 mt-0.5">Khám phá toàn diện vận mệnh</p>
+                                    <p
+                                        class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                        ⏱ Đến: 25/12/2026
+                                    </p>
+                                </div>
+                                <div
+                                    class="text-gray-300 group-hover/header:text-purple-600 transition-colors group-hover/header:translate-x-1">
+                                    <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- 8 tính năng con Tử Vi (Scroll ngang tối ưu không gian) -->
+                            <style>
+                                .scrollbar-hide::-webkit-scrollbar {
+                                    display: none;
+                                }
+                            </style>
+                            <div class="flex overflow-x-auto gap-3.5 mt-4 pt-4 border-t border-gray-100 pb-2 -mx-2 px-2 snap-x snap-mandatory scrollbar-hide"
+                                style="scrollbar-width: none; -ms-overflow-style: none;">
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Tử vi hôm nay')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-purple-200 via-purple-300 to-indigo-400 flex items-center justify-center text-[20px] shadow-sm border border-purple-300/50 group-hover:scale-110 transition-transform">
+                                        🔮
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Tử
+                                        vi<br>hôm nay</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Vận hạn năm 2026')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-yellow-200 via-amber-300 to-yellow-400 flex items-center justify-center text-[20px] shadow-sm border border-yellow-300/50 group-hover:scale-110 transition-transform">
+                                        🌅
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Vận
+                                        hạn<br>năm 2026</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Tử vi Tổng quan')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300 flex items-center justify-center text-[20px] shadow-sm border border-blue-300/50 group-hover:scale-110 transition-transform">
+                                        ☯️
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Tử
+                                        vi<br>Tổng quan</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Tài chính & Đầu tư')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-amber-100 via-yellow-200 to-amber-300 flex items-center justify-center text-[20px] shadow-sm border border-amber-300/50 group-hover:scale-110 transition-transform">
+                                        💰
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Tài
+                                        chính &<br>Đầu tư</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Nghề nghiệp & Sự nghiệp')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-sky-100 via-blue-100 to-sky-200 flex items-center justify-center text-[20px] shadow-sm border border-sky-300/50 group-hover:scale-110 transition-transform">
+                                        📈
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Nghề
+                                        nghiệp<br>& Sự nghiệp</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Tư vấn Tình duyên')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-pink-100 via-pink-200 to-rose-300 flex items-center justify-center text-[20px] shadow-sm border border-pink-300/50 group-hover:scale-110 transition-transform">
+                                        💕
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Tư
+                                        vấn<br>Tình duyên</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Mức độ Hợp nhau')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-rose-100 via-red-200 to-rose-300 flex items-center justify-center text-[20px] shadow-sm border border-rose-300/50 group-hover:scale-110 transition-transform">
+                                        💞
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Mức
+                                        độ<br>Hợp nhau</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 cursor-pointer group min-w-[72px] shrink-0 snap-start"
+                                    onclick="event.stopPropagation(); alert('Mở tính năng Lá số Tử vi')">
+                                    <div
+                                        class="w-[44px] h-[44px] rounded-full bg-gradient-to-br from-amber-700 via-yellow-700 to-amber-800 flex items-center justify-center text-[20px] shadow-sm border border-amber-600/50 group-hover:scale-110 transition-transform">
+                                        ☯️
+                                    </div>
+                                    <span class="text-[10px] font-semibold text-gray-700 text-center leading-tight">Lá
+                                        số<br>Tử vi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                            <div
+                                class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1 relative">
+                                📅
+                                <span class="absolute -top-2 -right-2 text-[16px] drop-shadow-md">⭐</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-[15px] font-bold text-gray-800">Xem Ngày Tốt</h4>
+                                <p class="text-[13px] text-gray-500 mt-0.5">Tất cả các việc</p>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                            <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                                <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                            <div
+                                class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1 relative">
+                                ☯️
+                                <span class="absolute -top-2 -right-2 text-[16px] drop-shadow-md">⭐</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-[15px] font-bold text-gray-800">Gieo Quẻ Hỏi Việc</h4>
+                                <p class="text-[13px] text-gray-500 mt-0.5">Dự đoán cát hung nhanh chóng</p>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                            <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                                <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                            <div
+                                class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1 relative">
+                                🧭
+                                <span class="absolute -top-2 -right-2 text-[16px] drop-shadow-md">⭐</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-[15px] font-bold text-gray-800">Xem Phong Thuỷ</h4>
+                                <p class="text-[13px] text-gray-500 mt-0.5">Tư vấn hướng nhà, hướng bếp</p>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ <span
+                                        class="text-orange-600 font-bold bg-orange-50 px-1.5 py-0.5 rounded-md mt-0.5">Còn
+                                        15 ngày</span>
+                                </p>
+                            </div>
+                            <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                                <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div
+                            class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-yellow-300 hover:shadow-md cursor-pointer">
+                            <div
+                                class="w-[46px] h-[46px] bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl flex items-center justify-center text-yellow-600 border border-yellow-100 group-hover:bg-yellow-100 transition-colors shrink-0 text-xl text-center pb-1 relative">
+                                📝
+                                <span class="absolute -top-2 -right-2 text-[16px] drop-shadow-md">⭐</span>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-[15px] font-bold text-gray-800">Chọn Tên Hay</h4>
+                                <p class="text-[13px] text-gray-500 mt-0.5">Đặt tên con, phân tích họ tên</p>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026
+                                </p>
+                            </div>
+                            <div class="text-gray-300 group-hover:text-yellow-600 transition-colors">
+                                <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Kế thừa từ Hạng Bạc (Cho Kim Cương) -->
+                    <div class="mt-6 mb-4 flex items-center gap-3">
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest text-center">Bao gồm
+                            trọn bộ Đặc quyền Bạc</span>
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5 mb-2">
+                        <div
+                            class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-start gap-2.5 transition-all hover:border-slate-300">
+                            <div class="text-[22px] shrink-0 mt-0.5">🎂</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Giải Mã Ngày Sinh</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-start gap-2.5 transition-all hover:border-slate-300">
+                            <div class="text-[22px] shrink-0 mt-0.5">🔢</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Thần Số Học</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-start gap-2.5 transition-all hover:border-slate-300">
+                            <div class="text-[22px] shrink-0 mt-0.5">💞</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Mức Độ Hợp Nhau</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-start gap-2.5 transition-all hover:border-slate-300">
+                            <div class="text-[22px] shrink-0 mt-0.5">🌟</div>
+                            <div class="flex-1">
+                                <h4 class="text-[13px] font-bold text-gray-700 leading-tight">Tổng Quan Vận Mệnh</h4>
+                                <p
+                                    class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                    ⏱ Đến: 25/12/2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Đặc quyền Hạng Bạc (Ẩn mặc định, hiển thị khi click) -->
+            <div id="benefits-bac" class="benefits-section px-5 mt-8 hidden animate-[fadeIn_0.3s_ease-in-out]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 data-show-for="coban" class="text-[17px] font-bold text-gray-800">Đặc quyền Hạng Bạc</h3>
+                    <h3 data-show-for="bac,vang,kimcuong" class="hidden text-[17px] font-bold text-gray-800">Sử dụng Đặc
+                        quyền Bạc</h3>
+                </div>
+
+                <div data-show-for="vang"
+                    class="bg-blue-50 p-3.5 rounded-xl border border-blue-100 mb-5 flex gap-3 items-start">
+                    <svg class="w-5 h-5 text-blue-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-[13px] text-blue-800 leading-snug">Bạn đang ở <span class="font-bold">Hạng
+                            Vàng</span>. <span class="font-bold">Toàn bộ đặc quyền Hạng Bạc</span> dưới đây
+                        bạn đều đã
+                        sở hữu.</p>
+                </div>
+
+                <div data-show-for="kimcuong"
+                    class="bg-purple-50 p-3.5 rounded-xl border border-purple-100 mb-5 flex gap-3 items-start">
+                    <svg class="w-5 h-5 text-purple-600 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <p class="text-[13px] text-purple-800 leading-snug">Bạn đang ở <span
+                                class="font-bold mb-[1px] inline-block -translate-y-px">hạng Kim cương</span>. <span
+                                class="font-bold">Toàn bộ đặc quyền Bạc</span> bạn đều sở hữu.</p>
+                </div>
+
+                <!-- Góc nhìn User Cơ Bản (Hiển thị Lưới tính năng Bạc dưới dạng Gói Combo) -->
+                <div data-show-for="coban" class="hidden">
+                    <!-- Lock Banner Bạc -->
+                    <div class="mb-4 bg-[#F8FAFC] p-4 rounded-xl border border-slate-200 flex items-start gap-4">
+                        <div
+                            class="bg-white p-2.5 flex items-center justify-center rounded-xl shadow-[0_2px_8px_rgba(148,163,184,0.15)] text-slate-500 shrink-0 border border-slate-100 text-lg">
+                            🔒</div>
+                        <div>
+                            <h4 class="text-[14px] font-bold text-slate-800">Sở hữu ngay 6 đặc quyền</h4>
+                            <p class="text-[12px] text-slate-600 mt-1 leading-[1.35]">
+                                Nâng cấp để tận hưởng ứng dụng <strong class="text-slate-800">Không Quảng Cáo</strong>
+                                cùng trọn bộ 5 tính năng.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mb-5 bg-gradient-to-b from-blue-50/70 to-slate-50/50 border-[1.5px] border-blue-200/80 p-3.5 rounded-[20px] shadow-[0_4px_24px_rgba(59,130,246,0.06)]">
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors group cursor-pointer active:scale-95">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div
+                                        class="text-[24px] leading-none shrink-0 pb-0.5 group-hover:scale-110 transition-transform">
+                                        🚫</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Bỏ Quảng Cáo</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Mượt mà, không gián
+                                    đoạn</p>
+                            </div>
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">📅</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Xem Ngày Tốt</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">41 việc phổ biến</p>
+                            </div>
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">🎂</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Giải Mã Ngày Sinh
+                                    </h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Tính cách cơ bản</p>
+                            </div>
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">🔢</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Thần Số Học</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Gieo số chủ đạo</p>
+                            </div>
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">🌟</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Tổng Quan Vận Mệnh
+                                    </h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Thông tin cá nhân hoá
+                                </p>
+                            </div>
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">💞</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Mức Độ Hợp Nhau</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Tình duyên & Đối tác
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button với kỹ thuật neo giá (Price Anchoring) -->
+                        <div class="mt-4">
+                            <button onclick="switchTier('bac', 30)"
+                                class="w-full bg-slate-800 text-white py-3.5 rounded-xl font-bold text-[14px] shadow-[0_6px_16px_rgba(30,41,59,0.25)] hover:shadow-[0_8px_20px_rgba(30,41,59,0.35)] hover:-translate-y-0.5 active:scale-[0.98] transition-all flex flex-col items-center justify-center gap-1">
+                                <span class="flex items-center gap-1.5 text-[15px]">Nâng Cấp Hạng Bạc</span>
+                                <span class="text-[11.5px] opacity-90 font-medium tracking-wide">Chỉ từ <b
+                                        class="text-[13px] text-[#38BDF8]">1.300đ/ngày</b> (39k/tháng)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GIAO DIỆN LIST (Khi user là Hạng Bạc) -->
+                <div data-show-for="bac" class="hidden flex flex-col gap-2.5">
+                    <!-- Tính năng 1 (Trải nghiệm sạch - Nguyên bản) -->
+                    <div
+                        class="mb-1 bg-transparent border-2 border-dashed border-[#E5E7EB] rounded-xl p-3 flex items-start gap-3 opacity-90 pointer-events-none">
+                        <div class="text-[20px] shrink-0 mt-0.5">🚫</div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-0.5">
+                                <h4 class="text-[14px] font-bold text-gray-800 tracking-tight">Trải nghiệm Sạch</h4>
+                                <span
+                                    class="text-[9px] bg-[#dcfce7] text-[#15803d] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Đã
+                                    Tắt Quảng Cáo</span>
+                            </div>
+                            <p class="text-[12px] text-gray-500 leading-[1.35]">Ứng dụng hoạt động mượt mà, không bị
+                                gián đoạn bởi quảng cáo.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tính năng 2 -->
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-gray-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gray-50 rounded-xl flex items-center justify-center text-[24px] border border-gray-100 shrink-0">
+                            📅
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Xem Ngày Tốt</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Tra cứu lịch 41 việc phổ biến</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-gray-500 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Tính năng 3 -->
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-gray-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gray-50 rounded-xl flex items-center justify-center text-[24px] border border-gray-100 shrink-0">
+                            🎂
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Giải Mã Ngày Sinh</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Bản sao tính cách cơ bản</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-gray-500 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Tính năng 4 -->
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-gray-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gray-50 rounded-xl flex items-center justify-center text-[24px] border border-gray-100 shrink-0">
+                            🔢
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Thần Số Học</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Gieo quẻ tìm số chủ đạo</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-gray-500 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Tính năng 5 -->
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-gray-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gray-50 rounded-xl flex items-center justify-center text-[24px] border border-gray-100 shrink-0">
+                            💞
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Mức Độ Hợp Nhau</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Tra cứu Tình duyên & Đối tác</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-gray-500 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Tính năng 6 -->
+                    <div
+                        class="group bg-white p-3.5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4 transition-all hover:border-gray-300 hover:shadow-md cursor-pointer">
+                        <div
+                            class="w-[46px] h-[46px] bg-gray-50 rounded-xl flex items-center justify-center text-[24px] border border-gray-100 shrink-0">
+                            🌟
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-[15px] font-bold text-gray-800">Tổng Quan Vận Mệnh</h4>
+                            <p class="text-[13px] text-gray-500 mt-0.5">Thông tin luận giải cá nhân hoá</p>
+                            <p class="text-[10px] text-gray-400 mt-1 flex items-center gap-1 font-medium tracking-wide">
+                                ⏱ Đến: 25/12/2026
+                            </p>
+                        </div>
+                        <div class="text-gray-300 group-hover:text-gray-500 transition-colors">
+                            <svg class="w-5 h-5 -mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GIAO DIỆN GRID CŨ (Khi user là Hạng Vàng/Kim Cương xem tab Bạc) -->
+                <div data-show-for="vang,kimcuong" class="hidden">
+                    <div
+                        class="mb-5 bg-transparent border-2 border-dashed border-[#E5E7EB] rounded-xl p-3 flex items-start gap-3 opacity-90 pointer-events-none">
+                        <div class="text-[20px] shrink-0 mt-0.5">🚫</div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-0.5">
+                                <h4 class="text-[14px] font-bold text-gray-800 tracking-tight">Trải nghiệm Sạch</h4>
+                                <span
+                                    class="text-[9px] bg-[#dcfce7] text-[#15803d] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Đã
+                                    Tắt Quảng Cáo</span>
+                            </div>
+                            <p class="text-[12px] text-gray-500 leading-[1.35]">Ứng dụng hoạt động mượt mà, không bị
+                                gián đoạn bởi quảng cáo.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div
+                            class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-[5px]">
+                                <div class="text-[26px] leading-none shrink-0 pb-0.5">📅</div>
+                                <h4 class="text-[13px] font-bold text-gray-800 leading-tight">Xem Ngày Tốt</h4>
+                            </div>
+                            <p class="text-[11px] text-gray-500 leading-[1.3] line-clamp-2">41 việc phổ biến</p>
+                        </div>
+                        <div
+                            class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-[5px]">
+                                <div class="text-[26px] leading-none shrink-0 pb-0.5">🎂</div>
+                                <h4 class="text-[13px] font-bold text-gray-800 leading-tight">Giải Mã Ngày Sinh</h4>
+                            </div>
+                            <p class="text-[11px] text-gray-500 leading-[1.3] line-clamp-2">Tính cách cơ bản</p>
+                        </div>
+                        <div
+                            class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-[5px]">
+                                <div class="text-[26px] leading-none shrink-0 pb-0.5">🔢</div>
+                                <h4 class="text-[13px] font-bold text-gray-800 leading-tight">Thần Số Học</h4>
+                            </div>
+                            <p class="text-[11px] text-gray-500 leading-[1.3] line-clamp-2">Gieo số chủ đạo</p>
+                        </div>
+                        <div
+                            class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-[5px]">
+                                <div class="text-[26px] leading-none shrink-0 pb-0.5">💞</div>
+                                <h4 class="text-[13px] font-bold text-gray-800 leading-tight">Mức Độ Hợp Nhau</h4>
+                            </div>
+                            <p class="text-[11px] text-gray-500 leading-[1.3] line-clamp-2">Tình duyên & Đối tác</p>
+                        </div>
+                        <div
+                            class="bg-white p-3.5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-center">
+                            <div class="flex items-center gap-2 mb-[5px]">
+                                <div class="text-[26px] leading-none shrink-0 pb-0.5">🌟</div>
+                                <h4 class="text-[13px] font-bold text-gray-800 leading-tight">Tổng Quan Vận Mệnh</h4>
+                            </div>
+                            <p class="text-[11px] text-gray-500 leading-[1.3] line-clamp-2">Thông tin cá nhân hoá</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút điều hướng về Tab Vàng -->
+                <div class="mt-5" data-show-for="vang">
+                    <button onclick="switchTier('vang', 70)"
+                        class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-orange-950 py-3 rounded-xl font-bold text-[14px] shadow-[0_4px_16px_rgba(251,191,36,0.3)] hover:-translate-y-0.5 hover:shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 group">
+                        Sử dụng Đặc quyền Vàng
+                        <svg class="w-4 h-4 mt-0.5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Nút điều hướng về Tab Kim Cương -->
+                <div class="mt-5" data-show-for="kimcuong">
+                    <button onclick="switchTier('kimcuong', 100)"
+                        class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-xl font-bold text-[14px] shadow-[0_4px_16px_rgba(139,92,246,0.3)] hover:-translate-y-0.5 hover:shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 group">
+                        Sử dụng Đặc quyền Kim Cương
+                        <svg class="w-4 h-4 mt-0.5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Đường kẻ phân tách mảng Nội dung (I & II) -->
+                <div class="h-px bg-gray-200 mt-8 mb-6 hidden" data-show-for="bac"></div>
+
+
+
+                <!-- Tiêu đề Upsell Vàng dành cho Bạc ngang hàng h4 -->
+                <div class="mt-7 mb-3 hidden" data-show-for="bac">
+                    <div>
+                        <h3 class="text-[17px] font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
+                            Nâng cấp lên Vàng <span class="text-[16px]">🔒</span>
+                        </h3>
+                        <p class="text-[11px] text-orange-600 mt-1 font-bold flex items-center gap-1"><span
+                                class="text-[12px]">✓</span> Bao gồm trọn bộ Đặc quyền Bạc</p>
+                    </div>
+                </div>
+
+                <!-- Lưới Tính năng Vàng -->
+                <div class="mb-4 hidden bg-[#FFFAEB] border border-[#FDE68A] p-3.5 rounded-2xl shadow-sm"
+                    data-show-for="bac">
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    📅</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Xem Ngày Tốt</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Tất cả các việc</p>
+                        </button>
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    🧭</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Xem Phong Thuỷ</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Nhà cửa & Bếp</p>
+                        </button>
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    ☯️</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Gieo Quẻ Hỏi Việc</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Hỏi việc cát hung</p>
+                        </button>
+                        <button onclick="switchTier('vang', 70)"
+                            class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                    📝</div>
+                                <h6
+                                    class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                    Chọn Tên Hay</h6>
+                            </div>
+                            <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Đặt tên, phân
+                                tích tên</p>
+                        </button>
+                    </div>
+
+                    <!-- Nút nâng cấp to ở dưới tính năng vàng (Nằm trong frame) -->
+                    <div class="mt-4">
+                        <button onclick="switchTier('vang', 70)"
+                            class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-orange-950 py-3.5 rounded-xl font-bold text-[14px] shadow-[0_4px_16px_rgba(251,191,36,0.3)] hover:-translate-y-0.5 hover:shadow-lg transition-all active:scale-[0.98] flex flex-col items-center justify-center gap-1 group">
+                            <span class="flex items-center gap-2 text-[15px]">🔥 Nâng cấp Hạng Vàng</span>
+                            <span class="text-[12px] opacity-90 font-medium tracking-wide">Gói siêu tiết kiệm chỉ từ <b
+                                    class="text-[13px]">99k/tháng</b></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tiêu đề Upsell Kim Cương dành cho Bạc ngang hàng h4 -->
+                <div class="mt-8 mb-3 hidden" data-show-for="bac">
+                    <h3 class="text-[17px] font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
+                        Nâng cấp lên Kim Cương <span class="text-[16px]">🔒</span>
+                    </h3>
+                </div>
+
+                <!-- Thẻ Banner Kim Cương (Mẫu Design Mới) -->
+                <div class="mb-5 hidden" data-show-for="bac">
+                    <div
+                        class="relative overflow-hidden bg-gradient-to-b from-[#3C227A] to-[#4F1A6A] p-4 rounded-2xl shadow-lg border-r-[3px] border-r-[#FF3B5C]">
+
+                        <!-- Header: Icon & Title -->
+                        <div class="flex items-center gap-3 w-full mb-4">
+                            <div
+                                class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-[20px] shadow-inner shrink-0 leading-none pb-0.5">
+                                💎
+                            </div>
+                            <h6 class="text-[16px] font-black text-white leading-snug tracking-wide">Sở hữu Toàn bộ Tính
+                                năng<br>Chuyên Sâu</h6>
+                        </div>
+
+                        <!-- Feature List -->
+                        <ul class="text-[13px] leading-relaxed font-medium flex flex-col gap-2.5 list-none mb-5">
+                            <!-- Kế thừa -->
+                            <li class="flex items-start gap-2">
+                                <span class="text-yellow-400 shrink-0 mt-0.5 stroke-[3px]">✓</span>
+                                <span class="text-yellow-400 font-bold leading-tight">Bao gồm toàn bộ 10 Đặc quyền của
+                                    Hạng Vàng & Bạc</span>
+                            </li>
+                            <!-- Divider -->
+                            <li class="border-b border-white/10 my-0.5"></li>
+                            <!-- Features -->
+                            <li class="flex items-start gap-2">
+                                <span class="text-pink-300 shrink-0 mt-0.5">✓</span>
+                                <span class="text-white/95 leading-tight">Xem trọn bộ Tử vi: <strong
+                                        class="text-white font-bold">Tổng quan, Vận hạn, Tài chính, Sự nghiệp, Tình
+                                        duyên</strong></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pink-300 shrink-0 mt-0.5">✓</span>
+                                <span class="text-white/95 leading-tight">Hỗ trợ 24/7, kết quả chuẩn xác như chuyên
+                                    gia</span>
+                            </li>
+                        </ul>
+
+                        <!-- Nút Nâng cấp ngay -->
+                        <button onclick="switchTier('kimcuong', 100)"
+                            class="w-full bg-gradient-to-r from-[#FFD000] to-[#FF8A00] py-3 px-2 rounded-xl shadow-[0_4px_12px_rgba(255,138,0,0.3)] hover:shadow-[0_6px_16px_rgba(255,138,0,0.4)] active:scale-[0.98] transition-all flex flex-col items-center justify-center gap-0.5 group">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-[15px] font-black text-[#5C2A00]">🔥 Nâng Cấp Kim Cương</span>
+                                <span
+                                    class="bg-[#E52B2B] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none tracking-wide">-50%</span>
+                            </div>
+                            <span class="text-[12px] font-medium text-[#7D3F00] mt-0.5">Gói siêu tiết kiệm chỉ từ
+                                <strong class="font-extrabold text-[#5C2A00]">199k/tháng</strong></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Đặc quyền Cơ Bản (Ẩn mặc định) -->
+            <div id="benefits-coban" class="benefits-section px-5 mt-8 hidden animate-[fadeIn_0.3s_ease-in-out]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-[17px] font-bold text-gray-800">Tài khoản Cơ Bản <span
+                            class="font-normal text-[14px] text-gray-500">(Miễn phí)</span></h3>
+                </div>
+
+                <!-- Góc nhìn User Cơ Bản (Đang ở hạng này) -->
+                <div data-show-for="coban"
+                    class="bg-[#F8FAFC] p-4 rounded-xl border border-slate-200 mb-5 flex items-start gap-4 shadow-sm">
+                    <div
+                        class="bg-white p-2.5 flex items-center justify-center rounded-xl shadow-sm text-slate-500 shrink-0 border border-slate-200 text-lg">
+                        ℹ️</div>
+                    <div>
+                        <h4 class="text-[14px] font-bold text-slate-800 tracking-tight">Quyền lợi Hạng Cơ Bản</h4>
+                        <p class="text-[12px] text-slate-600 mt-1.5 leading-[1.4] text-justify">
+                            Sử dụng miễn phí các tính năng Lịch cơ bản. Ứng dụng có kèm quảng cáo để Lịch Việt có kinh
+                            phí duy trì và phát triển.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Danh sách Khối Upsell Nâng Cấp (Dành riêng cho Cơ Bản) -->
+                <div data-show-for="coban" class="flex flex-col mb-8">
+
+
+
+                    <!-- UPSell Bạc -->
+                    <div class="mt-4 mb-3">
+                        <h3 class="text-[17px] font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
+                            Nâng cấp lên Bạc <span class="text-[16px]">🔒</span>
+                        </h3>
+                    </div>
+                    <div
+                        class="mb-5 bg-gradient-to-b from-blue-50/70 to-slate-50/50 border-[1.5px] border-blue-200/80 p-3.5 rounded-[20px] shadow-[0_4px_24px_rgba(59,130,246,0.06)] relative mt-7">
+                        <!-- Badge nổi bật cho TOÀN KHỐI -->
+                        <div
+                            class="absolute -top-[14px] left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-[10.5px] font-bold px-4 py-[5px] rounded-full shadow-md flex items-center gap-1.5 whitespace-nowrap border border-blue-400">
+                            <svg class="w-3.5 h-3.5 text-slate-200" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                </path>
+                            </svg>
+                            SỞ HỮU NGAY 6 ĐẶC QUYỀN
+                        </div>
+
+                        <!-- Subheader -->
+                        <div class="mb-3.5 mt-2 px-1 text-center">
+                            <p class="text-[12.5px] text-slate-600 font-medium leading-[1.45]">Nâng cấp để tận hưởng
+                                <strong class="text-blue-700">ứng dụng Không Quảng Cáo</strong> cùng trọn bộ 5 tính năng
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <!-- Card 1: Bỏ Quảng Cáo (Được làm đồng bộ với khối combo) -->
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors group cursor-pointer active:scale-95">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div
+                                        class="text-[24px] leading-none shrink-0 pb-0.5 group-hover:scale-110 transition-transform">
+                                        🚫</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Bỏ Quảng Cáo</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Mượt mà, không gián
+                                    đoạn</p>
+                            </div>
+
+                            <!-- Card 2: Xem Ngày Tốt -->
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">📅</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Xem Ngày Tốt</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">41 việc phổ biến</p>
+                            </div>
+
+                            <!-- Card 3: Giải Mã Ngày Sinh -->
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">🎂</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Giải Mã Ngày Sinh
+                                    </h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Tính cách cơ bản</p>
+                            </div>
+
+                            <!-- Card 4: Thần Số Học -->
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">🔢</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Thần Số Học</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Gieo số chủ đạo</p>
+                            </div>
+
+                            <!-- Card 5: Tổng Quan Vận Mệnh -->
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">🌟</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Tổng Quan Vận Mệnh
+                                    </h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Thông tin cá nhân hoá
+                                </p>
+                            </div>
+
+                            <!-- Card 6: Mức Độ Hợp Nhau -->
+                            <div
+                                class="bg-white p-3.5 rounded-[14px] shadow-sm border border-slate-100 flex flex-col justify-center hover:border-slate-300 transition-colors">
+                                <div class="flex items-center gap-2 mb-[5px]">
+                                    <div class="text-[24px] leading-none shrink-0 pb-0.5">💞</div>
+                                    <h4 class="text-[13px] font-bold text-slate-800 leading-tight">Mức Độ Hợp Nhau</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-500 leading-[1.3] line-clamp-2">Tình duyên & Đối tác
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button với kỹ thuật neo giá (Price Anchoring) -->
+                        <div class="mt-4">
+                            <button onclick="switchTier('bac', 30)"
+                                class="w-full bg-slate-800 text-white py-3.5 rounded-xl font-bold text-[14px] shadow-[0_6px_16px_rgba(30,41,59,0.25)] hover:shadow-[0_8px_20px_rgba(30,41,59,0.35)] hover:-translate-y-0.5 active:scale-[0.98] transition-all flex flex-col items-center justify-center gap-1">
+                                <span class="flex items-center gap-1.5 text-[15px]">Nâng Cấp Hạng Bạc</span>
+                                <span class="text-[11.5px] opacity-90 font-medium tracking-wide">Chỉ từ <b
+                                        class="text-[13px] text-[#38BDF8]">1.300đ/ngày</b> (39k/tháng)</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- UPSell Vàng (Copy identical to benefits-bac) -->
+                    <div class="mt-7 mb-3">
+                        <div>
+                            <h3 class="text-[17px] font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
+                                Nâng cấp lên Vàng <span class="text-[16px]">🔒</span>
+                            </h3>
+                            <p class="text-[11px] text-orange-600 mt-1 font-bold flex items-center gap-1"><span
+                                    class="text-[12px]">✓</span> Bao gồm trọn bộ Đặc quyền Bạc</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 bg-[#FFFAEB] border border-[#FDE68A] p-3.5 rounded-2xl shadow-sm">
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <button onclick="switchTier('vang', 70)"
+                                class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                        📅</div>
+                                    <h6
+                                        class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                        Xem Ngày Tốt</h6>
+                                </div>
+                                <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Tất cả các việc
+                                </p>
+                            </button>
+                            <button onclick="switchTier('vang', 70)"
+                                class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                        🧭</div>
+                                    <h6
+                                        class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                        Xem Phong Thuỷ</h6>
+                                </div>
+                                <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Nhà cửa & Bếp</p>
+                            </button>
+                            <button onclick="switchTier('vang', 70)"
+                                class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                        ☯️</div>
+                                    <h6
+                                        class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                        Gieo Quẻ Hỏi Việc</h6>
+                                </div>
+                                <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Hỏi việc cát hung
+                                </p>
+                            </button>
+                            <button onclick="switchTier('vang', 70)"
+                                class="flex flex-col gap-[3px] bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-400 transition-all text-left group items-start shadow-sm hover:shadow">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-[28px] h-[28px] shrink-0 bg-gradient-to-br from-orange-100 to-yellow-100 rounded-[8px] flex items-center justify-center text-[15px] shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] pb-[1px]">
+                                        📝</div>
+                                    <h6
+                                        class="text-[13px] font-bold text-gray-800 leading-tight group-hover:text-orange-700">
+                                        Chọn Tên Hay</h6>
+                                </div>
+                                <p class="text-[11px] text-gray-500 line-clamp-2 mt-0.5 leading-[1.3]">Đặt tên, phân
+                                    tích tên</p>
+                            </button>
+                        </div>
+                        <div class="mt-4">
+                            <button onclick="switchTier('vang', 70)"
+                                class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-orange-950 py-3.5 rounded-xl font-bold text-[14px] shadow-[0_4px_16px_rgba(251,191,36,0.3)] hover:-translate-y-0.5 hover:shadow-lg transition-all active:scale-[0.98] flex flex-col items-center justify-center gap-1 group">
+                                <span class="flex items-center gap-2 text-[15px]">🔥 Nâng cấp Hạng Vàng</span>
+                                <span class="text-[12px] opacity-90 font-medium tracking-wide">Gói siêu tiết kiệm chỉ từ
+                                    <b class="text-[13px]">99k/tháng</b></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- UPSell Kim Cương -->
+                    <div class="mt-8 mb-3">
+                        <h3 class="text-[17px] font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
+                            Nâng cấp lên Kim Cương <span class="text-[16px]">🔒</span>
+                        </h3>
+                    </div>
+                    <div class="mb-5">
+                        <div
+                            class="relative overflow-hidden bg-gradient-to-b from-[#3C227A] to-[#4F1A6A] p-4 rounded-2xl shadow-lg border-r-[3px] border-r-[#FF3B5C]">
+                            <div class="flex items-center gap-3 w-full mb-4">
+                                <div
+                                    class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-[20px] shadow-inner shrink-0 leading-none pb-0.5">
+                                    💎</div>
+                                <h6 class="text-[16px] font-black text-white leading-snug tracking-wide">Sở hữu Toàn bộ
+                                    Tính<br>năng Chuyên Sâu</h6>
+                            </div>
+                            <ul class="text-[13px] leading-relaxed font-medium flex flex-col gap-2.5 list-none mb-5">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-yellow-400 shrink-0 mt-0.5 stroke-[3px]">✓</span>
+                                    <span class="text-yellow-400 font-bold leading-tight">Bao gồm toàn bộ 10 Đặc quyền
+                                        của Hạng Vàng & Bạc</span>
+                                </li>
+                                <li class="border-b border-white/10 my-0.5"></li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-300 shrink-0 mt-0.5">✓</span>
+                                    <span class="text-white/95 leading-tight">Xem trọn bộ Tử vi: <strong
+                                            class="text-white font-bold">Tổng quan, Vận hạn, Tài chính, Sự nghiệp, Tình
+                                            duyên</strong></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-pink-300 shrink-0 mt-0.5">✓</span>
+                                    <span class="text-white/95 leading-tight">Hỗ trợ 24/7, kết quả chuẩn xác như chuyên
+                                        gia</span>
+                                </li>
+                            </ul>
+                            <button onclick="switchTier('kimcuong', 100)"
+                                class="w-full bg-gradient-to-r from-[#FFD000] to-[#FF8A00] py-3 px-2 rounded-xl shadow-[0_4px_12px_rgba(255,138,0,0.3)] hover:shadow-[0_6px_16px_rgba(255,138,0,0.4)] active:scale-[0.98] transition-all flex flex-col items-center justify-center gap-0.5 group">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[15px] font-black text-[#5C2A00]">🔥 Lên thẳng Kim Cương</span>
+                                    <span
+                                        class="bg-[#E52B2B] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none tracking-wide">-50%</span>
+                                </div>
+                                <span class="text-[12px] font-medium text-[#7D3F00] mt-0.5">Gói siêu tiết kiệm chỉ từ
+                                    <strong class="font-extrabold text-[#5C2A00]">199k/tháng</strong></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Góc nhìn User Bạc (Đã vượt qua) -->
+                <div data-show-for="bac"
+                    class="bg-gradient-to-br from-slate-50 to-gray-50 p-6 rounded-2xl text-center border border-slate-200 shadow-sm flex flex-col items-center mb-5">
+                    <div
+                        class="w-14 h-14 bg-white border border-slate-50 rounded-full flex items-center justify-center text-[28px] shadow-sm mb-3 grayscale opacity-80">
+                        ⭐</div>
+                    <h3 class="text-[16px] font-bold text-gray-800 mb-1.5">Bạn đã vượt qua hạng này!</h3>
+                    <p class="text-[13px] text-gray-600 mb-5 leading-snug px-2">Hãy tận hưởng trọn vẹn đặc quyền cao cấp
+                        <span class="font-bold text-slate-700">Hạng Bạc</span>
+                        của bạn
+                    </p>
+                    <button onclick="switchTier('bac', 30)"
+                        class="bg-slate-800 text-white px-5 py-2.5 rounded-xl font-bold text-[14px] shadow-[0_4px_12px_rgba(30,41,59,0.25)] hover:bg-slate-900 transition-all active:scale-95 flex items-center gap-2">
+                        Sử dụng Đặc quyền Bạc
+                        <svg class="w-4 h-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Góc nhìn User Vàng (Đã vượt qua) -->
+                <div data-show-for="vang"
+                    class="bg-[#FFFCE8] p-6 rounded-2xl text-center border border-[#FEF08A] shadow-sm flex flex-col items-center mb-5">
+                    <div
+                        class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[28px] shadow-sm mb-3">
+                        ⭐</div>
+                    <h3 class="text-[16px] font-bold text-[#1F2937] mb-1.5">Bạn đã vượt qua hạng này!</h3>
+                    <p class="text-[13px] text-[#4B5563] mb-5 leading-snug px-2">Hãy tận hưởng trọn vẹn đặc quyền cao
+                        cấp
+                        <span class="font-bold text-[#B45309]">Hạng Vàng</span> của bạn
+                    </p>
+                    <button onclick="switchTier('vang', 70)"
+                        class="bg-gradient-to-r from-[#FACC15] to-[#F97316] text-[#612F03] px-5 py-2.5 rounded-xl font-bold text-[14px] shadow-[0_4px_12px_rgba(245,158,11,0.25)] hover:from-[#FDE047] hover:to-[#FB923C] transition-all active:scale-95 flex items-center gap-2">
+                        Sử dụng Đặc quyền Vàng
+                        <svg class="w-4 h-4 mt-0.5 text-[#612F03]" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Góc nhìn User Kim Cương (Đã vượt qua) -->
+                <div data-show-for="kimcuong"
+                    class="bg-[#F5F3FF] p-6 rounded-2xl text-center border border-[#DDD6FE] shadow-sm flex flex-col items-center mb-5">
+                    <div
+                        class="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[28px] shadow-sm mb-3 pb-0.5">
+                        💎</div>
+                    <h3 class="text-[16px] font-bold text-[#1F2937] mb-1.5">Bạn đã vượt qua hạng này!</h3>
+                    <p class="text-[13px] text-[#4B5563] mb-5 leading-snug px-2">Hãy tận hưởng trọn vẹn đặc quyền cao
+                        cấp
+                        <span class="font-bold text-[#6D28D9]">Hạng Kim Cương</span> của bạn
+                    </p>
+                    <button onclick="switchTier('kimcuong', 100)"
+                        class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-5 py-2.5 rounded-xl font-bold text-[14px] shadow-[0_4px_12px_rgba(139,92,246,0.3)] hover:from-indigo-600 hover:to-purple-700 transition-all active:scale-95 flex items-center gap-2">
+                        Sử dụng Đặc quyền Kim Cương
+                        <svg class="w-4 h-4 mt-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Upsell Nâng Cấp (Diamond Upsell) -->
+            <div id="main-cta" class="px-5 mt-8 mb-4 hidden">
+                <h3 class="text-[17px] font-bold text-gray-800 mb-4 tracking-tight flex items-center gap-1.5">Nâng cấp
+                    lên Kim Cương <span class="text-[18px]">🔒</span></h3>
+
+                <div
+                    class="relative overflow-hidden bg-[#3b1c67] p-4 rounded-2xl shadow-lg border-r-[3px] border-b-[3px] border-rose-500">
+                    <!-- Header -->
+                    <div class="flex items-center gap-3 w-full mb-4">
+                        <div
+                            class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-[20px] shadow-inner shrink-0 leading-none pb-0.5">
+                            💎
+                        </div>
+                        <h6 class="text-[16px] font-black text-white leading-snug tracking-wide">Sở hữu Toàn bộ
+                            Tính<br>năng Chuyên Sâu</h6>
+                    </div>
+
+                    <!-- Feature List -->
+                    <ul class="text-[13px] leading-relaxed font-medium flex flex-col gap-2.5 list-none mb-5">
+                        <li class="flex items-start gap-2">
+                            <span class="text-yellow-400 shrink-0 mt-0.5 font-bold">✓</span>
+                            <span class="text-yellow-400 font-bold leading-tight">Bao gồm toàn bộ 10 Đặc quyền của Hạng
+                                Vàng & Bạc</span>
+                        </li>
+                        <li class="border-b border-white/10 my-0.5"></li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-pink-300 shrink-0 mt-0.5 font-bold">✓</span>
+                            <span class="text-white/95 leading-tight">Xem trọn bộ Tử vi: <strong
+                                    class="text-white font-bold">Tổng quan, Vận hạn, Tài chính, Sự nghiệp, Tình
+                                    duyên</strong></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-pink-300 shrink-0 mt-0.5 font-bold">✓</span>
+                            <span class="text-white/95 leading-tight">Hỗ trợ 24/7, kết quả chuẩn xác như chuyên
+                                gia</span>
+                        </li>
+                    </ul>
+
+                    <!-- Button -->
+                    <button onclick="switchTier('kimcuong', 100)"
+                        class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 py-3 rounded-xl shadow-[0_4px_12px_rgba(255,138,0,0.3)] hover:shadow-[0_6px_16px_rgba(255,138,0,0.4)] active:scale-[0.98] transition-all flex flex-col items-center justify-center gap-[2px]">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[15px] font-black text-[#5C2A00]">🔥 Nâng Cấp Kim Cương</span>
+                            <span
+                                class="bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none tracking-wide shadow-sm">-50%</span>
+                        </div>
+                        <span class="text-[12px] font-medium text-[#7D3F00] mt-[2px]">Gói siêu tiết kiệm chỉ từ
+                            <strong class="font-extrabold text-[#5C2A00]">199k/tháng</strong>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <!-- TÍNH NĂNG MUA LẺ (Nằm dưới khối Upsell KC) -->
+            <div id="retail-packages" class="mt-4 hidden px-5" data-show-for="bac">
+                <!-- Tiêu đề Gói Lẻ ngang hàng Vàng/Kim Cương -->
+                <div class="flex justify-between items-center mt-8 mb-4">
+                    <h4 class="text-[16px] font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
+                        Đăng ký gói lẻ Tử vi
+                    </h4>
+                    <div
+                        class="bg-orange-50 text-orange-700 text-[10px] font-bold px-2 py-1 rounded border border-orange-200 flex items-center gap-1 shadow-sm leading-none">
+                        <span class="text-[12px]">🎁</span> Tặng Bạc 1 năm
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2 pb-2">
+                    <!-- Card 1 (State: Đã mua / Đang sử dụng) -->
+                    <div onclick="alert('Card này đã Đăng ký gói lẻ. Chuyển thẳng vào Màn Tử vi Tổng quan để xem kết quả.')"
+                        class="bg-purple-50 p-2.5 rounded-2xl border border-purple-200 shadow-sm flex flex-col items-center text-center gap-1.5 relative overflow-hidden cursor-pointer hover:shadow-md transition-all h-full">
+                        <!-- Line màu cố định báo state Active -->
+                        <div
+                            class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-400 to-pink-400 opacity-100">
+                        </div>
+                        <!-- Tag Đã Mua -->
+                        <div
+                            class="absolute top-[3px] right-0 bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-bl-lg shadow-sm flex items-center gap-0.5 tracking-wide">
+                            <svg class="w-2.5 h-2.5 -ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            SỞ HỮU
+                        </div>
+
+                        <div class="text-[26px] mt-2.5 mb-0.5">🌌</div>
+                        <h4 class="text-[13px] font-bold text-purple-900 leading-[1.3] truncate w-full px-1">Tử
+                            vi<br>Tổng quan</h4>
+
+                        <!-- Info HSD -->
+                        <div class="mt-auto pb-0.5 w-full flex items-center justify-center gap-1">
+                            <span class="text-[10px] font-medium text-gray-500 leading-none">Đến:</span>
+                            <span
+                                class="text-[11px] font-bold text-purple-700 leading-none tracking-tight">20/10/2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 (State: Đã mua đứt theo năm) -->
+                    <div onclick="alert('Đã mua - Chuyển màn hình Vận Hạn để cho phép chọn Năm (2025, 2026)')"
+                        class="bg-purple-50 p-2.5 rounded-2xl border border-purple-200 shadow-sm flex flex-col items-center text-center gap-1.5 relative overflow-hidden cursor-pointer hover:shadow-md transition-all h-full">
+                        <!-- Line màu cố định báo state Active -->
+                        <div
+                            class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-400 to-pink-400 opacity-100">
+                        </div>
+                        <!-- Tag Đã Mua -->
+                        <div
+                            class="absolute top-[3px] right-0 bg-green-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-bl-lg shadow-sm flex items-center gap-0.5 tracking-wide">
+                            <svg class="w-2.5 h-2.5 -ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            SỞ HỮU
+                        </div>
+
+                        <div class="text-[26px] mt-2.5 mb-0.5 opacity-90">🏔️</div>
+                        <h4 class="text-[13px] font-bold text-purple-900 leading-[1.3] truncate w-full px-1">Vận
+                            hạn<br>Năm</h4>
+
+                        <!-- Info Mua đứt (Không có HSD) -->
+                        <div class="mt-auto pb-0.5 w-full flex items-center justify-center gap-[2px]">
+                            <span
+                                class="text-[9px] text-white bg-purple-500 px-1.5 rounded shadow-sm font-bold leading-[1.4] tracking-tight">2026</span>
+                            <span
+                                class="text-[9px] text-purple-700 bg-purple-100 px-1.5 rounded font-bold leading-[1.4] tracking-tight border border-purple-200">+3</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="alert('Chuyển hướng đến Màn hình: Tư vấn Nghề nghiệp (Có cắm banner bán lẻ 299k)')"
+                        class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex flex-col items-center text-center gap-1.5 relative overflow-hidden group cursor-pointer hover:border-purple-200 hover:shadow-md transition-all">
+                        <div
+                            class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="text-[26px] mt-1 mb-0.5">💼</div>
+                        <h4 class="text-[13px] font-bold text-gray-800 leading-[1.3]">Tư vấn<br>Nghề nghiệp</h4>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div onclick="alert('Chuyển hướng đến Màn hình: Tư vấn Tài chính (Có cắm banner bán lẻ 299k)')"
+                        class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex flex-col items-center text-center gap-1.5 relative overflow-hidden group cursor-pointer hover:border-purple-200 hover:shadow-md transition-all">
+                        <!-- Nhãn HOT -->
+                        <div
+                            class="absolute top-0 right-0 bg-gradient-to-r from-red-500 to-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-bl-lg shadow-sm z-10">
+                            HOT</div>
+                        <div
+                            class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="text-[26px] mt-1 mb-0.5">💰</div>
+                        <h4 class="text-[13px] font-bold text-gray-800 leading-[1.3]">Tư vấn<br>Tài chính</h4>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div onclick="alert('Chuyển hướng đến Màn hình: Tư vấn Tình duyên (Có cắm banner bán lẻ 299k)')"
+                        class="bg-white p-2.5 rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex flex-col items-center text-center gap-1.5 relative overflow-hidden group cursor-pointer hover:border-purple-200 hover:shadow-md transition-all">
+                        <div
+                            class="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="text-[26px] mt-1 mb-0.5">💖</div>
+                        <h4 class="text-[13px] font-bold text-gray-800 leading-[1.3]">Tư vấn<br>Tình duyên</h4>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- Khối Quản lý Gia Đình (Độc lập trước Tiện Ích) -->
+            <div class="px-5 mt-4 mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-[19px] font-bold text-gray-800">Thành viên gia đình <span
+                            class="text-indigo-600 font-medium text-[16px] ml-0.5">(3 người)</span></h3>
+                </div>
+
+                <div class="cursor-pointer group hover:-translate-y-0.5 transition-all">
+                    <div
+                        class="bg-gradient-to-r from-blue-50/70 to-indigo-50/70 p-3.5 rounded-2xl border border-blue-100 flex items-center justify-between shadow-sm group-hover:shadow-md transition-all">
+                        <div class="flex items-center gap-3.5">
+                            <div class="bg-white p-2.5 rounded-xl shadow-sm text-indigo-600 border border-blue-50">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5V16a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-4a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <h4 class="text-[14px] font-bold text-indigo-900">Tối ưu Đặc quyền!</h4>
+                                </div>
+                                <p class="text-[12.5px] text-gray-600 tracking-tight leading-[1.35] mt-0.5">Thêm người
+                                    thân để xem chi tiết mọi thứ như bạn.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-center shrink-0 ml-2">
+                            <!-- Avatars Group -->
+                            <div class="flex -space-x-2.5 relative z-10 mr-1.5">
+                                <img class="w-8 h-8 rounded-full border-2 border-[#Eef2ff] object-cover bg-amber-100"
+                                    src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix" alt="Member 1">
+                                <img class="w-8 h-8 rounded-full border-2 border-[#Eef2ff] object-cover bg-rose-100"
+                                    src="https://api.dicebear.com/7.x/notionists/svg?seed=Aneka" alt="Member 2">
+                            </div>
+                            <!-- Thêm mới button -->
+                            <div
+                                class="w-7 h-7 rounded-full bg-white flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-200 transition-colors shrink-0 z-20 group-hover:bg-indigo-600 group-hover:text-white">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHUNG: KHỐI TIỆN ÍCH QUAN TRỌNG HIỂN THỊ CỐ ĐỊNH Ở CUỐI MỌI TAB -->
+            <div class="px-5 mt-4 mb-8 pb-4 pt-8 border-t border-gray-100">
+                <h3 class="text-[19px] font-bold text-gray-800 mb-5">Tiện ích</h3>
+
+                <div class="grid grid-cols-4 gap-y-7 gap-x-2">
+                    <!-- Item 1 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-red-500 text-yellow-300 flex items-center justify-center text-2xl shadow-sm group-hover:shadow-md transition-shadow">
+                            🐴</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Vận
+                            Hạn<br>Năm 2026</span>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-[#ffdab9] flex items-center justify-center text-2xl shadow-sm group-hover:shadow-md transition-shadow">
+                            💌</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Tạo
+                            Thiệp<br>Tết</span>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-teal-100/80 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            ✡️</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Thần
+                            Số<br>Học</span>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-yellow-100/80 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            📜</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Gia
+                            Phả</span>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-pink-100/80 flex items-center justify-center text-2xl shadow-sm group-hover:shadow-md transition-shadow">
+                            ☯️</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Xem Tử
+                            Vi</span>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-green-100/80 flex items-center justify-center text-2xl shadow-sm group-hover:shadow-md transition-shadow">
+                            🌿</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Tử Vi<br>Hàng
+                            Ngày</span>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-blue-100/80 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🧿</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Tử Vi<br>Trọn
+                            Đời</span>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-orange-100/70 flex items-center justify-center text-2xl shadow-sm group-hover:shadow-md transition-shadow">
+                            💓</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Nhịp
+                            Sinh<br>Học</span>
+                    </div>
+
+                    <!-- Item 9 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-indigo-100/70 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            ♈</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">12
+                            Cung<br>Hoàng Đạo</span>
+                    </div>
+                    <!-- Item 10 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-pink-100/60 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            💘</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Bói
+                            Tình<br>Duyên</span>
+                    </div>
+                    <!-- Item 11 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-blue-200/40 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            📏</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Thước<br>Lỗ
+                            Ban</span>
+                    </div>
+                    <!-- Item 12 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-indigo-200/40 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🧭</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">La Bàn</span>
+                    </div>
+
+                    <!-- Item 13 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-green-200/40 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            ⭐</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Xem
+                            Sao</span>
+                    </div>
+                    <!-- Item 14 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-orange-200/40 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🙏</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Văn
+                            Khấn</span>
+                    </div>
+                    <!-- Item 15 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-red-200/40 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🔄</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Đổi
+                            Ngày</span>
+                    </div>
+                    <!-- Item 16 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-purple-300/30 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            💭</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Giải
+                            Mộng</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHUNG: KHỐI THƯ VIỆN NỘI DUNG HIỂN THỊ CỐ ĐỊNH Ở CUỐI MỌI TAB -->
+            <div class="px-5 mb-12 pb-6 border-t border-gray-100 pt-8">
+                <h3 class="text-[19px] font-bold text-gray-800 mb-6">Thư viện nội dung</h3>
+
+                <div class="grid grid-cols-4 gap-y-7 gap-x-2">
+                    <!-- Item 1 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-green-200/60 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🗓️</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Ngày
+                            Này<br>Năm Xưa</span>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-orange-100/80 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            📜</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Danh
+                            Ngôn</span>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-yellow-100/80 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🖼️</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Lễ Hội</span>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-orange-200/60 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🕊️</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Phong
+                            Tục</span>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-pink-200/50 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            🌸</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Gửi
+                            Thiệp</span>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-indigo-200/50 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            ⏳</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Đếm
+                            Xuôi<br>Ngược</span>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-green-300/50 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            👽</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Có thể
+                            bạn<br>chưa biết</span>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-teal-200/50 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            📸</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Phóng
+                            Sự<br>Ảnh</span>
+                    </div>
+
+                    <!-- Item 9 -->
+                    <div class="flex flex-col items-center group cursor-pointer active:scale-95 transition-transform">
+                        <div
+                            class="w-[50px] h-[50px] rounded-full bg-indigo-200/60 flex items-center justify-center text-[22px] shadow-sm group-hover:shadow-md transition-shadow">
+                            📖</div>
+                        <span class="text-[11px] font-medium text-gray-700 text-center mt-2 leading-tight">Bài
+                            Viết<br>Truyền Cảm<br>Hứng</span>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /SCROLL AREA -->
+
+        <!-- BOTTOM TAB BAR -->
+        <div
+            class="relative bg-[#F9F9FB] border-t border-gray-200 pb-6 pt-2.5 px-2 flex justify-between items-end z-40 shrink-0">
+            <!-- Center Curve Cutout -->
+            <div
+                class="absolute -top-[22px] left-1/2 -translate-x-1/2 w-[72px] h-[36px] bg-transparent overflow-hidden">
+                <div
+                    class="absolute top-[20px] left-1/2 -translate-x-1/2 w-[76px] h-[76px] bg-[#F9F9FB] rounded-full border border-gray-200">
+                </div>
+            </div>
+
+            <!-- Item 1: Trang chủ -->
+            <div
+                class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors z-10">
+                <svg class="w-[26px] h-[26px]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                </svg>
+                <span class="text-[10px] font-medium tracking-wide">Trang chủ</span>
+            </div>
+
+            <!-- Item 2: Sự kiện -->
+            <div
+                class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors relative z-10">
+                <div class="relative">
+                    <svg class="w-[26px] h-[26px]" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                    </svg>
+                    <span
+                        class="absolute -top-1.5 -right-2 bg-[#5B88F6] text-white text-[9px] font-bold px-1.5 py-0 rounded-full shadow-sm border border-white">3</span>
+                </div>
+                <span class="text-[10px] font-medium tracking-wide">Sự kiện</span>
+            </div>
+
+            <!-- Item 3: Dịch vụ (Active) -->
+            <div class="flex-1 flex flex-col items-center justify-end relative cursor-pointer text-[#5B63F6] z-20">
+                <div class="absolute -top-[23px] left-1/2 -translate-x-1/2">
+                    <div
+                        class="w-[52px] h-[52px] bg-[#616BFF] rounded-[18px] flex items-center justify-center shadow-[0_6px_12px_rgba(97,107,255,0.4)] transition-transform hover:scale-105 active:scale-95">
+                        <svg class="w-[28px] h-[28px] text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="6.5" height="6.5" rx="2" />
+                            <rect x="13.5" y="4" width="6.5" height="6.5" rx="2" />
+                            <rect x="4" y="13.5" width="6.5" height="6.5" rx="2" />
+                            <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2" />
+                        </svg>
+                    </div>
+                </div>
+                <span class="text-[10px] font-bold tracking-wide mt-7">Dịch vụ</span>
+            </div>
+
+            <!-- Item 4: Video -->
+            <div
+                class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-400 hover:text-blue-600 transition-colors z-10">
+                <svg class="w-[28px] h-[28px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="6" width="18" height="13" rx="4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 9.5l5 3-5 3v-6z" fill="transparent" />
+                </svg>
+                <span class="text-[10px] font-medium tracking-wide">Video</span>
+            </div>
+
+            <!-- Item 5: Mua sắm -->
+            <div
+                class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors z-10">
+                <svg class="w-[26px] h-[26px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 7h18M4 7l2-4h12l2 4M4 7v3a2 2 0 002 2 2 2 0 002-2 2 2 0 002 2 2 2 0 002-2 2 2 0 002 2 2 2 0 002-2 2 2 0 002 2 2 2 0 002-2v-3" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8" />
+                </svg>
+                <span class="text-[10px] font-medium tracking-wide">Mua sắm</span>
+            </div>
+
+            <!-- Home Indicator (vạch đen dưới cùng của iOS) -->
+            <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[120px] h-[5px] bg-gray-300 rounded-full"></div>
+        </div>
+    </div>
+
+    <!-- Mockup Settings Menu -->
+    <div id="mockup-menu"
+        class="hidden absolute top-20 left-4 z-50 bg-white rounded-xl shadow-2xl border border-gray-100 p-4 w-60 animate-[fadeIn_0.2s]">
+        <h3 class="font-bold text-gray-800 mb-3 text-[14px] border-b border-gray-100 pb-2">Đổi User Mockup</h3>
+        <div class="space-y-1">
+            <button onclick="setMockUser('coban', 0, 'Cơ Bản')"
+                class="w-full text-left px-3 py-2.5 hover:bg-gray-100 rounded-lg text-[13px] font-medium transition-colors">Cơ
+                Bản (Level 1)</button>
+            <button onclick="setMockUser('bac', 30, 'Bạc')"
+                class="w-full text-left px-3 py-2.5 hover:bg-gray-100 rounded-lg text-[13px] font-medium transition-colors">Bạc
+                (Level 2)</button>
+            <button onclick="setMockUser('vang', 70, 'Vàng')"
+                class="w-full text-left px-3 py-2.5 hover:bg-yellow-50 rounded-lg text-[13px] font-medium text-yellow-700 transition-colors">Vàng
+                (Level 3 - Default)</button>
+            <button onclick="setMockUser('kimcuong', 100, 'Kim Cương')"
+                class="w-full text-left px-3 py-2.5 hover:bg-purple-50 rounded-lg text-[13px] font-medium text-purple-700 transition-colors">Kim
+                Cương (Level 4)</button>
+        </div>
+    </div>
+
+    <script>
+        window.currentMockTierPercent = 30; // Bạc is default
+
+        function toggleMockMenu() {
+            const menu = document.getElementById('mockup-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Đổi Perspective (Góc nhìn của hạng user)
+        function updateViewPerspective(activeTierId) {
+            document.querySelectorAll('[data-show-for]').forEach(el => {
+                const allowedTiers = el.getAttribute('data-show-for').split(',');
+                if (allowedTiers.includes(activeTierId)) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+        }
+
+        function setMockUser(tierId, percent, name) {
+            window.currentMockTierPercent = percent;
+
+            // Update upper tag
+            const badgeContainer = document.getElementById('user-badge-container');
+            const badgeText = document.getElementById('user-badge-text');
+            const headerBg = document.getElementById('header-bg');
+            const avatarRing = document.getElementById('avatar-ring');
+            const avatarInnerBorder = document.getElementById('avatar-inner-border');
+            const avatarInnerBg = document.getElementById('avatar-inner-bg');
+            const avatarImg = document.getElementById('user-avatar-img');
+            const avatarDiamond = document.getElementById('user-avatar-diamond');
+            const menuLines = document.querySelectorAll('.header-icon-line');
+            const membershipTitle = document.getElementById('membership-tier-title');
+
+            if (badgeContainer && badgeText) {
+                badgeText.innerText = name;
+
+                // Restoring default avatar styling attributes
+                if (avatarImg) avatarImg.classList.remove('hidden');
+                if (avatarDiamond) {
+                    avatarDiamond.classList.add('hidden');
+                    avatarDiamond.classList.remove('flex');
+                }
+                if (avatarInnerBorder) avatarInnerBorder.className = "w-full h-full rounded-full bg-[#FFEFC6] p-[1.5px]";
+                if (avatarInnerBg) avatarInnerBg.className = "w-full h-full rounded-full bg-[#FAF0E1] flex items-center justify-center overflow-hidden border border-[#FBE396] relative transition-colors duration-500";
+
+                if (membershipTitle) {
+                    membershipTitle.innerHTML = "Hạng Thành Viên";
+                    membershipTitle.className = "text-[16px] font-bold text-gray-800 transition-colors duration-500";
+                }
+
+                // Cập nhật Theme chung của màn hình theo Hạng
+                if (tierId === 'coban' || tierId === 'bac') {
+                    // Trắng / Bạc Theme
+                    if (headerBg) headerBg.className = "bg-gradient-to-b from-[#F4F5F7] to-[#FFFFFF] pb-5 shrink-0 border-b border-gray-100 shadow-sm relative overflow-hidden transition-colors duration-500";
+                    if (avatarRing) avatarRing.className = "w-[62px] h-[62px] rounded-full bg-gradient-to-b from-gray-300 to-gray-400 p-[2px] shadow-sm relative z-10 transition-colors duration-500";
+                    menuLines.forEach(line => line.className = "header-icon-line w-[20px] h-[2.5px] bg-[#005CAC] rounded-full pointer-events-none transition-colors");
+
+                    if (tierId === 'coban') {
+                        badgeContainer.className = "px-[18px] py-[3px] rounded-full shadow-sm bg-gray-200";
+                        badgeText.className = "font-bold text-[14px] text-gray-700";
+                    } else {
+                        badgeContainer.className = "px-[18px] py-[3px] rounded-full shadow-sm bg-gradient-to-b from-[#FBFBFB] to-[#E5E5E5] border border-gray-300/60";
+                        badgeText.className = "text-gray-700 font-bold text-[14px]";
+                    }
+                } else if (tierId === 'vang') {
+                    // Vàng Theme
+                    if (headerBg) headerBg.className = "bg-gradient-to-b from-[#FDE56D] to-[#FFF8D6] pb-5 shrink-0 border-b border-yellow-100 shadow-sm relative overflow-hidden transition-colors duration-500";
+                    if (avatarRing) avatarRing.className = "w-[62px] h-[62px] rounded-full bg-gradient-to-b from-[#FBC335] to-[#E25421] p-[2px] shadow-sm relative z-10 transition-colors duration-500";
+                    menuLines.forEach(line => line.className = "header-icon-line w-[20px] h-[2.5px] bg-gray-800 rounded-full pointer-events-none transition-colors");
+
+                    badgeContainer.className = "px-[18px] py-[3px] rounded-full shadow-sm bg-gradient-to-r from-[#FFF484] to-[#FDB01B]";
+                    badgeText.className = "text-[#8B4600] font-bold text-[14px]";
+                } else if (tierId === 'kimcuong') {
+                    // Kim Cương Theme
+                    if (headerBg) headerBg.className = "bg-gradient-to-b from-purple-100 to-indigo-50 pb-5 shrink-0 border-b border-purple-200 shadow-sm relative overflow-hidden transition-colors duration-500";
+                    if (avatarRing) avatarRing.className = "w-[62px] h-[62px] rounded-full bg-gradient-to-b from-purple-500 to-indigo-600 p-[2px] shadow-sm relative z-10 transition-colors duration-500";
+                    menuLines.forEach(line => line.className = "header-icon-line w-[20px] h-[2.5px] bg-indigo-900 rounded-full pointer-events-none transition-colors");
+
+                    // Style the diamond avatar
+                    if (avatarImg) avatarImg.classList.add('hidden');
+                    if (avatarDiamond) {
+                        avatarDiamond.classList.remove('hidden');
+                        avatarDiamond.classList.add('flex');
+                    }
+                    if (avatarInnerBorder) avatarInnerBorder.className = "w-full h-full rounded-full bg-indigo-100 p-[1.5px] transition-colors duration-500";
+                    if (avatarInnerBg) avatarInnerBg.className = "w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden border border-purple-200 relative transition-colors duration-500";
+
+                    if (membershipTitle) {
+                        membershipTitle.innerHTML = 'Thành viên cao cấp <span class="ml-1 text-[15px] drop-shadow-sm pb-px inline-block align-middle relative -top-[1.5px]">✨</span>';
+                        membershipTitle.className = "text-[16.5px] font-black bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-500 bg-clip-text text-transparent drop-shadow-sm transition-all duration-500 tracking-tight uppercase";
+                    }
+
+                    badgeContainer.className = "px-[18px] py-[3px] rounded-full shadow-sm bg-gradient-to-r from-purple-500 to-pink-500";
+                    badgeText.className = "text-white font-bold text-[14px]";
+                }
+            }
+
+            toggleMockMenu(); // close menu
+            updateViewPerspective(tierId); // Update góc nhìn
+            switchTier(tierId, percent); // switch the UI below to matched user
+        }
+
+        // JS Logic cho tính năng Tab tương tác của thanh Tiến trình
+        function switchTier(tierId, tabPercent) {
+            const userPercent = window.currentMockTierPercent;
+
+            // Reset tất cả các mốc về trạng thái bình thường (Chạy theo hạng thực tế của User)
+            const dots = [0, 30, 70, 100];
+            dots.forEach(p => {
+                const el = document.getElementById('dot-' + p);
+                const labelEl = document.getElementById('label-' + p);
+
+                // Xử lý Text Label (Mốc đã qua/hiện tại -> Cam/Vàng, Chưa đạt -> Xám)
+                if (labelEl) {
+                    labelEl.classList.remove('text-gray-400', 'text-orange-500', 'text-yellow-600', 'hover:text-gray-600', 'hover:text-orange-600', 'hover:text-yellow-700');
+                    if (p <= userPercent) {
+                        if (p === 70) labelEl.classList.add('text-yellow-600', 'hover:text-yellow-700');
+                        else labelEl.classList.add('text-orange-500', 'hover:text-orange-600');
+                    } else {
+                        labelEl.classList.add('text-gray-400', 'hover:text-gray-600');
+                    }
+                }
+                if (el) {
+                    if (p === userPercent) { // Hạng hiện tại
+                        if (userPercent === 0) {
+                            el.className = "w-5 h-5 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full border-[3px] border-white shadow-md flex items-center justify-center transition-all duration-300 relative z-30 ring-4 ring-gray-400/30";
+                        } else if (userPercent === 30) {
+                            el.className = "w-5 h-5 bg-gradient-to-b from-gray-300 to-gray-500 rounded-full border-[3px] border-white shadow-md flex items-center justify-center transition-all duration-300 relative z-30 ring-4 ring-gray-400/30";
+                            el.innerHTML = '<div class="w-1.5 h-1.5 bg-white rounded-full"></div>';
+                        } else if (userPercent === 70) {
+                            el.className = "w-[26px] h-[26px] bg-gradient-to-br from-yellow-300 via-yellow-400 to-amber-500 rounded-full border-[2.5px] border-white shadow-sm flex items-center justify-center transition-all duration-300 relative z-40 ring-4 ring-yellow-400/30 -mt-[3px] -ml-[3px]";
+                            el.innerHTML = '<span class="text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">⭐</span>';
+                        } else if (userPercent === 100) {
+                            el.className = "w-[26px] h-[26px] bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-full border-[2.5px] border-white shadow-sm flex items-center justify-center transition-all duration-300 relative z-40 ring-4 ring-purple-400/30 -mt-[3px] -ml-[3px]";
+                            el.innerHTML = '<span class="text-[13px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">💎</span>';
+                        }
+                    } else if (p > userPercent) { // Chưa đạt
+                        el.className = "w-4 h-4 bg-gray-200 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20";
+                        el.innerHTML = '';
+                    } else { // Đã qua
+                        if (userPercent === 70) el.className = "w-4 h-4 bg-orange-400 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20";
+                        else if (userPercent === 100) el.className = "w-4 h-4 bg-purple-400 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20";
+                        else el.className = "w-4 h-4 bg-gray-400 rounded-full border-2 border-white shadow-sm group-hover:scale-125 transition-all duration-300 relative z-20";
+                        el.innerHTML = '';
+                    }
+                }
+            });
+
+            // Highlight mốc đang xem (Nếu user click xem hạng khác)
+            const targetDot = document.getElementById('dot-' + tabPercent);
+            if (targetDot) {
+                targetDot.classList.add('scale-125', 'ring-4', 'ring-purple-400/30');
+            }
+
+
+            // Chạy thanh fill - Luôn bám theo userPercent thay vì tabPercent
+            const fillBar = document.getElementById('progress-fill');
+            if (fillBar) {
+                fillBar.style.width = userPercent + '%';
+                // Đổi màu fillBar
+                fillBar.classList.remove('from-yellow-400', 'to-orange-400', 'from-purple-400', 'to-pink-500', 'from-gray-300', 'to-gray-400', 'bg-gradient-to-r', 'bg-gray-200');
+                if (userPercent === 0) {
+                    fillBar.className = "absolute top-0 left-0 h-full w-0 bg-gray-200 rounded-full shadow-inner transition-all duration-300";
+                } else if (userPercent === 100) {
+                    fillBar.className = "absolute top-0 left-0 h-full bg-gradient-to-r from-purple-500 via-pink-500 to-rose-400 rounded-full shadow-inner transition-all duration-300";
+                } else {
+                    fillBar.className = "absolute top-0 left-0 h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full shadow-inner transition-all duration-300";
+                }
+            }
+
+            // Di chuyển Tooltip và Đổi Màu - Luôn bám theo userPercent
+            const tooltip = document.getElementById('progress-tooltip');
+            const tooltipLabel = document.getElementById('tooltip-label');
+            const tooltipBg = document.getElementById('tooltip-bg');
+            const tooltipArrow = document.getElementById('tooltip-arrow');
+            const tooltipIcon = document.getElementById('tooltip-icon');
+
+            if (tooltip && tooltipLabel) {
+                tooltip.style.left = userPercent + '%';
+                if (tooltipIcon) {
+                    if (userPercent === 0 || userPercent === 100) {
+                        tooltipIcon.setAttribute('class', 'hidden');
+                    } else {
+                        tooltipIcon.innerText = "★";
+                        tooltipIcon.setAttribute('class', 'text-white text-[10px] pb-px');
+                    }
+                }
+
+                if (userPercent === 0) {
+                    tooltipLabel.innerText = "HẠNG CƠ BẢN";
+                    if (tooltipBg) tooltipBg.className = "bg-gradient-to-r from-gray-400 to-gray-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded shadow-md flex items-center gap-1 whitespace-nowrap transition-colors duration-500";
+                    if (tooltipArrow) tooltipArrow.className = "w-0 h-0 border-l-[4px] border-r-[4px] border-t-[5px] border-transparent border-t-gray-500 transition-colors duration-500";
+                } else if (userPercent === 30) {
+                    tooltipLabel.innerText = "HẠNG BẠC";
+                    if (tooltipBg) tooltipBg.className = "bg-gradient-to-r from-gray-400 to-gray-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded shadow-md flex items-center gap-1 whitespace-nowrap transition-colors duration-500";
+                    if (tooltipArrow) tooltipArrow.className = "w-0 h-0 border-l-[4px] border-r-[4px] border-t-[5px] border-transparent border-t-gray-500 transition-colors duration-500";
+                } else if (userPercent === 70) {
+                    tooltipLabel.innerText = "HẠNG VÀNG";
+                    if (tooltipBg) tooltipBg.className = "bg-gradient-to-r from-[#FFD123] to-[#FF9D0A] text-white text-[10px] font-bold px-2.5 py-0.5 rounded shadow-md flex items-center gap-1 whitespace-nowrap transition-colors duration-500";
+                    if (tooltipArrow) tooltipArrow.className = "w-0 h-0 border-l-[4px] border-r-[4px] border-t-[5px] border-transparent border-t-[#FF9D0A] transition-colors duration-500";
+                } else if (userPercent === 100) {
+                    tooltipLabel.innerText = "VIP KIM CƯƠNG";
+                    if (tooltipBg) tooltipBg.className = "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white text-[11px] font-black px-3 py-[3px] rounded shadow-[0_4px_12px_rgba(236,72,153,0.5)] flex items-center whitespace-nowrap transition-colors duration-500 border border-pink-300/40 -translate-y-1 relative -left-6";
+                    if (tooltipArrow) tooltipArrow.className = "w-0 h-0 border-l-[4px] border-r-[4px] border-t-[5px] border-transparent border-t-pink-500 transition-colors duration-500 transform -translate-y-1";
+                }
+            }
+
+            // Ẩn nội dung tất cả các tab
+            document.querySelectorAll('.benefits-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Hiện nội dung tab được chọn
+            const targetSection = document.getElementById('benefits-' + tierId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            } else {
+                // fallback (ví dụ click vào 'bac' thì hiện tab của 'coban')
+                const cobanFallback = document.getElementById('benefits-coban');
+                if (cobanFallback) cobanFallback.classList.remove('hidden');
+            }
+
+            // Ẩn/Hiện Box Upsell Kim Cương (#main-cta) & Các tính năng Bạc kế thừa (#ke-thua-bac)
+            // Chỉ hiện các khối này nếu NGƯỜI DÙNG hiện tại là hạng Vàng (userPercent = 70) VÀ đang xem Tab Vàng
+            const mainCta = document.getElementById('main-cta');
+            const kethuaBac = document.getElementById('ke-thua-bac');
+            if (tierId === 'vang' && userPercent === 70) {
+                if (mainCta) mainCta.classList.remove('hidden');
+                if (kethuaBac) kethuaBac.classList.remove('hidden');
+            } else {
+                if (mainCta) mainCta.classList.add('hidden');
+                if (kethuaBac) kethuaBac.classList.add('hidden');
+            }
+
+            // Chuyển đổi định dạng List Tính năng Vàng (Dọc vs Grid)
+            const goldFeaturesVertical = document.getElementById('gold-features-vertical');
+            const goldFeaturesGrid = document.getElementById('gold-features-grid');
+            if (goldFeaturesVertical && goldFeaturesGrid) {
+                if (userPercent === 70) {
+                    goldFeaturesVertical.classList.remove('hidden');
+                    goldFeaturesVertical.classList.add('flex');
+                    goldFeaturesGrid.classList.add('hidden');
+                } else {
+                    goldFeaturesVertical.classList.add('hidden');
+                    goldFeaturesVertical.classList.remove('flex');
+                    goldFeaturesGrid.classList.remove('hidden');
+                }
+            }
+
+            // Ẩn/Hiện Khối Mua Lẻ (Chỉ hiện ở Tab Vàng đối với người dùng Vàng, Tab Bạc đối với người dùng Bạc)
+            const retailPackages = document.getElementById('retail-packages');
+            if (retailPackages) {
+                if ((tierId === 'vang' && userPercent === 70) || (tierId === 'bac' && userPercent === 30)) {
+                    retailPackages.classList.remove('hidden');
+                } else {
+                    retailPackages.classList.add('hidden');
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script>
+        // Hàm hiển thị Toast thông báo
+        function showToast(message) {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                container.className = 'fixed top-12 left-1/2 -translate-x-1/2 z-[9999] flex flex-col items-center gap-2 pointer-events-none transition-all';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = 'bg-gray-800/95 text-white px-5 py-3 rounded-full shadow-2xl text-[13.5px] font-medium animate-[fadeIn_0.3s_ease-out] flex items-center gap-2.5 backdrop-blur-sm whitespace-nowrap border border-gray-700/50';
+            toast.innerHTML = `<svg class="w-4 h-4 text-blue-400 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ${message}`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-10px) scale(0.95)';
+                toast.style.transition = 'all 0.3s ease-in';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+
+        // JS bổ sung: Biến tất cả các Card tính năng thành Button có thể nhấn được
+        document.addEventListener('DOMContentLoaded', () => {
+            // Khởi tạo mặc định Hạng Vàng cho Demo
+            setMockUser('vang', 70, 'Vàng');
+
+            const featureCards = document.querySelectorAll('.benefits-section .bg-white, .benefits-section .bg-gray-50\\/80, .benefits-section .bg-gray-50');
+
+            featureCards.forEach(card => {
+                // Thêm class tạo hiệu ứng tương tác vật lý (nhún mượt)
+                card.classList.add('cursor-pointer', 'transition-all', 'active:scale-95', 'hover:border-yellow-300', 'hover:shadow-md');
+
+                // Gắn sự kiện click
+                card.addEventListener('click', () => {
+                    const titleNode = card.querySelector('h4');
+                    const featureName = titleNode ? titleNode.innerText : 'Tính năng này';
+                    alert('📌 Lịch Việt - Đang mở màn hình chuyên sâu của: ' + featureName);
+                });
+            });
+
+            // Ghi đè hành vi cho TẤT CẢ các nút Nâng cấp
+            const allButtons = document.querySelectorAll('button');
+            allButtons.forEach(btn => {
+                const text = btn.innerText.toLowerCase();
+                if (text.includes('nâng cấp') || text.includes('lên thẳng')) {
+                    // Bỏ hook switchTier từ HTML cứng
+                    btn.removeAttribute('onclick');
+
+                    // Gắn hành vi Toast mới
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        // Trực quan hoá hiệu ứng bấm (nếu CSS hover/active bị đè)
+                        btn.style.transform = 'scale(0.95)';
+                        setTimeout(() => btn.style.transform = '', 150);
+
+                        showToast('Đang chuyển đến màn đăng ký dịch vụ...');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
