@@ -362,21 +362,51 @@
                         </div>
                     </div>
 
-                    <!-- Expiry Vàng (< 7 Ngày) -->
-                    <div data-show-for="vang" class="flex flex-col w-full gap-2 mt-1.5">
-                        <div class="flex items-center gap-1.5 w-full">
-                            <svg class="w-4 h-4 text-red-600 animate-pulse shrink-0" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span class="text-gray-700 font-medium text-[13.5px] tracking-tight">
-                                Còn <strong class="text-red-700 font-black tabular-nums tracking-wide mx-[1px]"><span id="gold-countdown-days">05</span> ngày <span id="gold-countdown-time">10:30:55</span></strong> sử dụng Hạng Vàng
+                    <!-- Expiry Vàng (Vừa hết hạn) -->
+                    <div data-show-for="vang" class="flex flex-col w-full gap-3 mt-1 pb-1">
+                        <!-- Tiêu đề trạng thái -->
+                        <div class="flex flex-col gap-1 w-full px-1">
+                            <span class="text-red-600 font-bold text-[14.5px] tracking-tight flex items-center gap-1.5">
+                                <span class="text-[15px] leading-none mb-[2px]">⚠️</span> Hạng Vàng đã hết hạn
+                            </span>
+                            <span class="text-gray-600 font-medium text-[13px] ml-[24px]">
+                                Bạn đang dùng phiên bản cơ bản
                             </span>
                         </div>
-                        <button onclick="alert('Mở bottom sheet kích hoạt lại Auto-renew...')"
-                            class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white text-[13px] font-bold py-2.5 rounded-lg hover:from-blue-700 hover:to-blue-600 shadow-[0_2px_8px_rgba(37,99,235,0.3)] active:scale-95 transition-all flex items-center justify-center gap-1.5">
-                            Bật gia hạn để duy trì đặc quyền
+
+                        <!-- Khối nhắc nhở Mất quyền lợi -->
+                        <div class="bg-red-50/60 border border-red-100 rounded-xl p-3.5 flex flex-col gap-2.5 relative overflow-hidden mt-0.5">
+                            <div class="flex items-center gap-1.5 border-b border-red-100/60 pb-2.5 text-gray-800">
+                                <span class="text-[13.5px] leading-none mb-[1px]">💎</span>
+                                <span class="font-bold text-[13.5px] tracking-tight leading-snug">Mở lại Hạng Vàng hoặc nâng cấp Kim Cương</span>
+                            </div>
+                            
+                            <p class="text-red-700/90 font-bold text-[12.5px] mt-0.5">Bạn vừa mất quyền truy cập:</p>
+                            
+                            <div class="flex flex-col gap-2 mt-0.5">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-[12px] leading-none mt-[2px] opacity-80">❌</span>
+                                    <span class="text-gray-700 text-[13px] font-medium leading-snug">Xem ngày tốt đầy đủ</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                   <span class="text-[12px] leading-none mt-[2px] opacity-80">❌</span>
+                                    <span class="text-gray-700 text-[13px] font-medium leading-snug">Giải mã ngày sinh</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-[12px] leading-none mt-[2px] opacity-80">❌</span>
+                                    <span class="text-gray-700 text-[13px] font-medium leading-snug">Thần số học</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-[12px] leading-none mt-[2px] opacity-80">❌</span>
+                                    <span class="text-gray-700 text-[13px] font-medium leading-snug">Nhiều tính năng quan trọng khác</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nút CTA -->
+                        <button onclick="alert('Mở bottom sheet kích hoạt lại thẻ Vàng/Kim Cương...')"
+                            class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white text-[13.5px] font-bold py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 shadow-[0_4px_12px_rgba(37,99,235,0.25)] active:scale-95 transition-all flex items-center justify-center gap-1.5 mt-1">
+                            <span class="text-[14px]">👉</span> Khôi phục ngay để tiếp tục sử dụng
                         </button>
                     </div>
 
