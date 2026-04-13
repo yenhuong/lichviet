@@ -3,20 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=/Dichvu_V2.html">
-    <title>Lịch Việt - Redirecting...</title>
+    <title>Lịch Việt - Design System Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
 </head>
-<body>
-    <div style="font-family: sans-serif; padding: 20px;">
-        <h3>Đang chuyển hướng...</h3>
-        <p>Nếu trình duyệt không tự chuyển, vui lòng bấm vào link: <a href="/Dichvu_V2.html">Dichvu_V2.html</a></p>
-        <br>
-        <p><b>Các file khác trong dự án:</b></p>
-        <ul>
-            <li><a href="/Dichvu_V2.html">Dịch Vụ V2 (Mới nhất)</a></li>
-            <li><a href="/DichVu_Screen_Preview.html">Dịch Vụ Screen Preview</a></li>
-            <li><a href="/PurchaseHistory_Screen_Preview.html">Lịch sử giao dịch Preview</a></li>
-        </ul>
+<body class="min-h-screen p-6 md:p-12 flex flex-col items-center">
+
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mt-8">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 text-[120px] opacity-10">📱</div>
+            <h1 class="text-3xl font-black tracking-tight mb-2 relative z-10">Lịch Việt - Design Hub</h1>
+            <p class="text-blue-100 font-medium relative z-10">Tổng hợp danh sách các trang giao diện Mockup</p>
+        </div>
+
+        <!-- Links List -->
+        <div class="p-6">
+            <h3 class="text-sm font-bold tracking-wider text-gray-400 uppercase mb-4 px-2">Flow Hệ Thống Cốt Lõi</h3>
+            <ul class="space-y-3">
+                
+                <!-- Trang Chu -->
+                <li>
+                    <a href="TrangChu_V2.html" class="flex items-center p-4 border border-gray-100 rounded-xl hover:border-blue-500 hover:shadow-md transition-all group bg-gray-50/50">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                            🏠
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="text-base font-bold text-gray-800 group-hover:text-blue-600 transition-colors">Màn hình Trang Chủ (TrangChu_V2)</h4>
+                            <p class="text-sm text-gray-500 mt-0.5">Màn hình chính Calendar, Sự kiện & Tính năng</p>
+                        </div>
+                        <span class="text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </a>
+                </li>
+
+                <!-- Sự kiện -->
+                <li>
+                    <a href="SuKien_ChiTiet.html" class="flex items-center p-4 border border-gray-100 rounded-xl hover:border-orange-500 hover:shadow-md transition-all group bg-gray-50/50">
+                        <div class="w-12 h-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                            🏮
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="text-base font-bold text-gray-800 group-hover:text-orange-600 transition-colors">Màn hình Chi tiết Sự kiện</h4>
+                            <p class="text-sm text-gray-500 mt-0.5">Trang hiển thị ngày lễ, hướng dẫn nghi thức</p>
+                        </div>
+                        <span class="text-orange-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </a>
+                </li>
+
+                <!-- Chọn Ngày Tốt -->
+                <li>
+                    <a href="ChonNgayCuoiHoi_V2.html" class="flex items-center p-4 border border-gray-100 rounded-xl hover:border-red-500 hover:shadow-md transition-all group bg-gray-50/50">
+                        <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                            囍
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="text-base font-bold text-gray-800 group-hover:text-red-600 transition-colors">Màn hình Chọn Ngày Tốt</h4>
+                            <p class="text-sm text-gray-500 mt-0.5">Trang tiện ích Xem ngày Cưới Hỏi / Mua xe</p>
+                        </div>
+                        <span class="text-red-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </a>
+                </li>
+
+                <!-- Dịch Vụ V2 -->
+                <li>
+                    <a href="Dichvu_V2.html" class="flex items-center p-4 border border-gray-100 rounded-xl hover:border-emerald-500 hover:shadow-md transition-all group bg-gray-50/50">
+                        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                            💎
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="text-base font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">Màn hình Dịch Vụ</h4>
+                            <p class="text-sm text-gray-500 mt-0.5">Trang Upsell gói cước Kim Cương / Vàng / Bạc</p>
+                        </div>
+                        <span class="text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </a>
+                </li>
+
+                <!-- Lịch sử giao dịch -->
+                <li>
+                    <a href="PurchaseHistory_Screen_Preview.html" class="flex items-center p-4 border border-gray-100 rounded-xl hover:border-violet-500 hover:shadow-md transition-all group bg-gray-50/50">
+                        <div class="w-12 h-12 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                            🧾
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="text-base font-bold text-gray-800 group-hover:text-violet-600 transition-colors">Lịch sử Mua Gói</h4>
+                            <p class="text-sm text-gray-500 mt-0.5">Trang quản lý gói cước đã đăng ký / hết hạn</p>
+                        </div>
+                        <span class="text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </a>
+                </li>
+
+                <!-- Flow đăng nhập -->
+                <li>
+                    <a href="Login_Purchase_Flow.html" class="flex items-center p-4 border border-gray-100 rounded-xl hover:border-indigo-500 hover:shadow-md transition-all group bg-gray-50/50">
+                        <div class="w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                            🔐
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h4 class="text-base font-bold text-gray-800 group-hover:text-indigo-600 transition-colors">Đăng nhập tài khoản</h4>
+                            <p class="text-sm text-gray-500 mt-0.5">Thanh chắn Login trước khi thanh toán</p>
+                        </div>
+                        <span class="text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
+
 </body>
 </html>
