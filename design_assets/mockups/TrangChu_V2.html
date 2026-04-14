@@ -350,13 +350,11 @@
                         </div>
                         <div class="flex flex-col items-start flex-1 overflow-hidden ml-1 text-left w-full">
                             <span
-                                class="text-[14px] font-bold text-[#C62828] leading-tight tracking-tight w-full truncate mb-[1px] mt-[1px] pb-0.5 text-left">Ngày
-                                Mùng Một</span>
+                                class="text-[14px] leading-[1.35] w-full line-clamp-2 mb-[1px] mt-[1px] pb-0.5 text-left"><span class="text-gray-800 font-medium tracking-normal">Sắp đến</span> <span class="font-bold text-[#C62828]">Giải Phóng Miền Nam, Thống nhất Đất nước</span></span>
                             <div class="flex items-baseline gap-1 mt-0.5 whitespace-nowrap flex-nowrap shrink-0">
-                                <span class="text-[12.5px] font-medium text-[#4E342E]">Bắt đầu sau:</span>
+                                <span class="text-[12.5px] font-medium text-[#4E342E]">Còn:</span>
                                 <span id="urgentCountdown"
-                                    class="text-[14px] font-black font-mono tracking-tighter drop-shadow-sm text-red-600 relative top-[0.5px]">03
-                                    ngày 05:43:21</span>
+                                    class="text-[14px] font-black font-mono tracking-tighter drop-shadow-sm text-red-600 relative top-[0.5px]">03 ngày 05 giờ</span>
                             </div>
                         </div>
                     </div>
@@ -560,8 +558,6 @@
                             </div>
                             <span class="text-[12.5px] font-medium text-gray-800 text-center leading-tight">Cưới
                                 hỏi</span>
-                            <span class="text-[9px] font-bold text-blue-500 mt-1 uppercase tracking-tight">HSD:
-                                14/8/2025</span>
                         </a>
                         <!-- Item 2 -->
                         <a href="#" class="flex flex-col items-center group mt-1">
@@ -736,7 +732,7 @@
                     const seconds = totalSeconds % 60;
 
                     const pad = (num) => num.toString().padStart(2, '0');
-                    countdownEl.innerHTML = `${pad(days)} ngày ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+                    countdownEl.innerHTML = `${pad(days)} ngày ${pad(hours)} giờ`;
                 }, 1000);
             }
         });
