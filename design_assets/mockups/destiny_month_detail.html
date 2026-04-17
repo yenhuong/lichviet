@@ -19,7 +19,7 @@
         }
 
         body {
-            background-color: #e0e0e0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,18 +29,87 @@
             color: var(--text-main);
         }
 
-        .device {
+        /* Mobile Device Mockup */
+        .phone-mockup {
+            position: relative;
             width: 414px;
             height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 2px #333,
+                0 20px 50px rgba(0, 0, 0, 0.2),
+                0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Side Buttons */
+        .phone-mockup::before,
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            background: #222;
+            border-radius: 2px;
+        }
+
+        .buttons-left {
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 100px;
+            background: #111;
+            border-radius: 4px 0 0 4px;
+            box-shadow: -1px 0 2px rgba(255,255,255,0.1);
+        }
+        
+        .buttons-right {
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 80px;
+            background: #111;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 1px 0 2px rgba(255,255,255,0.1);
+        }
+
+        /* Status Bar Icons Area */
+        .status-bar {
+            height: 44px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            z-index: 101;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
             background-color: var(--bg-light);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 44px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
-        /* App Bar */
+        /* Adjust App Bar Shadow when unified with status bar */
         .app-bar {
             background-color: var(--primary);
             color: white;
@@ -53,8 +122,30 @@
             font-weight: 500;
             z-index: 10;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: none;
             flex-shrink: 0;
+        }
+
+        /* Hide Mockup on real Mobile */
+        @media (max-width: 500px) {
+            body {
+                background: var(--bg-light);
+                display: block;
+            }
+            .phone-mockup {
+                width: 100%;
+                height: 100vh;
+                padding: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: none;
+            }
+            .screen-content {
+                border-radius: 0;
+            }
+            .status-bar, .buttons-left, .buttons-right {
+                display: none;
+            }
         }
 
         .app-bar .back-btn {
@@ -255,20 +346,6 @@
             border: 1px solid #BBF7D0;
         }
 
-        .month-badge {
-            background-color: var(--primary);
-            color: white;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 6px 16px;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 10px rgba(22, 145, 114, 0.3);
-        }
-
-
-
         .rating-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -290,13 +367,6 @@
             box-sizing: border-box;
         }
 
-        .rating-tag.full-width {
-            grid-column: span 2;
-            justify-content: center;
-        }
-
-
-
         .rating-label {
             font-size: 16px;
             color: var(--text-secondary);
@@ -313,139 +383,147 @@
 </head>
 
 <body>
-    <div class="device">
-        <div class="app-bar">
-            <a href="destiny_redesign.html" class="back-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </a>
-            <span class="title">Vận hạn 12 tháng âm lịch 2026</span>
-        </div>
-
-        <div class="month-tabs-container">
-            <div class="month-tabs-scroll" id="monthScroll">
-                <div class="month-tab">Tháng 1</div>
-                <div class="month-tab">Tháng 2</div>
-                <div class="month-tab">Tháng 3</div>
-                <div class="month-tab active" id="currentMonthTab">Tháng 4</div>
-                <div class="month-tab">Tháng 5</div>
-                <div class="month-tab">Tháng 6</div>
-                <div class="month-tab">Tháng 7</div>
-                <div class="month-tab">Tháng 8</div>
-                <div class="month-tab">Tháng 9</div>
-                <div class="month-tab">Tháng 10</div>
-                <div class="month-tab">Tháng 11</div>
-                <div class="month-tab">Tháng 12</div>
-            </div>
-        </div>
-
-        <div class="content">
-            <!-- Hero Summary Card + Đánh giá -->
-            <div class="month-hero-card">
-                <div class="month-status-badge">Tháng tốt nhất</div>
-                <div class="month-hero-title">Tháng 4 âm lịch</div>
-                <div class="month-hero-date">17/05 - 14/06/2026 dương lịch</div>
-                <div class="star-rating">
-                    <div class="stars">
-                        ★★★★<span style="color: #CBD5E1;">★</span>
-                    </div>
+    <div class="phone-mockup">
+        <div class="buttons-left"></div>
+        <div class="buttons-right"></div>
+        <div class="screen-content">
+            <div class="status-bar">
+                <div class="time">19:45</div>
+                <div class="status-icons">
+                    <!-- Signal -->
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z"/>
+                    </svg>
+                    <!-- Wifi -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <!-- Battery -->
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5"/>
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor"/>
+                    </svg>
                 </div>
-                <div
-                    style="font-size: 16px; color: var(--text-main); font-weight: 400; line-height: 1.5; margin-bottom: 16px;">
-                    Tháng này khá thuận lợi, dễ gặp quý nhân và có cơ hội tốt về tài lộc.</div>
+            </div>
+            <div class="app-bar">
+                <a href="destiny_redesign.html" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </a>
+                <span class="title">Vận hạn 12 tháng âm lịch 2026</span>
+            </div>
 
-
-
-                <div class="rating-grid">
-                    <div class="rating-tag">
-                        <span class="rating-label">Tài vận</span>
-                        <span class="rating-value" style="color: #F59E0B;">Tốt</span>
-                    </div>
-                    <div class="rating-tag">
-                        <span class="rating-label">Công việc</span>
-                        <span class="rating-value" style="color: #3B82F6;">Tốt</span>
-                    </div>
-                    <div class="rating-tag">
-                        <span class="rating-label">Tình duyên</span>
-                        <span class="rating-value" style="color: #EC4899;">Tốt</span>
-                    </div>
-                    <div class="rating-tag">
-                        <span class="rating-label">Gia đạo</span>
-                        <span class="rating-value" style="color: #EA580C;">Cần lưu ý</span>
-                    </div>
+            <div class="month-tabs-container">
+                <div class="month-tabs-scroll" id="monthScroll">
+                    <div class="month-tab">Tháng 1</div>
+                    <div class="month-tab">Tháng 2</div>
+                    <div class="month-tab">Tháng 3</div>
+                    <div class="month-tab active" id="currentMonthTab">Tháng 4</div>
+                    <div class="month-tab">Tháng 5</div>
+                    <div class="month-tab">Tháng 6</div>
+                    <div class="month-tab">Tháng 7</div>
+                    <div class="month-tab">Tháng 8</div>
+                    <div class="month-tab">Tháng 9</div>
+                    <div class="month-tab">Tháng 10</div>
+                    <div class="month-tab">Tháng 11</div>
+                    <div class="month-tab">Tháng 12</div>
                 </div>
             </div>
 
-            <!-- Biến động bản thân -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <svg viewBox="0 0 24 24" fill="#1e40af">
-                            <path
-                                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-                            <!-- A simpler user sync icon approximation using standard paths -->
-                        </svg>
+            <div class="content">
+                <!-- Hero Summary Card + Đánh giá -->
+                <div class="month-hero-card">
+                    <div class="month-status-badge">Tháng tốt nhất</div>
+                    <div class="month-hero-title">Tháng 4 âm lịch</div>
+                    <div class="month-hero-date">17/05 - 14/06/2026 dương lịch</div>
+                    <div class="star-rating">
+                        <div class="stars">
+                            ★★★★<span style="color: #CBD5E1;">★</span>
+                        </div>
                     </div>
-                    <div class="section-title">Biến động bản thân và năng lượng tổng thể trong tháng</div>
-                </div>
-                <div class="paragraph">Tinh thần minh mẫn, năng lượng dồi dào, định hướng rõ ràng cho bản thân</div>
-                <div class="paragraph">Tháng này, bạn sẽ cảm nhận rõ sự sắc bén trong tư duy và khả năng phân tích vấn
-                    đề.</div>
-                <div class="paragraph">Năng lượng cá nhân tăng cao, thúc đẩy bạn chủ động tìm kiếm những thay đổi tích
-                    cực. Tâm trạng bạn ổn định, dễ dàng thích nghi với mọi hoàn cảnh. Bạn tự tin thể hiện bản thân, đưa
-                    ra các quyết định dứt khoát. Nhận thức về cuộc sống trở nên rõ ràng, bạn biết mình muốn gì và cần
-                    làm gì.</div>
+                    <div
+                        style="font-size: 16px; color: var(--text-main); font-weight: 400; line-height: 1.5; margin-bottom: 16px;">
+                        Tháng này khá thuận lợi, dễ gặp quý nhân và có cơ hội tốt về tài lộc.</div>
 
-                <div class="sub-header">Cảm xúc và trạng thái tinh thần</div>
-                <div class="paragraph">Bạn có sự tự chủ cảm xúc tốt, ít bị chi phối bởi yếu tố bên ngoài. Tinh thần phấn
-                    chấn, tự tin vào khả năng của mình. Sự minh mẫn giúp bạn xử lý mọi việc một cách lý trí và bình
-                    tĩnh.</div>
-
-                <div class="sub-header">Sức khỏe và thể trạng</div>
-                <div class="paragraph">Thể lực dồi dào, sinh khí tốt, giúp bạn duy trì cường độ làm việc hiệu quả. Sức
-                    khỏe tổng thể ổn định. Bạn ít cảm thấy mệt mỏi, dễ dàng phục hồi năng lượng sau các hoạt động.</div>
-
-                <div class="sub-header">Năng lượng hành động và định hướng sống</div>
-                <div class="paragraph">Năng lượng của bạn hướng vào việc lập kế hoạch, học hỏi kiến thức mới. Bạn chủ
-                    động thay đổi những thói quen cũ, tìm kiếm phong cách sống phù hợp hơn. Mục tiêu của bạn rõ ràng,
-                    thúc đẩy hành động mạnh mẽ.</div>
-            </div>
-
-            <!-- Tài chính, tiền bạc -->
-            <div class="section">
-                <div class="section-header">
-                    <div class="section-icon">
-                        <svg viewBox="0 0 24 24" fill="#10B981">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.11-1.36-3.11-3.03 0-2.3 2.54-2.8 4.67-3.23 1.34-.28 1.95-.69 1.95-1.42 0-.89-.86-1.36-1.84-1.36-1.36 0-2.22.61-2.43 1.6l-2.45-.48c.36-1.63 1.76-2.73 3.48-3.08V5h2.67v1.94c1.55.33 2.87 1.37 2.87 2.97 0 2.21-2.39 2.82-4.5 3.25-1.41.29-2.09.76-2.09 1.54 0 .86.81 1.45 2.01 1.45 1.57 0 2.45-.73 2.68-1.78l2.48.51c-.41 1.86-1.92 2.92-3.72 3.21z" />
-                        </svg>
+                    <div class="rating-grid">
+                        <div class="rating-tag">
+                            <span class="rating-label">Tài vận</span>
+                            <span class="rating-value" style="color: #F59E0B;">Tốt</span>
+                        </div>
+                        <div class="rating-tag">
+                            <span class="rating-label">Công việc</span>
+                            <span class="rating-value" style="color: #3B82F6;">Tốt</span>
+                        </div>
+                        <div class="rating-tag">
+                            <span class="rating-label">Tình duyên</span>
+                            <span class="rating-value" style="color: #EC4899;">Tốt</span>
+                        </div>
+                        <div class="rating-tag">
+                            <span class="rating-label">Gia đạo</span>
+                            <span class="rating-value" style="color: #EA580C;">Cần lưu ý</span>
+                        </div>
                     </div>
-                    <div class="section-title">Tài chính, tiền bạc trong tháng</div>
                 </div>
-                <ul class="bullet-list">
-                    <li>Quản lý tiền bạc thông minh, cơ hội tài chính rõ ràng.</li>
-                    <li>Tháng này, bạn có tư duy rõ ràng về tiền bạc, giúp đưa ra các quyết định tài chính hợp lý và dứt
-                        khoát. Khả năng phân tích tốt giúp bạn nhìn thấy cơ hội tăng thu nhập từ những ý tưởng mới. Chi
-                        tiêu được kiểm soát chặt chẽ, tránh lãng phí không cần thiết. Bạn có thể tìm thấy những cách
-                        thức mới để cải thiện tình hình tài chính cá nhân một cách bền vững.</li>
-                </ul>
 
-                <div class="sub-header">Cơ hội tăng thu nhập:</div>
-                <div class="paragraph">Khả năng kiếm thêm thu nhập từ các ý tưởng sáng tạo hoặc công việc phụ trở nên rõ
-                    ràng. Bạn có thể nhận được lợi ích từ những dự án cần tư duy nhạy bén.</div>
+                <!-- Biến động bản thân -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="#1e40af">
+                                <path
+                                    d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                            </svg>
+                        </div>
+                        <div class="section-title">Biến động bản thân và năng lượng tổng thể trong tháng</div>
+                    </div>
+                    <div class="paragraph">Tinh thần minh mẫn, năng lượng dồi dào, định hướng rõ ràng cho bản thân</div>
+                    <div class="paragraph">Tháng này, bạn sẽ cảm nhận rõ sự sắc bén trong tư duy và khả năng phân tích vấn đề.</div>
+                    <div class="paragraph">Năng lượng cá nhân tăng cao, thúc đẩy bạn chủ động tìm kiếm những thay đổi tích cực. Tâm trạng bạn ổn định, dễ dàng thích nghi với mọi hoàn cảnh. Bạn tự tin thể hiện bản thân, đưa ra các quyết định dứt khoát. Nhận thức về cuộc sống trở nên rõ ràng, bạn biết mình muốn gì và cần làm gì.</div>
 
-                <div class="sub-header">Chi tiêu và quản lý tài chính:</div>
-                <div class="paragraph">Bạn quản lý chi tiêu rất có lý trí, hạn chế các khoản không cần thiết. Khả năng
-                    kiểm soát tiền bạc tốt, giúp bạn tránh được những hao tổn không đáng có.</div>
+                    <div class="sub-header">Cảm xúc và trạng thái tinh thần</div>
+                    <div class="paragraph">Bạn có sự tự chủ cảm xúc tốt, ít bị chi phối bởi yếu tố bên ngoài. Tinh thần phấn chấn, tự tin vào khả năng của mình. Sự minh mẫn giúp bạn xử lý mọi việc một cách lý trí và bình tĩnh.</div>
 
-                <div class="sub-header">Sự thay đổi về giá trị và nhận thức tiền bạc:</div>
-                <div class="paragraph">Quan điểm của bạn về tiền bạc trở nên thực tế và chín chắn hơn. Bạn không còn
-                    hoang phí mà tập trung vào giá trị lâu dài, có kế hoạch tài chính cụ thể.</div>
+                    <div class="sub-header">Sức khỏe và thể trạng</div>
+                    <div class="paragraph">Thể lực dồi dào, sinh khí tốt, giúp bạn duy trì cường độ làm việc hiệu quả. Sức khỏe tổng thể ổn định. Bạn ít cảm thấy mệt mỏi, dễ dàng phục hồi năng lượng sau các hoạt động.</div>
+
+                    <div class="sub-header">Năng lượng hành động và định hướng sống</div>
+                    <div class="paragraph">Năng lượng của bạn hướng vào việc lập kế hoạch, học hỏi kiến thức mới. Bạn chủ động thay đổi những thói quen cũ, tìm kiếm phong cách sống phù hợp hơn. Mục tiêu của bạn rõ ràng, thúc đẩy hành động mạnh mẽ.</div>
+                </div>
+
+                <!-- Tài chính, tiền bạc -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24" fill="#10B981">
+                                <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.11-1.36-3.11-3.03 0-2.3 2.54-2.8 4.67-3.23 1.34-.28 1.95-.69 1.95-1.42 0-.89-.86-1.36-1.84-1.36-1.36 0-2.22.61-2.43 1.6l-2.45-.48c.36-1.63 1.76-2.73 3.48-3.08V5h2.67v1.94c1.55.33 2.87 1.37 2.87 2.97 0 2.21-2.39 2.82-4.5 3.25-1.41.29-2.09.76-2.09 1.54 0 .86.81 1.45 2.01 1.45 1.57 0 2.45-.73 2.68-1.78l2.48.51c-.41 1.86-1.92 2.92-3.72 3.21z" />
+                            </svg>
+                        </div>
+                        <div class="section-title">Tài chính, tiền bạc trong tháng</div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Quản lý tiền bạc thông minh, cơ hội tài chính rõ ràng.</li>
+                        <li>Tháng này, bạn có tư duy rõ ràng về tiền bạc, giúp đưa ra các quyết định tài chính hợp lý và dứt khoát. Khả năng phân tích tốt giúp bạn nhìn thấy cơ hội tăng thu nhập từ những ý tưởng mới. Chi tiêu được kiểm soát chặt chẽ, tránh lãng phí không cần thiết. Bạn có thể tìm thấy những cách thức mới để cải thiện tình hình tài chính cá nhân một cách bền vững.</li>
+                    </ul>
+
+                    <div class="sub-header">Cơ hội tăng thu nhập:</div>
+                    <div class="paragraph">Khả năng kiếm thêm thu nhập từ các ý tưởng sáng tạo hoặc công việc phụ trở nên rõ ràng. Bạn có thể nhận được lợi ích từ những dự án cần tư duy nhạy bén.</div>
+
+                    <div class="sub-header">Chi tiêu và quản lý tài chính:</div>
+                    <div class="paragraph">Bạn quản lý chi tiêu rất có lý trí, hạn chế các khoản không cần thiết. Khả năng kiểm soát tiền bạc tốt, giúp bạn tránh được những hao tổn không đáng có.</div>
+
+                    <div class="sub-header">Sự thay đổi về giá trị và nhận thức tiền bạc:</div>
+                    <div class="paragraph">Quan điểm của bạn về tiền bạc trở nên thực tế và chín chắn hơn. Bạn không còn hoang phí mà tập trung vào giá trị lâu dài, có kế hoạch tài chính cụ thể.</div>
+                </div>
+
+                <div style="height: 40px;"></div>
             </div>
-
-            <div style="height: 40px;"></div>
         </div>
     </div>
 
@@ -456,19 +534,17 @@
             const scrollContainer = document.getElementById('monthScroll');
 
             if (currentTab && scrollContainer) {
-                // Đảm bảo DOM layout đã render hoàn chỉnh thì mới cuộn
                 setTimeout(() => {
                     currentTab.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
                 }, 50);
             }
 
-            // Optional: Make all tabs clickable to update active style
+            // Make all tabs clickable to update active style
             const tabs = document.querySelectorAll('.month-tab');
             tabs.forEach(tab => {
                 tab.addEventListener('click', function () {
                     tabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
-
                     this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                 });
             });
