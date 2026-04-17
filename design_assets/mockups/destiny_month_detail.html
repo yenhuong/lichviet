@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vận hạn 12 tháng âm lịch 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #169172;
+            --bg-light: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #1F1F1F;
+            --text-secondary: #666666;
+            --border-color: #E5E7EB;
+            --section-title-blue: #1e40af;
+            --bullet-blue: #3B82F6;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-main);
+        }
+
+        .device {
+            width: 414px;
+            height: 896px;
+            background-color: var(--bg-light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* App Bar */
+        .app-bar {
+            background-color: var(--primary);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            font-size: 17px;
+            font-weight: 500;
+            z-index: 10;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+
+        .app-bar .back-btn {
+            position: absolute;
+            left: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .app-bar .back-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Tabs Selection */
+        .month-tabs-container {
+            background: #fff;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            z-index: 5;
+        }
+
+        .month-tabs-scroll {
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 16px;
+            gap: 12px;
+        }
+
+        .month-tabs-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .month-tab {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .month-tab.active {
+            color: white;
+            background-color: var(--primary);
+            border-color: var(--primary);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 10px 24px;
+            border-radius: 24px;
+            box-shadow: 0 4px 10px rgba(22, 145, 114, 0.3);
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #FFFFFF;
+        }
+
+        /* Content Blocks */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            margin-top: 2px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--section-title-blue);
+            line-height: 1.4;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0 0 16px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 8px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            color: var(--bullet-blue);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 18px;
+            top: -2px;
+        }
+
+        .paragraph {
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .sub-header {
+            font-size: 15px;
+            font-weight: 700;
+            margin: 20px 0 8px 0;
+            color: var(--text-main);
+        }
+
+        /* Hero Summary Card */
+        .month-hero-card {
+            background: linear-gradient(135deg, rgba(22, 145, 114, 0.02) 0%, rgba(22, 145, 114, 0.08) 100%);
+            border: 1px solid rgba(22, 145, 114, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .month-hero-title {
+            font-size: 20px;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .month-hero-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .star-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .rating-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stars {
+            font-size: 16px;
+            color: #FBC02D;
+            letter-spacing: 2px;
+        }
+
+        .month-status-badge {
+            display: inline-block;
+            background: #DCFCE7;
+            color: #166534;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            border: 1px solid #BBF7D0;
+        }
+
+        .month-badge {
+            background-color: var(--primary);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(22, 145, 114, 0.3);
+        }
+
+
+
+        .rating-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            justify-items: stretch;
+            margin-top: 16px;
+        }
+
+        .rating-tag {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 12px;
+            padding: 6px 10px;
+            border: 1px solid #E5E7EB;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .rating-tag.full-width {
+            grid-column: span 2;
+            justify-content: center;
+        }
+
+
+
+        .rating-label {
+            font-size: 16px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            font-weight: 400;
+        }
+
+        .rating-value {
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="device">
+        <div class="app-bar">
+            <a href="destiny_redesign.html" class="back-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </a>
+            <span class="title">Vận hạn 12 tháng âm lịch 2026</span>
+        </div>
+
+        <div class="month-tabs-container">
+            <div class="month-tabs-scroll" id="monthScroll">
+                <div class="month-tab">Tháng 1</div>
+                <div class="month-tab">Tháng 2</div>
+                <div class="month-tab">Tháng 3</div>
+                <div class="month-tab active" id="currentMonthTab">Tháng 4</div>
+                <div class="month-tab">Tháng 5</div>
+                <div class="month-tab">Tháng 6</div>
+                <div class="month-tab">Tháng 7</div>
+                <div class="month-tab">Tháng 8</div>
+                <div class="month-tab">Tháng 9</div>
+                <div class="month-tab">Tháng 10</div>
+                <div class="month-tab">Tháng 11</div>
+                <div class="month-tab">Tháng 12</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Hero Summary Card + Đánh giá -->
+            <div class="month-hero-card">
+                <div class="month-status-badge">Tháng tốt nhất</div>
+                <div class="month-hero-title">Tháng 4 âm lịch</div>
+                <div class="month-hero-date">17/05 - 14/06/2026 dương lịch</div>
+                <div class="star-rating">
+                    <div class="stars">
+                        ★★★★<span style="color: #CBD5E1;">★</span>
+                    </div>
+                </div>
+                <div
+                    style="font-size: 16px; color: var(--text-main); font-weight: 400; line-height: 1.5; margin-bottom: 16px;">
+                    Tháng này khá thuận lợi, dễ gặp quý nhân và có cơ hội tốt về tài lộc.</div>
+
+
+
+                <div class="rating-grid">
+                    <div class="rating-tag">
+                        <span class="rating-label">Tài vận</span>
+                        <span class="rating-value" style="color: #F59E0B;">Tốt</span>
+                    </div>
+                    <div class="rating-tag">
+                        <span class="rating-label">Công việc</span>
+                        <span class="rating-value" style="color: #3B82F6;">Tốt</span>
+                    </div>
+                    <div class="rating-tag">
+                        <span class="rating-label">Tình duyên</span>
+                        <span class="rating-value" style="color: #EC4899;">Tốt</span>
+                    </div>
+                    <div class="rating-tag">
+                        <span class="rating-label">Gia đạo</span>
+                        <span class="rating-value" style="color: #EA580C;">Cần lưu ý</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biến động bản thân -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="#1e40af">
+                            <path
+                                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+                            <!-- A simpler user sync icon approximation using standard paths -->
+                        </svg>
+                    </div>
+                    <div class="section-title">Biến động bản thân và năng lượng tổng thể trong tháng</div>
+                </div>
+                <div class="paragraph">Tinh thần minh mẫn, năng lượng dồi dào, định hướng rõ ràng cho bản thân</div>
+                <div class="paragraph">Tháng này, bạn sẽ cảm nhận rõ sự sắc bén trong tư duy và khả năng phân tích vấn
+                    đề.</div>
+                <div class="paragraph">Năng lượng cá nhân tăng cao, thúc đẩy bạn chủ động tìm kiếm những thay đổi tích
+                    cực. Tâm trạng bạn ổn định, dễ dàng thích nghi với mọi hoàn cảnh. Bạn tự tin thể hiện bản thân, đưa
+                    ra các quyết định dứt khoát. Nhận thức về cuộc sống trở nên rõ ràng, bạn biết mình muốn gì và cần
+                    làm gì.</div>
+
+                <div class="sub-header">Cảm xúc và trạng thái tinh thần</div>
+                <div class="paragraph">Bạn có sự tự chủ cảm xúc tốt, ít bị chi phối bởi yếu tố bên ngoài. Tinh thần phấn
+                    chấn, tự tin vào khả năng của mình. Sự minh mẫn giúp bạn xử lý mọi việc một cách lý trí và bình
+                    tĩnh.</div>
+
+                <div class="sub-header">Sức khỏe và thể trạng</div>
+                <div class="paragraph">Thể lực dồi dào, sinh khí tốt, giúp bạn duy trì cường độ làm việc hiệu quả. Sức
+                    khỏe tổng thể ổn định. Bạn ít cảm thấy mệt mỏi, dễ dàng phục hồi năng lượng sau các hoạt động.</div>
+
+                <div class="sub-header">Năng lượng hành động và định hướng sống</div>
+                <div class="paragraph">Năng lượng của bạn hướng vào việc lập kế hoạch, học hỏi kiến thức mới. Bạn chủ
+                    động thay đổi những thói quen cũ, tìm kiếm phong cách sống phù hợp hơn. Mục tiêu của bạn rõ ràng,
+                    thúc đẩy hành động mạnh mẽ.</div>
+            </div>
+
+            <!-- Tài chính, tiền bạc -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <svg viewBox="0 0 24 24" fill="#10B981">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.11-1.36-3.11-3.03 0-2.3 2.54-2.8 4.67-3.23 1.34-.28 1.95-.69 1.95-1.42 0-.89-.86-1.36-1.84-1.36-1.36 0-2.22.61-2.43 1.6l-2.45-.48c.36-1.63 1.76-2.73 3.48-3.08V5h2.67v1.94c1.55.33 2.87 1.37 2.87 2.97 0 2.21-2.39 2.82-4.5 3.25-1.41.29-2.09.76-2.09 1.54 0 .86.81 1.45 2.01 1.45 1.57 0 2.45-.73 2.68-1.78l2.48.51c-.41 1.86-1.92 2.92-3.72 3.21z" />
+                        </svg>
+                    </div>
+                    <div class="section-title">Tài chính, tiền bạc trong tháng</div>
+                </div>
+                <ul class="bullet-list">
+                    <li>Quản lý tiền bạc thông minh, cơ hội tài chính rõ ràng.</li>
+                    <li>Tháng này, bạn có tư duy rõ ràng về tiền bạc, giúp đưa ra các quyết định tài chính hợp lý và dứt
+                        khoát. Khả năng phân tích tốt giúp bạn nhìn thấy cơ hội tăng thu nhập từ những ý tưởng mới. Chi
+                        tiêu được kiểm soát chặt chẽ, tránh lãng phí không cần thiết. Bạn có thể tìm thấy những cách
+                        thức mới để cải thiện tình hình tài chính cá nhân một cách bền vững.</li>
+                </ul>
+
+                <div class="sub-header">Cơ hội tăng thu nhập:</div>
+                <div class="paragraph">Khả năng kiếm thêm thu nhập từ các ý tưởng sáng tạo hoặc công việc phụ trở nên rõ
+                    ràng. Bạn có thể nhận được lợi ích từ những dự án cần tư duy nhạy bén.</div>
+
+                <div class="sub-header">Chi tiêu và quản lý tài chính:</div>
+                <div class="paragraph">Bạn quản lý chi tiêu rất có lý trí, hạn chế các khoản không cần thiết. Khả năng
+                    kiểm soát tiền bạc tốt, giúp bạn tránh được những hao tổn không đáng có.</div>
+
+                <div class="sub-header">Sự thay đổi về giá trị và nhận thức tiền bạc:</div>
+                <div class="paragraph">Quan điểm của bạn về tiền bạc trở nên thực tế và chín chắn hơn. Bạn không còn
+                    hoang phí mà tập trung vào giá trị lâu dài, có kế hoạch tài chính cụ thể.</div>
+            </div>
+
+            <div style="height: 40px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll the active tab into view to center it
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentTab = document.getElementById('currentMonthTab');
+            const scrollContainer = document.getElementById('monthScroll');
+
+            if (currentTab && scrollContainer) {
+                // Đảm bảo DOM layout đã render hoàn chỉnh thì mới cuộn
+                setTimeout(() => {
+                    currentTab.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+                }, 50);
+            }
+
+            // Optional: Make all tabs clickable to update active style
+            const tabs = document.querySelectorAll('.month-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

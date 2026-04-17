@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destiny Redesign - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #169172;
+            /* Lịch Việt Main Color */
+            --bg-light: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --emerald: #10B981;
+            --amber: #F59E0B;
+            --sapphire: #3B82F6;
+            --ruby: #EF4444;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Mobile Device Simulation Constraint */
+        .device {
+            width: 414px;
+            height: 896px;
+            background-color: var(--bg-light);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* App Bar */
+        .app-bar {
+            background-color: var(--primary);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            font-size: 17px;
+            font-weight: 500;
+            z-index: 10;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .app-bar .back-btn {
+            position: absolute;
+            left: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .app-bar .back-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .app-bar .title {
+            text-align: center;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        /* User Info Block (Traditional) */
+        .user-info-card {
+            background: #F6FEFF;
+            border-radius: 0;
+            padding: 24px 20px;
+            margin: -16px -16px 24px -16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 96px;
+            height: 96px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-details h2 {
+            margin: 0 0 8px 0;
+            font-size: 19px;
+            color: var(--primary);
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-meta {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .switch-member-btn {
+            background: #e6f4f1;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .switch-member-btn:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-2x2 {
+            grid-column: span 2;
+            padding: 24px 20px;
+        }
+
+        .card-2x1 {
+            grid-column: span 2;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+        }
+
+        /* Light Theme Radial Rings for Stats */
+        .rings-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 0;
+            padding: 4px 4px;
+            justify-items: start;
+            margin-bottom: 24px;
+        }
+
+        .ring-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: flex-start;
+        }
+
+        .ring {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 6px;
+            position: relative;
+            background: conic-gradient(var(--ring-color) var(--percent), #E5E7EB 0);
+        }
+
+        .ring-inner {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Priority Months Styling */
+        .tag {
+            font-size: 14px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .tag-best {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-worst {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .tag-current {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .month-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0 8px;
+        }
+
+        .btn-detail {
+            background: #e6f4f1;
+            border: 1px solid rgba(22, 145, 114, 0.3);
+            color: var(--primary);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-detail:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-detail-filled {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 18px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-detail-filled:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(22, 145, 114, 0.25);
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .icon-move {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 700;
+            animation: moveRL 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveRL {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(5px);
+            }
+        }
+
+        .blink-quote {
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        @keyframes pulseQuote {
+            from {
+                opacity: 0.3;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Interactive Month Browser Grid */
+        .month-browser {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+            margin-bottom: 30px;
+        }
+
+        .month-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .month-btn:active {
+            background: var(--border-color);
+        }
+
+        .month-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .month-btn.best {
+            border: 2px solid var(--emerald);
+            color: var(--emerald);
+            font-weight: 700;
+        }
+
+        .month-btn.worst {
+            border: 2px solid var(--ruby);
+            color: var(--ruby);
+            font-weight: 700;
+        }
+
+        /* Khám phá thêm (Explore More) */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 8px;
+            margin-top: 16px;
+            padding: 0 4px;
+        }
+
+        .explore-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .explore-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-item:active .explore-icon-wrapper {
+            transform: scale(0.92);
+        }
+
+        .explore-icon {
+            font-size: 28px;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .explore-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="device">
+        <!-- App Bar as requested -->
+        <div class="app-bar">
+            <div class="back-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </div>
+            <span class="title">Vận hạn năm 2026</span>
+        </div>
+
+        <div class="content">
+            <!-- User Info as requested -->
+            <div class="user-info-card">
+                <div class="user-details">
+                    <h2>Trần Nguyễn Hoàng Anh</h2>
+                    <div class="user-meta" style="display: flex; flex-direction: column; gap: 4px;">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="color: var(--primary);">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>15/08/1981 - Giờ Tị (9h-11h)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="color: var(--primary);">
+                                <circle cx="10" cy="14" r="5"></circle>
+                                <line x1="13.5" y1="10.5" x2="19" y2="5"></line>
+                                <polyline points="15 5 19 5 19 9"></polyline>
+                            </svg>
+                            <span>Nam</span>
+                        </div>
+                    </div>
+                    <button class="switch-member-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        Xem cho người thân
+                    </button>
+                </div>
+                <div class="user-avatar">
+                    <img src="rooster.png" alt="Tuổi Dậu" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 24px; padding: 0 4px;">Các tháng vận hạn đáng chú ý</div>
+            <div class="bento-grid">
+                <!-- Priority Months -->
+                <div class="card card-2x1" style="border-left: 4px solid var(--primary);">
+                    <span class="tag tag-current">Tháng hiện tại</span>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <div class="month-number" style="margin: 0;">Tháng 4 âm</div>
+                        <div style="color: #FBC02D; font-size: 16px;">★★★★<span style="color: #CBD5E1;">★</span></div>
+                    </div>
+                    <div style="font-size: 16px; color: var(--primary); font-weight: 700; margin-bottom: 12px;">16/05 -
+                        14/06/2026 dương lịch</div>
+                    <div style="font-size: 16px; color: var(--text-secondary); line-height: 1.4;">Tài chính khởi sắc,
+                        sức khỏe ổn định</div>
+                    <button class="btn-detail-filled" onclick="window.location.href='destiny_month_detail.html'">
+                        Xem chi tiết tháng này <span class="icon-move" style="font-size: 18px; line-height: 1;">»</span>
+                    </button>
+                </div>
+
+                <div class="card" style="padding: 20px 12px;">
+                    <span class="tag tag-best">Tháng tốt nhất</span>
+                    <div class="month-number" style="font-size: 16px; margin: 0 0 4px 0;">Tháng 6 âm</div>
+                    <div style="font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 6px;">14/07 -
+                        12/08/2026</div>
+                    <div style="color: #FBC02D; font-size: 14px; margin-bottom: 6px;">★★★★★</div>
+                    <div style="font-size: 16px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 4px;">
+                        Vạn sự hanh thông</div>
+                    <button class="btn-detail">Xem chi tiết</button>
+                </div>
+
+                <div class="card" style="padding: 20px 12px;">
+                    <span class="tag tag-worst">Tháng cần lưu ý</span>
+                    <div class="month-number" style="font-size: 16px; margin: 0 0 4px 0;">Tháng 9 âm</div>
+                    <div style="font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 6px;">11/10 -
+                        09/11/2026</div>
+                    <div style="color: #FBC02D; font-size: 14px; margin-bottom: 6px;">★★<span
+                            style="color: #CBD5E1;">★★★</span></div>
+                    <div style="font-size: 16px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 4px;">
+                        Cẩn trọng thị phi</div>
+                    <button class="btn-detail">Xem chi tiết</button>
+                </div>
+            </div>
+
+            <button class="switch-member-btn"
+                style="margin-top: 16px; margin-bottom: 24px; width: fit-content; margin-left: auto; margin-right: auto;"
+                onclick="window.location.href='destiny_month_detail.html'">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Xem đầy đủ 12 tháng
+            </button>
+
+            <div class="section-title" style="margin-top: 24px; padding: 0 4px;">Tổng quan năm 2026</div>
+            <div class="card card-2x2" style="padding: 24px 16px;">
+                <!-- 4 Vòng tròn chỉ số (2x2) -->
+                <div class="rings-container">
+                    <div class="ring-item">
+                        <div class="ring" style="--ring-color: #0EA5E9; --percent: 65%;">
+                            <div class="ring-inner"><span class="ring-value">65%</span></div>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-size:16px; font-weight: 600; color: var(--text-main);">Tổng quan</div>
+                            <div
+                                style="font-size:14px; font-weight: 400; color: #0EA5E9; opacity: 0.8; margin-top: 2px;">
+                                Khá</div>
+                        </div>
+                    </div>
+                    <div class="ring-item">
+                        <div class="ring" style="--ring-color: #10B981; --percent: 85%;">
+                            <div class="ring-inner"><span class="ring-value">85%</span></div>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-size:16px; font-weight: 600; color: var(--text-main);">Tài lộc</div>
+                            <div
+                                style="font-size:14px; font-weight: 500; color: #10B981; opacity: 0.8; margin-top: 2px;">
+                                Tốt</div>
+                        </div>
+                    </div>
+                    <div class="ring-item">
+                        <div class="ring" style="--ring-color: #FBC02D; --percent: 50%;">
+                            <div class="ring-inner"><span class="ring-value">50%</span></div>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-size:16px; font-weight: 600; color: var(--text-main);">Công việc</div>
+                            <div
+                                style="font-size:14px; font-weight: 500; color: #FBC02D; opacity: 0.8; margin-top: 2px;">
+                                Ổn định</div>
+                        </div>
+                    </div>
+                    <div class="ring-item">
+                        <div class="ring" style="--ring-color: #EA580C; --percent: 30%;">
+                            <div class="ring-inner"><span class="ring-value">30%</span></div>
+                        </div>
+                        <div style="text-align: left;">
+                            <div style="font-size:16px; font-weight: 600; color: var(--text-main);">Tình duyên</div>
+                            <div
+                                style="font-size:14px; font-weight: 500; color: #EA580C; opacity: 0.8; margin-top: 2px;">
+                                Cần lưu ý</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lời khuyên -->
+                <div style="margin: 24px 0 16px; padding: 0 4px;">
+                    <div
+                        style="font-size: 16px; line-height: 1.6; color: var(--text-main); font-weight: 400; text-align: left;">
+                        Năm 2026 khá thuận về tài lộc, phù hợp cho các kế hoạch quan trọng.
+                    </div>
+                </div>
+
+                <!-- Nút bấm -->
+                <button class="btn-primary" style="margin-top: 0;">
+                    Xem chi tiết & lời khuyên <span class="icon-move">»</span>
+                </button>
+            </div>
+
+            <!-- Khám phá thêm -->
+            <div class="section-title"
+                style="margin-top: 32px; padding: 0 4px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+                Khám phá thêm</div>
+            <div class="explore-grid">
+                <div class="explore-item">
+                    <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #2E8AFA, #0050D1);">
+                        <span class="explore-icon">🌟</span>
+                    </div>
+                    <div class="explore-text">Vận hạn<br>năm 2026</div>
+                </div>
+                <div class="explore-item">
+                    <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #FFDF63, #F5A623);">
+                        <span class="explore-icon">☯️</span>
+                    </div>
+                    <div class="explore-text">Tử vi<br>Tổng quan</div>
+                </div>
+                <div class="explore-item">
+                    <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #B270FA, #6118D6);">
+                        <span class="explore-icon">🐖</span>
+                    </div>
+                    <div class="explore-text">Tài chính &<br>Đầu tư</div>
+                </div>
+                <div class="explore-item">
+                    <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #42C4F7, #0CA1EB);">
+                        <span class="explore-icon">💼</span>
+                    </div>
+                    <div class="explore-text">Nghề nghiệp &<br>Sự nghiệp</div>
+                </div>
+                <div class="explore-item">
+                    <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #FF9EBB, #F54C83);">
+                        <span class="explore-icon">💖</span>
+                    </div>
+                    <div class="explore-text">Tư vấn<br>Tình duyên</div>
+                </div>
+                <div class="explore-item">
+                    <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #FFDE4B, #FF891C);">
+                        <span class="explore-icon">📜</span>
+                    </div>
+                    <div class="explore-text">Lá số<br>Tử vi</div>
+                </div>
+            </div>
+
+            <div style="height: 40px;"></div>
+        </div>
+    </div>
+</body>
+
+</html>
