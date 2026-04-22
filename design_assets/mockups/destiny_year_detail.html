@@ -1,498 +1,822 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tổng quan năm 2026 - Lịch Việt</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --primary: #169172;
-  --bg-light: #F5F7FA;
-  --card-bg: #FFFFFF;
-  --text-main: #333333;
-  --text-secondary: #666666;
-  --border-color: #E5E7EB;
-  --emerald: #10B981;
-  --amber: #F59E0B;
-  --ruby: #EF4444;
-  --sapphire: #3B82F6;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  display: flex; justify-content: center; align-items: center;
-  min-height: 100vh; font-family: 'Roboto', sans-serif; color: var(--text-main);
-}
-.phone-mockup {
-  position: relative; width: 414px; height: 896px;
-  background: #1F1F1F; border-radius: 56px; padding: 12px;
-  box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0,0,0,0.2), 0 0 0 12px #111;
-  display: flex; align-items: center; justify-content: center;
-}
-.buttons-left {
-  position: absolute; left: -14px; top: 180px; width: 4px; height: 100px;
-  background: #111; border-radius: 4px 0 0 4px;
-}
-.buttons-right {
-  position: absolute; right: -14px; top: 200px; width: 4px; height: 80px;
-  background: #111; border-radius: 0 4px 4px 0;
-}
-.screen-content {
-  width: 100%; height: 100%; background-color: var(--bg-light);
-  border-radius: 44px; overflow: hidden; display: flex; flex-direction: column;
-}
-.status-bar {
-  height: 44px; background-color: var(--primary);
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0 24px 0 32px; font-size: 14px; font-weight: 600; color: white;
-}
-.status-icons { display: flex; align-items: center; gap: 6px; }
-.app-bar {
-  background-color: var(--primary); color: white; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  padding: 0 16px; font-size: 17px; font-weight: 500; position: relative;
-}
-.back-btn {
-  position: absolute; left: 8px; width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; border-radius: 50%; transition: background 0.2s;
-  text-decoration: none; color: white;
-}
-.back-btn:active { background: rgba(255,255,255,0.2); }
-.content { flex: 1; overflow-y: auto; padding: 16px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tổng quan năm 2026 - Lịch Việt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #169172;
+      --bg-light: #F5F7FA;
+      --card-bg: #FFFFFF;
+      --text-main: #333333;
+      --text-secondary: #666666;
+      --border-color: #E5E7EB;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --ruby: #EF4444;
+      --sapphire: #3B82F6;
+    }
 
-/* Progress Bar Stats */
-.stats-container {
-  display: flex; flex-direction: column;
-  gap: 16px; padding: 4px 0;
-}
-.stat-item { width: 100%; }
-.stat-label-row {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 6px;
-}
-.stat-label { font-size: 15px; font-weight: 600; color: var(--text-main); }
-.stat-status {
-  font-size: 12px; font-weight: 600;
-  padding: 2px 8px; border-radius: 6px;
-}
-.progress-track {
-  width: 100%; height: 18px; background: #E5E7EB;
-  border-radius: 9px; overflow: hidden; position: relative;
-}
-.progress-fill {
-  height: 100%; border-radius: 9px;
-  display: flex; align-items: center; justify-content: flex-end;
-  padding-right: 8px;
-  font-size: 11px; font-weight: 700; color: white;
-  min-width: 36px;
-  transition: width 0.8s ease-out;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* Card */
-.card {
-  background: var(--card-bg); border-radius: 20px; padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid var(--border-color);
-  margin-bottom: 16px;
-}
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-main);
+    }
 
-/* Tab bar */
-.tab-container {
-  position: sticky;
-  top: -16px;
-  z-index: 10;
-  background: var(--bg-light);
-  padding-top: 16px;
-  margin-top: -16px;
-  margin-bottom: 12px;
-}
-.tab-scroll-wrap {
-  overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-  -ms-overflow-style: none; padding-bottom: 4px;
-  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-  mask-image: linear-gradient(to right, black 85%, transparent 100%);
-}
-.tab-scroll-wrap::-webkit-scrollbar { display: none; }
-.tab-bar {
-  display: inline-flex; gap: 10px; padding: 4px 0;
-  padding-right: 32px;
-}
-.tab-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 18px; border-radius: 24px;
-  font-size: 15px; font-weight: 500; cursor: pointer; border: none;
-  white-space: nowrap; transition: all 0.2s;
-  background: var(--card-bg); color: var(--text-secondary);
-  border: 1.5px solid var(--border-color);
-}
-.tab-icon {
-  font-size: 18px; filter: grayscale(100%) opacity(0.6); transition: all 0.2s;
-}
-.tab-btn.active .tab-icon { filter: none; }
-.tab-btn.active {
-  background: var(--primary); color: white; border-color: var(--primary);
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgba(22, 145, 114, 0.2);
-}
-.scroll-hint {
-  font-size: 14px; font-weight: 600; color: var(--primary); text-align: right;
-  margin-top: 6px; padding-right: 8px; display: flex;
-  justify-content: flex-end; align-items: center; gap: 4px;
-  animation: bounceHint 2s infinite ease-in-out;
-}
-@keyframes bounceHint {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
-}
+    .phone-mockup {
+      position: relative;
+      width: 414px;
+      height: 896px;
+      background: #1F1F1F;
+      border-radius: 56px;
+      padding: 12px;
+      box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-/* Tab content */
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+    .buttons-left {
+      position: absolute;
+      left: -14px;
+      top: 180px;
+      width: 4px;
+      height: 100px;
+      background: #111;
+      border-radius: 4px 0 0 4px;
+    }
 
-/* Content blocks */
-.content-block {
-  padding: 0 4px; margin-bottom: 24px;
-}
-.block-green { background: transparent; border: none; }
-.block-amber { background: transparent; border: none; }
-.block-blue  { background: transparent; border: none; }
+    .buttons-right {
+      position: absolute;
+      right: -14px;
+      top: 200px;
+      width: 4px;
+      height: 80px;
+      background: #111;
+      border-radius: 0 4px 4px 0;
+    }
 
-.block-header {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 16px; font-weight: 700; margin-bottom: 10px;
-}
-.block-icon { font-size: 20px; }
-.block-body { font-size: 16px; line-height: 1.65; color: var(--text-main); text-align: justify; }
-.block-body ul { padding-left: 18px; }
-.block-body ul li { margin-bottom: 8px; }
-.block-summary {
-  font-size: 16px; line-height: 1.65; color: var(--text-main);
-  background: #f8fafc; border-radius: 12px; padding: 12px; margin-top: 4px;
-}
+    .screen-content {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-light);
+      border-radius: 44px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
 
-/* Placeholder tab */
-.placeholder-tab {
-  text-align: center; padding: 40px 20px; color: var(--text-secondary); font-size: 15px;
-}
+    .status-bar {
+      height: 44px;
+      background-color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px 0 32px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
 
-/* Explore grid */
-.explore-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 20px 8px; margin-top: 16px; padding: 0 4px;
-}
-.explore-item {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center; cursor: pointer;
-}
-.explore-icon-wrapper {
-  width: 60px; height: 60px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 10px;
-  box-shadow: inset 0 -4px 8px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s;
-}
-.explore-item:active .explore-icon-wrapper { transform: scale(0.92); }
-.explore-icon { font-size: 28px; }
-.explore-text { font-size: 13px; font-weight: 500; color: var(--text-main); line-height: 1.4; }
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-.section-title {
-  font-size: 18px; font-weight: 700; margin-bottom: 12px;
-  color: var(--text-main); letter-spacing: -0.2px;
-}
+    .app-bar {
+      background-color: var(--primary);
+      color: white;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      font-size: 17px;
+      font-weight: 500;
+      position: relative;
+    }
 
-@media (max-width: 500px) {
-  body { background: var(--bg-light); display: block; }
-  .phone-mockup { width: 100%; height: 100vh; padding: 0; border-radius: 0; box-shadow: none; background: none; }
-  .screen-content { border-radius: 0; }
-  .status-bar, .buttons-left, .buttons-right { display: none; }
-}
-</style>
+    .back-btn {
+      position: absolute;
+      left: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: white;
+    }
+
+    .back-btn:active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    /* Progress Bar Stats */
+    .stats-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 4px 0;
+    }
+
+    .stat-item {
+      width: 100%;
+    }
+
+    .stat-label-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .stat-status {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 18px;
+      background: #E5E7EB;
+      border-radius: 9px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: white;
+      min-width: 36px;
+      transition: width 0.8s ease-out;
+    }
+
+    /* Card */
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-color);
+      margin-bottom: 16px;
+    }
+
+    /* Tab bar */
+    .tab-container {
+      position: sticky;
+      top: -16px;
+      z-index: 10;
+      background: var(--bg-light);
+      padding-top: 16px;
+      margin-top: -16px;
+      margin-bottom: 12px;
+    }
+
+    .tab-scroll-wrap {
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 4px;
+      -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    }
+
+    .tab-scroll-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-bar {
+      display: inline-flex;
+      gap: 10px;
+      padding: 4px 0;
+      padding-right: 32px;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+      background: var(--card-bg);
+      color: var(--text-secondary);
+      border: 1.5px solid var(--border-color);
+    }
+
+    .tab-icon {
+      font-size: 18px;
+      filter: grayscale(100%) opacity(0.6);
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active .tab-icon {
+      filter: none;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(22, 145, 114, 0.2);
+    }
+
+    .scroll-hint {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: right;
+      margin-top: 6px;
+      padding-right: 8px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+      animation: bounceHint 2s infinite ease-in-out;
+    }
+
+    @keyframes bounceHint {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(6px);
+      }
+    }
+
+    /* Tab content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Content blocks */
+    .content-block {
+      padding: 0 4px;
+      margin-bottom: 24px;
+    }
+
+    .block-green {
+      background: transparent;
+      border: none;
+    }
+
+    .block-amber {
+      background: transparent;
+      border: none;
+    }
+
+    .block-blue {
+      background: transparent;
+      border: none;
+    }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .block-icon {
+      font-size: 20px;
+    }
+
+    .block-body {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-main);
+      text-align: justify;
+    }
+
+    .block-body ul {
+      padding-left: 18px;
+    }
+
+    .block-body ul li {
+      margin-bottom: 8px;
+    }
+
+    .block-summary {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-main);
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 4px;
+    }
+
+    /* Placeholder tab */
+    .placeholder-tab {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    /* Explore grid */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px 8px;
+      margin-top: 16px;
+      padding: 0 4px;
+    }
+
+    .explore-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .explore-icon-wrapper {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .explore-item:active .explore-icon-wrapper {
+      transform: scale(0.92);
+    }
+
+    .explore-icon {
+      font-size: 28px;
+    }
+
+    .explore-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        background: var(--bg-light);
+        display: block;
+      }
+
+      .phone-mockup {
+        width: 100%;
+        height: 100vh;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: none;
+      }
+
+      .screen-content {
+        border-radius: 0;
+      }
+
+      .status-bar,
+      .buttons-left,
+      .buttons-right {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="phone-mockup">
-  <div class="buttons-left"></div>
-  <div class="buttons-right"></div>
-  <div class="screen-content">
-    <!-- Status bar -->
-    <div class="status-bar">
-      <div class="time">10:25</div>
-      <div class="status-icons">
-        <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z"/></svg>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="0.5" y="0.5" width="20" height="11" rx="2.5"/>
-          <path d="M22 4v4" stroke-width="2" stroke-linecap="round"/>
-          <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor"/>
-        </svg>
-      </div>
-    </div>
-    <!-- App bar -->
-    <div class="app-bar">
-      <a class="back-btn" href="destiny_redesign.html">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-      </a>
-      <span>Tổng quan năm 2026</span>
-    </div>
-
-    <!-- Main content -->
-    <div class="content">
-
-      <!-- Khối chỉ số -->
-      <div class="card">
-        <div class="stats-container">
-          <div class="stat-item">
-            <div class="stat-label-row">
-              <span class="stat-label">Tổng quan</span>
-              <span class="stat-status" style="background:#E0F2FE;color:#0369A1">Khá</span>
-            </div>
-            <div class="progress-track"><div class="progress-fill" style="width:65%;background:#0EA5E9">65%</div></div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label-row">
-              <span class="stat-label">Tài lộc</span>
-              <span class="stat-status" style="background:#D1FAE5;color:#065F46">Tốt</span>
-            </div>
-            <div class="progress-track"><div class="progress-fill" style="width:85%;background:#10B981">85%</div></div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label-row">
-              <span class="stat-label">Công việc</span>
-              <span class="stat-status" style="background:#FEF3C7;color:#92400E">Ổn định</span>
-            </div>
-            <div class="progress-track"><div class="progress-fill" style="width:50%;background:#FBC02D">50%</div></div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-label-row">
-              <span class="stat-label">Tình duyên</span>
-              <span class="stat-status" style="background:#FFEDD5;color:#9A3412">Cần lưu ý</span>
-            </div>
-            <div class="progress-track"><div class="progress-fill" style="width:30%;background:#EA580C">30%</div></div>
-          </div>
+  <div class="phone-mockup">
+    <div class="buttons-left"></div>
+    <div class="buttons-right"></div>
+    <div class="screen-content">
+      <!-- Status bar -->
+      <div class="status-bar">
+        <div class="time">10:25</div>
+        <div class="status-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+            <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z" />
+          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+            <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+            <line x1="12" y1="20" x2="12.01" y2="20" />
+          </svg>
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" />
+            <path d="M22 4v4" stroke-width="2" stroke-linecap="round" />
+            <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor" />
+          </svg>
         </div>
       </div>
-
-      <!-- Tab bar -->
-      <div class="tab-container">
-        <div class="tab-scroll-wrap">
-          <div class="tab-bar">
-            <button class="tab-btn active" onclick="switchTab('tongquan')"><span class="tab-icon">🌟</span> Tổng quan vận khí</button>
-            <button class="tab-btn" onclick="switchTab('taiVan')"><span class="tab-icon">💰</span> Tài vận trong năm</button>
-            <button class="tab-btn" onclick="switchTab('congViec')"><span class="tab-icon">💼</span> Công việc trong năm</button>
-            <button class="tab-btn" onclick="switchTab('tinhCam')"><span class="tab-icon">💖</span> Tình cảm trong năm</button>
-            <button class="tab-btn" onclick="switchTab('cungDong')"><span class="tab-icon">⭐</span> Các cung động liên quan</button>
-          </div>
-        </div>
-        <div class="scroll-hint">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
-          Vuốt ngang để xem thêm
-        </div>
+      <!-- App bar -->
+      <div class="app-bar">
+        <a class="back-btn" href="destiny_redesign.html">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </a>
+        <span>Tổng quan năm 2026</span>
       </div>
 
-      <!-- Tab: Tổng quan vận khí -->
-      <div id="tab-tongquan" class="tab-content active">
-        <div style="font-size: 16px; line-height: 1.65; margin-bottom: 16px; color: var(--text-main); text-align: justify; padding: 0 4px;">
-          Năm 2026 là giai đoạn dễ phát sinh nhiều việc ngoài dự tính và khó giữ mọi thứ theo kế hoạch ban đầu. Một số việc quan trọng có thể bị gián đoạn hoặc đổi hướng do tác động từ người khác, kéo theo tình trạng phải xử lý lại hoặc tăng thêm phần việc. Hoàn cảnh chung tạo áp lực liên tục và đòi hỏi phản ứng nhanh trong nhiều tình huống. Tổng thể đây là năm nhiều thử thách và khó giữ nhịp ổn định.
-        </div>
-        <div class="content-block block-green">
-          <div class="block-header">
-            <span class="block-icon">🍀</span>
-            <span style="color:#065f46">Yếu tố thuận lợi trong vận năm</span>
-          </div>
-          <div class="block-body">
-            <ul>
-              <li>Năm 2026 tác động nhiều hướng bước bạn quan sát lại cách xử lý và phản ứng của bản thân, từ đó hình thành góc nhìn thực tế hơn trong các quyết định thường ngày.</li>
-              <li>Nhà cháy thời bật ngờ trong năm trở thành trải nghiệm giúp bạn nhận ra giới hạn của mình, biết cách điều chỉnh hành động và giữ sự chủ động trong các tình huống phức tạp.</li>
-            </ul>
-          </div>
-        </div>
+      <!-- Main content -->
+      <div class="content">
 
-        <div class="content-block block-amber">
-          <div class="block-header">
-            <span class="block-icon">⚠️</span>
-            <span style="color:#92400e">Điểm bất lợi của vận năm</span>
-          </div>
-          <div class="block-body">
-            <ul>
-              <li>Năm 2026 xuất hiện các khóe không dự tính, dẫn đến tình trạng phải xử lý gấp hoặc thay đổi kế hoạch khi chưa sẵn sàng về nguyên lực.</li>
-              <li>Sự chênh lệch giữa các việc cùng lúc có thể khiến tiến trình chung bị ngưng trễ, làm giảm hiệu quả và khó duy trì sự tập trung trong các mục tiêu đầu năm.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="content-block block-blue">
-          <div class="block-header">
-            <span class="block-icon">📋</span>
-            <span style="color:#1e40af">Nhận định khái quát</span>
-          </div>
-          <div class="block-body">
-            <div class="block-summary">
-              Tổng thể năm 2026 cho thấy nhiều hướng phát sinh bất ngờ làm tăng áp lực và khiến kế hoạch bị đổi hướng hoặc giãn đoạn. Đây là năm có tính biến động rõ rệt và đòi hỏi sự thích nghi liên tục. Các phần tiếp theo sẽ phân tích chi tiết hơn từng phương diện để làm rõ cách vận năm ảnh hưởng đến bản thân, quan hệ và sự ổn định chung.
+        <!-- Khối chỉ số -->
+        <div class="card">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px;">
+            <!-- Tổng quan 65% -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
+                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path stroke="#0EA5E9" stroke-width="3.5" fill="none" stroke-dasharray="65, 100"
+                    stroke-linecap="round"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div
+                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
+                  65%</div>
+              </div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Tổng quan</div>
+                <div style="font-size: 13px; color: #0EA5E9; font-weight: 500;">Khá</div>
+              </div>
+            </div>
+            <!-- Tài lộc 85% -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
+                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path stroke="#10B981" stroke-width="3.5" fill="none" stroke-dasharray="85, 100"
+                    stroke-linecap="round"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div
+                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
+                  85%</div>
+              </div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Tài lộc</div>
+                <div style="font-size: 13px; color: #10B981; font-weight: 500;">Tốt</div>
+              </div>
+            </div>
+            <!-- Công việc 50% -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
+                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path stroke="#FBC02D" stroke-width="3.5" fill="none" stroke-dasharray="50, 100"
+                    stroke-linecap="round"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div
+                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
+                  50%</div>
+              </div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Công việc</div>
+                <div style="font-size: 13px; color: #FBC02D; font-weight: 500;">Ổn định</div>
+              </div>
+            </div>
+            <!-- Tình duyên 30% -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
+                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path stroke="#EA580C" stroke-width="3.5" fill="none" stroke-dasharray="30, 100"
+                    stroke-linecap="round"
+                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <div
+                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
+                  30%</div>
+              </div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Tình duyên</div>
+                <div style="font-size: 13px; color: #EA580C; font-weight: 500;">Cần lưu ý</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Tab: Tài vận -->
-      <div id="tab-taiVan" class="tab-content">
-        <div class="content-block block-green">
-          <div class="block-header">
-            <span class="block-icon">💰</span>
-            <span style="color:#065f46">Tài vận trong năm 2026</span>
+        <!-- Tab bar -->
+        <div class="tab-container">
+          <div class="tab-scroll-wrap">
+            <div class="tab-bar">
+              <button class="tab-btn active" onclick="switchTab('tongquan')"><span class="tab-icon">🌟</span> Tổng quan
+                vận khí</button>
+              <button class="tab-btn" onclick="switchTab('taiVan')"><span class="tab-icon">💰</span> Tài vận trong
+                năm</button>
+              <button class="tab-btn" onclick="switchTab('congViec')"><span class="tab-icon">💼</span> Công việc trong
+                năm</button>
+              <button class="tab-btn" onclick="switchTab('tinhCam')"><span class="tab-icon">💖</span> Tình cảm trong
+                năm</button>
+              <button class="tab-btn" onclick="switchTab('cungDong')"><span class="tab-icon">⭐</span> Các cung động liên
+                quan</button>
+            </div>
           </div>
-          <div class="block-body">
-            <ul>
-              <li>Tài lộc năm 2026 nhìn chung ở mức tốt (85%), thuận lợi cho các kế hoạch đầu tư và tích lũy dài hạn.</li>
-              <li>Nửa đầu năm có nhiều cơ hội thu nhập tăng thêm từ các nguồn phụ hoặc cộng tác ngoài.</li>
-              <li>Tháng 6–8 âm lịch là giai đoạn tài vận mạnh nhất, thích hợp ký kết hợp đồng lớn.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="content-block block-amber">
-          <div class="block-header">
-            <span class="block-icon">⚠️</span>
-            <span style="color:#92400e">Lưu ý về tài chính</span>
-          </div>
-          <div class="block-body">
-            <ul>
-              <li>Tránh đầu tư mạo hiểm vào tháng 9–10 âm lịch, giai đoạn dễ phát sinh chi phí bất ngờ.</li>
-              <li>Chú ý các khoản vay mượn với người thân, dễ gây xung đột không đáng có.</li>
-            </ul>
+          <div class="scroll-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+            Vuốt ngang để xem thêm
           </div>
         </div>
-      </div>
 
-      <!-- Tab: Công việc -->
-      <div id="tab-congViec" class="tab-content">
-        <div class="content-block block-blue">
-          <div class="block-header">
-            <span class="block-icon">💼</span>
-            <span style="color:#1e40af">Công việc & Sự nghiệp 2026</span>
+        <!-- Tab: Tổng quan vận khí -->
+        <div id="tab-tongquan" class="tab-content active">
+          <div
+            style="font-size: 16px; line-height: 1.65; margin-bottom: 16px; color: var(--text-main); text-align: justify; padding: 0 4px;">
+            Năm 2026 là giai đoạn dễ phát sinh nhiều việc ngoài dự tính và khó giữ mọi thứ theo kế hoạch ban đầu. Một số
+            việc quan trọng có thể bị gián đoạn hoặc đổi hướng do tác động từ người khác, kéo theo tình trạng phải xử lý
+            lại hoặc tăng thêm phần việc. Hoàn cảnh chung tạo áp lực liên tục và đòi hỏi phản ứng nhanh trong nhiều tình
+            huống. Tổng thể đây là năm nhiều thử thách và khó giữ nhịp ổn định.
           </div>
-          <div class="block-body">
-            <ul>
-              <li>Chỉ số công việc ở mức ổn định (50%), phù hợp để củng cố vị trí hơn là mở rộng đột phá.</li>
-              <li>Môi trường làm việc có thể thay đổi: chuyển bộ phận, thay lãnh đạo hoặc thay đổi nhiệm vụ.</li>
-              <li>Cơ hội thăng tiến xuất hiện vào quý II nếu biết chủ động thể hiện năng lực.</li>
-            </ul>
+          <div class="content-block block-green">
+            <div class="block-header">
+              <span class="block-icon">🍀</span>
+              <span style="color:#065f46">Yếu tố thuận lợi trong vận năm</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Năm 2026 tác động nhiều hướng bước bạn quan sát lại cách xử lý và phản ứng của bản thân, từ đó hình
+                  thành góc nhìn thực tế hơn trong các quyết định thường ngày.</li>
+                <li>Nhà cháy thời bật ngờ trong năm trở thành trải nghiệm giúp bạn nhận ra giới hạn của mình, biết cách
+                  điều chỉnh hành động và giữ sự chủ động trong các tình huống phức tạp.</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div class="content-block block-amber">
-          <div class="block-header">
-            <span class="block-icon">⚠️</span>
-            <span style="color:#92400e">Điểm cần lưu ý</span>
-          </div>
-          <div class="block-body">
-            <ul>
-              <li>Cần cẩn thận trong các mối quan hệ đồng nghiệp, tránh để thị phi ảnh hưởng tiêu cực.</li>
-              <li>Tháng 9 âm lịch dễ gặp trở ngại trong công việc, cần kiên nhẫn và linh hoạt ứng phó.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
-      <!-- Tab: Tình cảm -->
-      <div id="tab-tinhCam" class="tab-content">
-        <div class="content-block">
-          <div class="block-header">
-            <span class="block-icon">💖</span>
-            <span style="color:#9d174d">Tình cảm & Hôn nhân 2026</span>
+          <div class="content-block block-amber">
+            <div class="block-header">
+              <span class="block-icon">⚠️</span>
+              <span style="color:#92400e">Điểm bất lợi của vận năm</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Năm 2026 xuất hiện các khóe không dự tính, dẫn đến tình trạng phải xử lý gấp hoặc thay đổi kế hoạch
+                  khi chưa sẵn sàng về nguyên lực.</li>
+                <li>Sự chênh lệch giữa các việc cùng lúc có thể khiến tiến trình chung bị ngưng trễ, làm giảm hiệu quả
+                  và khó duy trì sự tập trung trong các mục tiêu đầu năm.</li>
+              </ul>
+            </div>
           </div>
-          <div class="block-body">
-            <ul>
-              <li>Chỉ số tình duyên năm nay ở mức thấp (30%), đây là năm cần đặc biệt chú ý trong các mối quan hệ tình cảm.</li>
-              <li>Người độc thân khó gặp duyên mới, nên tập trung vào phát triển bản thân.</li>
-              <li>Người có đôi cần chú ý giao tiếp, tránh hiểu lầm không đáng có dẫn đến rạn nứt.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="content-block block-green">
-          <div class="block-header">
-            <span class="block-icon">🌱</span>
-            <span style="color:#065f46">Lời khuyên về tình cảm</span>
-          </div>
-          <div class="block-body">
-            <div class="block-summary">
-              Ưu tiên xây dựng sự tin tưởng và thấu hiểu trong các mối quan hệ hiện tại. Năm 2026 thích hợp để vun đắp tình cảm sâu sắc hơn là tìm kiếm mới.
+
+          <div class="content-block block-blue">
+            <div class="block-header">
+              <span class="block-icon">📋</span>
+              <span style="color:#1e40af">Nhận định khái quát</span>
+            </div>
+            <div class="block-body">
+              <div class="block-summary">
+                Tổng thể năm 2026 cho thấy nhiều hướng phát sinh bất ngờ làm tăng áp lực và khiến kế hoạch bị đổi hướng
+                hoặc giãn đoạn. Đây là năm có tính biến động rõ rệt và đòi hỏi sự thích nghi liên tục. Các phần tiếp
+                theo sẽ phân tích chi tiết hơn từng phương diện để làm rõ cách vận năm ảnh hưởng đến bản thân, quan hệ
+                và sự ổn định chung.
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Tab: Cung động -->
-      <div id="tab-cungDong" class="tab-content">
-        <div class="content-block block-blue">
-          <div class="block-header">
-            <span class="block-icon">⭐</span>
-            <span style="color:#1e40af">Các cung động liên quan năm 2026</span>
+        <!-- Tab: Tài vận -->
+        <div id="tab-taiVan" class="tab-content">
+          <div class="content-block block-green">
+            <div class="block-header">
+              <span class="block-icon">💰</span>
+              <span style="color:#065f46">Tài vận trong năm 2026</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Tài lộc năm 2026 nhìn chung ở mức tốt (85%), thuận lợi cho các kế hoạch đầu tư và tích lũy dài hạn.
+                </li>
+                <li>Nửa đầu năm có nhiều cơ hội thu nhập tăng thêm từ các nguồn phụ hoặc cộng tác ngoài.</li>
+                <li>Tháng 6–8 âm lịch là giai đoạn tài vận mạnh nhất, thích hợp ký kết hợp đồng lớn.</li>
+              </ul>
+            </div>
           </div>
-          <div class="block-body">
-            <ul>
-              <li><strong>Thiên Đồng</strong> — Cung mệnh: Mang lại sự bình an và ổn định tinh thần trong giai đoạn biến động.</li>
-              <li><strong>Thái Âm</strong> — Cung tài: Hỗ trợ tài lộc, đặc biệt trong các giao dịch liên quan đến bất động sản.</li>
-              <li><strong>Thiên Cơ</strong> — Cung quan: Ảnh hưởng đến sự nghiệp, tạo ra nhiều thay đổi trong môi trường làm việc.</li>
-              <li><strong>Cự Môn</strong> — Cung phu thê: Cần thận trọng trong lời nói và giao tiếp để tránh xung đột.</li>
-            </ul>
+          <div class="content-block block-amber">
+            <div class="block-header">
+              <span class="block-icon">⚠️</span>
+              <span style="color:#92400e">Lưu ý về tài chính</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Tránh đầu tư mạo hiểm vào tháng 9–10 âm lịch, giai đoạn dễ phát sinh chi phí bất ngờ.</li>
+                <li>Chú ý các khoản vay mượn với người thân, dễ gây xung đột không đáng có.</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Khám phá thêm -->
-      <div class="section-title" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border-color);">Khám phá thêm</div>
-      <div class="explore-grid" style="margin-bottom:16px;">
-        <div class="explore-item">
-          <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#2E8AFA,#0050D1)">
-            <span class="explore-icon">🌟</span>
+        <!-- Tab: Công việc -->
+        <div id="tab-congViec" class="tab-content">
+          <div class="content-block block-blue">
+            <div class="block-header">
+              <span class="block-icon">💼</span>
+              <span style="color:#1e40af">Công việc & Sự nghiệp 2026</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Chỉ số công việc ở mức ổn định (50%), phù hợp để củng cố vị trí hơn là mở rộng đột phá.</li>
+                <li>Môi trường làm việc có thể thay đổi: chuyển bộ phận, thay lãnh đạo hoặc thay đổi nhiệm vụ.</li>
+                <li>Cơ hội thăng tiến xuất hiện vào quý II nếu biết chủ động thể hiện năng lực.</li>
+              </ul>
+            </div>
           </div>
-          <div class="explore-text">Vận hạn<br>năm 2026</div>
-        </div>
-        <div class="explore-item">
-          <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#FFDF63,#F5A623)">
-            <span class="explore-icon">☯️</span>
+          <div class="content-block block-amber">
+            <div class="block-header">
+              <span class="block-icon">⚠️</span>
+              <span style="color:#92400e">Điểm cần lưu ý</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Cần cẩn thận trong các mối quan hệ đồng nghiệp, tránh để thị phi ảnh hưởng tiêu cực.</li>
+                <li>Tháng 9 âm lịch dễ gặp trở ngại trong công việc, cần kiên nhẫn và linh hoạt ứng phó.</li>
+              </ul>
+            </div>
           </div>
-          <div class="explore-text">Tử vi<br>Tổng quan</div>
         </div>
-        <div class="explore-item">
-          <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#B270FA,#6118D6)">
-            <span class="explore-icon">🐖</span>
+
+        <!-- Tab: Tình cảm -->
+        <div id="tab-tinhCam" class="tab-content">
+          <div class="content-block">
+            <div class="block-header">
+              <span class="block-icon">💖</span>
+              <span style="color:#9d174d">Tình cảm & Hôn nhân 2026</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Chỉ số tình duyên năm nay ở mức thấp (30%), đây là năm cần đặc biệt chú ý trong các mối quan hệ tình
+                  cảm.</li>
+                <li>Người độc thân khó gặp duyên mới, nên tập trung vào phát triển bản thân.</li>
+                <li>Người có đôi cần chú ý giao tiếp, tránh hiểu lầm không đáng có dẫn đến rạn nứt.</li>
+              </ul>
+            </div>
           </div>
-          <div class="explore-text">Tài chính &<br>Đầu tư</div>
-        </div>
-        <div class="explore-item">
-          <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#42C4F7,#0CA1EB)">
-            <span class="explore-icon">💼</span>
+          <div class="content-block block-green">
+            <div class="block-header">
+              <span class="block-icon">🌱</span>
+              <span style="color:#065f46">Lời khuyên về tình cảm</span>
+            </div>
+            <div class="block-body">
+              <div class="block-summary">
+                Ưu tiên xây dựng sự tin tưởng và thấu hiểu trong các mối quan hệ hiện tại. Năm 2026 thích hợp để vun đắp
+                tình cảm sâu sắc hơn là tìm kiếm mới.
+              </div>
+            </div>
           </div>
-          <div class="explore-text">Nghề nghiệp &<br>Sự nghiệp</div>
         </div>
-        <div class="explore-item">
-          <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#FF9EBB,#F54C83)">
-            <span class="explore-icon">💖</span>
+
+        <!-- Tab: Cung động -->
+        <div id="tab-cungDong" class="tab-content">
+          <div class="content-block block-blue">
+            <div class="block-header">
+              <span class="block-icon">⭐</span>
+              <span style="color:#1e40af">Các cung động liên quan năm 2026</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li><strong>Thiên Đồng</strong> — Cung mệnh: Mang lại sự bình an và ổn định tinh thần trong giai đoạn
+                  biến động.</li>
+                <li><strong>Thái Âm</strong> — Cung tài: Hỗ trợ tài lộc, đặc biệt trong các giao dịch liên quan đến bất
+                  động sản.</li>
+                <li><strong>Thiên Cơ</strong> — Cung quan: Ảnh hưởng đến sự nghiệp, tạo ra nhiều thay đổi trong môi
+                  trường làm việc.</li>
+                <li><strong>Cự Môn</strong> — Cung phu thê: Cần thận trọng trong lời nói và giao tiếp để tránh xung đột.
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="explore-text">Tư vấn<br>Tình duyên</div>
         </div>
-        <div class="explore-item">
-          <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#FFDE4B,#FF891C)">
-            <span class="explore-icon">📜</span>
+
+        <!-- Khám phá thêm -->
+        <div class="section-title" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border-color);">
+          Khám phá thêm</div>
+        <div class="explore-grid" style="margin-bottom:16px;">
+          <div class="explore-item">
+            <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#2E8AFA,#0050D1)">
+              <span class="explore-icon">🌟</span>
+            </div>
+            <div class="explore-text">Vận hạn<br>năm 2026</div>
           </div>
-          <div class="explore-text">Lá số<br>Tử vi</div>
+          <div class="explore-item">
+            <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#FFDF63,#F5A623)">
+              <span class="explore-icon">☯️</span>
+            </div>
+            <div class="explore-text">Tử vi<br>Tổng quan</div>
+          </div>
+          <div class="explore-item">
+            <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#B270FA,#6118D6)">
+              <span class="explore-icon">🐖</span>
+            </div>
+            <div class="explore-text">Tài chính &<br>Đầu tư</div>
+          </div>
+          <div class="explore-item">
+            <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#42C4F7,#0CA1EB)">
+              <span class="explore-icon">💼</span>
+            </div>
+            <div class="explore-text">Nghề nghiệp &<br>Sự nghiệp</div>
+          </div>
+          <div class="explore-item">
+            <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#FF9EBB,#F54C83)">
+              <span class="explore-icon">💖</span>
+            </div>
+            <div class="explore-text">Tư vấn<br>Tình duyên</div>
+          </div>
+          <div class="explore-item">
+            <div class="explore-icon-wrapper" style="background:linear-gradient(135deg,#FFDE4B,#FF891C)">
+              <span class="explore-icon">📜</span>
+            </div>
+            <div class="explore-text">Lá số<br>Tử vi</div>
+          </div>
         </div>
+        <div style="height:32px;"></div>
       </div>
-      <div style="height:32px;"></div>
     </div>
   </div>
-</div>
 
-<script>
-function switchTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + tabId).classList.add('active');
-  event.currentTarget.classList.add('active');
-}
-</script>
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
 </body>
+
 </html>
