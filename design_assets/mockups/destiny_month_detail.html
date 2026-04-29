@@ -468,20 +468,124 @@
                 <span class="title">Vận hạn 12 tháng âm lịch 2026</span>
             </div>
 
-            <div class="month-tabs-container">
-                <div class="month-tabs-scroll" id="monthScroll">
-                    <div class="month-tab">Tháng 1</div>
-                    <div class="month-tab">Tháng 2</div>
-                    <div class="month-tab">Tháng 3</div>
-                    <div class="month-tab active" id="currentMonthTab">Tháng 4</div>
-                    <div class="month-tab">Tháng 5</div>
-                    <div class="month-tab">Tháng 6</div>
-                    <div class="month-tab">Tháng 7</div>
-                    <div class="month-tab">Tháng 8</div>
-                    <div class="month-tab">Tháng 9</div>
-                    <div class="month-tab">Tháng 10</div>
-                    <div class="month-tab">Tháng 11</div>
-                    <div class="month-tab">Tháng 12</div>
+            <div class="month-tabs-container" style="padding-bottom: 16px;">
+                <div id="monthPillsScroll"
+                    style="overflow-x: auto; padding: 12px 20px 8px; scrollbar-width: none; -ms-overflow-style: none;">
+                    <style>
+                        .month-pills::-webkit-scrollbar {
+                            display: none;
+                        }
+                        .month-pill-card {
+                            width: 84px;
+                            height: 84px;
+                            box-sizing: border-box;
+                            padding-top: 14px; 
+                            display: flex; 
+                            flex-direction: column; 
+                            align-items: center;
+                            justify-content: flex-start; 
+                            gap: 2px; 
+                            background: var(--card-bg); 
+                            border: 2px solid var(--border-color); 
+                            border-radius: 50%; 
+                            cursor: pointer;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+                            transition: all 0.2s ease;
+                            position: relative;
+                            flex-shrink: 0;
+                        }
+                        .month-pill-card:active {
+                            transform: scale(0.92);
+                            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+                            background: #F8FAFC;
+                        }
+                        .month-pill-active {
+                            width: 92px;
+                            height: 92px;
+                            box-sizing: border-box;
+                            padding-top: 16px; 
+                            display: flex; 
+                            flex-direction: column; 
+                            align-items: center; 
+                            justify-content: flex-start;
+                            gap: 2px; 
+                            background: var(--primary); 
+                            border: 2px solid var(--primary); 
+                            border-radius: 50%; 
+                            cursor: pointer; 
+                            box-shadow: 0 4px 10px rgba(22, 145, 114, 0.3);
+                            transition: all 0.2s ease;
+                            position: relative;
+                            flex-shrink: 0;
+                        }
+                        .month-pill-active:active {
+                            transform: scale(0.95);
+                            box-shadow: 0 2px 5px rgba(22, 145, 114, 0.2);
+                        }
+                    </style>
+                    <div class="month-pills"
+                        style="display: flex; gap: 12px; min-width: min-content; align-items: center;">
+                        <div onclick="window.location.href='destiny_month_detail.html?month=1'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">1</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★<span style="color: #CBD5E1;">★★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=2'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">2</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★★<span style="color: #CBD5E1;">★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=3'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">3</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★<span style="color: #CBD5E1;">★★</span></span>
+                        </div>
+                        <div id="activeMonthPill" onclick="window.location.href='destiny_month_detail.html?month=4'" class="month-pill-active">
+                            <span style="font-size: 11px; color: rgba(255,255,255,0.9); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 24px; font-weight: 700; color: white; line-height: 1.1;">4</span>
+                            <span style="color: #FDE047; font-size: 9px;">★★★★<span style="color: rgba(255,255,255,0.4);">★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=5'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">5</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★<span style="color: #CBD5E1;">★★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=6'" class="month-pill-card" style="border-color: rgba(16, 185, 129, 0.4);">
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: #065F46; line-height: 1.1;">6</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★★★</span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=7'" class="month-pill-card" style="border-color: rgba(16, 185, 129, 0.4);">
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: #065F46; line-height: 1.1;">7</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★★★</span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=8'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">8</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★<span style="color: #CBD5E1;">★★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=9'" class="month-pill-card" style="border-color: rgba(239, 68, 68, 0.4);">
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: #991B1B; line-height: 1.1;">9</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★<span style="color: #CBD5E1;">★★★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=10'" class="month-pill-card" style="border-color: rgba(239, 68, 68, 0.4);">
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: #991B1B; line-height: 1.1;">10</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★<span style="color: #CBD5E1;">★★★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=11'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">11</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★<span style="color: #CBD5E1;">★★</span></span>
+                        </div>
+                        <div onclick="window.location.href='destiny_month_detail.html?month=12'" class="month-pill-card" >
+                            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500;">Tháng</span>
+                            <span style="font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1.1;">12</span>
+                            <span style="color: #FBC02D; font-size: 9px;">★★★★<span style="color: #CBD5E1;">★</span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -491,11 +595,7 @@
                     <div class="month-status-badge">Tháng tốt nhất</div>
                     <div class="month-hero-title">Tháng 4 âm lịch</div>
                     <div class="month-hero-date">17/05 - 14/06/2026 dương lịch</div>
-                    <div class="star-rating">
-                        <div class="stars">
-                            ★★★★<span style="color: #CBD5E1;">★</span>
-                        </div>
-                    </div>
+
                     <div
                         style="font-size: 16px; color: var(--text-main); font-weight: 400; line-height: 1.5; margin-bottom: 16px;">
                         Tháng này khá thuận lợi, dễ gặp quý nhân và có cơ hội tốt về tài lộc.</div>
@@ -619,24 +719,13 @@
     <script>
         // Scroll the active tab into view to center it
         window.addEventListener('DOMContentLoaded', () => {
-            const currentTab = document.getElementById('currentMonthTab');
-            const scrollContainer = document.getElementById('monthScroll');
+            const currentTab = document.getElementById('activeMonthPill');
 
-            if (currentTab && scrollContainer) {
+            if (currentTab) {
                 setTimeout(() => {
                     currentTab.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
                 }, 50);
             }
-
-            // Make all tabs clickable to update active style
-            const tabs = document.querySelectorAll('.month-tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function () {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                });
-            });
         });
     </script>
 </body>
