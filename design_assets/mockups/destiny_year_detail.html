@@ -232,9 +232,11 @@
 
     .tab-btn {
       display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 2px;
+      padding: 8px 16px 12px;
       border-radius: 20px;
       font-size: 14px;
       font-weight: 600;
@@ -245,10 +247,7 @@
       background: var(--card-bg);
       color: var(--text-main);
       border: 1.5px solid var(--border-color);
-      width: 120px;
-      height: 56px;
       flex-shrink: 0;
-      justify-content: center;
     }
 
     .tab-icon {
@@ -261,7 +260,7 @@
     }
 
     .tab-btn.active {
-      width: 140px;
+      padding: 8px 24px 12px;
       background: var(--primary);
       color: white;
       border-color: var(--primary);
@@ -497,29 +496,25 @@
         <div class="tab-container">
           <div class="tab-scroll-wrap">
             <div class="tab-bar">
-              <button class="tab-btn active" onclick="switchTab('tongquan')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">🌟</span> <span style="overflow: hidden; text-overflow: ellipsis;">Tổng quan</span></div>
+              <button class="tab-btn active" onclick="switchTab('tongquan')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">🌟</span> <span>Tổng quan</span></div>
                 <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Khá · 65%</div>
               </button>
-              <button class="tab-btn" onclick="switchTab('taiVan')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">💰</span> <span style="overflow: hidden; text-overflow: ellipsis;">Tài lộc</span></div>
+              <button class="tab-btn" onclick="switchTab('taiVan')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">💰</span> <span>Tài lộc</span></div>
                 <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 85%</div>
               </button>
-              <button class="tab-btn" onclick="switchTab('congViec')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">💼</span> <span style="overflow: hidden; text-overflow: ellipsis;">Công việc</span></div>
+              <button class="tab-btn" onclick="switchTab('congViec')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">💼</span> <span>Công việc</span></div>
                 <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Ổn định · 50%</div>
               </button>
-              <button class="tab-btn" onclick="switchTab('tinhCam')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">💖</span> <span style="overflow: hidden; text-overflow: ellipsis;">Tình duyên</span></div>
+              <button class="tab-btn" onclick="switchTab('tinhCam')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">💖</span> <span>Tình duyên</span></div>
                 <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Cần lưu ý · 30%</div>
               </button>
-              <button class="tab-btn" onclick="switchTab('cungDong')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">⭐</span> <span style="overflow: hidden; text-overflow: ellipsis;">Cung động liên quan</span></div>
-                <div style="font-size: 12px; padding: 0; opacity: 0; pointer-events: none;">-</div>
-              </button>
-              <button class="tab-btn" onclick="switchTab('vanHanKhac')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
-                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">🔮</span> <span style="overflow: hidden; text-overflow: ellipsis;">Các vận hạn khác</span></div>
-                <div style="font-size: 12px; padding: 0; opacity: 0; pointer-events: none;">-</div>
+              <button class="tab-btn" onclick="switchTab('cungDong')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">🔮</span> <span>Các vận hạn khác</span></div>
+                <div style="font-size: 12px; padding: 0; opacity: 0; pointer-events: none; margin-top: -14px;">-</div>
               </button>
             </div>
           </div>
@@ -724,30 +719,6 @@
           </div>
         </div>
 
-        <!-- Tab: Các vận hạn khác -->
-        <div id="tab-vanHanKhac" class="tab-content">
-          <div style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
-            <div style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
-              Tổng kết nhanh
-            </div>
-            <div style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
-              Cần chú ý phương diện sức khỏe và hạn đi lại trong những tháng giữa năm.
-            </div>
-          </div>
-          <div class="content-block block-amber">
-            <div class="block-header">
-              <span class="block-icon">⚠️</span>
-              <span style="color:#92400e">Chi tiết các hạn phụ</span>
-            </div>
-            <div class="block-body">
-              <ul>
-                <li><strong>Hạn sức khỏe:</strong> Đề phòng các bệnh về đường tiêu hóa và suy nhược do áp lực công việc.</li>
-                <li><strong>Hạn đi lại:</strong> Tháng 7 âm lịch hạn chế xuất hành đi xa hoặc tham gia các hoạt động mạo hiểm.</li>
-                <li><strong>Cách hóa giải:</strong> Giữ tâm lý bình ổn, nên dành thời gian nghỉ ngơi và có kế hoạch phòng ngừa rủi ro.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
 
         <!-- Khám phá thêm -->
         <div class="section-title" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--border-color);">
