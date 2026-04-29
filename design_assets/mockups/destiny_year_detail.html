@@ -217,8 +217,6 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       padding-bottom: 4px;
-      -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-      mask-image: linear-gradient(to right, black 85%, transparent 100%);
     }
 
     .tab-scroll-wrap::-webkit-scrollbar {
@@ -236,30 +234,34 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
-      border-radius: 24px;
-      font-size: 15px;
-      font-weight: 500;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       border: none;
       white-space: nowrap;
       transition: all 0.2s;
       background: var(--card-bg);
-      color: var(--text-secondary);
+      color: var(--text-main);
       border: 1.5px solid var(--border-color);
+      width: 120px;
+      height: 56px;
+      flex-shrink: 0;
+      justify-content: center;
     }
 
     .tab-icon {
       font-size: 18px;
-      filter: grayscale(100%) opacity(0.6);
       transition: all 0.2s;
     }
 
     .tab-btn.active .tab-icon {
-      filter: none;
+      transform: scale(1.1);
     }
 
     .tab-btn.active {
+      width: 140px;
       background: var(--primary);
       color: white;
       border-color: var(--primary);
@@ -489,118 +491,53 @@
       <!-- Main content -->
       <div class="content">
 
-        <!-- Khối chỉ số -->
-        <div class="card">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px 12px;">
-            <!-- Tổng quan 65% -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
-                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
-                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path stroke="#0EA5E9" stroke-width="3.5" fill="none" stroke-dasharray="65, 100"
-                    stroke-linecap="round"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <div
-                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
-                  65%</div>
-              </div>
-              <div>
-                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Tổng quan</div>
-                <div style="font-size: 13px; color: #0EA5E9; font-weight: 500;">Khá</div>
-              </div>
-            </div>
-            <!-- Tài lộc 85% -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
-                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
-                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path stroke="#10B981" stroke-width="3.5" fill="none" stroke-dasharray="85, 100"
-                    stroke-linecap="round"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <div
-                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
-                  85%</div>
-              </div>
-              <div>
-                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Tài lộc</div>
-                <div style="font-size: 13px; color: #10B981; font-weight: 500;">Tốt</div>
-              </div>
-            </div>
-            <!-- Công việc 50% -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
-                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
-                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path stroke="#FBC02D" stroke-width="3.5" fill="none" stroke-dasharray="50, 100"
-                    stroke-linecap="round"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <div
-                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
-                  50%</div>
-              </div>
-              <div>
-                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Công việc</div>
-                <div style="font-size: 13px; color: #FBC02D; font-weight: 500;">Ổn định</div>
-              </div>
-            </div>
-            <!-- Tình duyên 30% -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="position: relative; width: 56px; height: 56px; flex-shrink: 0;">
-                <svg viewBox="0 0 36 36" style="width: 100%; height: 100%; transform: rotate(-90deg);">
-                  <path stroke="#E5E7EB" stroke-width="3.5" fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path stroke="#EA580C" stroke-width="3.5" fill="none" stroke-dasharray="30, 100"
-                    stroke-linecap="round"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <div
-                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 13px; font-weight: 700; color: var(--text-main);">
-                  30%</div>
-              </div>
-              <div>
-                <div style="font-size: 14px; font-weight: 700; color: var(--text-main);">Tình duyên</div>
-                <div style="font-size: 13px; color: #EA580C; font-weight: 500;">Cần lưu ý</div>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
         <!-- Tab bar -->
         <div class="tab-container">
           <div class="tab-scroll-wrap">
             <div class="tab-bar">
-              <button class="tab-btn active" onclick="switchTab('tongquan')"><span class="tab-icon">🌟</span> Tổng quan
-                vận khí</button>
-              <button class="tab-btn" onclick="switchTab('taiVan')"><span class="tab-icon">💰</span> Tài vận trong
-                năm</button>
-              <button class="tab-btn" onclick="switchTab('congViec')"><span class="tab-icon">💼</span> Công việc trong
-                năm</button>
-              <button class="tab-btn" onclick="switchTab('tinhCam')"><span class="tab-icon">💖</span> Tình cảm trong
-                năm</button>
-              <button class="tab-btn" onclick="switchTab('cungDong')"><span class="tab-icon">⭐</span> Các cung động liên
-                quan</button>
+              <button class="tab-btn active" onclick="switchTab('tongquan')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">🌟</span> <span style="overflow: hidden; text-overflow: ellipsis;">Tổng quan</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Khá · 65%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('taiVan')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">💰</span> <span style="overflow: hidden; text-overflow: ellipsis;">Tài lộc</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 85%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('congViec')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">💼</span> <span style="overflow: hidden; text-overflow: ellipsis;">Công việc</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Ổn định · 50%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('tinhCam')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">💖</span> <span style="overflow: hidden; text-overflow: ellipsis;">Tình duyên</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Cần lưu ý · 30%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('cungDong')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">⭐</span> <span style="overflow: hidden; text-overflow: ellipsis;">Cung động liên quan</span></div>
+                <div style="font-size: 12px; padding: 0; opacity: 0; pointer-events: none;">-</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('vanHanKhac')" style="flex-direction: column; align-items: flex-start; gap: 2px;">
+                <div style="display: flex; align-items: center; gap: 6px; max-width: 100%; overflow: hidden;"><span class="tab-icon" style="flex-shrink: 0;">🔮</span> <span style="overflow: hidden; text-overflow: ellipsis;">Các vận hạn khác</span></div>
+                <div style="font-size: 12px; padding: 0; opacity: 0; pointer-events: none;">-</div>
+              </button>
             </div>
           </div>
-          <div class="scroll-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-            Vuốt ngang để xem thêm
-          </div>
+
         </div>
 
         <!-- Tab: Tổng quan vận khí -->
         <div id="tab-tongquan" class="tab-content active">
+          <div style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
+              Tổng kết nhanh
+            </div>
+            <div style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
+              Năm nay nhìn chung khá bình yên, có nhiều cơ hội phát triển bản thân.
+            </div>
+          </div>
           <div
-            style="font-size: 16px; line-height: 1.65; margin-bottom: 16px; color: var(--text-main); text-align: justify; padding: 0 4px;">
+            style="font-size: 16px; line-height: 1.65; margin-bottom: 16px; color: var(--text-secondary); text-align: justify; padding: 0 4px;">
             Năm 2026 là giai đoạn dễ phát sinh nhiều việc ngoài dự tính và khó giữ mọi thứ theo kế hoạch ban đầu. Một số
             việc quan trọng có thể bị gián đoạn hoặc đổi hướng do tác động từ người khác, kéo theo tình trạng phải xử lý
             lại hoặc tăng thêm phần việc. Hoàn cảnh chung tạo áp lực liên tục và đòi hỏi phản ứng nhanh trong nhiều tình
@@ -654,6 +591,14 @@
 
         <!-- Tab: Tài vận -->
         <div id="tab-taiVan" class="tab-content">
+          <div style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
+              Tổng kết nhanh
+            </div>
+            <div style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
+              Tài lộc dồi dào, thuận lợi cho việc đầu tư và kinh doanh sinh lời.
+            </div>
+          </div>
           <div class="content-block block-green">
             <div class="block-header">
               <span class="block-icon">💰</span>
@@ -684,6 +629,14 @@
 
         <!-- Tab: Công việc -->
         <div id="tab-congViec" class="tab-content">
+          <div style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
+              Tổng kết nhanh
+            </div>
+            <div style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
+              Công việc ổn định, có chút thử thách nhưng sẽ vượt qua dễ dàng.
+            </div>
+          </div>
           <div class="content-block block-blue">
             <div class="block-header">
               <span class="block-icon">💼</span>
@@ -713,6 +666,14 @@
 
         <!-- Tab: Tình cảm -->
         <div id="tab-tinhCam" class="tab-content">
+          <div style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
+              Tổng kết nhanh
+            </div>
+            <div style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
+              Tình duyên cần sự nhẫn nại, tránh xung đột không đáng có.
+            </div>
+          </div>
           <div class="content-block">
             <div class="block-header">
               <span class="block-icon">💖</span>
@@ -758,6 +719,31 @@
                   trường làm việc.</li>
                 <li><strong>Cự Môn</strong> — Cung phu thê: Cần thận trọng trong lời nói và giao tiếp để tránh xung đột.
                 </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Các vận hạn khác -->
+        <div id="tab-vanHanKhac" class="tab-content">
+          <div style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
+              Tổng kết nhanh
+            </div>
+            <div style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
+              Cần chú ý phương diện sức khỏe và hạn đi lại trong những tháng giữa năm.
+            </div>
+          </div>
+          <div class="content-block block-amber">
+            <div class="block-header">
+              <span class="block-icon">⚠️</span>
+              <span style="color:#92400e">Chi tiết các hạn phụ</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li><strong>Hạn sức khỏe:</strong> Đề phòng các bệnh về đường tiêu hóa và suy nhược do áp lực công việc.</li>
+                <li><strong>Hạn đi lại:</strong> Tháng 7 âm lịch hạn chế xuất hành đi xa hoặc tham gia các hoạt động mạo hiểm.</li>
+                <li><strong>Cách hóa giải:</strong> Giữ tâm lý bình ổn, nên dành thời gian nghỉ ngơi và có kế hoạch phòng ngừa rủi ro.</li>
               </ul>
             </div>
           </div>
