@@ -1154,12 +1154,14 @@
             </div>
         </div>
         <script>
-            // Center active month pill on load
+            // Center active month pill horizontally on load without jumping page
             window.addEventListener('DOMContentLoaded', function () {
+                const container = document.getElementById('monthPillsScroll');
                 const activePill = document.getElementById('activeMonthPill');
-                if (activePill) {
+                if (container && activePill) {
                     setTimeout(() => {
-                        activePill.scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+                        const scrollLeft = activePill.offsetLeft - (container.clientWidth / 2) + (activePill.clientWidth / 2);
+                        container.scrollTo({ left: scrollLeft, behavior: 'auto' });
                     }, 50);
                 }
             });
