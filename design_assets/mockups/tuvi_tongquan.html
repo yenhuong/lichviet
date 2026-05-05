@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destiny Redesign - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #169172;
+            /* Lịch Việt Main Color */
+            --bg-light: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --emerald: #10B981;
+            --amber: #F59E0B;
+            --sapphire: #3B82F6;
+            --ruby: #EF4444;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Mobile Device Mockup */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow:
+                0 0 0 2px #333,
+                0 20px 50px rgba(0, 0, 0, 0.2),
+                0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Side Buttons */
+        .phone-mockup::before,
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            background: #222;
+            border-radius: 2px;
+        }
+
+        /* Volume & Power Buttons */
+        .buttons-left {
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 100px;
+            background: #111;
+            border-radius: 4px 0 0 4px;
+            box-shadow: -1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .buttons-right {
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 80px;
+            background: #111;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Status Bar Icons Area */
+        .status-bar {
+            height: 44px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            z-index: 101;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hide Mockup on real Mobile */
+        @media (max-width: 500px) {
+            body {
+                background: var(--bg-light);
+                display: block;
+            }
+
+            .phone-mockup {
+                width: 100%;
+                height: 100vh;
+                padding: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: none;
+            }
+
+            .screen-content {
+                border-radius: 0;
+            }
+
+            .status-bar,
+            .buttons-left,
+            .buttons-right {
+                display: none;
+            }
+        }
+
+        /* App Bar */
+        .app-bar {
+            background-color: var(--primary);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            font-size: 17px;
+            font-weight: 500;
+            z-index: 10;
+            position: relative;
+            box-shadow: none;
+        }
+
+        .app-bar .back-btn {
+            position: absolute;
+            left: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .app-bar .back-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .app-bar .title {
+            text-align: center;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        /* User Info Block (Traditional) */
+        .user-info-card {
+            background: #F6FEFF;
+            border-radius: 0;
+            padding: 24px 20px;
+            margin: -16px -16px 24px -16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 96px;
+            height: 96px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-details h2 {
+            margin: 0 0 8px 0;
+            font-size: 19px;
+            color: var(--primary);
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-meta {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .switch-member-btn {
+            background: #e6f4f1;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .switch-member-btn:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-2x2 {
+            grid-column: span 2;
+            padding: 24px 20px;
+        }
+
+        .card-2x1 {
+            grid-column: span 2;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+        }
+
+        /* Progress Bar Stats */
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 4px 0;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            width: 100%;
+        }
+
+        .stat-label-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .stat-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: currentColor;
+        }
+
+        .stat-status-text {
+            mix-blend-mode: normal;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 18px;
+            background: #E5E7EB;
+            border-radius: 9px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            min-width: 36px;
+            transition: width 0.8s ease-out;
+        }
+
+        /* Priority Months Styling */
+        .tag {
+            font-size: 14px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .tag-best {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-worst {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .tag-current {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .month-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0 8px;
+        }
+
+        .btn-detail {
+            background: #e6f4f1;
+            border: 1px solid rgba(22, 145, 114, 0.3);
+            color: var(--primary);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-detail:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-detail-filled {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 18px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-detail-filled:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(22, 145, 114, 0.25);
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .icon-move {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 700;
+            animation: moveRL 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveRL {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(5px);
+            }
+        }
+
+        .blink-quote {
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        @keyframes pulseQuote {
+            from {
+                opacity: 0.3;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Interactive Month Browser Grid */
+        .month-browser {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+            margin-bottom: 30px;
+        }
+
+        .month-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .month-btn:active {
+            background: var(--border-color);
+        }
+
+        .month-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .month-btn.best {
+            border: 2px solid var(--emerald);
+            color: var(--emerald);
+            font-weight: 700;
+        }
+
+        .month-btn.worst {
+            border: 2px solid var(--ruby);
+            color: var(--ruby);
+            font-weight: 700;
+        }
+
+        /* Khám phá thêm (Explore More) */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 8px;
+            margin-top: 16px;
+            padding: 0 4px;
+        }
+
+        .explore-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .explore-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-item:active .explore-icon-wrapper {
+            transform: scale(0.92);
+        }
+
+        .explore-icon {
+            font-size: 28px;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .explore-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        /* 12 Houses Vertical List */
+        .houses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 0 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .house-list-item {
+            background: transparent;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+
+        .house-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .house-list-item:active {
+            opacity: 0.6;
+        }
+
+        .house-list-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .house-list-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .house-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .house-list-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .house-list-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .house-list-arrow {
+            color: #9CA3AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .house-rating {
+            font-size: 15px;
+            font-weight: 600;
+            padding: 4px 0;
+            width: 100px;
+            text-align: center;
+            flex-shrink: 0;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+        
+        .rating-tot { background: #d1fae5; color: #065f46; }
+        .rating-binh { background: #fef3c7; color: #92400e; }
+        .rating-xau { background: #fee2e2; color: #991b1b; }
+
+        /* Inline Progress Bar */
+        .house-list-progress-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .house-list-progress-bg {
+            flex: 1;
+            height: 8px;
+            background: #F1F5F9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .house-list-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        .house-list-progress-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 45px;
+            text-align: right;
+        }
+        /* Khám phá thêm (Explore More) */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 8px;
+            margin-top: 16px;
+            padding: 0 4px;
+        }
+
+        .explore-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .explore-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-item:active .explore-icon-wrapper {
+            transform: scale(0.92);
+        }
+
+        .explore-icon {
+            font-size: 28px;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .explore-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="buttons-left"></div>
+        <div class="buttons-right"></div>
+        <div class="screen-content">
+            <div class="status-bar">
+                <div class="time">19:45</div>
+                <div class="status-icons">
+                    <!-- Signal -->
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z" />
+                    </svg>
+                    <!-- Wifi -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <!-- Battery -->
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" />
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round" />
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor" />
+                    </svg>
+                </div>
+            </div>
+            <!-- App Bar as requested -->
+            <div class="app-bar">
+                <div class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </div>
+                <span class="title">Tử vi tổng quan</span>
+            </div>
+
+            <div class="content">
+                <!-- User Info as requested -->
+                <div class="user-info-card">
+                    <div class="user-details">
+                        <h2>Trần Nguyễn Hoàng Anh</h2>
+                        <div class="user-meta" style="display: flex; flex-direction: column; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="color: var(--primary);">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>15/08/1981 - Giờ Tị (9h-11h)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="color: var(--primary);">
+                                    <circle cx="10" cy="14" r="5"></circle>
+                                    <line x1="13.5" y1="10.5" x2="19" y2="5"></line>
+                                    <polyline points="15 5 19 5 19 9"></polyline>
+                                </svg>
+                                <span>Nam</span>
+                            </div>
+                        </div>
+                        <button class="switch-member-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            Xem cho người thân
+                        </button>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="rooster.png" alt="Tuổi Dậu" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                </div>
+
+
+
+                <!-- 12 Houses List -->
+                <div class="section-title">12 cung lá số của bạn</div>
+                <div class="houses-list">
+                    <!-- Mệnh -->
+                    <a href="chitiet_cung.html?id=menh" class="house-list-item">
+                        <div class="house-list-icon" style="background: #2563EB; color: white;">👤</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Mệnh</span>
+                            </div>
+                            <div class="house-list-desc">Bản mệnh vững vàng, tự thân lập nghiệp, có khả năng chỉ huy và quản lý tốt.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 75%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">75%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Phụ Mẫu -->
+                    <a href="chitiet_cung.html?id=phu_mau" class="house-list-item">
+                        <div class="house-list-icon" style="background: #8B5CF6; color: white;">👴</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Phụ Mẫu</span>
+                            </div>
+                            <div class="house-list-desc">Quan hệ gia đình hòa thuận, nhận được sự hỗ trợ và tình yêu thương từ cha mẹ.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 55%; background: #F59E0B;"></div>
+                                </div>
+                                <span class="house-list-progress-text">55%</span>
+                                <span class="house-rating rating-binh">Bình thường</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Phúc Đức -->
+                    <a href="chitiet_cung.html?id=phuc_duc" class="house-list-item">
+                        <div class="house-list-icon" style="background: #EF4444; color: white;">⛩️</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Phúc Đức</span>
+                            </div>
+                            <div class="house-list-desc">Hưởng phúc lộc tổ tiên, đời sống tinh thần phong phú, gặp nhiều may mắn.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 85%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">85%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Điền Trạch -->
+                    <a href="chitiet_cung.html?id=dien_trach" class="house-list-item">
+                        <div class="house-list-icon" style="background: #D97706; color: white;">🏠</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Điền Trạch</span>
+                            </div>
+                            <div class="house-list-desc">Cần thận trọng trong việc đầu tư đất đai, mua bán nhà cửa có thể gặp chút trắc trở.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 35%; background: #EF4444;"></div>
+                                </div>
+                                <span class="house-list-progress-text">35%</span>
+                                <span class="house-rating rating-xau">Cần lưu ý</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Quan Lộc -->
+                    <a href="chitiet_cung.html?id=quan_loc" class="house-list-item">
+                        <div class="house-list-icon" style="background: #F59E0B; color: white;">👨‍⚖️</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Quan Lộc</span>
+                            </div>
+                            <div class="house-list-desc">Đường công danh xán lạn, có nhiều cơ hội thăng tiến và phát triển sự nghiệp.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 80%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">80%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Nô Bộc -->
+                    <a href="chitiet_cung.html?id=no_boc" class="house-list-item">
+                        <div class="house-list-icon" style="background: #60A5FA; color: white;">🤝</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Nô Bộc</span>
+                            </div>
+                            <div class="house-list-desc">Các mối quan hệ xã hội tương đối bình ổn, cần cẩn trọng trong việc chọn lọc bạn bè.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 60%; background: #F59E0B;"></div>
+                                </div>
+                                <span class="house-list-progress-text">60%</span>
+                                <span class="house-rating rating-binh">Bình thường</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Thiên Di -->
+                    <a href="chitiet_cung.html?id=thien_di" class="house-list-item">
+                        <div class="house-list-icon" style="background: #1E3A8A; color: white;">✈️</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Thiên Di</span>
+                            </div>
+                            <div class="house-list-desc">Xuất ngoại hay đi làm ăn xa gặp nhiều thuận lợi, đi ra ngoài có quý nhân phù trợ.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 90%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">90%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Tật Ách -->
+                    <a href="chitiet_cung.html?id=tat_ach" class="house-list-item">
+                        <div class="house-list-icon" style="background: #4B5563; color: white;">🤒</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Tật Ách</span>
+                            </div>
+                            <div class="house-list-desc">Cần chú ý giữ gìn sức khỏe, ăn uống khoa học, cẩn thận các bệnh liên quan đến hô hấp.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 40%; background: #EF4444;"></div>
+                                </div>
+                                <span class="house-list-progress-text">40%</span>
+                                <span class="house-rating rating-xau">Cần lưu ý</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Tài Bạch -->
+                    <a href="chitiet_cung.html?id=tai_bach" class="house-list-item">
+                        <div class="house-list-icon" style="background: #DC2626; color: white;">🪙</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Tài Bạch</span>
+                            </div>
+                            <div class="house-list-desc">Tài vận hanh thông, nguồn thu nhập dồi dào, đầu tư tài chính dễ sinh lời cao.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 88%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">88%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Phu Thê -->
+                    <a href="chitiet_cung.html?id=phu_the" class="house-list-item">
+                        <div class="house-list-icon" style="background: #F97316; color: white;">💑</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Phu Thê</span>
+                            </div>
+                            <div class="house-list-desc">Tình cảm vợ chồng đôi lúc có chút bất đồng quan điểm nhưng dễ dàng nhường nhịn và hóa giải.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 65%; background: #F59E0B;"></div>
+                                </div>
+                                <span class="house-list-progress-text">65%</span>
+                                <span class="house-rating rating-binh">Bình thường</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Tử Tức -->
+                    <a href="chitiet_cung.html?id=tu_tuc" class="house-list-item">
+                        <div class="house-list-icon" style="background: #F472B6; color: white;">👶</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Tử Tức</span>
+                            </div>
+                            <div class="house-list-desc">Con cái ngoan ngoãn, thông minh hiểu chuyện, sau này là người có ích cho xã hội.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 82%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">82%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                    <!-- Huynh Đệ -->
+                    <a href="chitiet_cung.html?id=huynh_de" class="house-list-item">
+                        <div class="house-list-icon" style="background: #10B981; color: white;">👦</div>
+                        <div class="house-list-content">
+                            <div class="house-list-header">
+                                <span class="house-list-name">Huynh Đệ</span>
+                            </div>
+                            <div class="house-list-desc">Anh em trong nhà hòa thuận, gắn bó keo sơn, sẵn sàng tương trợ giúp đỡ lẫn nhau khi cần.</div>
+                            <div class="house-list-progress-container">
+                                <div class="house-list-progress-bg">
+                                    <div class="house-list-progress-fill" style="width: 78%; background: #10B981;"></div>
+                                </div>
+                                <span class="house-list-progress-text">78%</span>
+                                <span class="house-rating rating-tot">Tốt</span>
+                            </div>
+                        </div>
+                        <div class="house-list-arrow">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Khám phá thêm -->
+                <div class="section-title"
+                    style="margin-top: 32px; padding: 0 4px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+                    Khám phá thêm</div>
+                <div class="explore-grid">
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #2E8AFA, #0050D1);">
+                            <span class="explore-icon">🌟</span>
+                        </div>
+                        <div class="explore-text">Vận hạn<br>năm 2026</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #FFDF63, #F5A623);">
+                            <span class="explore-icon">☯️</span>
+                        </div>
+                        <div class="explore-text">Tử vi<br>Tổng quan</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #B270FA, #6118D6);">
+                            <span class="explore-icon">🐖</span>
+                        </div>
+                        <div class="explore-text">Tài chính &<br>Đầu tư</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #42C4F7, #0CA1EB);">
+                            <span class="explore-icon">💼</span>
+                        </div>
+                        <div class="explore-text">Nghề nghiệp &<br>Sự nghiệp</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #FF9EBB, #F54C83);">
+                            <span class="explore-icon">💖</span>
+                        </div>
+                        <div class="explore-text">Tư vấn<br>Tình duyên</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #FFDE4B, #FF891C);">
+                            <span class="explore-icon">📜</span>
+                        </div>
+                        <div class="explore-text">Lá số<br>Tử vi</div>
+                    </div>
+                </div>
+
+                <div style="height: 40px;"></div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
