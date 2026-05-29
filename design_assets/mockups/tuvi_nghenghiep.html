@@ -604,10 +604,10 @@
         .house-list-item {
             background: transparent;
             border-bottom: 1px solid var(--border-color);
-            padding: 22px 20px;
+            padding: 20px 20px 24px 20px;
             display: flex;
-            align-items: center;
-            gap: 16px;
+            align-items: flex-start;
+            gap: 12px;
             text-decoration: none;
             color: inherit;
             transition: all 0.2s ease;
@@ -630,6 +630,7 @@
             flex-shrink: 0;
             margin-left: 4px;
             transition: color 0.2s ease;
+            align-self: center;
         }
 
         .house-list-item:hover .arrow-indicator,
@@ -1014,7 +1015,7 @@
                     <!-- Main Quote -->
                     <div style="text-align: center; margin-bottom: 14px; padding: 2px 14px; position: relative;">
                         <!-- Quote mark decoration -->
-                        <span style="position: absolute; left: 4px; top: -8px; font-size: 24px; color: rgba(22, 145, 114, 0.18); font-family: Georgia, serif; line-height: 1; font-weight: bold; user-select: none;">“</span>
+                        <span style="position: absolute; left: 2px; top: -10px; font-size: 28px; color: rgba(22, 145, 114, 0.35); font-family: Georgia, serif; line-height: 1; font-weight: bold; user-select: none;">“</span>
                         <p id="highlight-quote" style="font-size: 15px; line-height: 1.5; color: #0F172A; font-weight: 600; margin: 0; position: relative; z-index: 1;">
                             Bạn có khả năng học tốt, nhưng dễ mất hướng nếu chọn ngành theo xu hướng.
                         </p>
@@ -1405,23 +1406,23 @@
             items.forEach((item, index) => {
                 html += `
                     <a href="javascript:void(0)" class="house-list-item" onclick="goToDetail(${index})">
-                        <!-- Left Icon (No box wrapping) -->
-                        <div style="font-size: 24px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <!-- Left Icon Box with soft background (reduced size) -->
+                        <div style="width: 36px; height: 36px; background: ${item.bgColor}; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; border: 1px solid ${item.borderColor};">
                             ${item.icon}
                         </div>
                         <!-- Content Area -->
                         <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
                             <!-- Header Row -->
                             <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-size: 15px; font-weight: 700; color: #0F172A; line-height: 1.35;">${item.title}</span>
+                                <span style="font-size: 16px; font-weight: 700; color: #0F172A; line-height: 1.35;">${item.title}</span>
                             </div>
-                            <!-- Description -->
-                            <div style="font-size: 13.5px; line-height: 1.4; color: #4B5563; margin: 2px 0 6px 0;">
+                            <!-- Description (balanced size and color for readability) -->
+                            <div style="font-size: 14px; line-height: 1.45; color: #4B5563; margin: 2px 0 0 0;">
                                 ${item.desc}
                             </div>
-                            <!-- Rating Badge -->
-                            <div>
-                                <span style="display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; background: ${item.ratingBg}; color: ${item.ratingColor};">
+                            <!-- Rating Badge (13px size, proper spacing) -->
+                            <div style="margin-top: 8px;">
+                                <span style="display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 13px; font-weight: 600; background: ${item.ratingBg}; color: ${item.ratingColor};">
                                     ${item.rating}
                                 </span>
                             </div>
