@@ -604,21 +604,37 @@
         .house-list-item {
             background: transparent;
             border-bottom: 1px solid var(--border-color);
-            padding: 18px 20px;
+            padding: 22px 20px;
             display: flex;
             align-items: center;
             gap: 16px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
         }
 
         .house-list-item:last-child {
             border-bottom: none;
         }
 
+        .house-list-item:hover,
         .house-list-item:active {
-            background-color: #F8FAFC;
+            background-color: rgba(22, 145, 114, 0.04); /* light green tint matching --primary */
+        }
+
+        .arrow-indicator {
+            color: #64748B; /* darker gray for better visibility */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-left: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .house-list-item:hover .arrow-indicator,
+        .house-list-item:active .arrow-indicator {
+            color: var(--primary); /* highlight using main theme green on interaction */
         }
 
         .house-list-icon {
@@ -892,17 +908,7 @@
             margin-bottom: 6px;
         }
         .highlight-card {
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-        }
-        .highlight-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(22, 145, 114, 0.12) !important;
-            border-color: rgba(22, 145, 114, 0.35) !important;
-        }
-        .highlight-card:active {
-            transform: translateY(0) scale(0.985);
-            box-shadow: 0 6px 15px rgba(22, 145, 114, 0.06) !important;
+            /* Static display card, no hover/active interaction */
         }
     </style>
 </head>
@@ -1002,12 +1008,8 @@
                 </div>
 
                 <!-- Điểm đáng chú ý nhất Card -->
-                <div class="card highlight-card" onclick="goToDetail(0)" style="margin-bottom: 24px; border: 1px solid rgba(22, 145, 114, 0.25); background: linear-gradient(135deg, #F0FDFA 0%, #E6F4F1 100%); border-radius: 24px; padding: 18px 16px; box-shadow: 0 10px 25px rgba(22, 145, 114, 0.08);">
-                    <!-- Header inside Card -->
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                        <span style="font-size: 16px; line-height: 1;">✨</span>
-                        <span style="font-size: 13px; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; text-transform: uppercase;">Đáng chú ý</span>
-                    </div>
+                <div class="section-title">Đáng chú ý ✨</div>
+                <div class="card highlight-card" style="margin-bottom: 24px; border: 1px solid rgba(22, 145, 114, 0.25); background: linear-gradient(135deg, #F0FDFA 0%, #E6F4F1 100%); border-radius: 24px; padding: 20px 16px; box-shadow: 0 2px 8px rgba(22, 145, 114, 0.04);">
 
                     <!-- Main Quote -->
                     <div style="text-align: center; margin-bottom: 14px; padding: 2px 14px; position: relative;">
@@ -1364,7 +1366,7 @@
                 {
                     num: '1',
                     title: groupData.title1,
-                    icon: '💼',
+                    icon: '👤',
                     bgColor: '#F5F3FF', // light purple
                     borderColor: 'rgba(139, 92, 246, 0.18)',
                     badgeBg: '#8B5CF6',
@@ -1376,7 +1378,7 @@
                 {
                     num: '2',
                     title: groupData.title2,
-                    icon: '🧭',
+                    icon: '📚',
                     bgColor: '#ECFDF5', // light green
                     borderColor: 'rgba(16, 185, 129, 0.18)',
                     badgeBg: '#10B981',
@@ -1388,7 +1390,7 @@
                 {
                     num: '3',
                     title: groupData.title3,
-                    icon: '🧩',
+                    icon: '🎯',
                     bgColor: '#EFF6FF', // light blue
                     borderColor: 'rgba(59, 130, 246, 0.18)',
                     badgeBg: '#3B82F6',
@@ -1425,8 +1427,8 @@
                             </div>
                         </div>
                         <!-- Chevron Right Arrow -->
-                        <div style="color: #9CA3AF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 4px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <div class="arrow-indicator">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
