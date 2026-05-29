@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tử vi nghề nghiệp - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #169172;
+            /* Lịch Việt Main Color */
+            --bg-light: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --emerald: #10B981;
+            --amber: #F59E0B;
+            --sapphire: #3B82F6;
+            --ruby: #EF4444;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Mobile Device Mockup */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow:
+                0 0 0 2px #333,
+                0 20px 50px rgba(0, 0, 0, 0.2),
+                0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        /* Side Buttons */
+        .phone-mockup::before,
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            background: #222;
+            border-radius: 2px;
+        }
+
+        /* Volume & Power Buttons */
+        .buttons-left {
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 100px;
+            background: #111;
+            border-radius: 4px 0 0 4px;
+            box-shadow: -1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .buttons-right {
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 80px;
+            background: #111;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Status Bar Icons Area */
+        .status-bar {
+            height: 44px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            z-index: 101;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Hide Mockup on real Mobile */
+        @media (max-width: 500px) {
+            body {
+                background: var(--bg-light);
+                display: block;
+            }
+
+            .phone-mockup {
+                width: 100%;
+                height: 100vh;
+                padding: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: none;
+                display: block; /* Prevent height collapse on WebViews */
+            }
+
+            .screen-content {
+                border-radius: 0;
+            }
+
+            .status-bar,
+            .buttons-left,
+            .buttons-right {
+                display: none;
+            }
+        }
+
+        /* App Bar */
+        .app-bar {
+            background-color: var(--primary);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            font-size: 17px;
+            font-weight: 500;
+            z-index: 10;
+            position: relative;
+            box-shadow: none;
+        }
+
+        .app-bar .back-btn {
+            position: absolute;
+            left: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .app-bar .back-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .app-bar .share-btn {
+            position: absolute;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+            color: white;
+        }
+
+        .app-bar .share-btn:active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .app-bar .title {
+            text-align: center;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        /* User Info Block (Traditional) */
+        .user-info-card {
+            background: #F6FEFF;
+            border-radius: 0;
+            padding: 24px 20px;
+            margin: -16px -16px 24px -16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-avatar {
+            width: 96px;
+            height: 96px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-details h2 {
+            margin: 0 0 8px 0;
+            font-size: 19px;
+            color: var(--primary);
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-meta {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .switch-member-btn {
+            background: #e6f4f1;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .switch-member-btn:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-2x2 {
+            grid-column: span 2;
+            padding: 24px 20px;
+        }
+
+        .card-2x1 {
+            grid-column: span 2;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+        }
+
+        /* Progress Bar Stats */
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 4px 0;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            width: 100%;
+        }
+
+        .stat-label-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .stat-status {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: currentColor;
+        }
+
+        .stat-status-text {
+            mix-blend-mode: normal;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 18px;
+            background: #E5E7EB;
+            border-radius: 9px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            min-width: 36px;
+            transition: width 0.8s ease-out;
+        }
+
+        /* Priority Months Styling */
+        .tag {
+            font-size: 14px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .tag-best {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-worst {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .tag-current {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .month-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0 8px;
+        }
+
+        .btn-detail {
+            background: #e6f4f1;
+            border: 1px solid rgba(22, 145, 114, 0.3);
+            color: var(--primary);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-detail:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-detail-filled {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 18px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-detail-filled:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(22, 145, 114, 0.25);
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .icon-move {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 700;
+            animation: moveRL 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes moveRL {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(5px);
+            }
+        }
+
+        .blink-quote {
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        @keyframes pulseQuote {
+            from {
+                opacity: 0.3;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Interactive Month Browser Grid */
+        .month-browser {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+            margin-bottom: 30px;
+        }
+
+        .month-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .month-btn:active {
+            background: var(--border-color);
+        }
+
+        .month-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .month-btn.best {
+            border: 2px solid var(--emerald);
+            color: var(--emerald);
+            font-weight: 700;
+        }
+
+        .month-btn.worst {
+            border: 2px solid var(--ruby);
+            color: var(--ruby);
+            font-weight: 700;
+        }
+
+        /* Khám phá thêm (Explore More) */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 8px;
+            margin-top: 16px;
+            padding: 0 4px;
+        }
+
+        .explore-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .explore-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-item:active .explore-icon-wrapper {
+            transform: scale(0.92);
+        }
+
+        .explore-icon {
+            font-size: 28px;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .explore-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        /* 3 Large Cards Layout Container */
+        .houses-list {
+            display: flex;
+            flex-direction: column;
+            background: #FFFFFF;
+            border: 1px solid rgba(22, 145, 114, 0.15);
+            border-radius: 24px;
+            padding: 0;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(22, 145, 114, 0.05);
+            overflow: hidden;
+        }
+
+        .house-list-item {
+            background: transparent;
+            border-bottom: 1px solid var(--border-color);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+
+        .house-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .house-list-item:active {
+            background-color: #F8FAFC;
+        }
+
+        .house-list-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .house-list-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .house-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .house-list-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .house-list-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .house-list-arrow {
+            color: #9CA3AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .house-rating {
+            font-size: 15px;
+            font-weight: 600;
+            padding: 4px 0;
+            width: 100px;
+            text-align: center;
+            flex-shrink: 0;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .rating-tot {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .rating-binh {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .rating-xau {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        
+        .status-tot {
+            color: #10B981;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .status-kha {
+            color: #2563EB;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Inline Progress Bar */
+        
+
+        
+
+        
+
+        
+
+        /* Khám phá thêm (Explore More) */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 8px;
+            margin-top: 16px;
+            padding: 0 4px;
+        }
+
+        .explore-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .explore-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explore-item:active .explore-icon-wrapper {
+            transform: scale(0.92);
+        }
+
+        .explore-icon {
+            font-size: 28px;
+            line-height: 1;
+            z-index: 1;
+        }
+
+        .explore-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        /* Detail Bottom Sheet Modal styling */
+        .detail-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-end;
+            box-sizing: border-box;
+        }
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .modal-sheet {
+            position: relative;
+            width: 100%;
+            height: 80%;
+            background: var(--card-bg);
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            overflow: hidden;
+            box-sizing: border-box;
+            border-top: 1px solid var(--border-color);
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .modal-icon {
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            flex: 1;
+            margin: 0;
+        }
+        .modal-close-btn {
+            background: #F3F4F6;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .modal-close-btn:active {
+            background: #E5E7EB;
+            transform: scale(0.95);
+        }
+        .modal-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+        .detail-item {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .detail-item-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .detail-item-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-main);
+            text-align: justify;
+        }
+        .detail-tag-positive {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--emerald);
+            background: #D1FAE5;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        .detail-tag-negative {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ruby);
+            background: #FEE2E2;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        .highlight-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        .highlight-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(22, 145, 114, 0.12) !important;
+            border-color: rgba(22, 145, 114, 0.35) !important;
+        }
+        .highlight-card:active {
+            transform: translateY(0) scale(0.985);
+            box-shadow: 0 6px 15px rgba(22, 145, 114, 0.06) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="buttons-left"></div>
+        <div class="buttons-right"></div>
+        <div class="screen-content">
+            <div class="status-bar">
+                <div class="time">19:45</div>
+                <div class="status-icons">
+                    <!-- Signal -->
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z" />
+                    </svg>
+                    <!-- Wifi -->
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <!-- Battery -->
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" />
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round" />
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor" />
+                    </svg>
+                </div>
+            </div>
+            <!-- App Bar as requested -->
+            <div class="app-bar">
+                <div class="back-btn" onclick="window.location.href='tuvi_nghenghiep_input.html?bypass=false'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </div>
+                <span class="title">Tử vi nghề nghiệp</span>
+                <div class="share-btn" onclick="shareResult()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- User Info as requested -->
+                <div class="user-info-card">
+                    <div class="user-details">
+                        <h2>Trần Nguyễn Hoàng Anh</h2>
+                        <div class="user-meta" style="display: flex; flex-direction: column; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="color: var(--primary);">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span id="user-dob-tob-text">15/08/1981 - Giờ Tị (9h-11h)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    style="color: var(--primary);">
+                                    <circle cx="10" cy="14" r="5"></circle>
+                                    <line x1="13.5" y1="10.5" x2="19" y2="5"></line>
+                                    <polyline points="15 5 19 5 19 9"></polyline>
+                                </svg>
+                                <span id="user-gender-text">Nam</span>
+                            </div>
+                        </div>
+                        <button class="switch-member-btn" onclick="window.location.href='tuvi_nghenghiep_input.html?bypass=false'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            Xem cho người thân
+                        </button>
+                    </div>
+                    <div class="user-avatar" id="user-avatar-container">
+                        <img id="user-avatar-img" src="rooster.png" alt="Tuổi Dậu" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                </div>
+
+                <!-- Điểm đáng chú ý nhất Card -->
+                <div class="card highlight-card" onclick="goToDetail(0)" style="margin-bottom: 24px; border: 1px solid rgba(22, 145, 114, 0.25); background: linear-gradient(135deg, #F0FDFA 0%, #E6F4F1 100%); border-radius: 24px; padding: 22px 20px; box-shadow: 0 10px 25px rgba(22, 145, 114, 0.08);">
+                    <!-- Header inside Card -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
+                        <span style="font-size: 18px; line-height: 1;">✨</span>
+                        <span style="font-size: 13.5px; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; text-transform: uppercase;">Đáng chú ý</span>
+                    </div>
+
+                    <!-- Main Quote -->
+                    <div style="text-align: center; margin-bottom: 22px; padding: 4px 16px; position: relative;">
+                        <!-- Quote mark decoration -->
+                        <span style="position: absolute; left: 0; top: -12px; font-size: 36px; color: rgba(22, 145, 114, 0.15); font-family: Georgia, serif; line-height: 1; font-weight: bold; user-select: none;">“</span>
+                        <p id="highlight-quote" style="font-size: 16px; line-height: 1.55; color: #0F172A; font-weight: 700; margin: 0; position: relative; z-index: 1;">
+                            Bạn hợp phát triển chuyên môn sâu<br>hơn là chạy theo nhiều cơ hội ngắn hạn.
+                        </p>
+                        <span style="position: absolute; right: 0; bottom: -20px; font-size: 36px; color: rgba(22, 145, 114, 0.15); font-family: Georgia, serif; line-height: 1; font-weight: bold; user-select: none;">”</span>
+                    </div>
+                    
+                    <!-- Indicators Box -->
+                    <div style="display: flex; flex-direction: column; gap: 14px; padding: 0 10px;">
+                        <!-- Row 1: Lợi thế -->
+                        <div style="display: flex; align-items: flex-start; line-height: 1.5; font-size: 14px; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 8px; width: 90px; flex-shrink: 0;">
+                                <!-- Gem SVG -->
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color: #10B981; flex-shrink: 0;">
+                                    <path d="M6 3h12l4 6-10 12L2 9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="currentColor" fill-opacity="0.15"/>
+                                    <path d="M11 3L5.5 9H18.5L13 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <path d="M2 9h20" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M12 3v18" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                                <span style="font-weight: 700; color: #10B981;">Lợi thế:</span>
+                            </div>
+                            <span id="highlight-advantage" style="color: #334155; font-weight: 600; flex: 1;">Phân tích tốt &nbsp;·&nbsp; Học nhanh</span>
+                        </div>
+ 
+                        <!-- Row 2: Rào cản -->
+                        <div style="display: flex; align-items: flex-start; line-height: 1.5; font-size: 14px; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 8px; width: 90px; flex-shrink: 0;">
+                                <!-- Shield SVG -->
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color: #F97316; flex-shrink: 0;">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="currentColor" fill-opacity="0.15"/>
+                                    <path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span style="font-weight: 700; color: #F97316;">Rào cản:</span>
+                            </div>
+                            <span id="highlight-barrier" style="color: #334155; font-weight: 600; flex: 1;">Dễ áp lực &nbsp;·&nbsp; Ngại thể hiện</span>
+                        </div>
+ 
+                        <!-- Row 3: Ưu tiên -->
+                        <div style="display: flex; align-items: flex-start; line-height: 1.5; font-size: 14px; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 8px; width: 90px; flex-shrink: 0;">
+                                <!-- Target SVG -->
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="color: #3B82F6; flex-shrink: 0;">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="currentColor" fill-opacity="0.05"/>
+                                    <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="1.5"/>
+                                    <circle cx="12" cy="12" r="2" stroke="currentColor" stroke-width="2" fill="currentColor"/>
+                                </svg>
+                                <span style="font-weight: 700; color: #3B82F6;">Ưu tiên:</span>
+                            </div>
+                            <span id="highlight-priority" style="color: #334155; font-weight: 600; flex: 1;">Môi trường rõ lộ trình</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Analysis List -->
+                <div class="section-title">Phân tích sự nghiệp</div>
+                <div class="houses-list" id="houses-list">
+                    <!-- Dynamic analysis items will be loaded here via JS based on user age group -->
+                </div>
+
+                <!-- Khám phá thêm -->
+                <div class="section-title"
+                    style="margin-top: 32px; padding: 0 4px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+                    Khám phá thêm</div>
+                <div class="explore-grid">
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #2E8AFA, #0050D1);">
+                            <span class="explore-icon">🌟</span>
+                        </div>
+                        <div class="explore-text">Vận hạn<br>năm 2026</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #FFDF63, #F5A623);">
+                            <span class="explore-icon">☯️</span>
+                        </div>
+                        <div class="explore-text">Tử vi<br>Tổng quan</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #B270FA, #6118D6);">
+                            <span class="explore-icon">🐖</span>
+                        </div>
+                        <div class="explore-text">Tài chính &<br>Đầu tư</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #42C4F7, #0CA1EB);">
+                            <span class="explore-icon">💼</span>
+                        </div>
+                        <div class="explore-text">Nghề nghiệp &<br>Sự nghiệp</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #FF9EBB, #F54C83);">
+                            <span class="explore-icon">💖</span>
+                        </div>
+                        <div class="explore-text">Tư vấn<br>Tình duyên</div>
+                    </div>
+                    <div class="explore-item">
+                        <div class="explore-icon-wrapper"
+                            style="background: linear-gradient(135deg, #FFDE4B, #FF891C);">
+                            <span class="explore-icon">📜</span>
+                        </div>
+                        <div class="explore-text">Lá số<br>Tử vi</div>
+                    </div>
+                </div>
+
+                <div style="height: 40px;"></div>
+
+            </div>
+
+        </div> <!-- screen-content -->
+    </div> <!-- phone-mockup -->
+
+    <script>
+        // HOROSCOPE_DATA containing the sections and detailed descriptions for 4 age groups
+        const HOROSCOPE_DATA = {
+            '16-18': {
+                title1: 'Tổng quan bản thân',
+                title2: 'Định hình năng lực học tập',
+                title3: 'Ngành học & nghề nghiệp tương lai',
+                desc1: 'Hiểu rõ tố chất, tính cách và thói quen ảnh hưởng đến việc học tập.',
+                desc2: 'Xác định khả năng học tập, môn học phù hợp và môi trường giúp bạn phát triển tốt hơn.',
+                desc3: 'Gợi ý lĩnh vực, ngành học và hướng phát triển phù hợp với năng lực của bạn.',
+                rating1: 'Mức độ nổi bật: Cao · 88%',
+                rating2: 'Tiềm năng học tập: Khá tốt · 82%',
+                rating3: 'Mức độ phù hợp: Cao · 86%',
+                highlightQuote: 'Bạn hợp phát triển năng lực tự học và tập trung môn sở trường hơn là học dàn trải.',
+                advantage: 'Nhạy bén &nbsp;·&nbsp; Tiếp thu nhanh',
+                barrier: 'Dễ phân tâm &nbsp;·&nbsp; Thiếu kiên nhẫn',
+                priority: 'Môi trường học tập năng động, cởi mở'
+            },
+            '19-23': {
+                title1: 'Tổng quan năng lực & tố chất',
+                title2: 'Định hướng sự nghiệp sinh viên',
+                title3: 'Định hướng kỹ năng & ngành nghề',
+                desc1: 'Đánh giá thế mạnh, điểm cần cải thiện và khả năng kết nối mở rộng.',
+                desc2: 'Lựa chọn khối ngành học, cơ hội và cách vượt qua mất phương hướng.',
+                desc3: 'Kỹ năng cần trang bị và các lĩnh vực công việc tiềm năng nhất.',
+                rating1: 'Mức độ nổi bật: Cao • 80%',
+                rating2: 'Xu hướng phát triển: Thuận lợi • 75%',
+                rating3: 'Mức độ phù hợp: Cao • 88%',
+                highlightQuote: 'Đây là giai đoạn vàng để bạn chủ động trải nghiệm, thử sai và tìm kiếm đam mê thực tế.',
+                advantage: 'Ham học hỏi &nbsp;·&nbsp; Dễ thích ứng',
+                barrier: 'Nôn nóng &nbsp;·&nbsp; Thiếu định hướng rõ ràng',
+                priority: 'Cơ hội thực hành, thực tế cao'
+            },
+            '24-30': {
+                title1: 'Tổng quan sự nghiệp hiện tại',
+                title2: 'Định hướng phát triển',
+                title3: 'Kỹ năng & ngành nghề phù hợp',
+                desc1: 'Hiểu rõ kỹ năng, tính cách và thói quen ảnh hưởng đến công việc.',
+                desc2: 'Xác định môi trường phù hợp, cơ hội và rủi ro trong sự nghiệp.',
+                desc3: 'Gợi ý kỹ năng cần nâng cấp, lĩnh vực tiềm năng và hướng đi phù hợp.',
+                rating1: 'Mức độ nổi bật: Cao • 90%',
+                rating2: 'Xu hướng phát triển: Khá thuận lợi • 80%',
+                rating3: 'Mức độ phù hợp: Cao • 90%',
+                highlightQuote: 'Bạn hợp phát triển chuyên môn sâu hơn là chạy theo nhiều cơ hội ngắn hạn.',
+                advantage: 'Phân tích tốt &nbsp;·&nbsp; Học nhanh',
+                barrier: 'Dễ áp lực &nbsp;·&nbsp; Ngại thể hiện',
+                priority: 'Môi trường rõ lộ trình thăng tiến'
+            },
+            '31-40': {
+                title1: 'Tổng quan lợi thế sự nghiệp',
+                title2: 'Định hình vị thế bản thân',
+                title3: 'Lĩnh vực bứt phá sự nghiệp',
+                desc1: 'Xác định vị thế lãnh đạo, quan hệ đối tác và tham vọng thăng tiến.',
+                desc2: 'Duy trì sự phát triển bền vững, cơ hội quý nhân và vượt qua áp lực.',
+                desc3: 'Các ngành nghề tiềm năng lâu dài và lộ trình chuyển hướng thành công.',
+                rating1: 'Mức độ nổi bật: Rất cao • 88%',
+                rating2: 'Khả năng duy trì: Ổn định • 78%',
+                rating3: 'Mức độ bứt phá: Cao • 86%',
+                highlightQuote: 'Tập trung toàn lực để củng cố vị thế quản lý và bứt phá các lĩnh vực tạo ra đột phá.',
+                advantage: 'Quản lý tốt &nbsp;·&nbsp; Trải nghiệm sâu',
+                barrier: 'Lối mòn kinh nghiệm &nbsp;·&nbsp; Kém linh hoạt',
+                priority: 'Quyền tự chủ và hệ thống vững chắc'
+            }
+        };
+
+        // Helper: get traditional Zodiac animal based on solar year
+        function getZodiac(year) {
+            const zodiacs = ['Thân', 'Dậu', 'Tuất', 'Hợi', 'Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tị', 'Ngọ', 'Mùi'];
+            let idx = (year - 1980) % 12;
+            if (idx < 0) idx += 12;
+            return zodiacs[idx];
+        }
+
+        // Helper: translate solar hour (HH:MM) to traditional hour
+        function getTraditionalHour(timeStr) {
+            if (!timeStr) return 'Giờ Tị (9h-11h)';
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            const hour = hours + (minutes / 60);
+
+            if (hour >= 23 || hour < 1) return 'Giờ Tý (23h-1h)';
+            if (hour >= 1 && hour < 3) return 'Giờ Sửu (1h-3h)';
+            if (hour >= 3 && hour < 5) return 'Giờ Dần (3h-5h)';
+            if (hour >= 5 && hour < 7) return 'Giờ Mão (5h-7h)';
+            if (hour >= 7 && hour < 9) return 'Giờ Thìn (7h-9h)';
+            if (hour >= 9 && hour < 11) return 'Giờ Tị (9h-11h)';
+            if (hour >= 11 && hour < 13) return 'Giờ Ngọ (11h-13h)';
+            if (hour >= 13 && hour < 15) return 'Giờ Mùi (13h-15h)';
+            if (hour >= 15 && hour < 17) return 'Giờ Thân (15h-17h)';
+            if (hour >= 17 && hour < 19) return 'Giờ Dậu (17h-19h)';
+            if (hour >= 19 && hour < 21) return 'Giờ Tuất (19h-21h)';
+            return 'Giờ Hợi (21h-23h)';
+        }
+
+        // Helper: format YYYY-MM-DD to DD/MM/YYYY
+        function formatDate(dateStr) {
+            if (!dateStr) return '15/08/1981';
+            const [year, month, day] = dateStr.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        let activeAgeGroup = '31-40';
+        let currentDob = '1981-08-15';
+        let currentTob = '09:30';
+        let currentGender = 'nam';
+
+        function initHoroscope() {
+            // 1. Load data from URL parameters first, fallback to localStorage, then default
+            const urlParams = new URLSearchParams(window.location.search);
+            currentDob = urlParams.get('dob') || localStorage.getItem('user_career_dob') || '2009-08-15';
+            currentTob = urlParams.get('tob') || localStorage.getItem('user_career_tob') || '09:30';
+            currentGender = urlParams.get('gender') || localStorage.getItem('user_career_gender') || 'nam';
+            const genderText = (currentGender === 'nam') ? 'Nam' : 'Nữ';
+
+            // Sync back to localStorage for persistence
+            try {
+                localStorage.setItem('user_career_dob', currentDob);
+                localStorage.setItem('user_career_tob', currentTob);
+                localStorage.setItem('user_career_gender', currentGender);
+            } catch (e) {
+                console.warn('localStorage is not writeable:', e);
+            }
+
+            // Calculate age in horoscope target year (2026)
+            const birthYear = parseInt(currentDob.split('-')[0]) || 2009;
+            const targetYear = 2026;
+            const age = targetYear - birthYear;
+
+            // Map age to age group key
+            if (age <= 18) {
+                activeAgeGroup = '16-18';
+            } else if (age >= 19 && age <= 23) {
+                activeAgeGroup = '19-23';
+            } else if (age >= 24 && age <= 30) {
+                activeAgeGroup = '24-30';
+            } else {
+                activeAgeGroup = '31-40';
+            }
+
+            // Update user metadata block
+            const animal = getZodiac(birthYear);
+            document.getElementById('user-dob-tob-text').innerText = `${formatDate(currentDob)} - ${getTraditionalHour(currentTob)}`;
+            document.getElementById('user-gender-text').innerText = genderText;
+            
+            const avatarImg = document.getElementById('user-avatar-img');
+            if (avatarImg) {
+                avatarImg.alt = `Tuổi ${animal}`;
+            }
+
+            // Update Back Button and Switch Member Button to pass current parameters with bypass=false
+            const backBtn = document.querySelector('.app-bar .back-btn');
+            if (backBtn) {
+                backBtn.setAttribute('onclick', `window.location.href='tuvi_nghenghiep_input.html?bypass=false&dob=${encodeURIComponent(currentDob)}&tob=${encodeURIComponent(currentTob)}&gender=${encodeURIComponent(currentGender)}'`);
+            }
+            
+            const switchBtn = document.querySelector('.switch-member-btn');
+            if (switchBtn) {
+                switchBtn.setAttribute('onclick', `window.location.href='tuvi_nghenghiep_input.html?bypass=false&dob=${encodeURIComponent(currentDob)}&tob=${encodeURIComponent(currentTob)}&gender=${encodeURIComponent(currentGender)}'`);
+            }
+
+            // 2. Render dynamic career analysis list
+            const groupData = HOROSCOPE_DATA[activeAgeGroup];
+            
+            // Update Highlight Card based on age group
+            const quoteEl = document.getElementById('highlight-quote');
+            if (quoteEl) quoteEl.innerHTML = groupData.highlightQuote;
+            const advEl = document.getElementById('highlight-advantage');
+            if (advEl) advEl.innerHTML = groupData.advantage;
+            const barEl = document.getElementById('highlight-barrier');
+            if (barEl) barEl.innerHTML = groupData.barrier;
+            const priEl = document.getElementById('highlight-priority');
+            if (priEl) priEl.innerHTML = groupData.priority;
+
+            const housesList = document.getElementById('houses-list');
+            
+            const items = [
+                {
+                    num: '1',
+                    title: groupData.title1,
+                    icon: '💼',
+                    bgColor: '#F5F3FF', // light purple
+                    borderColor: 'rgba(139, 92, 246, 0.18)',
+                    badgeBg: '#8B5CF6',
+                    desc: groupData.desc1,
+                    rating: groupData.rating1,
+                    ratingBg: '#F5F3FF',
+                    ratingColor: '#7C3AED'
+                },
+                {
+                    num: '2',
+                    title: groupData.title2,
+                    icon: '🧭',
+                    bgColor: '#ECFDF5', // light green
+                    borderColor: 'rgba(16, 185, 129, 0.18)',
+                    badgeBg: '#10B981',
+                    desc: groupData.desc2,
+                    rating: groupData.rating2,
+                    ratingBg: '#ECFDF5',
+                    ratingColor: '#10B981'
+                },
+                {
+                    num: '3',
+                    title: groupData.title3,
+                    icon: '🧩',
+                    bgColor: '#EFF6FF', // light blue
+                    borderColor: 'rgba(59, 130, 246, 0.18)',
+                    badgeBg: '#3B82F6',
+                    desc: groupData.desc3,
+                    rating: groupData.rating3,
+                    ratingBg: '#EFF6FF',
+                    ratingColor: '#3B82F6'
+                }
+            ];
+
+            let html = '';
+            items.forEach((item, index) => {
+                html += `
+                    <a href="javascript:void(0)" class="house-list-item" onclick="goToDetail(${index})">
+                        <!-- Left Icon (No box wrapping) -->
+                        <div style="font-size: 24px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            ${item.icon}
+                        </div>
+                        <!-- Content Area -->
+                        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+                            <!-- Header Row -->
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 15px; font-weight: 700; color: #0F172A; line-height: 1.35;">${item.title}</span>
+                            </div>
+                            <!-- Description -->
+                            <div style="font-size: 13.5px; line-height: 1.4; color: #4B5563; margin: 2px 0 6px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                                ${item.desc}
+                            </div>
+                            <!-- Rating Badge -->
+                            <div>
+                                <span style="display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; background: ${item.ratingBg}; color: ${item.ratingColor};">
+                                    ${item.rating}
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Chevron Right Arrow -->
+                        <div style="color: #9CA3AF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-left: 4px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </a>
+                `;
+            });
+            housesList.innerHTML = html;
+        }
+
+        function goToDetail(index) {
+            window.location.href = `tuvi_nghenghiep_detail.html?dob=${encodeURIComponent(currentDob)}&tob=${encodeURIComponent(currentTob)}&gender=${encodeURIComponent(currentGender)}&section=${index}`;
+        }
+
+        function shareResult() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Tử vi nghề nghiệp Lịch Việt',
+                    text: 'Xem luận giải tử vi nghề nghiệp và sự nghiệp của tôi!',
+                    url: window.location.href
+                }).catch(err => console.log(err));
+            } else {
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Đã sao chép liên kết chia sẻ vào bộ nhớ tạm!');
+                }).catch(err => {
+                    alert('Không thể sao chép liên kết.');
+                });
+            }
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', initHoroscope);
+    </script>
+</body>
+
+</html>
