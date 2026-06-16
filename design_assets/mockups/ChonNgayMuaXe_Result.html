@@ -171,7 +171,7 @@
                 <div class="space-y-1">
                     <label class="text-[13px] font-semibold text-gray-500 block">Màu xe</label>
                     <div onclick="openColorSheet()" class="border border-gray-200 rounded-[12px] p-3 flex justify-between items-center bg-white cursor-pointer active:bg-gray-50">
-                        <span id="carColorText" class="text-gray-800 font-bold text-[14.5px]">Ghi</span>
+                        <span id="carColorText" class="text-gray-800 font-bold text-[14.5px]">Đỏ</span>
                         <div class="text-gray-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -512,7 +512,7 @@
             <!-- VAN KHAN CARD -->
             <div class="bg-white border border-gray-200 rounded-[16px] p-3.5 shadow-[0_4px_16px_rgba(0,0,0,0.01)] flex gap-4 mb-6">
                 <!-- Illustration Image on Left -->
-                <img src="img/car_blessing.png" alt="Văn khấn cúng xe mới" class="w-[90px] h-[90px] rounded-[12px] object-cover shrink-0 border border-gray-150" />
+                <img src="car_blessing.png" alt="Văn khấn cúng xe mới" class="w-[90px] h-[90px] rounded-[12px] object-cover shrink-0 border border-gray-150" />
                 
                 <!-- Content on Right -->
                 <div class="flex flex-col justify-center">
@@ -543,10 +543,10 @@
             <!-- List of options -->
             <div class="space-y-2.5 pt-1">
                 <!-- Red Option -->
-                <div onclick="selectColor('Đỏ cá tính', '#EF4444', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-red-150 transition-all">
+                <div onclick="selectColor('Đỏ', '#EF4444', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-red-150 transition-all">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-full bg-[#EF4444] border border-black/10"></span>
-                        <span class="font-semibold text-gray-800 text-[14.5px]">Đỏ cá tính (Hành Hỏa)</span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Đỏ (Hành Hỏa)</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">Tương sinh</span>
@@ -556,10 +556,10 @@
                     </div>
                 </div>
                 <!-- Black Option -->
-                <div onclick="selectColor('Đen huyền bí', '#111827', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
+                <div onclick="selectColor('Đen', '#111827', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-full bg-[#111827] border border-black/10"></span>
-                        <span class="font-semibold text-gray-800 text-[14.5px]">Đen huyền bí (Hành Thủy)</span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Đen (Hành Thủy)</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">Hòa hợp</span>
@@ -569,10 +569,10 @@
                     </div>
                 </div>
                 <!-- White Option -->
-                <div onclick="selectColor('Trắng tinh tế', '#FFFFFF', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
+                <div onclick="selectColor('Trắng', '#FFFFFF', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-full bg-[#FFFFFF] border border-gray-300"></span>
-                        <span class="font-semibold text-gray-800 text-[14.5px]">Trắng tinh tế (Hành Kim)</span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Trắng (Hành Kim)</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">Bình thường</span>
@@ -582,10 +582,10 @@
                     </div>
                 </div>
                 <!-- Silver Option -->
-                <div onclick="selectColor('Bạc / Xám lịch lãm', '#D1D5DB', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
+                <div onclick="selectColor('Bạc / Xám', '#D1D5DB', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-full bg-[#D1D5DB] border border-black/10"></span>
-                        <span class="font-semibold text-gray-800 text-[14.5px]">Bạc & Xám (Hành Kim)</span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Bạc / Xám (Hành Kim)</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">Bình thường</span>
@@ -595,7 +595,7 @@
                     </div>
                 </div>
                 <!-- Blue Option -->
-                <div onclick="selectColor('Xanh dương năng động', '#3B82F6', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-blue-200 transition-all">
+                <div onclick="selectColor('Xanh dương', '#3B82F6', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-blue-200 transition-all">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-full bg-[#3B82F6] border border-black/10"></span>
                         <span class="font-semibold text-gray-800 text-[14.5px]">Xanh dương (Hành Thủy)</span>
@@ -608,10 +608,10 @@
                     </div>
                 </div>
                 <!-- Gold/Brown Option -->
-                <div onclick="selectColor('Vàng cát phú quý', '#EAB308', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-yellow-200 transition-all">
+                <div onclick="selectColor('Vàng / Nâu', '#EAB308', this)" class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-150 cursor-pointer border border-gray-200/50 hover:border-yellow-200 transition-all">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-full bg-[#EAB308] border border-black/10"></span>
-                        <span class="font-semibold text-gray-800 text-[14.5px]">Vàng cát & Nâu (Hành Thổ)</span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Vàng / Nâu (Hành Thổ)</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded border border-red-100">Khắc hành</span>
@@ -812,20 +812,27 @@
     </div>
 
     <script>
-        let selectedColor = 'Ghi';
+        let selectedColor = 'Đỏ';
         let selectedTimeframe = '3 tháng tới';
         let dateRange = '15/06/2026 - 15/07/2026 (DL)';
 
         document.addEventListener('DOMContentLoaded', () => {
             const name = localStorage.getItem('user_car_name') || 'Do Thi Mit Na';
             const dob = localStorage.getItem('user_car_dob') || '15/10/1992';
-            selectedColor = localStorage.getItem('selected_car_color') || 'Ghi';
+            selectedColor = localStorage.getItem('selected_car_color') || 'Đỏ';
+            if (selectedColor === 'Đỏ cá tính') selectedColor = 'Đỏ';
+            if (selectedColor === 'Đen huyền bí') selectedColor = 'Đen';
+            if (selectedColor === 'Trắng tinh tế') selectedColor = 'Trắng';
+            if (selectedColor === 'Bạc / Xám lịch lãm') selectedColor = 'Bạc / Xám';
+            if (selectedColor === 'Xanh dương năng động') selectedColor = 'Xanh dương';
+            if (selectedColor === 'Vàng cát phú quý') selectedColor = 'Vàng / Nâu';
             selectedTimeframe = localStorage.getItem('selected_timeframe') || '3 tháng tới';
             dateRange = localStorage.getItem('selected_date_range') || '15/06/2026 - 15/07/2026 (DL)';
 
             document.getElementById('profileName').innerText = name;
             document.getElementById('profileDob').innerText = dob;
             document.getElementById('carColorText').innerText = selectedColor;
+
             document.getElementById('timeframeText').innerText = selectedTimeframe;
             document.getElementById('dateRangeText').innerText = dateRange;
 
