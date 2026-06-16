@@ -151,7 +151,6 @@
                     <label class="text-[14px] font-semibold text-gray-700 tracking-wide block">Màu xe</label>
                     <div onclick="openColorSheet()" class="border border-gray-200 rounded-[12px] p-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
                         <div class="flex items-center gap-3">
-                            <span id="selectedColorPill" class="w-5 h-5 rounded-full border border-gray-300 hidden"></span>
                             <span id="selectedColorText" class="text-gray-400 font-medium text-[15px]">Nhập màu xe của bạn</span>
                         </div>
                         <!-- Dropdown Icon -->
@@ -709,9 +708,6 @@
             };
             const hex = colorOptions[savedColor] || '#EF4444';
             selectedColor = savedColor;
-            const pill = document.getElementById('selectedColorPill');
-            pill.style.backgroundColor = hex;
-            pill.classList.remove('hidden');
             const text = document.getElementById('selectedColorText');
             text.innerText = savedColor;
             text.classList.remove('text-gray-400');
@@ -901,10 +897,6 @@
 
         function selectColor(name, colorHex, element) {
             selectedColor = name;
-            
-            const pill = document.getElementById('selectedColorPill');
-            pill.style.backgroundColor = colorHex;
-            pill.classList.remove('hidden');
             
             const text = document.getElementById('selectedColorText');
             text.innerText = name;
