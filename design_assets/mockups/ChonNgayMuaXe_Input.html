@@ -692,7 +692,13 @@
             document.getElementById('inputDob').value = "1992-10-15"; // default
 
             // Set default color to "Đỏ" (Red)
-            const savedColor = localStorage.getItem('selected_car_color') || localStorage.getItem('user_car_color') || 'Đỏ';
+            let savedColor = localStorage.getItem('selected_car_color') || localStorage.getItem('user_car_color') || 'Đỏ';
+            if (savedColor === 'Đỏ cá tính') savedColor = 'Đỏ';
+            if (savedColor === 'Đen huyền bí') savedColor = 'Đen';
+            if (savedColor === 'Trắng tinh tế') savedColor = 'Trắng';
+            if (savedColor === 'Bạc / Xám lịch lãm') savedColor = 'Bạc / Xám';
+            if (savedColor === 'Xanh dương năng động') savedColor = 'Xanh dương';
+            if (savedColor === 'Vàng cát phú quý') savedColor = 'Vàng / Nâu';
             const colorOptions = {
                 'Đỏ': '#EF4444',
                 'Đen': '#111827',
