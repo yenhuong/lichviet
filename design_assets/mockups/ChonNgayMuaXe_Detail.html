@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luận Giải Chi Tiết Ngày Mua Xe - Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F9FAFB;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* Hide scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Smooth active scale transition */
+        .active-scale:active {
+            transform: scale(0.97);
+        }
+
+        /* CSS blur filter for free users */
+        .premium-blur {
+            filter: blur(5px);
+            opacity: 0.35;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Glassmorphism paywall overlay */
+        .paywall-overlay {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        /* Spinner orbit animation */
+        @keyframes orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-spinner {
+            animation: orbit 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+        <!-- HEADER CAM GRADIENT -->
+        <div class="relative shrink-0 text-white pt-3 pb-2 z-10 bg-gradient-to-br from-[#FF7E40] to-[#E03E00] shadow-md">
+            
+            <!-- Status Bar -->
+            <div class="flex justify-between items-center px-6 font-semibold text-[14px] tracking-tight">
+                <span id="statusBarTime">11:25</span>
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 3a1 1 0 011-1h2a1 1 0 011 1v13a1 1 0 01-1 1h-2a1 1 0 01-1-1V3z" />
+                    </svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M17.778 8.222c-4.296-4.296-11.26-4.296-15.556 0A1 1 0 01.808 6.808c5.078-5.078 13.306-5.078 18.384 0a1 1 0 01-1.414 1.414zM14.95 11.05a7 7 0 00-9.9 0 1 1 0 01-1.414-1.414 9 9 0 0112.728 0 1 1 0 01-1.414 1.414zM12.12 13.88a3 3 0 00-4.242 0 1 1 0 00-1.415-1.414 5 5 0 017.07 0 1 1 0 00-1.414 1.414zM9 17a1 1 0 102 0 1 1 0 00-2 0z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[12.5px]">88%</span>
+                </div>
+            </div>
+
+            <!-- Header Nav Bar -->
+            <div class="flex items-center justify-between px-4 mt-2">
+                <a href="ChonNgayMuaXe_Result.html" class="w-9 h-9 rounded-full bg-black/15 flex items-center justify-center hover:bg-black/20 active-scale transition-colors">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </a>
+                <div class="flex flex-col items-center">
+                    <span class="font-bold text-[15.5px] tracking-wide uppercase">Ngày Mua Xe</span>
+                    <span class="text-[11.5px] text-white/90 font-medium" id="userNameDobText">chú rể - 12/05/1999</span>
+                </div>
+                <!-- Empty spacer for symmetry -->
+                <div class="w-9"></div>
+            </div>
+
+            <!-- Date Banner Grid (Day circular badge + White Car SVG + Share Button) -->
+            <div class="px-5 pt-3 pb-3 grid grid-cols-12 gap-2 items-center relative overflow-hidden">
+                
+                <!-- Left: Day indicator & Text -->
+                <div class="col-span-5 flex flex-col justify-center pl-1">
+                    <span class="text-[12px] tracking-widest font-extrabold text-orange-200 uppercase" id="dayOfWeekText">Thứ Tư</span>
+                    <span class="text-[36px] font-black leading-tight text-white tracking-tighter" id="dayOfMonthText">24</span>
+                    <div class="mt-1">
+                        <span class="block text-[12.5px] font-bold text-orange-100" id="monthYearText">Tháng 6, 2026</span>
+                        <span class="block text-[11px] text-orange-200/90 font-medium mt-0.5" id="lunarDateText">10 Tháng 5, Bính Ngọ</span>
+                    </div>
+                </div>
+
+                <!-- Right: SVG Car Illustration -->
+                <div class="col-span-7 h-[115px] relative">
+                    <div class="absolute inset-0 flex items-center justify-center" id="carIllustrationContainer">
+                        <!-- Inline Vector SVG of white car & girl standing next to it -->
+                        <svg viewBox="0 0 200 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <!-- Background clouds/circles -->
+                            <circle cx="160" cy="30" r="30" fill="white" fill-opacity="0.06"/>
+                            <circle cx="40" cy="50" r="20" fill="white" fill-opacity="0.04"/>
+                            
+                            <!-- White Car Group -->
+                            <g transform="translate(10, 20) scale(0.48)">
+                                <!-- Shadow -->
+                                <ellipse cx="160" cy="100" rx="145" ry="12" fill="black" fill-opacity="0.25"/>
+                                <!-- Car body -->
+                                <path d="M15 75 C15 75, 45 42, 95 38 C145 34, 185 8, 235 8 C285 8, 305 45, 315 52 C325 59, 345 62, 345 75 C345 88, 335 92, 315 92 L20 92 C5 92, 15 75, 15 75 Z" fill="#F8FAFC"/>
+                                <path d="M15 75 L345 75 L335 88 L20 88 Z" fill="#E2E8F0"/>
+                                <!-- Windows -->
+                                <path d="M98 38 C135 35, 175 14, 225 14 C270 14, 285 40, 292 48 L205 48 L98 38 Z" fill="#1E293B"/>
+                                <path d="M215 48 L285 48 C280 42, 268 20, 225 20 C185 20, 155 35, 125 38 L215 48 Z" fill="#38BDF8" fill-opacity="0.6"/>
+                                <!-- Wheels -->
+                                <circle cx="75" cy="95" r="28" fill="#1E293B" stroke="#F1F5F9" stroke-width="3"/>
+                                <circle cx="75" cy="95" r="12" fill="#64748B"/>
+                                <circle cx="75" cy="95" r="4" fill="#F1F5F9"/>
+                                <circle cx="265" cy="95" r="28" fill="#1E293B" stroke="#F1F5F9" stroke-width="3"/>
+                                <circle cx="265" cy="95" r="12" fill="#64748B"/>
+                                <circle cx="265" cy="95" r="4" fill="#F1F5F9"/>
+                            </g>
+
+                            <!-- Girl standing Group -->
+                            <g transform="translate(160, 20) scale(0.5)">
+                                <!-- Legs & Shoes -->
+                                <rect x="5" y="55" width="4" height="42" fill="#1E3A8A"/>
+                                <rect x="12" y="55" width="4" height="42" fill="#1E3A8A"/>
+                                <ellipse cx="7" cy="97" rx="5" ry="2" fill="#1E293B"/>
+                                <ellipse cx="14" cy="97" rx="5" ry="2" fill="#1E293B"/>
+                                <!-- Skirt -->
+                                <path d="M2 35 L19 35 L16 56 L5 56 Z" fill="#3B82F6"/>
+                                <!-- Yellow shirt -->
+                                <rect x="3" y="19" width="14" height="17" fill="#FBBF24" rx="1"/>
+                                <!-- Arms -->
+                                <path d="M19 21 C22 25, 23 35, 20 40 L16 35 Z" fill="#FDBA74"/>
+                                <path d="M1 21 C-2 25, -2 35, 1 40 L4 35 Z" fill="#FDBA74"/>
+                                <!-- Head & Hair -->
+                                <circle cx="10" cy="11" r="7" fill="#FDBA74"/>
+                                <circle cx="10" cy="7" r="8" fill="#1E293B"/>
+                                <path d="M3 11 C3 11, 2 24, 2 30" stroke="#1E293B" stroke-width="3" stroke-linecap="round"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Share Button (absolute bottom right of the banner area) -->
+                    <button class="absolute bottom-1 right-2 bg-black/20 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full flex items-center gap-1 hover:bg-black/30 active-scale text-[11px] font-bold tracking-wide transition-all">
+                        <span>📤</span>
+                        <span>Chia sẻ</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCROLLABLE BODY CONTENT -->
+        <div class="flex-1 overflow-y-auto px-4 pt-4 pb-20 relative" id="scrollContainer">
+            
+            <!-- SECTION TITLE -->
+            <div class="mb-3">
+                <span class="text-gray-800 font-extrabold text-[15.5px] tracking-tight block">Giải thích theo giờ đẹp</span>
+            </div>
+
+            <!-- TABS OF HOURS (Horizontal Scroll/Grid) -->
+            <div class="grid grid-cols-3 gap-2 mb-4">
+                <!-- Tab 1 -->
+                <button onclick="selectHourTab(0)" id="hourTab0" class="border border-[#005CAC] bg-[#EBF5FF] text-[#005CAC] rounded-[14px] py-2.5 flex flex-col items-center justify-center transition-all duration-200 shadow-sm">
+                    <span class="text-[12.5px] font-bold" id="hourTabName0">9h-11h</span>
+                    <div class="flex gap-[0.5px] mt-1" id="hourTabStars0">
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                    </div>
+                </button>
+
+                <!-- Tab 2 -->
+                <button onclick="selectHourTab(1)" id="hourTab1" class="border border-gray-200 bg-white text-gray-500 rounded-[14px] py-2.5 flex flex-col items-center justify-center transition-all duration-200">
+                    <span class="text-[12.5px] font-bold text-gray-700" id="hourTabName1">7h-9h</span>
+                    <div class="flex gap-[0.5px] mt-1" id="hourTabStars1">
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                    </div>
+                </button>
+
+                <!-- Tab 3 -->
+                <button onclick="selectHourTab(2)" id="hourTab2" class="border border-gray-200 bg-white text-gray-500 rounded-[14px] py-2.5 flex flex-col items-center justify-center transition-all duration-200">
+                    <span class="text-[12.5px] font-bold text-gray-700" id="hourTabName2">19h-21h</span>
+                    <div class="flex gap-[0.5px] mt-1" id="hourTabStars2">
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-amber-400 text-[9px]">★</span>
+                        <span class="text-gray-300 text-[9px]">★</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PROMO SUBTEXT -->
+            <div class="text-center mb-4 px-2">
+                <span class="text-[11px] text-[#005CAC] font-medium leading-relaxed block">
+                    Lịch Việt tiên phong trong việc tính toán ngày tốt dựa trên sự kết hợp của 3 yếu tố: <b>Thiên - Địa - Nhân</b>
+                </span>
+            </div>
+
+            <!-- CARD NHÂN -->
+            <div class="relative bg-white border border-gray-200 rounded-[18px] p-4 pt-5 mb-5 shadow-[0_4px_16px_rgba(0,0,0,0.01)]" id="detailsCard">
+                <!-- Header Tab overlapping top-left border -->
+                <div class="absolute -top-px -left-px border border-[#BCD9FF] bg-[#EBF5FF] rounded-tl-[18px] rounded-br-[24px] rounded-tr-[24px] px-5 py-2.5 flex flex-col justify-center min-w-[85%] shadow-sm">
+                    <span class="text-[#005CAC] font-extrabold text-[13.5px] uppercase tracking-wide leading-none">NHÂN</span>
+                    <span class="text-[#2563EB] text-[10.5px] font-medium leading-none mt-1.5">Dựa trên ngày sinh của bạn</span>
+                </div>
+                
+                <!-- Spacer for header -->
+                <div class="h-10"></div>
+                
+                <!-- Content Area -->
+                <div class="space-y-4" id="nhanCardContent">
+                    <!-- Dynamic NHÂN Content -->
+                </div>
+            </div>
+
+            <!-- CARD THIÊN -->
+            <div class="relative bg-white border border-gray-200 rounded-[18px] p-4 pt-5 mb-5 shadow-[0_4px_16px_rgba(0,0,0,0.01)]">
+                <!-- Header Tab overlapping top-left border -->
+                <div class="absolute -top-px -left-px border border-[#BCD9FF] bg-[#EBF5FF] rounded-tl-[18px] rounded-br-[24px] rounded-tr-[24px] px-5 py-2.5 flex flex-col justify-center min-w-[85%] shadow-sm">
+                    <span class="text-[#005CAC] font-extrabold text-[13.5px] uppercase tracking-wide leading-none">THIÊN</span>
+                    <span class="text-[#2563EB] text-[10.5px] font-medium leading-none mt-1.5">Dựa trên sự thay đổi của các hệ sao trong ngày</span>
+                </div>
+                
+                <!-- Spacer for header -->
+                <div class="h-10"></div>
+                
+                <!-- Content Area -->
+                <div class="space-y-3" id="thienCardContent">
+                    <!-- Dynamic THIÊN Content -->
+                </div>
+            </div>
+
+            <!-- BOTTOM BUTTON -->
+            <div class="pt-2 pb-6">
+                <button onclick="createEvent()" class="w-full bg-[#2563EB] hover:bg-blue-600 text-white font-extrabold text-[14px] py-4 rounded-[14px] shadow-[0_4px_12px_rgba(37,99,235,0.2)] transition-all active-scale uppercase tracking-wider">
+                    Tạo sự kiện ngày này
+                </button>
+            </div>
+
+        </div>
+
+        <!-- LOADER SPINNER MODAL (Yin Yang Loader) -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center z-50 hidden" id="loaderModal">
+            <div class="bg-white/95 rounded-[24px] p-6 shadow-2xl flex flex-col items-center justify-center w-[220px]">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white text-3xl shadow-lg loading-spinner mb-4">
+                    ☯️
+                </div>
+                <span class="text-gray-800 font-extrabold text-[13.5px]" id="loaderTitle">Đang kết nối...</span>
+                <span class="text-gray-400 text-[10.5px] mt-1 font-medium">Vui lòng chờ giây lát</span>
+            </div>
+        </div>
+
+        <!-- TOAST MESSAGE -->
+        <div class="absolute bottom-24 left-1/2 -translate-x-1/2 w-[85%] bg-gray-900/95 backdrop-blur-sm text-white text-[13px] font-semibold p-3.5 rounded-[12px] z-[70] shadow-xl text-center opacity-0 translate-y-4 pointer-events-none transition-all duration-300" id="toast">
+            Thông báo
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Details mappings for different dates
+        const DATE_HOURS_DETAILS = {
+            'Thứ Tư, 24/06/2026': [
+                {
+                    time: '9h-11h',
+                    stars: 5,
+                    title: 'Giờ Tỵ (Rắn) · Giờ Đại Cát',
+                    lunar: '10/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Chi trụ năm (Ngọ) phá với chi mệnh (Mão): Xấu', state: 'bad' },
+                            { text: 'Chi trụ năm (Ngọ) tụ lộc với can mệnh (Kỷ): Tốt', state: 'good' },
+                            { text: 'Ngũ hành can năm Bính (Hỏa) sinh ngũ hành can mệnh Kỷ (Thổ): Rất Tốt', state: 'great' }
+                        ]},
+                        { label: 'Tháng với Mệnh', items: [
+                            { text: 'Chi trụ tháng (Ngọ) phá với chi mệnh (Mão): Xấu', state: 'bad' },
+                            { text: 'Chi trụ tháng (Ngọ) tụ lộc với can mệnh (Kỷ): Tốt', state: 'good' },
+                            { text: 'Can tháng (Giáp) hợp can mệnh (Kỷ): Tốt', state: 'good' }
+                        ]},
+                        { label: 'Ngày với Mệnh', items: [
+                            { text: 'Ngũ hành can ngày Kỷ (Thổ) tỷ hòa ngũ hành can mệnh Kỷ (Thổ): Rất Tốt', state: 'great' }
+                        ]},
+                        { label: 'Giờ với Mệnh', items: [
+                            { text: 'Ngũ hành can giờ Kỷ (Thổ) tỷ hòa ngũ hành can mệnh Kỷ (Thổ): Tốt', state: 'good' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '7h-9h',
+                    stars: 5,
+                    title: 'Giờ Thìn (Rồng) · Giờ Tốc Hỷ',
+                    lunar: '10/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Can năm Bính tương sinh mang lại tiền tài vững chắc', state: 'great' },
+                            { text: 'Tương hợp chi ngày đem lại may mắn bất ngờ', state: 'good' }
+                        ]},
+                        { label: 'Ngày với Mệnh', items: [
+                            { text: 'Chi ngày Thìn bình hòa, không khắc can chi chủ mệnh Nhâm Thân', state: 'good' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '19h-21h',
+                    stars: 4,
+                    title: 'Giờ Tuất (Chó) · Giờ Tiểu Cát',
+                    lunar: '10/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Can năm sinh can ngày mang lại cát tường bình an', state: 'good' }
+                        ]},
+                        { label: 'Tháng với Mệnh', items: [
+                            { text: 'Chi tháng Tuất tam hợp mang lại hòa khí tốt lành', state: 'great' }
+                        ]}
+                    ]
+                }
+            ],
+            'Thứ Bảy, 27/06/2026': [
+                {
+                    time: '3h-5h',
+                    stars: 5,
+                    title: 'Giờ Dần (Hổ) · Giờ Đại Cát',
+                    lunar: '13/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Can năm tương sinh can mệnh Nhâm Thân: Rất Tốt', state: 'great' },
+                            { text: 'Can ngày lục hợp mang lại cát khí hanh thông', state: 'good' }
+                        ]},
+                        { label: 'Ngày với Mệnh', items: [
+                            { text: 'Chi ngày Dần vượng lộc, hỗ trợ tốt cho cung quan lộc tài lộc', state: 'great' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '15h-17h',
+                    stars: 4,
+                    title: 'Giờ Thân (Khỉ) · Giờ Bình Hòa',
+                    lunar: '13/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Can năm sinh mệnh đem lại thuận lợi trong đi lại', state: 'good' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '21h-23h',
+                    stars: 5,
+                    title: 'Giờ Hợi (Heo) · Giờ Cát Tường',
+                    lunar: '13/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Can ngày tương hợp sinh cát tài, rất tốt cho mua xe làm ăn', state: 'great' }
+                        ]},
+                        { label: 'Ngày với Mệnh', items: [
+                            { text: 'Chi ngày tương sinh chi mệnh hỗ trợ bình an vạn dặm', state: 'good' }
+                        ]}
+                    ]
+                }
+            ],
+            'Chủ Nhật, 05/07/2026': [
+                {
+                    time: '11h-13h',
+                    stars: 5,
+                    title: 'Giờ Ngọ (Ngựa) · Giờ Đại Cát',
+                    lunar: '21/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Tam hợp cục Dần Ngọ Tuất đem lại đại lợi về tài lộc', state: 'great' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '17h-19h',
+                    stars: 4,
+                    title: 'Giờ Dậu (Gà) · Giờ Cát Tường',
+                    lunar: '21/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Ngày với Mệnh', items: [
+                            { text: 'Chi ngày tương hợp hỗ trợ vận hành xe bình an vô sự', state: 'good' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '23h-1h',
+                    stars: 5,
+                    title: 'Giờ Tý (Chuột) · Giờ Hoàng Đạo',
+                    lunar: '21/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Ngũ hành tương hợp, can ngày sinh can mệnh mang cát khí dồi dào', state: 'great' }
+                        ]}
+                    ]
+                }
+            ],
+            'Thứ Sáu, 10/07/2026': [
+                {
+                    time: '5h-7h',
+                    stars: 5,
+                    title: 'Giờ Mão (Mèo) · Giờ Đại Cát',
+                    lunar: '26/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Tương hợp can chi chủ mệnh Nhâm Thân cực kỳ tốt lành', state: 'great' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '13h-15h',
+                    stars: 5,
+                    title: 'Giờ Mùi (Dê) · Giờ Hoàng Đạo',
+                    lunar: '26/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Ngày với Mệnh', items: [
+                            { text: 'Can ngày Mùi tam hợp mang lại hưng vượng cát tường', state: 'great' }
+                        ]}
+                    ]
+                },
+                {
+                    time: '19h-21h',
+                    stars: 4,
+                    title: 'Giờ Tuất (Chó) · Giờ Cát Khánh',
+                    lunar: '26/05/Bính Ngọ',
+                    bullets: [
+                        { label: 'Năm với Mệnh', items: [
+                            { text: 'Can năm Bính tương sinh mang lại bình an gia đạo', state: 'good' }
+                        ]}
+                    ]
+                }
+            ]
+        };
+
+        // State variables
+        let selectedDate = localStorage.getItem('selected_detail_date') || 'Thứ Tư, 24/06/2026';
+        let selectedLunar = localStorage.getItem('selected_detail_lunar') || '10 Tháng 5, Bính Ngọ';
+        let selectedTabIdx = 0;
+        let isPremium = localStorage.getItem('is_premium_user') === 'true';
+
+        // Initialize view
+        window.addEventListener('DOMContentLoaded', () => {
+            // Update time in status bar
+            const now = new Date();
+            document.getElementById('statusBarTime').innerText = 
+                `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+            // Load user profile name & birth from localStorage
+            const name = localStorage.getItem('user_car_name') || 'Do Thi Mit Na';
+            const dob = localStorage.getItem('user_car_dob') || '15/10/1992';
+            document.getElementById('userNameDobText').innerText = `${name} - ${dob}`;
+
+            // Setup Date texts
+            setupDateTexts();
+
+            // Render Tab names & stars
+            renderTabs();
+
+            // Render details content
+            renderDetails();
+        });
+
+        function setupDateTexts() {
+            // Parse day, month, year from selectedDate string: e.g. "Thứ Tư, 24/06/2026"
+            const parts = selectedDate.split(', ');
+            let dayOfWeek = "Thứ Tư";
+            let dateStr = "24/06/2026";
+            
+            if (parts.length >= 2) {
+                dayOfWeek = parts[0];
+                dateStr = parts[1];
+            }
+            
+            const dateParts = dateStr.split('/');
+            let day = "24";
+            let month = "6";
+            let year = "2026";
+            if (dateParts.length >= 3) {
+                day = dateParts[0];
+                month = parseInt(dateParts[1]);
+                year = dateParts[2];
+            }
+
+            document.getElementById('dayOfWeekText').innerText = dayOfWeek;
+            document.getElementById('dayOfMonthText').innerText = day;
+            document.getElementById('monthYearText').innerText = `Tháng ${month}, ${year}`;
+            document.getElementById('lunarDateText').innerText = selectedLunar;
+        }
+
+        function renderTabs() {
+            const dayData = DATE_HOURS_DETAILS[selectedDate] || DATE_HOURS_DETAILS['Thứ Tư, 24/06/2026'];
+            
+            for (let i = 0; i < 3; i++) {
+                const hourData = dayData[i] || { time: '--h--h', stars: 3 };
+                const tabBtn = document.getElementById(`hourTab${i}`);
+                const tabName = document.getElementById(`hourTabName${i}`);
+                const tabStars = document.getElementById(`hourTabStars${i}`);
+
+                tabName.innerText = hourData.time;
+
+                // Render stars
+                let starsHTML = '';
+                for (let s = 0; s < 5; s++) {
+                    if (s < hourData.stars) {
+                        starsHTML += '<span class="text-amber-400 text-[9px]">★</span>';
+                    } else {
+                        starsHTML += '<span class="text-gray-300 text-[9px]">★</span>';
+                    }
+                }
+                tabStars.innerHTML = starsHTML;
+            }
+        }
+
+        function selectHourTab(tabIdx) {
+            selectedTabIdx = tabIdx;
+            
+            // Highlight selected tab
+            for (let i = 0; i < 3; i++) {
+                const tab = document.getElementById(`hourTab${i}`);
+                const tabName = document.getElementById(`hourTabName${i}`);
+                
+                if (i === tabIdx) {
+                    tab.className = "border border-[#005CAC] bg-[#EBF5FF] text-[#005CAC] rounded-[14px] py-2.5 flex flex-col items-center justify-center transition-all duration-200 shadow-sm";
+                    tabName.className = "text-[12.5px] font-bold text-[#005CAC]";
+                } else {
+                    tab.className = "border border-gray-200 bg-white text-gray-500 rounded-[14px] py-2.5 flex flex-col items-center justify-center transition-all duration-200";
+                    tabName.className = "text-[12.5px] font-bold text-gray-700";
+                }
+            }
+
+            renderDetails();
+        }
+
+        function renderDetails() {
+            const dayData = DATE_HOURS_DETAILS[selectedDate] || DATE_HOURS_DETAILS['Thứ Tư, 24/06/2026'];
+            const hourData = dayData[selectedTabIdx];
+            const nhanContent = document.getElementById('nhanCardContent');
+            const thienContent = document.getElementById('thienCardContent');
+
+            if (!hourData) {
+                nhanContent.innerHTML = '<span class="text-gray-400 text-center block">Không có dữ liệu Nhân.</span>';
+                thienContent.innerHTML = '<span class="text-gray-400 text-center block">Không có dữ liệu Thiên.</span>';
+                return;
+            }
+
+            // 1. Render NHÂN Content
+            let nhanHTML = '';
+            hourData.bullets.forEach((bulletGroup) => {
+                nhanHTML += `
+                    <div>
+                        <span class="text-gray-900 font-extrabold text-[13.5px] block mb-1.5">${bulletGroup.label}</span>
+                        <ul class="space-y-1.5">
+                `;
+
+                bulletGroup.items.forEach((item) => {
+                    nhanHTML += `
+                        <li class="flex items-start gap-2 text-[12.5px] text-[#374151] leading-relaxed pl-1">
+                            <span class="text-[#2563EB] select-none text-[15px] leading-none shrink-0 mt-0.5">•</span>
+                            <span>${item.text}</span>
+                        </li>
+                    `;
+                });
+
+                nhanHTML += `
+                        </ul>
+                    </div>
+                `;
+            });
+            nhanContent.innerHTML = nhanHTML;
+
+            // 2. Render THIÊN Content
+            let thienItems = [];
+            if (selectedDate.includes('24/06/2026')) {
+                thienItems = [
+                    'Các sao tốt trong ngày phù hợp với Mua xe: Tứ tướng, Vương nhật, Ngọc vũ.',
+                    'Trực: Bế'
+                ];
+            } else if (selectedDate.includes('27/06/2026')) {
+                thienItems = [
+                    'Các sao tốt trong ngày phù hợp với Mua xe: Thiên Hỷ, Nguyệt Tài, Tam Hợp.',
+                    'Trực: Khai'
+                ];
+            } else if (selectedDate.includes('05/07/2026')) {
+                thienItems = [
+                    'Các sao tốt trong ngày phù hợp với Mua xe: Sinh Khí, Dịch Mã, Ngũ Hợp.',
+                    'Trực: Kiến'
+                ];
+            } else {
+                thienItems = [
+                    'Các sao tốt trong ngày phù hợp với Mua xe: Hoàng Đạo, Phúc Sinh, Tuế Đức.',
+                    'Trực: Mãn'
+                ];
+            }
+
+            let thienHTML = '<ul class="space-y-1.5">';
+            thienItems.forEach((text) => {
+                thienHTML += `
+                    <li class="flex items-start gap-2 text-[12.5px] text-[#374151] leading-relaxed pl-1">
+                        <span class="text-[#2563EB] select-none text-[15px] leading-none shrink-0 mt-0.5">•</span>
+                        <span>${text}</span>
+                    </li>
+                `;
+            });
+            thienHTML += '</ul>';
+            thienContent.innerHTML = thienHTML;
+        }
+
+        function createEvent() {
+            const loader = document.getElementById('loaderModal');
+            document.getElementById('loaderTitle').innerText = "Đang tạo sự kiện...";
+            loader.classList.remove('hidden');
+
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                showToast("📅 Đã tạo sự kiện Ngày Mua Xe thành công vào Lịch trình!");
+            }, 1000);
+        }
+
+
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.className = "absolute bottom-24 left-1/2 -translate-x-1/2 w-[85%] bg-gray-900/95 backdrop-blur-sm text-white text-[13px] font-semibold p-3.5 rounded-[12px] z-[70] shadow-xl text-center opacity-100 translate-y-0 transition-all duration-300";
+            
+            setTimeout(() => {
+                toast.className = "absolute bottom-24 left-1/2 -translate-x-1/2 w-[85%] bg-gray-900/95 backdrop-blur-sm text-white text-[13px] font-semibold p-3.5 rounded-[12px] z-[70] shadow-xl text-center opacity-0 translate-y-4 pointer-events-none transition-all duration-300";
+            }, 2500);
+        }
+    </script>
+</body>
+
+</html>
