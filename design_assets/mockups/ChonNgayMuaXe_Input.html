@@ -124,32 +124,34 @@
         <div class="flex-1 overflow-y-auto px-4 py-5 space-y-5">
 
             <!-- UNIFIED HEADER & INPUT CONTAINER -->
-            <div class="-mx-4 -mt-5 bg-gradient-to-b from-[#F0F7FF] via-[#F4F9FF] to-[#F9FAFB] pt-5 pb-1 px-4 relative overflow-hidden">
-                <!-- Họa tiết phong thủy chìm hoặc nét vẽ xe hơi mờ -->
-                <div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-blue-100/30 blur-2xl"></div>
+            <div class="-mx-4 -mt-5 bg-gradient-to-b from-[#FFF5EC] via-[#F0F7FF] to-[#F9FAFB] pt-[30px] pb-1 px-4 relative overflow-hidden">
+                <!-- Họa tiết phong thủy chìm và các vòng tròn màu sắc (aurora gradients) -->
+                <div class="absolute -left-10 -top-10 w-44 h-44 rounded-full bg-amber-200/50 blur-3xl"></div>
+                <div class="absolute right-12 -top-6 w-32 h-32 rounded-full bg-rose-200/40 blur-2xl"></div>
+                <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-blue-300/30 blur-2xl"></div>
 
                 <!-- Intro Header Row -->
-                <div class="relative z-10 flex items-center justify-between gap-4 px-1 mb-4">
+                <div class="relative z-10 flex items-center justify-between gap-3.5 px-1 mb-5">
                     <div class="flex-1 min-w-0">
-                        <h2 class="text-[16px] font-bold text-[#A16207] leading-tight tracking-tight whitespace-nowrap">
+                        <h2 class="text-[16px] font-extrabold text-[#B45309] leading-tight tracking-tight">
                             Vạn dặm bình an, phúc lộc vẹn toàn
                         </h2>
-                        <p class="text-gray-600 text-[12px] leading-relaxed font-medium mt-1">
-                            Chọn ngày đẹp hợp tuổi, an tâm rước xe và khởi đầu suôn sẻ.
+                        <p class="text-gray-600 text-[12.5px] leading-relaxed font-medium mt-1">
+                            Xem ngày hợp tuổi để mua xe an tâm, khởi đầu thuận lợi.
                         </p>
                     </div>
                     <!-- Car Icon -->
-                    <div class="w-16 h-16 shrink-0 relative">
+                    <div class="w-[74px] h-[74px] shrink-0 relative -mt-1">
                         <img src="clean_car_icon.png" alt="Auspicious Lucky Car" class="w-full h-full object-contain">
                     </div>
                 </div>
 
                 <!-- OUTER FORM CARD WRAPPER -->
                 <div
-                    class="bg-white border border-gray-200/80 rounded-[16px] p-4 shadow-[0_8px_24px_rgba(0,50,120,0.04)] space-y-5 relative z-10">
+                    class="bg-white border border-gray-200/40 rounded-[16px] pt-3.5 pb-3 px-4 shadow-[0_6px_20px_rgba(0,0,0,0.015)] space-y-4 relative z-10">
 
-                    <!-- USER INFO CARD -->
-                    <div class="border border-gray-200 rounded-[12px] p-3 flex items-start bg-white relative">
+                    <!-- USER INFO SECTION (NO CARD WRAPPER) -->
+                    <div class="flex items-start bg-transparent relative py-1.5 px-0.5">
                         <div class="flex items-start gap-3.5 flex-1 pr-6">
                             <!-- Avatar -->
                             <div id="userAvatarContainer"
@@ -170,7 +172,7 @@
 
                         <!-- Clickable Profile Edit Icon -->
                         <button onclick="openProfileModal()"
-                            class="absolute top-3 right-3 w-8 h-8 text-[#005CAC] flex items-center justify-center rounded-full hover:bg-blue-50 active:scale-90 transition-all focus:outline-none">
+                            class="absolute top-1 right-1 w-8 h-8 text-[#005CAC] flex items-center justify-center rounded-full hover:bg-blue-50 active:scale-90 transition-all focus:outline-none">
                             <div class="relative w-6 h-6">
                                 <svg class="w-5 h-5 absolute bottom-0 left-0" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24" stroke-width="2">
@@ -190,7 +192,7 @@
                     <div class="space-y-2">
                         <label class="text-[14px] font-semibold text-gray-700 tracking-wide block">Màu xe</label>
                         <div onclick="openColorSheet()"
-                            class="border border-gray-200 rounded-[12px] p-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
+                            class="border border-gray-200/60 rounded-[12px] py-3 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
                             <div class="flex items-center gap-3">
                                 <span id="selectedColorText" class="text-gray-400 font-medium text-[15px]">Nhập màu xe
                                     của bạn</span>
@@ -210,7 +212,7 @@
                         <label class="text-[14px] font-semibold text-gray-700 tracking-wide block">Khoảng thời gian
                             xem</label>
                         <div onclick="openTimeframeSheet()"
-                            class="border border-gray-200 rounded-[12px] p-3 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
+                            class="border border-gray-200/60 rounded-[12px] py-2.5 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
                             <div class="flex flex-col">
                                 <span id="selectedTimeframeText" class="text-gray-800 font-bold text-[15px]">30 ngày
                                     tới</span>
@@ -239,58 +241,49 @@
             </div>
 
             <!-- PROMOTIONAL BENEFITS SECTION (FLAT & READ-ONLY LIST) -->
-            <div class="px-1 pt-0 pb-2 space-y-3.5 !mt-5">
-                <h3 class="font-extrabold text-[#005CAC] text-[15px] uppercase tracking-wider text-center">
-                    VÌ SAO NÊN XEM NGÀY MUA XE?
+            <div class="px-1 pt-0 pb-2 space-y-2.5 !mt-5">
+                <h3 class="font-semibold text-[#005CAC] text-[15px] text-left px-1">
+                    Kết quả được luận riêng cho bạn
                 </h3>
 
-                <div class="space-y-3.5 text-[12.5px]">
-                    <!-- Benefit 1: Chọn ngày hợp tuổi, hợp xe -->
+                <div class="space-y-2.5 text-[13.5px] px-1">
+                    <!-- Item 1: Ngày tốt hợp tuổi, hợp xe -->
                     <div class="flex items-start gap-2.5">
-                        <svg class="w-[18px] h-[18px] text-[#005CAC] mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" stroke-width="2.2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                        <svg class="w-[16px] h-[16px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
-                        <p class="leading-snug">
-                            <strong class="text-gray-800 block text-[13.5px]">Chọn ngày hợp tuổi, hợp xe</strong>
-                            <span class="text-gray-500 text-[12px] block mt-0.5">Tìm ngày phù hợp với tuổi chủ xe và màu
-                                xe.</span>
+                        <p class="text-gray-700 font-medium leading-[1.7]">
+                            Ngày tốt hợp tuổi, hợp xe
                         </p>
                     </div>
 
-                    <!-- Benefit 2: Tránh ngày xấu, ngày xung tuổi -->
+                    <!-- Item 2: Giờ tốt nên chọn để khởi đầu thuận lợi -->
                     <div class="flex items-start gap-2.5">
-                        <svg class="w-[18px] h-[18px] text-[#EF4444] mt-0.5 shrink-0" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" stroke-width="2.2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        <svg class="w-[16px] h-[16px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
-                        <p class="leading-snug">
-                            <strong class="text-gray-800 block text-[13.5px]">Tránh ngày xấu, ngày xung tuổi</strong>
-                            <span class="text-gray-500 text-[12px] block mt-0.5">Loại ngày không hợp khi mua hoặc nhận
-                                xe.</span>
+                        <p class="text-gray-700 font-medium leading-[1.7]">
+                            Giờ tốt nên chọn để khởi đầu thuận lợi
                         </p>
                     </div>
 
-                    <!-- Benefit 3: Khởi đầu bình an -->
-                    <div class="flex flex-col gap-1.5">
+                    <!-- Item 3: Luận giải vì sao ngày đó phù hợp với bạn -->
+                    <div class="flex flex-col">
                         <div class="flex items-start gap-2.5">
-                            <svg class="w-[18px] h-[18px] text-[#005CAC] mt-0.5 shrink-0" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            <svg class="w-[16px] h-[16px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
-                            <p class="leading-snug">
-                                <strong class="text-gray-800 block text-[13.5px]">Khởi đầu bình an</strong>
-                                <span class="text-gray-500 text-[12px] block mt-0.5">Nhận xe vững tâm, xuất hành thuận
-                                    lợi.</span>
+                            <p class="text-gray-700 font-medium leading-[1.7]">
+                                Luận giải vì sao ngày đó phù hợp với bạn
                             </p>
                         </div>
-                        <div class="flex justify-end pr-1">
-                            <button
+                        <div class="flex justify-end pr-1 mt-3">
+                            <button onclick="openLdpModal()"
                                 class="text-[13px] text-[#005CAC] hover:underline font-semibold flex items-center gap-0.5 cursor-pointer bg-transparent border-none p-0 focus:outline-none">
-                                Tìm hiểu thêm ➔
+                                Xem cách luận ngày ➔
                             </button>
                         </div>
                     </div>
