@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu Kích Hoạt Năng Lượng - Lịch Việt</title>
+
+    <style>
+        :root {
+            --primary-bg: #FAF6EE;
+            --text-dark: #1b4332;
+            --text-gray: #4B5563; /* Đậm hơn để đỡ mờ */
+            --btn-red: #A1201B;
+            --btn-red-hover: #801814;
+            --border-color: #E5E7EB;
+            --gold: #B67F30; /* Tối và đậm hơn d4a359 để tăng tương phản trên nền sáng */
+        }
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 438px; /* Viewport width = 414px */
+            height: 920px; /* Viewport height = 896px */
+            background: #1F1F1F;
+            border-radius: 48px;
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: #FAF6EE;
+            border-radius: 38px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+        
+        /* Floating Circular Back Button */
+        .floating-back-btn {
+            position: absolute;
+            top: 48px;
+            left: 20px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 17;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .floating-back-btn:active {
+            transform: scale(0.92);
+            background: #f3f4f6;
+        }
+        
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            z-index: 16;
+            pointer-events: none;
+        }
+
+        /* App Bar */
+        .app-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 40px;
+            box-sizing: border-box;
+            z-index: 15;
+            pointer-events: none;
+            transition: background-color 0.25s ease, border-color 0.25s ease;
+            border-bottom: 1px solid transparent;
+        }
+        .app-bar.scrolled {
+            background-color: #FAF6EE;
+            border-color: rgba(182, 127, 48, 0.12);
+            pointer-events: auto;
+        }
+        .app-bar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .app-bar.scrolled .app-bar-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .scroller {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            background-color: #FAF6EE;
+            position: relative;
+            padding-bottom: 100px;
+        }
+
+        .fixed-bottom-area {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(250, 246, 238, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 18px 0 28px 0;
+            border-top: 1px solid rgba(182, 127, 48, 0.12);
+            z-index: 10;
+            box-shadow: 0 -8px 24px rgba(27, 67, 50, 0.08);
+        }
+        
+        /* Custom scrollbar */
+        .scroller::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scroller::-webkit-scrollbar-thumb {
+            background: rgba(27, 67, 50, 0.1);
+            border-radius: 2px;
+        }
+
+        .header-banner-block {
+            position: relative;
+            width: 100%;
+            background-color: #FAF6EE;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            padding-bottom: 12px;
+        }
+        
+        .wuxing-container {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 150px; /* 1/6 of 896px viewport height */
+            z-index: 2;
+            overflow: hidden;
+            background-color: #FAF6EE;
+        }
+
+        .spiritual-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: 15px;
+        }
+        
+        .lotus-gold-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+        .header-subtitle {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin: 8px 0 0 0;
+            padding: 0 12px;
+        }
+        .header-subtitle strong {
+            color: var(--btn-red);
+            font-weight: 700;
+        }
+
+        .deco-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+        }
+        .deco-dots::before, .deco-dots::after {
+            content: '';
+            width: 15px;
+            height: 1px;
+            background-color: rgba(212, 163, 89, 0.4);
+        }
+        .deco-dots span {
+            font-size: 8px;
+            color: var(--gold);
+        }
+
+        /* Unified Benefits Frame */
+        .benefits-frame {
+            border: 1px solid rgba(182, 127, 48, 0.4);
+            border-radius: 20px;
+            padding: 24px 10px 10px 10px;
+            margin: 9px 16px 20px 16px;
+            position: relative;
+            background-color: transparent;
+        }
+        .benefits-frame-title {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FAF6EE;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            z-index: 5;
+        }
+        .benefits-frame-title span.title-text {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            -webkit-text-stroke: 0.3px var(--text-dark);
+        }
+        .benefits-grid-inside {
+            display: grid;
+            grid-template-columns: 1fr;
+            row-gap: 4px;
+        }
+        .benefit-cell {
+            padding: 10px 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            box-sizing: border-box;
+        }
+        .benefit-cell-icon {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -4px;
+        }
+        .benefit-cell-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .benefit-cell-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 0.2px;
+        }
+        .benefit-cell-desc {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-gray);
+            line-height: 1.4;
+        }
+
+        /* Bottom Callout & Button Card */
+        .bottom-action-card {
+            margin: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+
+        .cta-btn {
+            height: 44px;
+            background: linear-gradient(135deg, #C22A24 0%, #A1201B 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(161, 32, 27, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(161, 32, 27, 0.2);
+        }
+        .cta-btn-text {
+            display: flex;
+            align-items: center;
+        }
+        /* Subtle gold lotus watermark in button corner */
+        .cta-btn::after {
+            content: '🪷';
+            position: absolute;
+            right: 32px;
+            bottom: -6px;
+            font-size: 24px;
+            opacity: 0.12;
+            color: #FFFFFF;
+            pointer-events: none;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="phone-mockup">
+        <div class="screen-content">
+            <div class="status-bar">
+                <div>09:50</div>
+                <div class="status-icons">📶 🔋</div>
+            </div>
+            
+            <!-- Floating Back Button -->
+            <button class="floating-back-btn" onclick="history.back()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+            </button>
+            
+            <!-- App Bar -->
+            <div class="app-bar" id="appBar">
+                <span class="app-bar-title">Kích hoạt năng lượng cá nhân</span>
+            </div>
+            
+            <div class="scroller" id="scroller">
+                <!-- Header Banner Block -->
+                <div class="header-banner-block">
+                    <!-- 1. Spiritual Header (First) -->
+                    <div class="spiritual-header" id="spiritualHeader" style="margin-top: 55px; margin-bottom: 14px;">
+                        <h1 class="header-title">KÍCH HOẠT</h1>
+                        <h2 class="header-title" style="font-size:20px; margin-top: 5px; color: var(--gold);">NĂNG LƯỢNG CÁ NHÂN</h2>
+                        <p class="header-subtitle" style="margin-top: 16px;">
+                            Khám phá điểm mạnh, điểm cần cân bằng<br>và cách kích hoạt năng lượng phù hợp.
+                        </p>
+                    </div>
+
+                    <!-- 2. Ngũ hành diagram background cover (Second) -->
+                    <div class="wuxing-container" id="wuxingContainer">
+                        <img src="ChatGPT Image 17_05_01 13 thg 7, 2026.png" alt="Sơ Đồ Ngũ Hành" style="width: 100%; height: 100%; object-fit: contain; display: block;">
+                    </div>
+                </div>
+
+                <!-- 2.1 Intro Description Text (New request) -->
+                <p style="text-align: center; font-size: 15px; line-height: 1.6; color: var(--text-dark); font-weight: 500; margin: 3px 24px 20px 24px; padding: 0;">
+                    Dựa trên ngày sinh và giờ sinh, hệ thống sẽ<br>phân tích bản đồ ngũ hành và đưa ra kết quả<br><strong style="color: #A1201B; font-weight: 700;">dành riêng cho bạn</strong>.
+                </p>
+
+                <!-- 3. Unified Benefits Frame -->
+                <div class="benefits-frame">
+                    <div class="benefits-frame-title">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3C12 3 15 8 15 12.5C15 17 12 21 12 21C12 21 9 17 9 12.5C9 8 12 3 12 3Z" fill="var(--gold)"/>
+                            <path d="M12 9C12 9 13.5 11 13.5 13C13.5 15 12 17 12 17C12 17 10.5 15 10.5 13C10.5 11 12 9 12 9Z" fill="#FAF6EE"/>
+                            <path d="M12 21C12 21 6.5 18 6.5 13.5C6.5 9 10 9 11 10.5C9.5 11.5 9.5 15 12 21Z" fill="var(--gold)"/>
+                            <path d="M12 21C12 21 17.5 18 17.5 13.5C17.5 9 14 9 13 10.5C14.5 11.5 14.5 15 12 21Z" fill="var(--gold)"/>
+                            <path d="M12 21C12 21 3.5 19 3.5 15C3.5 11 7 11.5 8 12.5C6.5 13.5 6 17 12 21Z" fill="var(--gold)" opacity="0.8"/>
+                            <path d="M12 21C12 21 20.5 19 20.5 15C20.5 11 17 11.5 16 12.5C17.5 13.5 18 17 12 21Z" fill="var(--gold)" opacity="0.8"/>
+                        </svg>
+                        <span class="title-text">KẾT QUẢ BẠN NHẬN ĐƯỢC</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3C12 3 15 8 15 12.5C15 17 12 21 12 21C12 21 9 17 9 12.5C9 8 12 3 12 3Z" fill="var(--gold)"/>
+                            <path d="M12 9C12 9 13.5 11 13.5 13C13.5 15 12 17 12 17C12 17 10.5 15 10.5 13C10.5 11 12 9 12 9Z" fill="#FAF6EE"/>
+                            <path d="M12 21C12 21 6.5 18 6.5 13.5C6.5 9 10 9 11 10.5C9.5 11.5 9.5 15 12 21Z" fill="var(--gold)"/>
+                            <path d="M12 21C12 21 17.5 18 17.5 13.5C17.5 9 14 9 13 10.5C14.5 11.5 14.5 15 12 21Z" fill="var(--gold)"/>
+                            <path d="M12 21C12 21 3.5 19 3.5 15C3.5 11 7 11.5 8 12.5C6.5 13.5 6 17 12 21Z" fill="var(--gold)" opacity="0.8"/>
+                            <path d="M12 21C12 21 20.5 19 20.5 15C20.5 11 17 11.5 16 12.5C17.5 13.5 18 17 12 21Z" fill="var(--gold)" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="benefits-grid-inside">
+                        <!-- 1. Dụng Thần -->
+                        <div class="benefit-cell">
+                            <div class="benefit-cell-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8">
+                                    <circle cx="12" cy="12" r="10" fill="var(--gold)" fill-opacity="0.12" />
+                                    <path d="M12 2a10 10 0 0 1 0 20 5 5 0 0 1 0-10 5 5 0 0 0 0-10" fill="var(--gold)" />
+                                    <circle cx="12" cy="7" r="1.2" fill="#FAF6EE" />
+                                    <circle cx="12" cy="17" r="1.2" fill="var(--gold)" />
+                                </svg>
+                            </div>
+                            <div class="benefit-cell-text">
+                                <span class="benefit-cell-name">Dụng thần</span>
+                                <span class="benefit-cell-desc">Xác định năng lượng chủ đạo phù hợp với bản thân.</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 2. Màu Sắc Hỗ Trợ -->
+                        <div class="benefit-cell">
+                            <div class="benefit-cell-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8">
+                                    <path d="M12 12 C12 7, 15 7, 12 12 C15 12, 15 15, 12 12 C12 17, 9 17, 12 12 C9 12, 9 9, 12 12" fill="var(--gold)" fill-opacity="0.15"/>
+                                    <circle cx="12" cy="12" r="9" stroke="var(--gold)" stroke-dasharray="2 2"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-cell-text">
+                                <span class="benefit-cell-name">Màu sắc hỗ trợ</span>
+                                <span class="benefit-cell-desc">Màu sắc giúp cân bằng năng lượng và thu hút vận may.</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Linh Vật Phù Hợp -->
+                        <div class="benefit-cell">
+                            <div class="benefit-cell-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 3h12l4 6-10 13L2 9z" fill="var(--gold)" fill-opacity="0.12"/>
+                                    <path d="M11 3 8 9l4 13 4-13-3-6"/>
+                                    <path d="M2 9h20"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-cell-text">
+                                <span class="benefit-cell-name">Linh vật phù hợp</span>
+                                <span class="benefit-cell-desc">Linh vật phù hợp giúp kích hoạt năng lượng tích cực.</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Phương Thức Kích Hoạt -->
+                        <div class="benefit-cell">
+                            <div class="benefit-cell-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2v6M12 16v6M6 12h12" />
+                                    <path d="M9 9a3 3 0 1 1 6 6 3 3 0 0 1-6-6z" fill="var(--gold)" fill-opacity="0.12"/>
+                                    <path d="M9 15a3 3 0 1 1 6-6 3 3 0 0 1-6 6z" />
+                                </svg>
+                            </div>
+                            <div class="benefit-cell-text">
+                                <span class="benefit-cell-name">Phương thức kích hoạt</span>
+                                <span class="benefit-cell-desc">Gợi ý phương pháp kích hoạt năng lượng hiệu quả cho bạn.</span>
+                            </div>
+                        </div>
+
+                        <!-- 5. Quý Nhân -->
+                        <div class="benefit-cell">
+                            <div class="benefit-cell-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2" fill="var(--gold)" fill-opacity="0.12"/>
+                                    <circle cx="12" cy="7" r="4" />
+                                    <path d="M23 21v-2a2 2 0 0 0-1.2-1.8" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <div class="benefit-cell-text">
+                                <span class="benefit-cell-name">Quý nhân</span>
+                                <span class="benefit-cell-desc">Xác định và thu hút những mối quan hệ hỗ trợ bạn.</span>
+                            </div>
+                        </div>
+
+                        <!-- 6. Tài Lộc -->
+                        <div class="benefit-cell">
+                            <div class="benefit-cell-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8">
+                                    <circle cx="12" cy="12" r="10" fill="var(--gold)" fill-opacity="0.12" />
+                                    <rect x="9" y="9" width="6" height="6" rx="1" stroke="var(--gold)" stroke-width="1.8" fill="#FAF6EE"/>
+                                    <path d="M12 2v7M12 15v7M2 12h7M15 12h7" stroke-dasharray="1 1"/>
+                                </svg>
+                            </div>
+                            <div class="benefit-cell-text">
+                                <span class="benefit-cell-name">Tài lộc</span>
+                                <span class="benefit-cell-desc">Gợi ý cách thu hút tài lộc, cải thiện cuộc sống và sự nghiệp.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Fixed Bottom CTA Area -->
+            <div class="fixed-bottom-area">
+                <div class="bottom-action-card">
+                    <a href="./KichHoatNangLuong_Input.html" class="cta-btn">
+                        <span class="cta-btn-text">Xem bản đồ ngũ hành của bạn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scroller = document.getElementById('scroller');
+        const appBar = document.getElementById('appBar');
+        const backBtn = document.querySelector('.floating-back-btn');
+
+        scroller.addEventListener('scroll', () => {
+            if (scroller.scrollTop > 50) {
+                appBar.classList.add('scrolled');
+                backBtn.classList.add('scrolled');
+            } else {
+                appBar.classList.remove('scrolled');
+                backBtn.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
