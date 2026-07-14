@@ -77,14 +77,16 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 90px;
+            height: 96px;
             background-color: #FAF6EE;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 40px;
+            padding-top: 48px;
             box-sizing: border-box;
             z-index: 15;
+            border-bottom: 1px solid rgba(182, 127, 48, 0.08);
+            box-shadow: 0 2px 6px rgba(27, 67, 50, 0.04);
         }
         .app-bar-title {
             font-size: 16px;
@@ -93,10 +95,10 @@
         }
         .floating-back-btn {
             position: absolute;
-            top: 48px;
+            top: 56px;
             left: 20px;
-            width: 34px;
-            height: 34px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.95);
             border: none;
@@ -120,7 +122,7 @@
             flex-direction: column;
             background-color: #FAF6EE;
             position: relative;
-            padding-top: 90px; /* clear app bar */
+            padding-top: 96px; /* clear app bar */
             padding-bottom: 30px; /* standard padding since CTA is scrollable */
         }
         /* Custom scrollbar */
@@ -582,9 +584,8 @@
 
             <!-- Floating Back Button -->
             <button class="floating-back-btn" onclick="history.back()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                    <polyline points="12 19 5 12 12 5"></polyline>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
             </button>
 
