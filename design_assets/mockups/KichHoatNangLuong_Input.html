@@ -556,23 +556,17 @@
         }
 
         /* ===== Responsive: trên điện thoại thật, bỏ khung mockup và lấp đầy màn hình ===== */
+        /* ===== Trên điện thoại: GIỮ viền điện thoại giả lập, thu nhỏ vừa khít màn hình ===== */
         @media (max-width: 480px) {
             body {
-                display: block;
-                min-height: 0;
-                background: #FAF6EE;
+                overflow: hidden; /* khung cố định, không cho trang cuộn */
             }
             .phone-mockup {
-                width: 100%;
-                height: 100vh;      /* fallback cho trình duyệt cũ */
-                height: 100dvh;     /* mượt khi thanh địa chỉ ẩn/hiện */
-                border-radius: 0;
-                padding: 0;
-                box-shadow: none;
-                background: #FAF6EE;
-            }
-            .screen-content {
-                border-radius: 0;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* JS thêm scale() cho vừa màn hình */
+                transform-origin: center center;
             }
         }
     </style>
@@ -1041,7 +1035,23 @@
             handleTimeChange(timeInput);
         });
 
-
+        // Trên điện thoại: thu nhỏ khung mockup cho vừa khít màn hình (giữ viền giả lập)
+        function fitMockup() {
+            const mockup = document.querySelector('.phone-mockup');
+            if (!mockup) return;
+            if (window.matchMedia('(max-width: 480px)').matches) {
+                const FRAME_W = 462; // 438 + viền #111 (12px mỗi bên)
+                const FRAME_H = 944; // 920 + viền #111 (12px mỗi bên)
+                const scale = Math.min(window.innerWidth / FRAME_W, window.innerHeight / FRAME_H);
+                mockup.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            } else {
+                mockup.style.transform = '';
+            }
+        }
+        window.addEventListener('resize', fitMockup);
+        window.addEventListener('orientationchange', fitMockup);
+        window.addEventListener('DOMContentLoaded', fitMockup);
+        fitMockup();
     </script>
 </body>
 </html>
