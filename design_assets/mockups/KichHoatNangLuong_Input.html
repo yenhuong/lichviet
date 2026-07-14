@@ -153,6 +153,15 @@
             line-height: 1.45;
             padding-left: 2px;
         }
+        .label-hint {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gold);
+        }
+        .input-helper-text.helper-above {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
         .input-intro-desc {
             font-size: 15px;
             color: var(--text-dark);
@@ -596,7 +605,7 @@
 
             <!-- Scrollable Content -->
             <div class="scroller" id="scroller">
-                <p class="input-intro-desc">Nhập thông tin để tạo bản đồ ngũ hành<br><span class="highlight-red">dành riêng cho bạn.</span></p>
+                <p class="input-intro-desc">Nhập thông tin để tạo bản đồ ngũ hành<br>cá nhân hóa theo ngày sinh của bạn.</p>
 
                 <!-- Input Groups -->
                 <!-- Họ tên -->
@@ -659,8 +668,9 @@
                                 <polyline points="12 6 12 12 16 14"></polyline>
                             </svg>
                         </span>
-                        <span class="input-group-title">Giờ sinh</span>
+                        <span class="input-group-title">Giờ sinh <span class="label-hint">(khuyến nghị)</span></span>
                     </div>
+                    <span class="input-helper-text helper-above">Thêm giờ sinh để kết quả phân tích chi tiết, chính xác hơn.</span>
                     <div class="input-group-control">
                         <div class="select-display" id="time-display">Chọn giờ sinh</div>
                         <input class="real-input" type="time" id="birthtime" onchange="handleTimeChange(this)">
@@ -670,7 +680,6 @@
                             </svg>
                         </div>
                     </div>
-                    <span class="input-helper-text">Thêm giờ sinh để kết quả phân tích chính xác hơn.</span>
                 </div>
 
                 <!-- Giới tính -->
