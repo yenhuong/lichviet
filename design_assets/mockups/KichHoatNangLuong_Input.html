@@ -115,6 +115,7 @@
         .scroller {
             flex: 1;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* momentum scroll mượt trên iOS */
             display: flex;
             flex-direction: column;
             background-color: #FAF6EE;
@@ -553,6 +554,27 @@
             font-weight: 600;
             color: var(--text-dark);
         }
+
+        /* ===== Responsive: trên điện thoại thật, bỏ khung mockup và lấp đầy màn hình ===== */
+        @media (max-width: 480px) {
+            body {
+                display: block;
+                min-height: 0;
+                background: #FAF6EE;
+            }
+            .phone-mockup {
+                width: 100%;
+                height: 100vh;      /* fallback cho trình duyệt cũ */
+                height: 100dvh;     /* mượt khi thanh địa chỉ ẩn/hiện */
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                background: #FAF6EE;
+            }
+            .screen-content {
+                border-radius: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -926,13 +948,9 @@
             setTimeout(() => {
                 showToast("Lập bản đồ ngũ hành thành công! Đang tải kết quả...", 'success');
                 setTimeout(() => {
-                    // Redirect or reset
-                    btn.style.pointerEvents = 'auto';
-                    btnText.innerText = "Xem kết quả phân tích";
-                    
-                    // Simple mock alert of success since details screen is not built yet
-                    alert("Phân tích Ngũ hành thành công cho " + (fullname || "khách") + "!\nHệ thống đã lưu thông tin và tính toán Bản đồ năng lượng cá nhân.");
-                }, 1500);
+                    // Chuyển tới màn kết quả Lá Số Bát Tự
+                    window.location.href = "KichHoatNangLuong_Result.html";
+                }, 900);
             }, 1200);
         }
 
