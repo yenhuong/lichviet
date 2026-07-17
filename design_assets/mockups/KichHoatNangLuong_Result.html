@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lá Số Bát Tự - Lịch Việt</title>
+    <style>
+        :root {
+            --primary-bg: #FAF6EE;
+            --card-bg: #FFFDF9;
+            --text-dark: #1b4332;
+            --text-gray: #4B5563;
+            --deep-green: #1c5138;
+            --header-green: #1b4d34;
+            --gold: #B67F30;
+            --gold-soft: rgba(182, 127, 48, 0.35);
+            --el-moc: #2d6a4f;
+            --el-hoa: #A1201B;
+            --el-tho: #8a6d3b;
+            --el-kim: #6b6f76;
+            --el-thuy: #2563eb;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 438px;
+            height: 920px;
+            background: #1F1F1F;
+            border-radius: 48px;
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-bg);
+            border-radius: 38px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .status-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            z-index: 16;
+            pointer-events: none;
+        }
+        .status-icons { display: flex; align-items: center; gap: 6px; }
+        .floating-back-btn {
+            position: absolute;
+            top: 56px; left: 20px;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            z-index: 17;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .floating-back-btn:active { transform: scale(0.92); background: #f3f4f6; }
+
+        .app-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 96px;
+            background-color: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 48px;
+            box-sizing: border-box;
+            z-index: 15;
+            border-bottom: 1px solid rgba(182, 127, 48, 0.08);
+            box-shadow: 0 2px 6px rgba(27, 67, 50, 0.04);
+        }
+        .app-bar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .scroller {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* momentum scroll mượt trên iOS */
+            display: flex;
+            flex-direction: column;
+            background-color: var(--primary-bg);
+            position: relative;
+            padding-top: 96px; /* clear app bar */
+        }
+        .scroller > * { flex-shrink: 0; } /* không cho các khối bị nén → cuộn thay vì cắt cụt */
+        .scroller::-webkit-scrollbar { width: 4px; }
+        .scroller::-webkit-scrollbar-track { background: transparent; }
+        .scroller::-webkit-scrollbar-thumb { background: rgba(27, 67, 50, 0.12); border-radius: 2px; }
+
+        /* ===== Header ===== */
+        .hero {
+            position: relative;
+            padding: 16px 16px 20px 16px;
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .user-basic {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 22px;
+        }
+        .user-name {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--deep-green);
+        }
+        .user-meta {
+            margin-top: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--text-gray);
+        }
+        /* ===== Thông tin ngày/giờ sinh 2 cột ===== */
+        .id-namerow {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .id-gender {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-gray);
+            flex-shrink: 0;
+        }
+        .id-grid {
+            display: flex;
+            gap: 44px;
+            margin-top: 14px;
+        }
+        .id-col {
+            flex: 0 1 auto;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .id-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: var(--text-gray);
+        }
+        .id-label svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--gold); }
+        .id-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 5px;
+        }
+        .id-sub {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-top: 5px;
+        }
+        .hero-title {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 22px;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--deep-green);
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== Info Cards ===== */
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin: 8px 16px 0 16px;
+            border: 1px solid var(--gold-soft);
+            border-radius: 16px;
+            background: rgba(255,253,249,0.6);
+            overflow: hidden;
+        }
+        .info-card {
+            padding: 16px 14px;
+        }
+        .info-card + .info-card {
+            border-left: 1px solid var(--gold-soft);
+        }
+        .info-card-title {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: var(--deep-green);
+            margin-bottom: 12px;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: var(--deep-green);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .mini-table {
+            flex: 1;
+            border: 1px solid var(--gold-soft);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .mini-th {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--deep-green);
+        }
+        .mini-th span {
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #f3e9d2;
+            padding: 3px 0;
+        }
+        .mini-td {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .mini-td span {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 4px 0;
+        }
+        .single-badge {
+            flex: 1;
+            border: 1px solid var(--gold-soft);
+            border-radius: 8px;
+            text-align: center;
+            padding: 6px 0;
+        }
+        .single-badge .lbl {
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #f3e9d2;
+            background: var(--deep-green);
+            display: block;
+            padding: 3px 0;
+            margin: -6px 0 5px 0;
+        }
+        .single-badge .val {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .info-sub {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        .info-divider {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 8px 0;
+            color: var(--gold);
+        }
+        .lunar-row .info-icon {
+            background: var(--deep-green);
+        }
+        .tietkhi-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tietkhi-text .k {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--deep-green);
+        }
+        .tietkhi-text .v {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* ===== Four Pillars Table ===== */
+        .pillars {
+            margin: 6px 16px 0 16px;
+            border: 1.5px solid var(--gold-soft);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--card-bg);
+        }
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .p-cell {
+            text-align: center;
+            border-right: 1px solid rgba(182,127,48,0.18);
+            border-bottom: 1px solid rgba(182,127,48,0.18);
+        }
+        .pillar-grid > .p-cell:nth-child(4n) { border-right: none; }
+
+        /* header row */
+        .p-head {
+            background: #F0E8D8;
+            border-right: 1px solid rgba(182,127,48,0.18);
+            border-bottom: none;
+            padding: 12px 6px;
+            color: var(--text-dark);
+        }
+        .pillar-grid > .p-head:nth-child(4n) { border-right: none; }
+        .p-head .col {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .p-head .npy {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--text-dark);
+            margin: 4px 0 6px 0;
+        }
+        .p-head .num {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .p-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-gray);
+            padding-top: 12px;
+        }
+        .p-big {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.1;
+            padding: 2px 0 0 0;
+            color: var(--deep-green);
+        }
+        .p-big.red { color: var(--el-hoa); }
+        .p-small {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-gray);
+            padding: 2px 0 12px 0;
+        }
+        .p-small.red { color: var(--el-hoa); }
+
+        /* tang can */
+        .p-tang {
+            padding: 10px 0 12px 0;
+        }
+        .p-tang .tline {
+            font-size: 11.5px;
+            font-weight: 600;
+            line-height: 1.9;
+        }
+        .m-moc { color: var(--el-moc); }
+        .m-hoa { color: var(--el-hoa); }
+        .m-tho { color: var(--el-tho); }
+        .m-kim { color: var(--el-kim); }
+        .m-thuy { color: var(--el-thuy); }
+
+        /* thap than */
+        .p-than { padding: 12px 0 14px 0; }
+        .p-than .tt {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--deep-green);
+        }
+        .p-than .tt.faded { color: var(--text-gray); }
+        .p-than .ttsub {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-gray);
+            margin-top: 5px;
+        }
+        .pillar-grid > .p-than { border-bottom: none; }
+
+        /* ===== Menh Chu ===== */
+        /* Cầu nối lá số → luận giải */
+        .derive-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 16px 16px 0 16px;
+        }
+        .derive-arrow {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 3px 8px rgba(182,127,48,0.35);
+        }
+        .derive-caption {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            color: var(--text-gray);
+        }
+        .menhchu {
+            margin: 16px 16px 28px 16px;
+        }
+        .menhchu-head {
+            display: block;
+            line-height: 1.3;
+        }
+        .menhchu-label {
+            display: inline;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-style: normal;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            text-transform: none;
+            color: var(--gold);
+        }
+        .menhchu-name {
+            display: inline;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+            color: var(--deep-green);
+        }
+        .menhchu-body {
+            margin-top: 14px;
+            font-size: 15px;
+            line-height: 1.65;
+            font-weight: 500;
+            color: #333333;
+        }
+        .menhchu-body em {
+            font-style: normal;
+        }
+        .menhchu-body b {
+            font-weight: 700;
+        }
+        .menhchu-body p { margin: 0 0 12px 0; }
+        .highlight-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .highlight-icon {
+            flex-shrink: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .highlight-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--deep-green);
+        }
+        .cach-cuc-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8B6914;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+
+
+        /* ===== Responsive: trên điện thoại thật, bỏ khung mockup và lấp đầy màn hình ===== */
+        /* ===== Trên điện thoại: GIỮ viền điện thoại giả lập, thu nhỏ vừa khít màn hình ===== */
+        @media (max-width: 480px) {
+            body {
+                overflow: hidden; /* khung cố định, không cho trang cuộn */
+            }
+            .phone-mockup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* JS thêm scale() cho vừa màn hình */
+                transform-origin: center center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-mockup">
+        <div class="screen-content">
+            <!-- iOS Status Bar -->
+            <div class="status-bar">
+                <div>09:50</div>
+                <div class="status-icons">📶 🔋</div>
+            </div>
+
+            <!-- Floating Back Button -->
+            <button class="floating-back-btn" onclick="history.back()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <!-- Fixed App Bar -->
+            <div class="app-bar">
+                <span class="app-bar-title">Kết quả luận giải</span>
+            </div>
+
+            <div class="scroller">
+                <!-- ===== Hero ===== -->
+                <div class="hero" style="position: relative; padding: 16px 16px 4px 16px; text-align: left;">
+                    <h1 class="hero-title" style="font-size: 30px !important; line-height: 1.25 !important; margin: 0 !important; text-align: left !important;">Lá số Bát tự của bạn</h1>
+
+                    <div class="user-basic" style="margin: 14px 0 6px 0 !important;">
+                        <div class="id-namerow" style="justify-content: flex-start !important;">
+                            <div class="user-name" id="res-name" style="font-size: 20px !important; color: var(--gold) !important; text-align: left !important;">Nguyễn Hiếu Minh</div>
+                        </div>
+                        <div class="id-grid">
+                            <div class="id-col">
+                                <div class="id-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Ngày sinh</div>
+                                <div class="id-value">09/01/1998</div>
+                                <div class="id-sub">Âm lịch 11/12/1997</div>
+                            </div>
+                            <div class="id-col">
+                                <div class="id-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>Giờ sinh</div>
+                                <div class="id-value">05:30</div>
+                                <div class="id-sub">Giờ Mão</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ===== Four Pillars ===== -->
+                <div class="pillars">
+                    <div class="pillar-grid">
+                        <!-- Header row -->
+                        <div class="p-cell p-head"><div class="col">NĂM</div><div class="npy">THIÊN ĐẦU THỔ</div><div class="num">1998</div></div>
+                        <div class="p-cell p-head"><div class="col">THÁNG</div><div class="npy">ẤT TRUNG THỔ</div><div class="num">1</div></div>
+                        <div class="p-cell p-head"><div class="col">NGÀY</div><div class="npy">ĐẠI LÂM<br>MỘC</div><div class="num">9</div></div>
+                        <div class="p-cell p-head"><div class="col">GIỜ</div><div class="npy">THẠCH LƯU MỘC</div><div class="num">05:30</div></div>
+
+                        <!-- Thien can -->
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big">MẬU</div><div class="p-small">DƯƠNG THỔ</div></div>
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big red">ĐINH</div><div class="p-small red">ÂM HỎA</div></div>
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big">MẬU</div><div class="p-small">DƯƠNG THỔ</div></div>
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big">CANH</div><div class="p-small">DƯƠNG KIM</div></div>
+
+                        <!-- Dia chi -->
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big">DẦN</div><div class="p-small">Lâm Quan</div></div>
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big red">TỊ</div><div class="p-small">Đế Vượng</div></div>
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big">THÌN</div><div class="p-small">Lâm Quan</div></div>
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big">THÂN</div><div class="p-small">Trường Sinh</div></div>
+
+                        <!-- Tang can -->
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-moc">Giáp (Mộc)</div>
+                            <div class="tline m-hoa">Bính (Hỏa)</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                        </div>
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-hoa">Bính (Hỏa)</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                            <div class="tline m-kim">Canh (Kim)</div>
+                        </div>
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                            <div class="tline m-moc">Ất (Mộc)</div>
+                            <div class="tline m-thuy">Quý (Thủy)</div>
+                        </div>
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-kim">Canh (Kim)</div>
+                            <div class="tline m-thuy">Nhâm (Thủy)</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                        </div>
+
+                        <!-- Thap than -->
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Tỷ</div><div class="ttsub">Kiếp tài</div></div>
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Ấn</div><div class="ttsub">Chính ấn</div></div>
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Nhật chủ</div><div class="ttsub">(Thân chủ)</div></div>
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Thực</div><div class="ttsub">Thực thần</div></div>
+                    </div>
+                </div>
+
+                <!-- ===== Menh Chu ===== -->
+                <div class="menhchu">
+                    <div class="menhchu-head" style="line-height: 1.3; display: flex; align-items: baseline; gap: 6px; flex-wrap: nowrap;">
+                        <div style="font-size: 15px; font-weight: 500; color: var(--text-dark);">Lá số của bạn thuộc cách cục</div>
+                        <span class="cach-cuc-name">Kiến Lộc</span>
+                    </div>
+                    <div class="menhchu-body">
+                        <div class="highlight-section">
+                            <div class="highlight-icon">✨</div>
+                            <div class="highlight-title">Điểm mạnh nổi bật</div>
+                        </div>
+                        <p><em>Bạn là người điềm đạm, thực tế, luôn biết cách thầm lặng chăm lo, vun vén và có khả năng xây dựng một nền tảng bền vững, ổn định cho tập thể hoặc gia đình. Sự kiên trì, chu đáo của bạn giúp bạn thầm lặng nhặt nhạnh thành quả nhỏ để tạo nền móng vững chắc.</em></p>
+                        <div class="highlight-section" style="margin-top: 16px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="7" x2="12" y2="13"/>
+                                    <circle cx="12" cy="17" r="0.9" fill="#8B6914"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Điểm cần lưu ý</div>
+                        </div>
+                        <p><em>Bản tính quá thận trọng khiến tốc độ ra quyết định của bạn khá chậm rãi. Trước những biến động đột ngột cần sự xoay chuyển tình thế nhanh chóng, bạn dễ bị lúng túng, thiếu sự linh hoạt bứt tốc và có xu hướng né tránh những lựa chọn mang tính mạo hiểm.</em></p>
+                    </div>
+                </div>
+
+                <!-- Section Separator -->
+                <div style="height: 10px; background-color: rgba(182, 127, 48, 0.08); border-top: 1px solid rgba(182, 127, 48, 0.12); border-bottom: 1px solid rgba(182, 127, 48, 0.12); margin: 16px 0 8px 0;"></div>
+
+                <!-- ===== Biểu đồ ngũ hành ===== -->
+                <div class="hero" style="padding: 16px 16px 0 16px;">
+                    <h1 class="hero-title" style="font-size: 22px !important; margin: 0 !important;">Biểu đồ Ngũ hành</h1>
+                    <p style="font-size: 14px; color: var(--text-gray); line-height: 1.5; margin: 6px 0 0 0; font-weight: 500;">Lá số Bát tự cho thấy cấu trúc ngũ hành riêng của bạn. Giúp nhận biết điểm mạnh, điểm yếu và định hướng cân bằng bản mệnh.</p>
+                </div>
+
+                <div style="margin: -6px 8px 8px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                    <div style="display: flex; flex-direction: column; min-width: 560px; padding-bottom: 6px;">
+                        <!-- Bars Section -->
+                        <div style="display: flex; height: 180px; align-items: flex-end; margin-bottom: -1px;">
+                            <!-- Left spacer matching table first column width -->
+                            <div style="width: 60px; flex-shrink: 0;"></div>
+                            <!-- Bars Area -->
+                            <div style="display: flex; flex: 1; justify-content: space-around; align-items: flex-end; height: 100%; padding-bottom: 0;">
+                                <!-- Canh -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">20%</span>
+                                    <div style="width: 18px; height: 120px; background: #6b6b6b; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Tân -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">4%</span>
+                                    <div style="width: 18px; height: 24px; background: #9ca3af; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Nhâm -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">11%</span>
+                                    <div style="width: 18px; height: 66px; background: #2563eb; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Quý -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">8%</span>
+                                    <div style="width: 18px; height: 48px; background: #60a5fa; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Giáp -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">10%</span>
+                                    <div style="width: 18px; height: 60px; background: #2d6a4f; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Ất -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">0%</span>
+                                    <div style="width: 18px; height: 0; background: #52b788; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Bính -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">5%</span>
+                                    <div style="width: 18px; height: 30px; background: #c53030; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Đinh -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">7%</span>
+                                    <div style="width: 18px; height: 42px; background: #f87171; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Mậu -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">26%</span>
+                                    <div style="width: 18px; height: 156px; background: #b67f30; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Kỷ -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">9%</span>
+                                    <div style="width: 18px; height: 54px; background: #f59e0b; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table Section -->
+                        <table style="width: 100%; table-layout: fixed; border-collapse: collapse; border: 1px solid rgba(182,127,48,0.2); border-radius: 8px; background: #FFFDF9; box-shadow: 0 2px 6px rgba(182,127,48,0.05);">
+                            <colgroup>
+                                <col style="width: 60px;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            
+                            <!-- Header Row (Deities & Stems) -->
+                            <tr style="border-bottom: 1px solid rgba(182, 127, 48, 0.15); background: rgba(182, 127, 48, 0.06); height: 38px;">
+                                <th style="border-left: 1px solid rgba(182, 127, 48, 0.2); border-right: 1px solid rgba(182, 127, 48, 0.3); font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px;">Thần</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center;">Thực</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center;">Thương</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center;">Thê</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center;">Tài</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center;">Sát</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #52b788; text-align: center;">Quan</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #c53030; text-align: center;">Kiêu</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #f87171; text-align: center;">Ấn</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center;">Tỷ</th>
+                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.2); font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center;">Kiếp</th>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.2); background: rgba(182,127,48,0.06); height: 38px;">
+                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px;">Can</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center; text-transform: uppercase;">Canh</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center; text-transform: uppercase;">Tân</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center; text-transform: uppercase;">Nhâm</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center; text-transform: uppercase;">Quý</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center; text-transform: uppercase;">Giáp</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #52b788; text-align: center; text-transform: uppercase;">Ất</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #c53030; text-align: center; text-transform: uppercase;">Bính</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #f87171; text-align: center; text-transform: uppercase;">Đinh</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center; text-transform: uppercase;">Mậu</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center; text-transform: uppercase;">Kỷ</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.12); height: 38px;">
+                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 6px; line-height: 1.15;">Thiên<br>can</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">11%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                            </tr>
+
+                            <!-- Địa Chi Row -->
+                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.12); height: 38px;">
+                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15;">Địa chi</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">10%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">5%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">7%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">6%</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">9%</td>
+                            </tr>
+
+                            <!-- Trạng thái Row -->
+                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.12); height: 38px;">
+                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15;">Trạng<br>thái</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
+                            </tr>
+
+                            <!-- Trường sinh Row -->
+                            <tr style="height: 38px;">
+                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15;">Trường<br>sinh</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(182, 127, 48, 0.2); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ===== Luận giải ===== -->
+                <div class="menhchu" style="margin-top: 0; margin-bottom: 32px; background: #FFFDF9; border: 1px solid rgba(182, 127, 48, 0.2); border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">NHẬN ĐỊNH TỪ NGŨ HÀNH</div>
+                        <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 19px; color: var(--deep-green); line-height: 1.3; white-space: nowrap;"><span style="font-weight: 600;">Nhật chủ</span> <span style="font-weight: 800;">Giáp</span><span style="font-weight: 600;"> · Sinh tháng</span> <span style="font-weight: 800;">Tý</span></div>
+                    </div>
+                    <div class="menhchu-body" style="margin-top: 8px;">
+                        <div class="highlight-section" style="margin-bottom: 8px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Chân dung năng lực</div>
+                        </div>
+                        <p style="margin-bottom: 16px; color: #333333;">Bạn sở hữu phản xạ nhạy bén, khả năng nhận biết vấn đề phát sinh và đánh giá tình huống cực nhanh dưới áp lực cao. Thử thách đột ngột không dễ làm bạn hoang mang; bạn hành động nhanh, quyết đoán và sẵn sàng đối mặt trực diện. Bạn cũng sống rất thân thiện, nhiệt tình, luôn sẵn sàng xả thân để hỗ trợ mọi người bên cạnh.</p>
+                        
+                        <div class="highlight-section" style="margin-bottom: 8px; margin-top: 16px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="7" x2="12" y2="13"/>
+                                    <circle cx="12" cy="17" r="0.9" fill="#8B6914"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Điểm cần lưu ý</div>
+                        </div>
+                        <p style="margin-bottom: 0; color: #333333;">Bạn thường xuyên đối mặt với sự căng thẳng nội tâm do bản tính hay tư duy, suy nghĩ quá nhiều về rủi ro và trở ngại. Năng lượng bùng nổ tốt ngắn hạn nhưng khó duy trì trạng thái tập trung dài hạn, và việc căng sức đề phòng quá lâu dễ làm bạn bị kiệt sức, đưa ra quyết định cảm tính lúc nhất thời.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Trên điện thoại: thu nhỏ khung mockup cho vừa khít màn hình (giữ viền giả lập)
+        function fitMockup() {
+            const mockup = document.querySelector('.phone-mockup');
+            if (!mockup) return;
+            if (window.matchMedia('(max-width: 480px)').matches) {
+                const FRAME_W = 462; // 438 + viền #111 (12px mỗi bên)
+                const FRAME_H = 944; // 920 + viền #111 (12px mỗi bên)
+                const scale = Math.min(window.innerWidth / FRAME_W, window.innerHeight / FRAME_H);
+                mockup.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            } else {
+                mockup.style.transform = '';
+            }
+        }
+        window.addEventListener('resize', fitMockup);
+        window.addEventListener('orientationchange', fitMockup);
+        window.addEventListener('DOMContentLoaded', fitMockup);
+        fitMockup();
+    </script>
+</body>
+</html>
