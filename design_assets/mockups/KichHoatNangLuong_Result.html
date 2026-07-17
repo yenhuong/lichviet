@@ -6,7 +6,7 @@
     <title>Lá Số Bát Tự - Lịch Việt</title>
     <style>
         :root {
-            --primary-bg: #FAF6EE;
+            --primary-bg: #FDFBF7;
             --card-bg: #FFFDF9;
             --text-dark: #1b4332;
             --text-gray: #4B5563;
@@ -119,6 +119,10 @@
         .scroller::-webkit-scrollbar { width: 4px; }
         .scroller::-webkit-scrollbar-track { background: transparent; }
         .scroller::-webkit-scrollbar-thumb { background: rgba(27, 67, 50, 0.12); border-radius: 2px; }
+
+        /* Ẩn thanh cuộn ngang nhưng vẫn cho phép cuộn */
+        .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; height: 0; width: 0; }
 
         /* ===== Header ===== */
         .hero {
@@ -649,10 +653,10 @@
                         <p><em>Bạn là người điềm đạm, thực tế, luôn biết cách thầm lặng chăm lo, vun vén và có khả năng xây dựng một nền tảng bền vững, ổn định cho tập thể hoặc gia đình. Sự kiên trì, chu đáo của bạn giúp bạn thầm lặng nhặt nhạnh thành quả nhỏ để tạo nền móng vững chắc.</em></p>
                         <div class="highlight-section" style="margin-top: 16px;">
                             <div class="highlight-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10"/>
                                     <line x1="12" y1="7" x2="12" y2="13"/>
-                                    <circle cx="12" cy="17" r="0.9" fill="#8B6914"/>
+                                    <circle cx="12" cy="17" r="0.9" fill="var(--gold)"/>
                                 </svg>
                             </div>
                             <div class="highlight-title">Điểm cần lưu ý</div>
@@ -670,7 +674,7 @@
                     <p style="font-size: 14px; color: var(--text-gray); line-height: 1.5; margin: 6px 0 0 0; font-weight: 500;">Lá số Bát tự cho thấy cấu trúc ngũ hành riêng của bạn. Giúp nhận biết điểm mạnh, điểm yếu và định hướng cân bằng bản mệnh.</p>
                 </div>
 
-                <div style="margin: -6px 8px 8px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                <div class="no-scrollbar" style="margin: -6px 8px 8px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
                     <div style="display: flex; flex-direction: column; min-width: 560px; padding-bottom: 6px;">
                         <!-- Bars Section -->
                         <div style="display: flex; height: 180px; align-items: flex-end; margin-bottom: -1px;">
@@ -837,7 +841,7 @@
                 </div>
 
                 <!-- ===== Luận giải ===== -->
-                <div class="menhchu" style="margin-top: 0; margin-bottom: 32px; background: #FFFDF9; border: 1px solid rgba(182, 127, 48, 0.2); border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                <div class="menhchu" style="margin-top: 0; margin-bottom: 32px; background: rgba(182, 127, 48, 0.05); border: 1px solid rgba(182, 127, 48, 0.2); border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
                     <div style="margin-bottom: 14px;">
                         <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">NHẬN ĐỊNH TỪ NGŨ HÀNH</div>
                         <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 19px; color: var(--deep-green); line-height: 1.3; white-space: nowrap;"><span style="font-weight: 600;">Nhật chủ</span> <span style="font-weight: 800;">Giáp</span><span style="font-weight: 600;"> · Sinh tháng</span> <span style="font-weight: 800;">Tý</span></div>
@@ -845,7 +849,7 @@
                     <div class="menhchu-body" style="margin-top: 8px;">
                         <div class="highlight-section" style="margin-bottom: 8px;">
                             <div class="highlight-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10"/>
                                     <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
                                 </svg>
@@ -856,10 +860,10 @@
                         
                         <div class="highlight-section" style="margin-bottom: 8px; margin-top: 16px;">
                             <div class="highlight-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10"/>
                                     <line x1="12" y1="7" x2="12" y2="13"/>
-                                    <circle cx="12" cy="17" r="0.9" fill="#8B6914"/>
+                                    <circle cx="12" cy="17" r="0.9" fill="var(--gold)"/>
                                 </svg>
                             </div>
                             <div class="highlight-title">Điểm cần lưu ý</div>
