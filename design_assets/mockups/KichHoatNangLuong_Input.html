@@ -942,20 +942,8 @@
                 return;
             }
 
-            // Simulate form submission success
-            const btn = document.querySelector('.cta-btn');
-            const btnText = document.querySelector('.cta-btn-text');
-            
-            btn.style.pointerEvents = 'none';
-            btnText.innerText = "Đang phân tích ngũ hành...";
-            
-            setTimeout(() => {
-                showToast("Lập bản đồ ngũ hành thành công! Đang tải kết quả...", 'success');
-                setTimeout(() => {
-                    // Chuyển tới màn kết quả Lá Số Bát Tự
-                    window.location.href = "KichHoatNangLuong_Result.html";
-                }, 900);
-            }, 1200);
+            // Chuyển tới màn kết quả Lá Số Bát Tự trực tiếp
+            window.location.href = "KichHoatNangLuong_Result.html";
         }
 
         // Family profiles data
