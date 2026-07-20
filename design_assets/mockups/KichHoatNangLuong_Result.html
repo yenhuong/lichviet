@@ -530,6 +530,51 @@
             display: inline-block;
         }
 
+        /* ===== CTA ghim cố định đáy màn (đồng bộ giao diện màn Intro) ===== */
+        #cta-bar {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            padding: 11px 16px calc(14px + env(safe-area-inset-bottom, 0px)) 16px;
+            background-color: #FFFDFA;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+            z-index: 20;
+            transform: translateY(140%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+        #cta-bar.cta-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #cta-bar .cta-btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #C8901A 0%, #B67F30 45%, #94601A 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 0 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(148, 96, 26, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        #cta-bar .cta-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 3px 8px rgba(148, 96, 26, 0.22);
+        }
+
 
 
         /* ===== Responsive: trên điện thoại thật, bỏ khung mockup và lấp đầy màn hình ===== */
@@ -572,7 +617,7 @@
             <div class="scroller">
                 <!-- ===== Hero ===== -->
                 <div class="hero" style="position: relative; padding: 16px 16px 4px 16px; text-align: left;">
-                    <h1 class="hero-title" style="font-size: 30px !important; line-height: 1.25 !important; margin: 0 !important; text-align: left !important;">Lá số Bát tự của bạn</h1>
+                    <h1 class="hero-title" style="font-size: 24px !important; line-height: 1.25 !important; margin: 0 !important; text-align: left !important;">Lá số Bát tự của bạn</h1>
 
                     <div class="user-basic" style="margin: 14px 0 6px 0 !important;">
                         <div class="id-namerow" style="justify-content: flex-start !important;">
@@ -680,11 +725,11 @@
 
                 <!-- ===== Biểu đồ ngũ hành ===== -->
                 <div class="hero" style="padding: 16px 16px 0 16px;">
-                    <h1 class="hero-title" style="font-size: 22px !important; margin: 0 !important;">Biểu đồ Ngũ hành</h1>
+                    <h1 class="hero-title" style="font-size: 24px !important; margin: 0 !important;">Biểu đồ Ngũ hành</h1>
                     <p style="font-size: 15px; color: #333333; line-height: 1.5; margin: 6px 0 0 0; font-weight: 500;">Lá số Bát tự cho thấy cấu trúc ngũ hành riêng của bạn. Giúp nhận biết điểm mạnh, điểm yếu và định hướng cân bằng bản mệnh.</p>
                 </div>
 
-                <div class="no-scrollbar" style="margin: -6px 8px 8px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                <div class="no-scrollbar" style="margin: -6px 8px 14px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
                     <div style="display: flex; flex-direction: column; min-width: 560px;">
                         <!-- Bars Section -->
                         <div style="display: flex; height: 180px; align-items: flex-end; margin-bottom: -1px;">
@@ -845,7 +890,7 @@
                 </div>
 
                 <!-- ===== Luận giải ===== -->
-                <div class="menhchu" style="margin-top: 0; margin-bottom: 32px; background: #FFFDF8; border: 1px solid #EBD6BA; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                <div class="menhchu" style="margin-top: 0; margin-bottom: 16px; background: #FFFDF8; border: 1px solid #EBD6BA; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
                     <div style="margin-bottom: 14px;">
                         <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">NHẬN ĐỊNH TỪ NGŨ HÀNH</div>
                         <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 19px; color: var(--deep-green); line-height: 1.3; white-space: nowrap;"><span style="font-weight: 600;">Nhật chủ</span> <span style="font-weight: 800;">Giáp</span><span style="font-weight: 600;"> · Sinh tháng</span> <span style="font-weight: 800;">Tý</span></div>
@@ -875,6 +920,226 @@
                         <p style="margin-bottom: 0; color: #333333;">Bạn thường xuyên đối mặt với sự căng thẳng nội tâm do bản tính hay tư duy, suy nghĩ quá nhiều về rủi ro và trở ngại. Năng lượng bùng nổ tốt ngắn hạn nhưng khó duy trì trạng thái tập trung dài hạn, và việc căng sức đề phòng quá lâu dễ làm bạn bị kiệt sức, đưa ra quyết định cảm tính lúc nhất thời.</p>
                     </div>
                 </div>
+
+                <!-- ===== Khối Mở Khoá Premium ===== -->
+                <div id="unlock-block" class="menhchu" style="position: relative; margin: 8px 0 0 0; background: #FFFCF7; border-radius: 16px 16px 0 0; padding: 22px 16px 96px 16px; box-shadow: 0 -4px 20px rgba(182, 127, 48, 0.08); overflow: hidden;">
+                    <!-- Hoạ tiết nền đầu khối -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 220px; pointer-events: none; overflow: hidden; border-radius: 16px 16px 0 0;">
+                        <!-- Vầng sáng gradient (đẩy lên đỉnh, chừa vùng tiêu đề) -->
+                        <div style="position: absolute; top: -230px; left: 50%; transform: translateX(-50%); width: 420px; height: 340px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(182,127,48,0.14) 0%, rgba(182,127,48,0.05) 50%, rgba(182,127,48,0) 75%);"></div>
+                        <!-- Ngôi sao lấp lánh rải đối xứng -->
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(182,127,48,0.28)" style="position: absolute; left: 26px; top: 30px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(182,127,48,0.22)" style="position: absolute; left: 54px; top: 62px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="rgba(182,127,48,0.20)" style="position: absolute; left: 96px; top: 20px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(182,127,48,0.22)" style="position: absolute; right: 96px; top: 24px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                    </div>
+
+                    <!-- Sparkle Decorations -->
+                    <div style="position: absolute; right: 20px; top: 22px; pointer-events: none; opacity: 0.9; filter: drop-shadow(0 2px 4px rgba(182, 127, 48, 0.35));">
+                        <!-- Large Sparkle -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#B67F30" style="position: absolute; right: 0; top: 0;">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                        </svg>
+                        <!-- Small Sparkle -->
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="#B67F30" style="position: absolute; right: 2px; top: 20px;">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                        </svg>
+                    </div>
+
+                    <!-- Badge Premium -->
+                    <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+                        <div style="background: linear-gradient(135deg, #B67F30 0%, #94601A 100%); color: #FFFFFF; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 4px rgba(148, 96, 26, 0.2);">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 14h14v2H5v-2z"/>
+                            </svg>
+                            PREMIUM
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <h2 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 28px; font-weight: 800; color: #174F38; text-align: center; margin: 4px 0 8px 0; letter-spacing: -0.2px; line-height: 1.25;">Mở khoá luận giải<br>chuyên sâu</h2>
+                    <p style="font-size: 15px; color: #333333; text-align: center; margin: 0 auto 20px auto; line-height: 1.45; font-weight: 500;">Xem đầy đủ phân tích và gợi ý phù hợp theo lá số của bạn.</p>
+
+                    <!-- Inner White Box -->
+                    <div style="background: #FFFFFF; border: 1px solid #E8D8C4; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(182, 127, 48, 0.03);">
+                        <!-- Group 1 Header with Green Background -->
+                        <div style="background: #F2F6EF; padding: 14px 16px 14px 16px; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 16px; font-weight: 800; color: #17533B; letter-spacing: -0.1px; font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;">Bản phân tích dành riêng cho bạn</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(148, 96, 26, 0.28));">
+                                <defs>
+                                    <linearGradient id="lockGoldG1" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0" stop-color="#EFC873"/>
+                                        <stop offset="0.5" stop-color="#C8901A"/>
+                                        <stop offset="1" stop-color="#9C6A12"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M7.5 10V7.2a4.5 4.5 0 0 1 9 0V10" fill="none" stroke="#B67F30" stroke-width="2.1" stroke-linecap="round"/>
+                                <rect x="4" y="10" width="16" height="11" rx="3" fill="url(#lockGoldG1)" stroke="#8A5E12" stroke-width="0.6"/>
+                                <path d="M4.6 11.4c4.4-1 10.4-1 14.8 0" fill="none" stroke="#F6E3AC" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+                                <circle cx="12" cy="14.6" r="1.9" fill="#5C3D0A"/>
+                                <rect x="11.1" y="15" width="1.8" height="3.4" rx="0.9" fill="#5C3D0A"/>
+                            </svg>
+                        </div>
+
+                        <!-- Item 1 -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px; border-bottom: 1px solid #EEEAE4;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="8.5" cy="7" r="4"/>
+                                    <polygon points="19 8 20.3 11 23.5 11.2 21 13.5 21.8 16.8 19 15 16.2 16.8 17 13.5 14.5 11.2 17.7 11 19 8" fill="#B67F30" stroke="#B67F30" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Chân dung năng lượng của bạn</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Hiểu điểm mạnh tự nhiên của bạn và những điểm cần chú ý để phát triển một cách cân bằng, bền vững.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px; border-bottom: 1px solid #EEEAE4;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10" stroke="#EBD6BA" stroke-width="1.5"/>
+                                    <path d="M12 2a5 5 0 0 0 0 10 5 5 0 0 1 0 10 10 10 0 0 0 0-20z" fill="#B67F30"/>
+                                    <circle cx="12" cy="7" r="1.5" fill="#0d2e20"/>
+                                    <circle cx="12" cy="17" r="1.5" fill="#B67F30"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Bản đồ ngũ hành cá nhân</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Biết ngũ hành nào đang vượng, đang thiếu và tác động đến công việc, tài chính, sức khỏe và các mối quan hệ.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="6" y1="20" x2="6" y2="14" stroke="#EBD6BA" stroke-width="2"/>
+                                    <line x1="12" y1="20" x2="12" y2="10" stroke="#EBD6BA" stroke-width="2"/>
+                                    <line x1="18" y1="20" x2="18" y2="6" stroke="#EBD6BA" stroke-width="2"/>
+                                    <path d="M2 17l5-5 5 4 8-8" stroke="#B67F30" stroke-width="2"/>
+                                    <polyline points="17 8 21 8 21 12" stroke="#B67F30" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Hướng phát triển phù hợp</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Nhận gợi ý về hướng đi phù hợp, phát triển công việc và xây dựng nền tảng tài chính ổn định theo lá số của mình.</p>
+                            </div>
+                        </div>
+
+                        <!-- Group 2 Header with Green Background -->
+                        <div style="background: #F2F6EF; padding: 14px 16px 14px 16px; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 16px; font-weight: 800; color: #17533B; letter-spacing: -0.1px; font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;">Giải pháp kích hoạt theo lá số</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(148, 96, 26, 0.28));">
+                                <defs>
+                                    <linearGradient id="lockGoldG2" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0" stop-color="#EFC873"/>
+                                        <stop offset="0.5" stop-color="#C8901A"/>
+                                        <stop offset="1" stop-color="#9C6A12"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M7.5 10V7.2a4.5 4.5 0 0 1 9 0V10" fill="none" stroke="#B67F30" stroke-width="2.1" stroke-linecap="round"/>
+                                <rect x="4" y="10" width="16" height="11" rx="3" fill="url(#lockGoldG2)" stroke="#8A5E12" stroke-width="0.6"/>
+                                <path d="M4.6 11.4c4.4-1 10.4-1 14.8 0" fill="none" stroke="#F6E3AC" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+                                <circle cx="12" cy="14.6" r="1.9" fill="#5C3D0A"/>
+                                <rect x="11.1" y="15" width="1.8" height="3.4" rx="0.9" fill="#5C3D0A"/>
+                            </svg>
+                        </div>
+
+                        <!-- Item 4 (Linh vật đặt) -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px 2px 16px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 3h12l4 6-10 12L2 9z"/>
+                                    <path d="M11 3 8 9l4 12 4-12-3-6"/>
+                                    <path d="M2 9h20"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Linh vật đặt</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Gợi ý linh vật đặt phù hợp với lá số, hỗ trợ tài lộc, mở rộng cơ hội và tăng khả năng gặp được quý nhân nâng đỡ.</p>
+                            </div>
+                        </div>
+
+                        <!-- 4 linh vật đặt gợi ý (2x2) -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 10px; padding: 14px 16px 16px 16px; border-bottom: 1px solid #EEEAE4;">
+                            <!-- Lộc -->
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                                    <ellipse cx="12" cy="7.5" rx="5.5" ry="2" fill="#E0A81E"/>
+                                    <path d="M6 8.2c-.9 0-1.5.8-1.3 1.7C5.5 13.4 8.4 15.5 12 15.5s6.5-2.1 7.3-5.6c.2-.9-.4-1.7-1.3-1.7H6z" fill="#C8901A"/>
+                                    <circle cx="12" cy="6.6" r="1.3" fill="#F4D06F"/>
+                                    <circle cx="9.4" cy="7.1" r="1" fill="#F4D06F"/>
+                                    <circle cx="14.6" cy="7.1" r="1" fill="#F4D06F"/>
+                                </svg>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">LỘC</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kích hoạt tài lộc</div>
+                                </div>
+                            </div>
+                            <!-- Mã -->
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8901A" style="flex-shrink: 0;">
+                                    <path d="M14.5 3c-.4.9-.3 1.6.1 2.3-2.6.5-5.2 2.4-6.3 5.2-.4 1-1.3 1.4-1.9 2.2-.5.6-.2 1.3.5 1.3.6 0 1.2-.4 1.7-1 .2 1.4-.3 2.6-1 3.8-.6 1-.2 2.2.9 2.2H12v-2c0-1.8.8-2.9 2-4 1.6-1.4 2.4-3 2.4-5.2 0-1.4-.5-2.6-1.3-3.6.6-.3 1-1 .9-1.8-.6.3-1.2.3-1.7-.1.3-.4.4-.9.2-1.3z"/>
+                                </svg>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">MÃ</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kích hoạt cơ hội</div>
+                                </div>
+                            </div>
+                            <!-- Âm quý nhân -->
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8901A" style="flex-shrink: 0;">
+                                    <path d="M12 5.5c1.7 1.9 2.4 3.8 2.2 5.8 1-1.3 1.4-2.6 1.4-4.2 1.3 1.2 2 2.7 2 4.6 0 .5-.1 1-.2 1.4 1-.6 1.7-1.5 2.1-2.7.8 1 .8 2.3.1 3.6-1.4 2.5-4.2 4-7.6 4s-6.2-1.5-7.6-4c-.7-1.3-.7-2.6.1-3.6.4 1.2 1.1 2.1 2.1 2.7-.1-.4-.2-.9-.2-1.4 0-1.9.7-3.4 2-4.6-.2 1.6.2 2.9 1.4 4.2-.2-2 .5-3.9 2.2-5.8z"/>
+                                </svg>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">ÂM QUÝ NHÂN</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kết nối người hỗ trợ</div>
+                                </div>
+                            </div>
+                            <!-- Dương quý nhân -->
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8901A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                                    <path d="M8 12.5 5 9.5 2.5 12l3.5 3.5c.6.6 1.5.6 2.1 0l1.4-1.4"/>
+                                    <path d="m16 12.5 3-3L21.5 12 18 15.5c-.6.6-1.5.6-2.1 0l-1.4-1.4"/>
+                                    <path d="M9 13.5 11 15.5c.6.6 1.5.6 2.1 0l.4-.4c.6.6 1.5.6 2.1 0"/>
+                                    <path d="M6 9.5 9 7l3 1.5L15 7l3 2.5"/>
+                                </svg>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">DƯƠNG QUÝ NHÂN</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Gặp người nâng đỡ</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 (Linh vật hộ thân) -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px 20px 16px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <polygon points="12 8 13.5 11 16.5 11.2 14.2 13.3 14.8 16.2 12 14.8 9.2 16.2 9.8 13.3 7.5 11.2 10.5 11 12 8" fill="#B67F30" stroke="#B67F30" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Linh vật hộ thân</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Giúp cân bằng năng lượng, tăng sự an tâm và hỗ trợ hóa giải những điều chưa thuận trong cuộc sống.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA ghim cố định đáy màn, chỉ hiện khi cuộn tới khối mở khoá -->
+            <div id="cta-bar">
+                <button class="cta-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <rect x="4" y="11" width="16" height="10" rx="2"/>
+                        <path d="M8 11V7a4 4 0 0 1 8 0"/>
+                    </svg>
+                    <span class="cta-btn-text">Mở khoá luận giải chuyên sâu</span>
+                </button>
             </div>
         </div>
     </div>
@@ -897,6 +1162,20 @@
         window.addEventListener('orientationchange', fitMockup);
         window.addEventListener('DOMContentLoaded', fitMockup);
         fitMockup();
+
+        // CTA ghim đáy: hiện khi khối mở khoá lọt vào vùng nhìn, ẩn khi cuộn ra
+        (function () {
+            const bar = document.getElementById('cta-bar');
+            const block = document.getElementById('unlock-block');
+            const scroller = document.querySelector('.scroller');
+            if (!bar || !block || !scroller) return;
+            const io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    bar.classList.toggle('cta-visible', e.isIntersecting);
+                });
+            }, { root: scroller, threshold: 0.12 });
+            io.observe(block);
+        })();
     </script>
 </body>
 </html>
