@@ -6,11 +6,11 @@
     <title>Lá Số Bát Tự - Lịch Việt</title>
     <style>
         :root {
-            --primary-bg: #FDFBF7;
-            --card-bg: #FFFDF9;
+            --primary-bg: #FAFAFA;
+            --card-bg: #FFFFFF;
             --text-dark: #1b4332;
             --text-gray: #4B5563;
-            --deep-green: #1c5138;
+            --deep-green: #174F38;
             --header-green: #1b4d34;
             --gold: #B67F30;
             --gold-soft: rgba(182, 127, 48, 0.35);
@@ -337,7 +337,7 @@
         /* ===== Four Pillars Table ===== */
         .pillars {
             margin: 6px 16px 0 16px;
-            border: 1.5px solid var(--gold-soft);
+            border: 1.5px solid #D9DED9;
             border-radius: 14px;
             overflow: hidden;
             background: var(--card-bg);
@@ -347,16 +347,21 @@
             grid-template-columns: repeat(4, 1fr);
         }
         .p-cell {
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            border-right: 1px solid rgba(182,127,48,0.18);
-            border-bottom: 1px solid rgba(182,127,48,0.18);
+            border-right: 1px solid rgba(217, 222, 217, 0.5);
+            border-bottom: 1px solid rgba(217, 222, 217, 0.5);
         }
         .pillar-grid > .p-cell:nth-child(4n) { border-right: none; }
 
         /* header row */
         .p-head {
             background: rgba(28, 81, 56, 0.2);
-            border-right: 1px solid rgba(182, 127, 48, 0.18);
+            border-right: 1px solid rgba(217, 222, 217, 0.5);
             border-bottom: none;
             padding: 12px 6px;
             color: var(--text-dark);
@@ -641,7 +646,7 @@
                 </div>
 
                 <!-- ===== Menh Chu ===== -->
-                <div class="menhchu" style="background: rgba(182, 127, 48, 0.05); border: 1px solid rgba(182, 127, 48, 0.2); border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                <div class="menhchu" style="background: #FFFDF8; border: 1px solid #EBD6BA; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
                     <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 700; color: var(--deep-green); line-height: 1.5; margin-bottom: 12px;">
                         Lá số Bát tự của bạn thuộc cách cục <span style="font-size: 20px; font-weight: 800; color: var(--gold); white-space: nowrap;">Kiến Lộc</span>
                     </div>
@@ -680,7 +685,7 @@
                 </div>
 
                 <div class="no-scrollbar" style="margin: -6px 8px 8px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
-                    <div style="display: flex; flex-direction: column; min-width: 560px; padding-bottom: 6px;">
+                    <div style="display: flex; flex-direction: column; min-width: 560px;">
                         <!-- Bars Section -->
                         <div style="display: flex; height: 180px; align-items: flex-end; margin-bottom: -1px;">
                             <!-- Left spacer matching table first column width -->
@@ -741,7 +746,7 @@
                         </div>
 
                         <!-- Table Section -->
-                        <table style="width: 100%; table-layout: fixed; border-collapse: collapse; border: 1px solid rgba(182,127,48,0.2); border-radius: 8px; background: #FFFDF9; box-shadow: 0 2px 6px rgba(182,127,48,0.05);">
+                        <table style="width: 100%; table-layout: fixed; border-collapse: collapse; border: 1px solid #E3E7E4; border-radius: 8px; background: #FFFFFF; overflow: hidden;">
                             <colgroup>
                                 <col style="width: 60px;">
                                 <col style="width: 10%;">
@@ -757,96 +762,90 @@
                             </colgroup>
                             
                             <!-- Header Row (Deities & Stems) -->
-                            <tr style="border-bottom: 1px solid rgba(182, 127, 48, 0.15); background: rgba(182, 127, 48, 0.06); height: 38px;">
-                                <th style="border-left: 1px solid rgba(182, 127, 48, 0.2); border-right: 1px solid rgba(182, 127, 48, 0.3); font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px;">Thần</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center;">Thực</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center;">Thương</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center;">Thê</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center;">Tài</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center;">Sát</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #52b788; text-align: center;">Quan</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #c53030; text-align: center;">Kiêu</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #f87171; text-align: center;">Ấn</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.08); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center;">Tỷ</th>
-                                <th style="border-right: 1px solid rgba(182, 127, 48, 0.2); font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center;">Kiếp</th>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #F0F5F2; height: 38px;">
+                                <th style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px; background: #FAF7F1;">Thần</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center;">Thực</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center;">Thương</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center;">Thê</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center;">Tài</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center;">Sát</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #52b788; text-align: center;">Quan</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #c53030; text-align: center;">Kiêu</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #f87171; text-align: center;">Ấn</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center;">Tỷ</th>
+                                <th style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center;">Kiếp</th>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.2); background: rgba(182,127,48,0.06); height: 38px;">
-                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px;">Can</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center; text-transform: uppercase;">Canh</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center; text-transform: uppercase;">Tân</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center; text-transform: uppercase;">Nhâm</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center; text-transform: uppercase;">Quý</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center; text-transform: uppercase;">Giáp</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #52b788; text-align: center; text-transform: uppercase;">Ất</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #c53030; text-align: center; text-transform: uppercase;">Bính</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #f87171; text-align: center; text-transform: uppercase;">Đinh</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center; text-transform: uppercase;">Mậu</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center; text-transform: uppercase;">Kỷ</td>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px; background: #FAF7F1;">Can</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center; text-transform: uppercase;">Canh</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center; text-transform: uppercase;">Tân</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center; text-transform: uppercase;">Nhâm</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center; text-transform: uppercase;">Quý</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center; text-transform: uppercase;">Giáp</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #52b788; text-align: center; text-transform: uppercase;">Ất</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #c53030; text-align: center; text-transform: uppercase;">Bính</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #f87171; text-align: center; text-transform: uppercase;">Đinh</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center; text-transform: uppercase;">Mậu</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center; text-transform: uppercase;">Kỷ</td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.12); height: 38px;">
-                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 6px; line-height: 1.15;">Thiên<br>can</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">11%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 6px; line-height: 1.15; background: #FAF7F1;">Thiên<br>can</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">11%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; color: var(--text-gray); text-align: center;"></td>
                             </tr>
-
-                            <!-- Địa Chi Row -->
-                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.12); height: 38px;">
-                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15;">Địa chi</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">10%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">5%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">7%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">6%</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">9%</td>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15; background: #FAF7F1;">Địa chi</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">10%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">5%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">7%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">6%</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">9%</td>
                             </tr>
-
-                            <!-- Trạng thái Row -->
-                            <tr style="border-bottom: 1px solid rgba(182,127,48,0.12); height: 38px;">
-                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15;">Trạng<br>thái</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.2); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15; background: #FAF7F1;">Trạng<br>thái</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
                             </tr>
-
-                            <!-- Trường sinh Row -->
-                            <tr style="height: 38px;">
-                                <td style="border-left: 1px solid rgba(182,127,48,0.2); border-right: 1px solid rgba(182,127,48,0.3); font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15;">Trường<br>sinh</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
-                                <td style="border-right: 1px solid rgba(182,127,48,0.08); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
-                                <td style="border-right: 1px solid rgba(182, 127, 48, 0.2); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                            <tr style="background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15; background: #FAF7F1;">Trường<br>sinh</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
                             </tr>
                         </table>
                     </div>
                 </div>
 
                 <!-- ===== Luận giải ===== -->
-                <div class="menhchu" style="margin-top: 0; margin-bottom: 32px; background: rgba(182, 127, 48, 0.05); border: 1px solid rgba(182, 127, 48, 0.2); border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                <div class="menhchu" style="margin-top: 0; margin-bottom: 32px; background: #FFFDF8; border: 1px solid #EBD6BA; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
                     <div style="margin-bottom: 14px;">
                         <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">NHẬN ĐỊNH TỪ NGŨ HÀNH</div>
                         <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 19px; color: var(--deep-green); line-height: 1.3; white-space: nowrap;"><span style="font-weight: 600;">Nhật chủ</span> <span style="font-weight: 800;">Giáp</span><span style="font-weight: 600;"> · Sinh tháng</span> <span style="font-weight: 800;">Tý</span></div>
