@@ -1047,95 +1047,84 @@
                 <!-- ===== Linh vật hộ thân ===== -->
                 <div style="margin: 12px 16px 32px 16px;">
                     <!-- Hàng trên: linh vật Trâu với núi thủy mặc mờ nhẹ & vầng sáng tròn rất dịu -->
-                    <div style="position: relative; overflow: hidden; border-radius: 18px; border: 1px solid rgba(182, 127, 48, 0.1); background: linear-gradient(135deg, #FFFDFB 0%, #FAF6EF 100%); padding: 16px 14px; box-shadow: 0 4px 14px rgba(182, 127, 48, 0.04); margin-bottom: 22px;">
+                    <!-- Hiển thị 2 linh vật Trâu & Mèo (Không khung nền) -->
+                    <div style="position: relative; display: flex; align-items: center; justify-content: space-between; padding: 6px 0 16px 0; margin-bottom: 4px;">
                         
-                        <!-- 1. Họa tiết đồng xu / Mandala cổ phía sau con trâu (bên trái) -->
-                        <div style="position: absolute; left: -10px; top: 50%; transform: translateY(-50%); width: 155px; height: 155px; pointer-events: none; opacity: 0.11; z-index: 1;">
-                            <svg viewBox="0 0 100 100" width="155" height="155" fill="none" stroke="#B67F30" stroke-width="0.75">
-                                <circle cx="50" cy="50" r="48" stroke-dasharray="2 2"/>
-                                <circle cx="50" cy="50" r="42"/>
-                                <circle cx="50" cy="50" r="35" stroke-dasharray="3 2"/>
-                                <circle cx="50" cy="50" r="27"/>
-                                <circle cx="50" cy="50" r="18" stroke-dasharray="2 2"/>
-                            </svg>
+                        <!-- Đường phân cách dọc ngắn, màu nhạt, kéo từ giữa vùng ảnh đến gần tên -->
+                        <div style="position: absolute; left: 50%; top: 40px; transform: translateX(-50%); height: 75px; width: 1px; background: rgba(31, 90, 61, 0.10); pointer-events: none;"></div>
+
+                        <!-- Mascot 1: Trâu (50% width) -->
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4px 0;">
+                            <div style="width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                <img src="mascot_trau.png" alt="Linh vật Trâu" style="width: 110px; height: 110px; object-fit: contain;">
+                            </div>
+                            <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 20px; font-weight: 800; color: #1F5A3D; line-height: 1.2;">Trâu</div>
                         </div>
 
-                        <!-- 2. Vầng sáng tròn rất nhẹ tỏa ra quanh con trâu -->
-                        <div style="position: absolute; left: -15px; top: 50%; transform: translateY(-50%); width: 165px; height: 165px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, rgba(238, 195, 115, 0.18) 0%, rgba(212, 160, 75, 0.06) 50%, rgba(255, 255, 255, 0) 75%); filter: blur(2px); pointer-events: none; z-index: 1;"></div>
-
-                        <!-- 3. Họa tiết núi thủy mặc giảm bớt mờ dịu -->
-                        <img src="mountain_bg.png" alt="Núi thủy mặc" style="position: absolute; right: 0; bottom: 0; width: 180px; height: 90%; object-fit: cover; object-position: right bottom; opacity: 0.09; mix-blend-mode: multiply; pointer-events: none; z-index: 1;">
-
-                        <!-- Nội dung chính (z-index 2 đè lên họa tiết nền) -->
-                        <div style="position: relative; z-index: 2; display: flex; align-items: center; gap: 12px;">
-                            <!-- Hình con trâu ở bên trái -->
-                            <div style="flex-shrink: 0; width: 138px; height: 138px; display: flex; align-items: center; justify-content: center; position: relative;">
-                                <img src="mascot_trau.png" alt="Linh vật Trâu" style="width: 138px; height: 138px; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));">
+                        <!-- Mascot 2: Mèo (50% width) -->
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4px 0;">
+                            <div style="width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                                <img src="mascot_meo.png" alt="Linh vật Mèo" style="width: 110px; height: 110px; object-fit: contain;">
                             </div>
+                            <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 20px; font-weight: 800; color: #1F5A3D; line-height: 1.2;">Mèo</div>
+                        </div>
 
-                            <!-- Content bên phải: Căn mép trái đồng nhất & căn giữa theo chiều dọc -->
-                            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
-                                <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 32px; font-weight: 900; color: #1F5A3D; line-height: 1.12; letter-spacing: 0.5px; margin-bottom: 6px;">Trâu</div>
-                                <div style="font-size: 14.5px; color: #333333; line-height: 1.45; font-weight: 500; text-align: left;">Biểu tượng của sức mạnh<br>bền bỉ và ổn định</div>
+                    </div>
+
+                    <!-- Khung Lợi ích nổi bật (Card nền xanh nhạt) -->
+                    <div style="background: rgba(31, 90, 61, 0.05); border: 1px solid rgba(31, 90, 61, 0.12); border-radius: 14px; padding: 14px 14px 12px 14px; margin-bottom: 20px;">
+                        <div style="font-size: 14px; color: #1F5A3D; font-weight: 800; line-height: 1.4; margin-bottom: 10px;">Lợi ích nổi bật:</div>
+
+                        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                            <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
                             </div>
+                            <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Giữ được sự ổn định trong cuộc sống</div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                            <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Tăng cơ hội gặp quý nhân hỗ trợ đúng lúc</div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Mở ra thêm những cơ hội phát triển thuận lợi</div>
                         </div>
                     </div>
 
-                    <!-- Vì sao Trâu phù hợp với bạn? -->
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-                        <div style="width: 32px; height: 32px; border-radius: 50%; background: #EDF5EC; border: 1px solid rgba(31, 90, 61, 0.35); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 6px rgba(31, 90, 61, 0.08);">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(31, 90, 61, 0.12)" stroke="#1F5A3D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="display: block; transform: translateY(-0.5px);">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                <path d="M9 12l2 2 4-4"/>
-                            </svg>
-                        </div>
-                        <h3 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; margin: 0; letter-spacing: 0.1px;">Vì sao Trâu phù hợp với bạn?</h3>
-                    </div>
-
-                    <p style="margin: 0 0 11px 0; font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500; text-align: justify;">Theo lá số Bát tự của bạn, Trâu (Sửu) vừa là <strong style="font-weight: 800; color: #1F5A3D;">Quý Nhân</strong> của thiên can Giáp, vừa tạo thế <strong style="font-weight: 800; color: #1F5A3D;">Nhị Hợp</strong> với địa chi Tý.</p>
-                    <div style="margin: 0 0 10px 0; font-size: 14px; color: #222222; font-weight: 700; line-height: 1.5;">Nhờ sự tương hợp này, linh vật Trâu giúp bạn:</div>
-
-                    <!-- Danh sách lợi ích (khoảng cách 13px, icon thuần không viền tròn) -->
-                    <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 13px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
+                    <!-- Sub-header "Vì sao các linh vật này phù hợp?" -->
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 6px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         </svg>
-                        <div style="flex: 1; font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500;">Giữ được sự ổn định trong cuộc sống</div>
-                    </div>
-                    <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 13px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                        <div style="flex: 1; font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500;">Tăng cơ hội gặp quý nhân hỗ trợ đúng lúc</div>
-                    </div>
-                    <div style="display: flex; align-items: flex-start; gap: 10px;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
-                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                            <polyline points="17 6 23 6 23 12"/>
-                        </svg>
-                        <div style="flex: 1; font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500;">Mở ra thêm những cơ hội phát triển thuận lợi</div>
+                        Vì sao các linh vật này phù hợp?
                     </div>
 
-                    <!-- Đường kẻ phân cách nhẹ nội bộ -->
-                    <div style="height: 1px; background: rgba(182, 127, 48, 0.18); margin: 24px 0 20px 0;"></div>
+                    <div style="font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500; margin-top: 4px; margin-bottom: 14px;">
+                        Theo lá số Bát tự của bạn, Can tuổi <strong style="font-weight: 800; color: #1F5A3D;">Giáp</strong> có Quý Nhân tại <strong style="font-weight: 800; color: #1F5A3D;">Sửu</strong>, Nhật chủ <strong style="font-weight: 800; color: #1F5A3D;">Nhâm</strong> có Quý Nhân tại <strong style="font-weight: 800; color: #1F5A3D;">Mão</strong>.
+                    </div>
 
                     <!-- ===== Gợi ý linh vật sản phẩm (nằm trong cùng khối Linh vật hộ thân) ===== -->
-                    <div style="margin: 0 0 8px 0;">
+                    <div style="margin: 20px 0 8px 0;">
                         <!-- Header -->
                         <div style="margin-bottom: 14px;">
                             <div style="display: flex; align-items: center; gap: 10px;">
-                                <!-- Shopping bag icon badge -->
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #EDF5EC; border: 1px solid rgba(31, 90, 61, 0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                                        <line x1="3" y1="6" x2="21" y2="6"/>
-                                        <path d="M16 10a4 4 0 0 1-8 0"/>
-                                    </svg>
-                                </div>
-                                <h3 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; margin: 0; letter-spacing: 0.1px;">Gợi ý kiểu dáng linh vật đeo bên mình</h3>
+                                <!-- Shopping bag icon (phẳng, giống mục "Mẫu linh vật đặt phù hợp") -->
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                                </svg>
+                                <h3 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; margin: 0; letter-spacing: 0.1px;">Mẫu linh vật đeo phù hợp</h3>
                             </div>
                         </div>
 
@@ -1143,7 +1132,7 @@
                         <div class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; margin: 0; padding: 4px 16px 12px 0; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;">
                             
                             <!-- Card 1 -->
-                            <div style="flex: 0 0 200px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div onclick="openProductModal('Mặt dây chuyền Trâu hộ thân', 'product_mat_day.png', 'Đồng hành hộ thân', '', 'Luôn mang theo bên mình, kích hoạt năng lượng bảo vệ và thu hút tài lộc.')" style="flex: 0 0 200px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
                                 <div style="position: relative; width: 100%; height: 160px; background: #F8F6F0; overflow: hidden;">
                                     <img src="product_mat_day.png" alt="Mặt dây Trâu hộ thân" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -1161,7 +1150,7 @@
                             </div>
 
                             <!-- Card 2 -->
-                            <div style="flex: 0 0 200px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div onclick="openProductModal('Vòng tay Trâu hộ thân', 'product_vong_tay.png', 'Đồng hành hộ thân', '', 'Bảo vệ và cân bằng năng lượng cá nhân.')" style="flex: 0 0 200px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
                                 <div style="position: relative; width: 100%; height: 160px; background: #F8F6F0; overflow: hidden;">
                                     <img src="product_vong_tay.png" alt="Vòng tay Trâu hộ thân" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -1179,15 +1168,15 @@
                             </div>
 
                             <!-- Card 3 -->
-                            <div style="flex: 0 0 200px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div onclick="openProductModal('Tượng Trâu phong thủy', 'product_tuong_trau.png', 'Chính Bắc', '352,5° – 7,5°', 'Tăng cường vượng khí, thu hút tài lộc và may mắn.')" style="flex: 0 0 200px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
                                 <div style="position: relative; width: 100%; height: 160px; background: #F8F6F0; overflow: hidden;">
                                     <img src="product_tuong_trau.png" alt="Tượng Trâu phong thủy" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
                                 <div style="padding: 12px 12px 14px 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
                                     <div>
-                                        <div style="font-size: 14px; font-weight: 800; color: #111111; line-height: 1.35; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px;">Tượng Trâu phong thủy</div>
+                                        <div style="font-size: 14px; font-weight: 800; color: #333333; line-height: 1.35; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px;">Tượng Trâu phong thủy</div>
                                         <div style="font-size: 12px; font-weight: 700; color: #2D6A4F; margin-bottom: 3px;">Đồng mạ vàng 24K</div>
-                                        <div style="font-size: 11.5px; color: #666666; font-weight: 500; margin-bottom: 12px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 31px;">Tăng cường vượng khí, thu hút tài lộc và may mắn.</div>
+                                        <div style="font-size: 11.5px; color: #333333; font-weight: 500; margin-bottom: 12px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 31px;">Tăng cường vượng khí, thu hút tài lộc và may mắn.</div>
                                     </div>
                                     <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer; transition: background-color 0.2s;">
                                         Xem sản phẩm
@@ -1207,12 +1196,1071 @@
                     </div>
                 </div>
 
+                <!-- Section Separator -->
+                <div style="height: 10px; background-color: rgba(182, 127, 48, 0.08); border-top: 1px solid rgba(182, 127, 48, 0.12); border-bottom: 1px solid rgba(182, 127, 48, 0.12); margin: 24px 0 16px 0;"></div>
+
+                <!-- ===== Linh vật đặt phù hợp với bạn ===== -->
+                <div class="hero" style="padding: 16px 16px 0 16px;">
+                    <h1 class="hero-title" style="font-size: 24px !important; margin: 0 0 6px 0 !important;">Linh vật đặt phù hợp với bạn</h1>
+                    <div style="font-size: 13.5px; color: #333333; font-weight: 500; line-height: 1.45;">Gợi ý linh vật, màu sắc và hướng đặt phù hợp với lá số của bạn theo từng mục tiêu kích hoạt.</div>
+                </div>
+
+                <div style="margin: 16px 16px 32px 16px;">
+                    <!-- ===== Block 1: KÍCH HOẠT LỘC ===== -->
+                    <div style="margin-bottom: 0;">
+                        <!-- Header chuẩn mới: Ảnh 3D túi tiền ở đầu mục (trái) + Tiêu đề Kích hoạt lộc + Nền sạch sẽ -->
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px; padding: 4px 0;">
+                            <!-- Ảnh minh họa 3D túi tiền & đồng vàng tách nền to nổi bật (66px) ở đầu mục -->
+                            <div style="width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="tui_tien_clean.png" alt="Túi tiền tài lộc" style="width: 66px; height: 66px; object-fit: contain; mix-blend-mode: multiply;">
+                            </div>
+                            <div>
+                                <h2 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 900; color: #1F5A3D; margin: 0 0 3px 0; letter-spacing: 0.4px; text-transform: uppercase;">Kích hoạt lộc</h2>
+                                <div style="font-size: 13.5px; font-weight: 700; color: #B67F30;">Mở rộng tài lộc – Khởi thông cơ hội</div>
+                            </div>
+                        </div>
+
+                        <!-- Khung Dành riêng cho bạn (Card nền xanh nhạt) - sát tiêu đề mục hơn -->
+                        <div style="background: rgba(31, 90, 61, 0.05); border: 1px solid rgba(31, 90, 61, 0.12); border-radius: 14px; padding: 14px 14px 12px 14px; margin-bottom: 20px;">
+                            <div style="font-size: 14px; color: #1F5A3D; font-weight: 800; line-height: 1.4; margin-bottom: 10px;">Lợi ích nổi bật</div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Mở rộng nguồn thu, thu hút thêm nhiều cơ hội tài lộc.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Kích hoạt dòng năng lượng tiền tài, giúp tài chính lưu thông thuận lợi.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Gia tăng may mắn trong công việc, kinh doanh và đầu tư.</div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header "Linh vật kích hoạt Lộc dành cho bạn" -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 6px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.2 6.8-5.6-4.2-5.6 4.2 2.2-6.8L3 8.8h6.6z"/>
+                            </svg>
+                            Linh vật kích hoạt Lộc dành cho bạn
+                        </div>
+                        <div style="font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500; margin-top: 4px; margin-bottom: 14px;">
+                            Theo lá số Bát tự của bạn, can năm <strong style="font-weight: 800; color: #1F5A3D;">Giáp</strong> có Lộc tại <strong style="font-weight: 800; color: #1F5A3D;">Dần</strong>, Nhật chủ <strong style="font-weight: 800; color: #1F5A3D;">Ất</strong> có Lộc tại <strong style="font-weight: 800; color: #1F5A3D;">Mão</strong>. Kết hợp với Dụng thần <strong style="font-weight: 800; color: #1F5A3D;">Mộc</strong>, bạn có 3 lựa chọn phù hợp để kích hoạt Lộc:
+                        </div>
+
+                        <!-- Danh sách ngắn gọn không khung (Minimal List) -->
+                        <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                            <!-- Item 1: Hổ màu vàng -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_ho_vang.png" alt="Hổ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Hổ</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu vàng</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Đông · 82,5°–97,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Hổ màu xanh -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_ho_vang.png" alt="Hổ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Hổ</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu xanh</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Bắc · 352,5°–7,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Mèo màu đỏ -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0;">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_meo_do.png" alt="Mèo" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Mèo</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu đỏ</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Nam · 172,5°–187,5°</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header riêng: Mẫu linh vật đặt phù hợp -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 12px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                            Mẫu linh vật đặt phù hợp
+                        </div>
+
+                        <!-- Carousel Product Cards (Dạng cuộn ngang) -->
+                        <div class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; margin: 0; padding: 2px 16px 12px 0; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;">
+
+                            <!-- Card 1 -->
+                            <div onclick="openProductModal('Hổ màu vàng', 'tuong_ho_vang.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Hổ màu vàng kích hoạt năng lượng Lộc cho can năm Giáp.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_ho_vang.png" alt="Hổ màu vàng" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Hổ màu vàng</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Đồng mạ vàng 24K</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div onclick="openProductModal('Mèo màu đỏ', 'tuong_meo_do.png', 'Đông Nam', '112,5° – 127,5°', 'Tượng Mèo màu đỏ kích hoạt năng lượng Lộc cho Nhật chủ Ất.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_meo_do.png" alt="Mèo màu đỏ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Mèo màu đỏ</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc đỏ tự nhiên</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Đông Nam</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(112,5° – 127,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div onclick="openProductModal('Hổ màu xanh', 'tuong_ho_xanh.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Hổ màu xanh kích hoạt năng lượng Lộc hợp Dụng thần Mộc.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_ho_xanh.png" alt="Hổ màu xanh" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Hổ màu xanh</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc bích xanh</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Đường kẻ ngăn giữa mục Kích hoạt lộc và Kích hoạt mã -->
+                    <div style="height: 1px; background: rgba(182, 127, 48, 0.18); margin: 24px 0 24px 0;"></div>
+
+                    <!-- ===== Block 2: KÍCH HOẠT MÃ ===== -->
+                    <div style="margin-bottom: 0;">
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px; padding: 4px 0;">
+                            <div style="width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="con_duong_mo_clean.png" alt="Kích hoạt mã - Con đường mở về phía trước" style="width: 66px; height: 66px; object-fit: contain; mix-blend-mode: multiply;">
+                            </div>
+                            <div>
+                                <h2 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 900; color: #1F5A3D; margin: 0 0 3px 0; letter-spacing: 0.4px; text-transform: uppercase;">Kích hoạt mã</h2>
+                                <div style="font-size: 13.5px; font-weight: 700; color: #B67F30; line-height: 1.4;">Mở đường phát triển – Đón vận may –<br>Bứt phá thành công</div>
+                            </div>
+                        </div>
+
+                        <!-- Khung Lợi ích nổi bật (Card nền xanh nhạt) -->
+                        <div style="background: rgba(31, 90, 61, 0.05); border: 1px solid rgba(31, 90, 61, 0.12); border-radius: 14px; padding: 14px 14px 12px 14px; margin-bottom: 20px;">
+                            <div style="font-size: 14px; color: #1F5A3D; font-weight: 800; line-height: 1.4; margin-bottom: 10px;">Lợi ích nổi bật</div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Mở rộng cơ hội, tạo động lực bứt phá trong công việc và sự nghiệp.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Kích hoạt năng lượng dịch chuyển, giúp hành trình phát triển hanh thông.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Gia tăng sự chủ động khi thay đổi, đi xa hoặc mở ra hướng phát triển mới.</div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header "Linh vật kích hoạt Mã dành cho bạn" -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 6px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.2 6.8-5.6-4.2-5.6 4.2 2.2-6.8L3 8.8h6.6z"/>
+                            </svg>
+                            Linh vật kích hoạt Mã dành cho bạn
+                        </div>
+                        <div style="font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500; margin-top: 4px; margin-bottom: 14px;">
+                            Theo lá số Bát tự của bạn, can năm <strong style="font-weight: 800; color: #1F5A3D;">Giáp</strong> có Lộc tại <strong style="font-weight: 800; color: #1F5A3D;">Dần</strong>, Nhật chủ <strong style="font-weight: 800; color: #1F5A3D;">Ất</strong> có Lộc tại <strong style="font-weight: 800; color: #1F5A3D;">Mão</strong>. Kết hợp với Dụng thần <strong style="font-weight: 800; color: #1F5A3D;">Mộc</strong>, bạn có 3 lựa chọn phù hợp để kích hoạt Mã:
+                        </div>
+
+                        <!-- Danh sách ngắn gọn không khung (Minimal List) -->
+                        <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                            <!-- Item: Hổ Màu vàng -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_ho_vang.png" alt="Hổ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Hổ</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu vàng</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Đông · 82,5°–97,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item: Hổ Màu xanh -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_ho_xanh.png" alt="Hổ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Hổ</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu xanh</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Bắc · 352,5°–7,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item: Mèo Màu đỏ -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0;">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_meo_do.png" alt="Mèo" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Mèo</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu đỏ</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Nam · 172,5°–187,5°</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header riêng: Mẫu linh vật đặt phù hợp -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 12px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                            Mẫu linh vật đặt phù hợp
+                        </div>
+
+                        <!-- Carousel Product Cards (Dạng cuộn ngang) -->
+                        <div class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; margin: 0; padding: 2px 16px 12px 0; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;">
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Hổ màu vàng', 'tuong_ho_vang.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Hổ màu vàng kích hoạt năng lượng Mã theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_ho_vang.png" alt="Hổ màu vàng" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Hổ màu vàng</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Đồng mạ vàng 24K</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Mèo màu đỏ', 'tuong_meo_do.png', 'Đông Nam', '112,5° – 127,5°', 'Tượng Mèo màu đỏ kích hoạt năng lượng Mã theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_meo_do.png" alt="Mèo màu đỏ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Mèo màu đỏ</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc đỏ tự nhiên</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Đông Nam</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(112,5° – 127,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Hổ màu xanh', 'tuong_ho_xanh.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Hổ màu xanh kích hoạt năng lượng Mã theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_ho_xanh.png" alt="Hổ màu xanh" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Hổ màu xanh</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc bích xanh</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Đường kẻ ngăn giữa mục Kích hoạt mã và Kích hoạt quý nhân -->
+                    <div style="height: 1px; background: rgba(182, 127, 48, 0.18); margin: 24px 0 24px 0;"></div>
+
+                    <!-- ===== Block 3: KÍCH HOẠT QUÝ NHÂN ===== -->
+                    <div style="margin-bottom: 0;">
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px; padding: 4px 0;">
+                            <div style="width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="quy_nhan_clean.png" alt="Kích hoạt quý nhân - Bàn tay nâng đỡ" style="width: 66px; height: 66px; object-fit: contain; mix-blend-mode: multiply;">
+                            </div>
+                            <div>
+                                <h2 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 900; color: #1F5A3D; margin: 0 0 3px 0; letter-spacing: 0.4px; text-transform: uppercase;">Kích hoạt quý nhân</h2>
+                                <div style="font-size: 13.5px; font-weight: 700; color: #B67F30; line-height: 1.4;">Thu hút người đồng hành – Vạn sự hanh thông</div>
+                            </div>
+                        </div>
+
+                        <!-- Khung Lợi ích nổi bật (Card nền xanh nhạt) -->
+                        <div style="background: rgba(31, 90, 61, 0.05); border: 1px solid rgba(31, 90, 61, 0.12); border-radius: 14px; padding: 14px 14px 12px 14px; margin-bottom: 20px;">
+                            <div style="font-size: 14px; color: #1F5A3D; font-weight: 800; line-height: 1.4; margin-bottom: 10px;">Lợi ích nổi bật</div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Thu hút người đồng hành phù trợ, giúp công việc thuận lợi hơn.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Tăng cường các mối quan hệ tốt đẹp, tạo thêm sự tin tưởng và gắn kết.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Gia tăng cơ hội nhận được sự hỗ trợ đúng lúc trong công việc và cuộc sống.</div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header "Linh vật kích hoạt Quý Nhân dành cho bạn" -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 6px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.2 6.8-5.6-4.2-5.6 4.2 2.2-6.8L3 8.8h6.6z"/>
+                            </svg>
+                            Linh vật kích hoạt Quý Nhân dành cho bạn
+                        </div>
+                        <div style="font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500; margin-top: 4px; margin-bottom: 14px;">
+                            Theo lá số Bát tự của bạn, can năm <strong style="font-weight: 800; color: #1F5A3D;">Giáp</strong> có Quý Nhân tại <strong style="font-weight: 800; color: #1F5A3D;">Sửu</strong>. Kết hợp với Dụng thần <strong style="font-weight: 800; color: #1F5A3D;">Mộc</strong>, bạn có 3 lựa chọn phù hợp để kích hoạt Quý Nhân:
+                        </div>
+
+                        <!-- Danh sách ngắn gọn không khung (Minimal List) -->
+                        <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                            <!-- Item: Trâu Màu vàng -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_trau_vang.png" alt="Trâu" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Trâu</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu vàng</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Đông · 82,5°–97,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item: Trâu Màu đỏ -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_trau_vang.png" alt="Trâu" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Trâu</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu đỏ</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Nam · 172,5°–187,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item: Trâu Màu xanh -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0;">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_trau_vang.png" alt="Trâu" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Trâu</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu xanh</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Bắc · 352,5°–7,5°</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header riêng: Mẫu linh vật đặt phù hợp -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 12px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                            Mẫu linh vật đặt phù hợp
+                        </div>
+
+                        <!-- Carousel Product Cards (Dạng cuộn ngang) -->
+                        <div class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; margin: 0; padding: 2px 16px 12px 0; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;">
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Trâu màu vàng', 'tuong_trau_vang.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Trâu màu vàng kích hoạt năng lượng Quý Nhân theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_trau_vang.png" alt="Trâu màu vàng" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Trâu màu vàng</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Đồng mạ vàng 24K</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Trâu màu đỏ', 'tuong_trau_do.png', 'Chính Nam', '172,5° – 187,5°', 'Tượng Trâu màu đỏ kích hoạt năng lượng Quý Nhân theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_trau_do.png" alt="Trâu màu đỏ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Trâu màu đỏ</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc đỏ tự nhiên</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Nam</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(172,5° – 187,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Trâu màu xanh', 'tuong_trau_xanh.png', 'Chính Bắc', '352,5° – 7,5°', 'Tượng Trâu màu xanh kích hoạt năng lượng Quý Nhân theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_trau_xanh.png" alt="Trâu màu xanh" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Trâu màu xanh</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc bích xanh</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Bắc</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(352,5° – 7,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Đường kẻ ngăn giữa mục Kích hoạt quý nhân và Kích hoạt âm quý nhân -->
+                    <div style="height: 1px; background: rgba(182, 127, 48, 0.18); margin: 24px 0 24px 0;"></div>
+
+                    <!-- ===== Block 4: KÍCH HOẠT ÂM QUÝ NHÂN ===== -->
+                    <div style="margin-bottom: 0;">
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px; padding: 4px 0;">
+                            <div style="width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="am_quy_nhan_clean.png" alt="Kích hoạt âm quý nhân - Khiên bảo hộ" style="width: 66px; height: 66px; object-fit: contain; mix-blend-mode: multiply;">
+                            </div>
+                            <div>
+                                <h2 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 18px; font-weight: 900; color: #1F5A3D; margin: 0 0 3px 0; letter-spacing: 0.4px; text-transform: uppercase;">Kích hoạt âm quý nhân</h2>
+                                <div style="font-size: 13.5px; font-weight: 700; color: #B67F30; line-height: 1.4;">Gia tăng bảo hộ – Hóa giải trở ngại</div>
+                            </div>
+                        </div>
+
+                        <!-- Khung Lợi ích nổi bật (Card nền xanh nhạt) -->
+                        <div style="background: rgba(31, 90, 61, 0.05); border: 1px solid rgba(31, 90, 61, 0.12); border-radius: 14px; padding: 14px 14px 12px 14px; margin-bottom: 20px;">
+                            <div style="font-size: 14px; color: #1F5A3D; font-weight: 800; line-height: 1.4; margin-bottom: 10px;">Lợi ích nổi bật</div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Hóa giải tiểu nhân, hạn chế xung đột và thị phi không mong muốn.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Tăng cường năng lượng bảo hộ, giúp cuộc sống an yên và ổn định hơn.</div>
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 18px; height: 18px; border-radius: 50%; background: #EDF5EC; border: 1.5px solid #1F5A3D; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;">
+                                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </div>
+                                <div style="flex: 1; font-size: 13.5px; color: #333333; line-height: 1.45; font-weight: 500;">Gia tăng sự hỗ trợ, giúp đứng vững vàng trước những trở ngại.</div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header "Linh vật kích hoạt Âm Quý Nhân dành cho bạn" -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 6px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l2.4 6.8H21l-5.6 4.2 2.2 6.8-5.6-4.2-5.6 4.2 2.2-6.8L3 8.8h6.6z"/>
+                            </svg>
+                            Linh vật kích hoạt Âm Quý Nhân dành cho bạn
+                        </div>
+                        <div style="font-size: 14px; color: #333333; line-height: 1.5; font-weight: 500; margin-top: 4px; margin-bottom: 14px;">
+                            Theo lá số Bát tự của bạn, can tuổi <strong style="font-weight: 800; color: #1F5A3D;">Giáp</strong> có Lộc tại <strong style="font-weight: 800; color: #1F5A3D;">Dần</strong>. Kết hợp với Dụng thần <strong style="font-weight: 800; color: #1F5A3D;">Mộc</strong>, bạn có 3 lựa chọn phù hợp để kích hoạt Âm Quý Nhân:
+                        </div>
+
+                        <!-- Danh sách ngắn gọn không khung (Minimal List) -->
+                        <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                            <!-- Item: Hổ Màu vàng -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_ho_vang.png" alt="Hổ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Hổ</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu vàng</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Đông · 82,5°–97,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item: Hổ Màu xanh -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(182, 127, 48, 0.15);">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_ho_xanh.png" alt="Hổ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Hổ</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu xanh</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Bắc · 352,5°–7,5°</div>
+                                </div>
+                            </div>
+
+                            <!-- Item: Mèo Màu đỏ -->
+                            <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0;">
+                                <div style="width: 46px; height: 46px; border-radius: 50%; background: #F1EFE6; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                                    <img src="icon_meo_do.png" alt="Mèo" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <div style="font-size: 15px; line-height: 1.3; margin-bottom: 2px;">
+                                        <strong style="font-weight: 800; color: #111111;">Mèo</strong>
+                                        <span style="color: #222222; font-weight: 500; font-size: 15px;"> · Màu đỏ</span>
+                                    </div>
+                                    <div style="font-size: 14px; color: #555555; font-weight: 500;">Chính Nam · 172,5°–187,5°</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-header riêng: Mẫu linh vật đặt phù hợp -->
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; color: #1F5A3D; margin-bottom: 12px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F5A3D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                            Mẫu linh vật đặt phù hợp
+                        </div>
+
+                        <!-- Carousel Product Cards (Dạng cuộn ngang) -->
+                        <div class="no-scrollbar" style="display: flex; gap: 12px; overflow-x: auto; margin: 0; padding: 2px 16px 12px 0; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory;">
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Hổ màu vàng', 'tuong_ho_vang.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Hổ màu vàng kích hoạt năng lượng Âm Quý Nhân theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_ho_vang.png" alt="Hổ màu vàng" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Hổ màu vàng</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Đồng mạ vàng 24K</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Mèo màu đỏ', 'tuong_meo_do.png', 'Đông Nam', '112,5° – 127,5°', 'Tượng Mèo màu đỏ kích hoạt năng lượng Âm Quý Nhân theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_meo_do.png" alt="Mèo màu đỏ" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Mèo màu đỏ</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc đỏ tự nhiên</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Đông Nam</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(112,5° – 127,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Card -->
+                            <div onclick="openProductModal('Hổ màu xanh', 'tuong_ho_xanh.png', 'Chính Đông', '82,5° – 97,5°', 'Tượng Hổ màu xanh kích hoạt năng lượng Âm Quý Nhân theo lá số Bát tự của bạn.')" style="flex: 0 0 190px; scroll-snap-align: start; background: #FFFFFF; border: 1px solid #EBEBEB; border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer;">
+                                <div style="width: 100%; height: 150px; background: #F9F7F1; overflow: hidden;">
+                                    <img src="tuong_ho_xanh.png" alt="Hổ màu xanh" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div style="padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                                    <div>
+                                        <div style="font-size: 13.5px; font-weight: 800; color: #111111; line-height: 1.3; margin-bottom: 3px;">Hổ màu xanh</div>
+                                        <div style="font-size: 11.5px; color: #1F5A3D; font-weight: 600; margin-bottom: 8px;">Ngọc bích xanh</div>
+                                        <div style="background: rgba(182, 127, 48, 0.06); border-radius: 8px; padding: 6px 8px; margin-bottom: 12px; text-align: center;">
+                                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #333333; font-weight: 500;">
+                                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="12" cy="12" r="10"/>
+                                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                                </svg>
+                                                Hướng: <strong style="font-weight: 700; color: #111111;">Chính Đông</strong>
+                                            </div>
+                                            <div style="font-size: 10px; color: #666666; margin-top: 2px;">(82,5° – 97,5°)</div>
+                                        </div>
+                                    </div>
+                                    <button style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 8px; padding: 8px 0; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer;">
+                                        Xem sản phẩm
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thanh phân cách giữa các khối lớn (Block Separator) -->
+                <div style="height: 10px; background-color: rgba(182, 127, 48, 0.08); border-top: 1px solid rgba(182, 127, 48, 0.12); border-bottom: 1px solid rgba(182, 127, 48, 0.12); margin: 28px 0 16px 0;"></div>
+
+                <!-- ===== Khối 5: Chủ động cân bằng năng lượng ===== -->
+                <div class="hero" style="padding: 16px 16px 0 16px;">
+                    <h1 class="hero-title" style="font-size: 24px !important; margin: 0 0 6px 0 !important;">Chủ động cân bằng năng lượng</h1>
+                    <div style="font-size: 15px; color: #333333; font-weight: 500; line-height: 1.45;">Ngoài việc bổ sung <strong style="font-weight: 800; color: #1F5A3D;">Dụng thần Mộc</strong> và sử dụng linh vật phù hợp, bạn có thể chủ động cân bằng năng lượng bằng những thay đổi nhỏ mỗi ngày.</div>
+                </div>
+
+                <div style="margin: 16px 16px 32px 16px;">
+                    <!-- Danh sách các gợi ý (Card có màu nền rất nhẹ, hơn nền trang 1 cấp) -->
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+
+                        <!-- Card 1: Tu dưỡng Đức Nhân -->
+                        <div style="background: rgba(31, 90, 61, 0.03); border: 1px solid rgba(31, 90, 61, 0.08); border-radius: 14px; padding: 14px;">
+                            <!-- Icon + Tiêu đề (Icon to, nổi bật, bỏ viền tròn) -->
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                                    <defs>
+                                        <linearGradient id="lotusGrad1" x1="16" y1="4" x2="16" y2="28" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#1F5A3D"/>
+                                            <stop offset="100%" stop-color="#143E29"/>
+                                        </linearGradient>
+                                        <linearGradient id="lotusGold1" x1="8" y1="12" x2="24" y2="28" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#D4AF37"/>
+                                            <stop offset="100%" stop-color="#B67F30"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M16 4C13.2 8.5 11 13 11 17.5C11 22 13.5 24.5 16 26C18.5 24.5 21 22 21 17.5C21 13 18.8 8.5 16 4Z" fill="url(#lotusGrad1)"/>
+                                    <path d="M16 17.5C12 15 8 14.5 4 16C4 21 8 25 13.5 25.5C15 25.5 15.8 25 16 24.5" stroke="url(#lotusGold1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="rgba(182, 127, 48, 0.15)"/>
+                                    <path d="M16 17.5C20 15 24 14.5 28 16C28 21 24 25 18.5 25.5C17 25.5 16.2 25 16 24.5" stroke="url(#lotusGold1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="rgba(182, 127, 48, 0.15)"/>
+                                    <path d="M16 10C14.8 13 13.5 16 13.5 18.5C13.5 20.5 14.8 22 16 23C17.2 22 18.5 20.5 18.5 18.5C18.5 16 17.2 13 16 10Z" fill="url(#lotusGold1)"/>
+                                </svg>
+                                <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; line-height: 1.35; letter-spacing: 0.2px;">
+                                    Tu dưỡng Đức Nhân
+                                </div>
+                            </div>
+                            <!-- Liệt kê các ý -->
+                            <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 2px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Thực hành lòng từ bi, hay giúp đỡ mọi người, bảo vệ sự sống và môi trường xanh qua đó giúp làm dịu đi tính sát phạt của hành Kim hoặc sơ thông sự trì trệ của hành Thổ.
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Người có Đức Nhân sẽ biến sự khắc nghiệt của Thất Sát thành quyền uy được nể trọng.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Nuôi dưỡng thói quen phù hợp -->
+                        <div style="background: rgba(31, 90, 61, 0.03); border: 1px solid rgba(31, 90, 61, 0.08); border-radius: 14px; padding: 14px;">
+                            <!-- Icon + Tiêu đề (Icon to, nổi bật, bỏ viền tròn) -->
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                                    <defs>
+                                        <linearGradient id="leafGrad2" x1="8" y1="6" x2="24" y2="26" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#2E7D56"/>
+                                            <stop offset="100%" stop-color="#1F5A3D"/>
+                                        </linearGradient>
+                                        <linearGradient id="sunGrad2" x1="16" y1="2" x2="26" y2="12" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#F59E0B"/>
+                                            <stop offset="100%" stop-color="#B67F30"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="21" cy="9" r="4.5" fill="url(#sunGrad2)"/>
+                                    <path d="M21 2.5V3.5M27.5 9H26.5M25.6 4.4L24.9 5.1M25.6 13.6L24.9 12.9" stroke="#B67F30" stroke-width="1.8" stroke-linecap="round"/>
+                                    <path d="M14 27V16C14 11.5 17.5 8 22 8" stroke="url(#leafGrad2)" stroke-width="2.5" stroke-linecap="round"/>
+                                    <path d="M14 17C9 17 5 13 5 8C10 8 14 11 14 17Z" fill="url(#leafGrad2)" stroke="#143E29" stroke-width="1.2"/>
+                                    <path d="M14 13C19 13 23 9 23 4C18 4 14 7 14 13Z" fill="rgba(182, 127, 48, 0.25)" stroke="#B67F30" stroke-width="1.5"/>
+                                    <path d="M6 27C11 25.5 21 25.5 26 27" stroke="#B67F30" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; line-height: 1.35; letter-spacing: 0.2px;">
+                                    Nuôi dưỡng thói quen phù hợp
+                                </div>
+                            </div>
+                            <!-- Liệt kê các ý -->
+                            <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 2px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Dậy sớm trước khi mặt trời mọc (thời điểm năng lượng Mộc mạnh nhất).
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Tập thói quen đi bộ, vận động nhẹ nhàng ngoài trời, nơi có nhiều cây cối để “tắm” năng lượng tự nhiên.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Điều chỉnh suy nghĩ và cảm xúc -->
+                        <div style="background: rgba(31, 90, 61, 0.03); border: 1px solid rgba(31, 90, 61, 0.08); border-radius: 14px; padding: 14px;">
+                            <!-- Icon + Tiêu đề (Icon to, nổi bật, bỏ viền tròn) -->
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                                    <defs>
+                                        <linearGradient id="mindGrad3" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#1F5A3D"/>
+                                            <stop offset="100%" stop-color="#143E29"/>
+                                        </linearGradient>
+                                        <linearGradient id="heartGrad3" x1="10" y1="10" x2="22" y2="24" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#E53E3E"/>
+                                            <stop offset="100%" stop-color="#B67F30"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="16" cy="16" r="13" stroke="url(#mindGrad3)" stroke-width="2" stroke-dasharray="4 2"/>
+                                    <path d="M16 23.5S8 18 8 13A4.5 4.5 0 0 1 16 9.8A4.5 4.5 0 0 1 24 13C24 18 16 23.5 16 23.5Z" fill="url(#heartGrad3)"/>
+                                    <path d="M6 8L7 6L9 5L7 4L6 2L5 4L3 5L5 6L6 8Z" fill="#D4AF37"/>
+                                    <path d="M26 26L26.7 24.5L28.2 23.7L26.7 23L26 21.5L25.3 23L23.8 23.7L25.3 24.5L26 26Z" fill="#D4AF37"/>
+                                </svg>
+                                <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; line-height: 1.35; letter-spacing: 0.2px;">
+                                    Điều chỉnh suy nghĩ và cảm xúc
+                                </div>
+                            </div>
+                            <!-- Liệt kê các ý -->
+                            <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 2px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Thực hành lòng biết ơn và sự bao dung để xoa dịu cơn giận (Mộc chủ về gan và sự tức giận).
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Khi gặp bế tắc, hãy nhắc nhở bản thân: <em>“Mọi thứ đều cần thời gian để lớn lên như một cái cây.”</em>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Chủ động tạo cơ hội -->
+                        <div style="background: rgba(31, 90, 61, 0.03); border: 1px solid rgba(31, 90, 61, 0.08); border-radius: 14px; padding: 14px;">
+                            <!-- Icon + Tiêu đề (Icon to, nổi bật, bỏ viền tròn) -->
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                                    <defs>
+                                        <linearGradient id="rocketGrad4" x1="6" y1="26" x2="26" y2="6" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#1F5A3D"/>
+                                            <stop offset="100%" stop-color="#2E7D56"/>
+                                        </linearGradient>
+                                        <linearGradient id="fireGrad4" x1="4" y1="28" x2="12" y2="20" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#F59E0B"/>
+                                            <stop offset="100%" stop-color="#D4AF37"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M7 25C5 27 4 28 4 28C4 28 5 27 7 25Z" fill="url(#fireGrad4)"/>
+                                    <path d="M5 22C4 24 6 26 8 27L6 23L5 22Z" fill="#E53E3E"/>
+                                    <path d="M12 20L7.5 15.5C8.5 13 10.5 11 13 10L17.5 14.5C16.5 17 14.5 19 12 20Z" fill="rgba(182, 127, 48, 0.2)" stroke="#B67F30" stroke-width="1.8"/>
+                                    <path d="M13 10C16 6 22 4 26 4C26 8 24 14 20 17L13 10Z" fill="url(#rocketGrad4)" stroke="#143E29" stroke-width="1.5"/>
+                                    <circle cx="19.5" cy="10.5" r="2" fill="#D4AF37"/>
+                                    <path d="M4 16C8 16 12 12 16 4" stroke="#B67F30" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 2"/>
+                                </svg>
+                                <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 800; color: #1F5A3D; line-height: 1.35; letter-spacing: 0.2px;">
+                                    Chủ động tạo cơ hội
+                                </div>
+                            </div>
+                            <!-- Liệt kê các ý -->
+                            <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 2px;">
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Chủ động bắt tay vào làm ngay những việc nhỏ thay vì chần chừ.
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #B67F30; margin-top: 8px; flex-shrink: 0;"></div>
+                                    <div style="font-size: 15px; color: #333333; line-height: 1.5; font-weight: 500;">
+                                        Tham gia vào các hoạt động cộng đồng, giúp đỡ người khác hoặc học một kỹ năng sáng tạo mới (Mộc là sự phát triển).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
 
             </div>
         </div>
     </div>
 
+    <!-- Modal Chi Tiết Sản Phẩm (Bottom Sheet Popup) -->
+    <div id="productModalOverlay" onclick="closeProductModal(event)" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 99999; justify-content: center; align-items: flex-end;">
+        <div onclick="event.stopPropagation()" style="background: #FFFFFF; width: 100%; max-width: 438px; border-radius: 20px 20px 0 0; padding: 20px 20px 30px 20px; box-shadow: 0 -10px 30px rgba(0,0,0,0.25); animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;">
+            <!-- Modal Handle Bar -->
+            <div style="width: 40px; height: 5px; background: #E0E0E0; border-radius: 3px; margin: 0 auto 16px auto;"></div>
+            
+            <!-- Header: Title & Close -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                <div style="font-size: 16px; font-weight: 800; color: #1F5A3D;">Chi tiết linh vật phong thủy</div>
+                <button class="modal-close-btn" onclick="closeProductModal()" style="background: rgba(0,0,0,0.05); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+
+            <!-- Product Image -->
+            <div style="width: 100%; height: 180px; background: #F9F7F1; border-radius: 14px; overflow: hidden; margin-bottom: 14px; border: 1px solid #EBEBEB;">
+                <img id="modalProductImg" src="" alt="Linh vật" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+
+            <!-- Product Title -->
+            <div id="modalProductTitle" style="font-size: 17px; font-weight: 900; color: #111111; margin-bottom: 8px;"></div>
+
+            <!-- Direction Badge -->
+            <div style="background: rgba(182, 127, 48, 0.08); border: 1px solid rgba(182, 127, 48, 0.2); border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #333333; font-weight: 600;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B67F30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                    Hướng an vị kích hoạt:
+                </div>
+                <div style="text-align: right;">
+                    <span id="modalProductDir" style="font-size: 13.5px; font-weight: 800; color: #1F5A3D;"></span>
+                    <span id="modalProductAngle" style="font-size: 11px; color: #666666; margin-left: 2px;"></span>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div id="modalProductDesc" style="font-size: 13.5px; color: #555555; line-height: 1.5; margin-bottom: 20px;"></div>
+
+            <!-- Action Button -->
+            <button onclick="alert('Cảm ơn bạn! Yêu cầu tư vấn an vị linh vật đã được gửi đi thành công.')" style="width: 100%; background: #1F5A3D; color: #FFFFFF; border: none; border-radius: 12px; padding: 12px 0; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(31,90,61,0.25);">
+                Tư vấn an vị linh vật
+            </button>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+
     <script>
+        // Mở popup chi tiết linh vật phong thủy
+        function openProductModal(name, imgSrc, direction, angle, description) {
+            const modal = document.getElementById('productModalOverlay');
+            if (!modal) return;
+            document.getElementById('modalProductImg').src = imgSrc;
+            document.getElementById('modalProductTitle').innerText = name;
+            document.getElementById('modalProductDir').innerText = direction || 'Đồng hành hộ thân';
+            document.getElementById('modalProductAngle').innerText = angle ? `(${angle})` : '';
+            document.getElementById('modalProductDesc').innerText = description || `Linh vật phong thủy cao cấp được chế tác tinh xảo, đã qua quy trình trì chú khai quang để kích hoạt năng lượng tối ưu theo đúng lá số Bát tự cá nhân của bạn.`;
+            modal.style.display = 'flex';
+        }
+
+        // Đóng popup
+        function closeProductModal(e) {
+            if (!e || e.target.id === 'productModalOverlay' || e.target.closest('.modal-close-btn')) {
+                document.getElementById('productModalOverlay').style.display = 'none';
+            }
+        }
+
         // Trên điện thoại: thu nhỏ khung mockup cho vừa khít màn hình (giữ viền giả lập)
         function fitMockup() {
             const mockup = document.querySelector('.phone-mockup');
