@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Tử Vi Nghề Nghiệp - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #00A86B; /* Xanh lá cây lục bảo */
+            --bg-light-blue: #E0F2FE; /* Xanh da trời nhạt */
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --text-light-gray: #9CA3AF;
+            --border-color: #E5E7EB;
+            --input-blue: #2563EB; /* Màu xanh dương cho biểu tượng */
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-dark);
+        }
+
+        /* Mobile Device Mockup */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow:
+                0 0 0 2px #333,
+                0 20px 50px rgba(0, 0, 0, 0.25),
+                0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Volume & Power Buttons */
+        .buttons-left {
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 100px;
+            background: #111;
+            border-radius: 4px 0 0 4px;
+            box-shadow: -1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .buttons-right {
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 80px;
+            background: #111;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 1px 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Screen Content Window */
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 60%);
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        /* Background Clouds Decoration */
+        .cloud-bg {
+            position: absolute;
+            width: 100%;
+            height: 40%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.65;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            filter: blur(25px);
+        }
+
+        .cloud-1 {
+            width: 320px;
+            height: 140px;
+            top: -20px;
+            left: -80px;
+        }
+
+        .cloud-2 {
+            width: 340px;
+            height: 160px;
+            top: 10px;
+            right: -100px;
+        }
+
+        .cloud-3 {
+            width: 280px;
+            height: 120px;
+            top: 100px;
+            left: 60px;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px 0 36px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333333;
+            z-index: 10;
+            background: transparent;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            height: 44px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            color: #333333;
+            transition: opacity 0.2s;
+        }
+
+        .back-btn:active {
+            opacity: 0.5;
+        }
+
+        /* Scrollable Content */
+        .app-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 24px 20px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Mascot Illustration Section */
+        .mascot-container {
+            margin-top: -10px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .mascot-img {
+            width: 130px; /* Nhỏ gọn theo yêu cầu */
+            height: auto;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.05));
+        }
+
+        /* Header Typography */
+        .header-section {
+            text-align: center;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .title-main {
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin: 0 0 12px 0;
+            line-height: 1.35;
+            letter-spacing: -0.2px;
+        }
+
+        .title-sub {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4B5563;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Input Form Card */
+        .form-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+            width: 100%;
+            margin-bottom: 24px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .form-row:not(:last-child) {
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .row-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        .row-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-dark);
+            flex-shrink: 0;
+            width: 150px;
+        }
+
+        .row-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            min-height: 24px;
+        }
+
+        /* Custom Checkbox styles for gender */
+        .gender-options {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .gender-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .radio-custom {
+            height: 22px;
+            width: 22px;
+            background-color: #FFFFFF;
+            border: 1px solid #D1D5DB;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .gender-option:hover input ~ .radio-custom {
+            border-color: var(--primary-green);
+        }
+
+        .gender-option input:checked ~ .radio-custom {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        .radio-custom::after {
+            content: "";
+            display: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+        }
+
+        .gender-option input:checked ~ .radio-custom::after {
+            display: block;
+        }
+
+        /* Selector styles for Date & Time */
+        .select-display {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-light-gray);
+            padding-right: 20px;
+            cursor: pointer;
+            width: 100%;
+            text-align: right;
+            box-sizing: border-box;
+        }
+
+        .select-display.has-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .arrow-down {
+            position: absolute;
+            right: 0;
+            color: #9CA3AF;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Real browser inputs overlaying the UI */
+        .real-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        /* Styled Action Button */
+        .btn-submit {
+            background: var(--primary-green);
+            color: #FFFFFF;
+            border: none;
+            width: 100%;
+            height: 52px;
+            border-radius: 26px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 168, 107, 0.15);
+            transition: all 0.2s ease;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 10px rgba(0, 168, 107, 0.1);
+            background: #00965E;
+        }
+
+        /* Benefits Section at Bottom */
+        .benefits-section {
+            width: 100%;
+            text-align: left;
+            padding: 0 8px;
+            box-sizing: border-box;
+        }
+
+        .benefits-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0F8A5F;
+            margin: 0 0 10px 0;
+        }
+
+        .benefits-desc {
+            font-size: 13px;
+            line-height: 1.55;
+            color: #6B7280;
+            margin: 0 0 16px 0;
+            font-weight: 400;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .benefit-icon {
+            margin-right: 10px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive adaptations for actual Mobile View */
+        @media (max-width: 500px) {
+            body {
+                background: #FFFFFF;
+                display: block;
+            }
+
+            .phone-mockup {
+                width: 100%;
+                height: 100vh;
+                padding: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: none;
+                display: block; /* Prevent height collapse on WebViews */
+            }
+
+            .screen-content {
+                border-radius: 0;
+                background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 50%);
+            }
+
+            .status-bar,
+            .buttons-left,
+            .buttons-right {
+                display: none;
+            }
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            width: 85%;
+            background: rgba(31, 41, 55, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .toast-container.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #EF4444; /* Error/alert color */
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="buttons-left"></div>
+        <div class="buttons-right"></div>
+        <div class="screen-content">
+            <!-- Simulated Cloud Background -->
+            <div class="cloud-bg">
+                <div class="cloud cloud-1"></div>
+                <div class="cloud cloud-2"></div>
+                <div class="cloud cloud-3"></div>
+            </div>
+
+            <!-- iOS Status Bar -->
+            <div class="status-bar">
+                <div class="time">9:41</div>
+                <div class="status-icons">
+                    <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor">
+                        <path d="M1 9h1.5v1.5H1V9zm3.5-3h1.5v4.5h-1.5V6zm3.5-3.5h1.5v8h-1.5v-8zm3.5-2.5h1.5v10.5h-1.5V0z" />
+                    </svg>
+                    <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor">
+                        <path d="M7.5 11C7.2 11 7 10.8 7 10.5V10C7 9.7 7.2 9.5 7.5 9.5C7.8 9.5 8 9.7 8 10V10.5C8 10.8 7.8 11 7.5 11ZM3.5 7C3.3 7 3.1 6.8 3.1 6.5C3.1 5.3 4.1 4.3 5.3 4.3C5.6 4.3 5.8 4.5 5.8 4.8C5.8 5.1 5.6 5.3 5.3 5.3C4.7 5.3 4.2 5.8 4.2 6.5C4.2 6.8 4 7 3.5 7ZM11.5 7C11 7 10.8 6.8 10.8 6.5C10.8 5.8 10.3 5.3 9.7 5.3C9.4 5.3 9.2 5.1 9.2 4.8C9.2 4.5 9.4 4.3 9.7 4.3C10.9 4.3 11.9 5.3 11.9 6.5C11.9 6.8 11.7 7 11.5 7ZM0 3C0 2.7 0.2 2.5 0.5 2.5C4.3 -0.8 10.7 -0.8 14.5 2.5C14.8 2.7 14.8 3.2 14.5 3.5C14.2 3.8 13.7 3.8 13.4 3.5C10.2 0.7 4.8 0.7 1.6 3.5C1.3 3.8 0.8 3.8 0.5 3.5C0.2 3.2 0 3.1 0 3Z" />
+                    </svg>
+                    <svg width="22" height="11" viewBox="0 0 22 11" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <rect x="0.6" y="0.6" width="18.8" height="9.8" rx="2.4" />
+                        <path d="M20.8 3.5v4" stroke-width="1.6" stroke-linecap="round" />
+                        <rect x="2.5" y="2.5" width="13" height="6" rx="1" fill="currentColor" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Header Nav Area (Back Button only) -->
+            <div class="nav-header">
+                <div class="back-btn" onclick="history.back()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Main App Body -->
+            <div class="app-body">
+                <!-- Mascot Image (Career Calligraphy Boy) -->
+                <div class="mascot-container">
+                    <img class="mascot-img" src="mascot_nghenghiep.png" alt="Mascot Tử Vi Nghề Nghiệp Lịch Việt">
+                </div>
+
+                <!-- Text Header -->
+                <div class="header-section">
+                    <h1 class="title-main">ĐỊNH HƯỚNG SỰ NGHIỆP<br>TỪ LÁ SỐ CỦA BẠN</h1>
+                    <p class="title-sub">Giúp bạn hiểu bản thân và lựa chọn hướng đi sự nghiệp phù hợp hơn.</p>
+                </div>
+
+                <!-- Input Card Form -->
+                <div class="form-card">
+                    <!-- Row 1: Gender -->
+                    <div class="form-row">
+                        <div class="row-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--input-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="15" r="4"/>
+                                <path d="M9 19v3M7.5 20.5h3"/>
+                                <circle cx="15" cy="9" r="4"/>
+                                <path d="M19 5l-4 4M15 5h4v4"/>
+                            </svg>
+                        </div>
+                        <div class="row-label">Giới tính</div>
+                        <div class="row-content">
+                            <div class="gender-options">
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="nu" checked onchange="updateGenderDisplay()">
+                                    <span class="radio-custom"></span>
+                                    <span>Nữ</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="nam" onchange="updateGenderDisplay()">
+                                    <span class="radio-custom"></span>
+                                    <span>Nam</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Date of Birth -->
+                    <div class="form-row">
+                        <div class="row-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--input-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                                <path d="M12 17.5s-3-2-3-3.5a1.5 1.5 0 0 1 3 0 1.5 1.5 0 0 1 3 0c0 1.5-3 3.5-3 3.5z" fill="var(--input-blue)"/>
+                            </svg>
+                        </div>
+                        <div class="row-label">Ngày sinh dương lịch</div>
+                        <div class="row-content">
+                            <div class="select-display" id="date-display">Chọn ngày sinh</div>
+                            <input class="real-input" type="date" id="birthdate" onchange="handleDateChange(this)">
+                            <div class="arrow-down">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Time of Birth -->
+                    <div class="form-row">
+                        <div class="row-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--input-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="row-label">Giờ sinh</div>
+                        <div class="row-content">
+                            <div class="select-display" id="time-display">Chọn giờ sinh</div>
+                            <input class="real-input" type="time" id="birthtime" onchange="handleTimeChange(this)">
+                            <div class="arrow-down">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn-submit" onclick="submitForm()">XEM GỢI Ý SỰ NGHIỆP</button>
+
+                <!-- Benefits List Section -->
+                <div class="benefits-section">
+                    <h2 class="benefits-title">Bạn sẽ nhận được gì?</h2>
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <span class="benefit-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span>Hiểu rõ điểm mạnh và hạn chế trong sự nghiệp</span>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span>Gợi ý hướng phát triển, công việc phù hợp</span>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A86B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span>Tham khảo cơ hội và thách thức trong sự nghiệp</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Toast Notification Container -->
+            <div id="toast" class="toast-container">
+                <div class="toast-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <div id="toast-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle Date change event
+        function handleDateChange(input) {
+            const display = document.getElementById('date-display');
+            if (input.value) {
+                const date = new Date(input.value);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                display.innerText = `${day}/${month}/${year}`;
+                display.classList.add('has-value');
+            } else {
+                display.innerText = 'Chọn ngày sinh';
+                display.classList.remove('has-value');
+            }
+        }
+
+        // Handle Time change event
+        function handleTimeChange(input) {
+            const display = document.getElementById('time-display');
+            if (input.value) {
+                display.innerText = input.value;
+                display.classList.add('has-value');
+            } else {
+                display.innerText = 'Chọn giờ sinh';
+                display.classList.remove('has-value');
+            }
+        }
+
+        // Toast notification handler
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.add('show');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Simulating submission redirecting to career result screen
+        function submitForm() {
+            const dateVal = document.getElementById('birthdate').value;
+            const timeVal = document.getElementById('birthtime').value;
+            const genderVal = document.querySelector('input[name="gender"]:checked').value;
+
+            if (!dateVal) {
+                showToast('Vui lòng nhập ngày sinh dương lịch');
+                return;
+            }
+            if (!timeVal) {
+                showToast('Vui lòng nhập giờ sinh');
+                return;
+            }
+
+            // Storing user choices safely
+            try {
+                localStorage.setItem('user_career_gender', genderVal);
+                localStorage.setItem('user_career_dob', dateVal);
+                localStorage.setItem('user_career_tob', timeVal);
+            } catch (e) {
+                console.warn('localStorage is not writeable:', e);
+            }
+
+            // Redirecting to tuvi_nghenghiep.html with URL query parameters
+            window.location.href = `tuvi_nghenghiep.html?dob=${encodeURIComponent(dateVal)}&tob=${encodeURIComponent(timeVal)}&gender=${encodeURIComponent(genderVal)}`;
+        }
+
+        // Update gender selection styling
+        function updateGenderDisplay() {
+            // Checked state is styled automatically via CSS :checked
+        }
+
+        // Autofill profile fields helper
+        function autofillProfile(dob, tob, gender) {
+            if (gender) {
+                const femaleRadio = document.querySelector('input[name="gender"][value="nu"]');
+                const maleRadio = document.querySelector('input[name="gender"][value="nam"]');
+                if (gender.toLowerCase() === 'nu' || gender.toLowerCase() === 'nữ') {
+                    if (femaleRadio) femaleRadio.checked = true;
+                } else if (gender.toLowerCase() === 'nam') {
+                    if (maleRadio) maleRadio.checked = true;
+                }
+                updateGenderDisplay();
+            }
+
+            if (dob) {
+                const dobInput = document.getElementById('birthdate');
+                if (dobInput) {
+                    dobInput.value = dob;
+                    handleDateChange(dobInput);
+                }
+            }
+
+            if (tob) {
+                const tobInput = document.getElementById('birthtime');
+                if (tobInput) {
+                    tobInput.value = tob;
+                    handleTimeChange(tobInput);
+                }
+            }
+        }
+
+        // Check profile state and handle autofill
+        function checkAndInitProfile() {
+            // Check if bypass parameter is false
+            const urlParams = new URLSearchParams(window.location.search);
+            const bypass = urlParams.get('bypass');
+            const shouldBypass = (bypass !== 'false');
+
+            let dob = null;
+            let tob = null;
+            let gender = null;
+
+            try {
+                // Find existing values across any feature keys
+                dob = localStorage.getItem('user_career_dob') || 
+                      localStorage.getItem('user_finance_dob') || 
+                      localStorage.getItem('user_love_dob') || 
+                      localStorage.getItem('user_vanhan_dob');
+                            
+                tob = localStorage.getItem('user_career_tob') || 
+                      localStorage.getItem('user_finance_tob') || 
+                      localStorage.getItem('user_love_tob') || 
+                      localStorage.getItem('user_vanhan_tob');
+                            
+                gender = localStorage.getItem('user_career_gender') || 
+                         localStorage.getItem('user_finance_gender') || 
+                         localStorage.getItem('user_love_gender') || 
+                         localStorage.getItem('user_vanhan_gender');
+            } catch (e) {
+                console.warn('localStorage is not accessible:', e);
+            }
+
+            // Save to career keys to ensure consistency if complete profile exists
+            if (dob && tob && gender) {
+                try {
+                    localStorage.setItem('user_career_dob', dob);
+                    localStorage.setItem('user_career_tob', tob);
+                    localStorage.setItem('user_career_gender', gender);
+                } catch (e) {
+                    console.warn('localStorage write failed:', e);
+                }
+
+                // If we should bypass and have complete info, redirect immediately
+                if (shouldBypass) {
+                    window.location.href = `tuvi_nghenghiep.html?dob=${encodeURIComponent(dob)}&tob=${encodeURIComponent(tob)}&gender=${encodeURIComponent(gender)}`;
+                    return;
+                }
+            }
+
+            // Autofill existing values
+            autofillProfile(dob, tob, gender);
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', checkAndInitProfile);
+    </script>
+</body>
+
+</html>

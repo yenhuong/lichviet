@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết Cung - Lịch Việt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #169172;
+      --bg-light: #F5F7FA;
+      --card-bg: #FFFFFF;
+      --text-main: #333333;
+      --text-secondary: #666666;
+      --border-color: #E5E7EB;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --ruby: #EF4444;
+      --sapphire: #3B82F6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-main);
+    }
+
+    .phone-mockup {
+      position: relative;
+      width: 414px;
+      height: 896px;
+      background: #1F1F1F;
+      border-radius: 56px;
+      padding: 12px;
+      box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .buttons-left {
+      position: absolute;
+      left: -14px;
+      top: 180px;
+      width: 4px;
+      height: 100px;
+      background: #111;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .buttons-right {
+      position: absolute;
+      right: -14px;
+      top: 200px;
+      width: 4px;
+      height: 80px;
+      background: #111;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .screen-content {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-light);
+      border-radius: 44px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .status-bar {
+      height: 44px;
+      background-color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px 0 32px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app-bar {
+      background-color: var(--primary);
+      color: white;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      font-size: 17px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: white;
+    }
+
+    .back-btn:active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    /* Tab bar */
+    .tab-container {
+      position: sticky;
+      top: -16px;
+      z-index: 10;
+      background: var(--bg-light);
+      padding-top: 16px;
+      margin-top: 0px;
+      margin-bottom: 12px;
+    }
+
+    .tab-scroll-wrap {
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 4px;
+    }
+
+    .tab-scroll-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-bar {
+      display: inline-flex;
+      gap: 10px;
+      padding: 4px 0;
+      padding-right: 32px;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 2px;
+      padding: 8px 16px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1.5px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .tab-icon {
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active .tab-icon {
+      transform: scale(1.1);
+    }
+
+    .tab-btn.active {
+      padding: 8px 24px 12px;
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(22, 145, 114, 0.2);
+    }
+
+    /* Tab content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Content blocks */
+    .content-block {
+      padding: 0 4px;
+      margin-bottom: 24px;
+    }
+
+    .block-green { background: transparent; border: none; }
+    .block-amber { background: transparent; border: none; }
+    .block-blue { background: transparent; border: none; }
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .block-icon { font-size: 20px; }
+
+    .block-body {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-main);
+      text-align: justify;
+    }
+
+    .block-body ul { padding-left: 18px; }
+    .block-body ul li { margin-bottom: 8px; }
+
+    .block-summary {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-main);
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        background: var(--bg-light);
+        display: block;
+      }
+      .phone-mockup {
+        width: 100%;
+        height: 100vh;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: none;
+      }
+      .screen-content { border-radius: 0; }
+      .status-bar, .buttons-left, .buttons-right { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="phone-mockup">
+    <div class="buttons-left"></div>
+    <div class="buttons-right"></div>
+    <div class="screen-content">
+      <!-- Status bar -->
+      <div class="status-bar">
+        <div class="time">10:25</div>
+        <div class="status-icons">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+            <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z" />
+          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12.55a11 11 0 0 1 14.08 0" />
+            <path d="M1.42 9a16 16 0 0 1 21.16 0" />
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
+            <line x1="12" y1="20" x2="12.01" y2="20" />
+          </svg>
+          <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" />
+            <path d="M22 4v4" stroke-width="2" stroke-linecap="round" />
+            <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- App bar -->
+      <div class="app-bar">
+        <a class="back-btn" href="tuvi_tongquan.html">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </a>
+        <span>Chi tiết lá số</span>
+      </div>
+
+      <!-- Main content -->
+      <div class="content">
+
+
+        <!-- Tab bar -->
+        <div class="tab-container">
+          <div class="tab-scroll-wrap">
+            <div class="tab-bar">
+              <button class="tab-btn active" onclick="switchTab('menh', 'Mệnh', 'Bản mệnh vững vàng, tự thân lập nghiệp, có khả năng chỉ huy và quản lý tốt.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">👤</span> <span>Mệnh</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 75%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('phu_mau', 'Phụ Mẫu', 'Quan hệ gia đình hòa thuận, nhận được sự hỗ trợ và tình yêu thương từ cha mẹ.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">👴</span> <span>Phụ Mẫu</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Bình thường · 55%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('phuc_duc', 'Phúc Đức', 'Hưởng phúc lộc tổ tiên, đời sống tinh thần phong phú, gặp nhiều may mắn.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">⛩️</span> <span>Phúc Đức</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 85%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('dien_trach', 'Điền Trạch', 'Cần thận trọng trong việc đầu tư đất đai, mua bán nhà cửa có thể gặp chút trắc trở.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">🏠</span> <span>Điền Trạch</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Cần lưu ý · 35%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('quan_loc', 'Quan Lộc', 'Đường công danh xán lạn, có nhiều cơ hội thăng tiến và phát triển sự nghiệp.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">📜</span> <span>Quan Lộc</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 80%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('no_boc', 'Nô Bộc', 'Các mối quan hệ xã hội tương đối bình ổn, cần cẩn trọng trong việc chọn lọc bạn bè.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">👥</span> <span>Nô Bộc</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Bình thường · 60%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('thien_di', 'Thiên Di', 'Xuất ngoại hay đi làm ăn xa gặp nhiều thuận lợi, đi ra ngoài có quý nhân phù trợ.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">✈️</span> <span>Thiên Di</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 90%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('tat_ach', 'Tật Ách', 'Cần chú ý giữ gìn sức khỏe, ăn uống khoa học, cẩn thận các bệnh liên quan đến hô hấp.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">🏥</span> <span>Tật Ách</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Cần lưu ý · 40%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('tai_bach', 'Tài Bạch', 'Tài vận hanh thông, nguồn thu nhập dồi dào, đầu tư tài chính dễ sinh lời cao.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">💰</span> <span>Tài Bạch</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 88%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('phu_the', 'Phu Thê', 'Tình cảm vợ chồng đôi lúc có chút bất đồng quan điểm nhưng dễ dàng nhường nhịn và hóa giải.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">💑</span> <span>Phu Thê</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Bình thường · 65%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('tu_tuc', 'Tử Tức', 'Con cái ngoan ngoãn, thông minh hiểu chuyện, sau này là người có ích cho xã hội.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">👶</span> <span>Tử Tức</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 82%</div>
+              </button>
+              <button class="tab-btn" onclick="switchTab('huynh_de', 'Huynh Đệ', 'Anh em trong nhà hòa thuận, gắn bó keo sơn, sẵn sàng tương trợ giúp đỡ lẫn nhau khi cần.')">
+                <div style="display: flex; align-items: center; gap: 6px;"><span class="tab-icon" style="flex-shrink: 0;">🤝</span> <span>Huynh Đệ</span></div>
+                <div style="font-size: 12px; font-weight: 400; opacity: 0.9; margin-left: 24px;">Tốt · 78%</div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Khối Tóm tắt chung (đặt dưới tab) -->
+        <div id="summary-container" style="background: rgba(22, 145, 114, 0.06); padding: 14px 16px; border-radius: 12px; margin-bottom: 20px;">
+          <div id="summary-title" style="font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 6px;">
+            Tổng kết cung Mệnh
+          </div>
+          <div id="summary-text" style="font-size: 16px; font-weight: 400; color: var(--text-main); line-height: 1.5;">
+            Bản mệnh vững vàng, tự thân lập nghiệp, có khả năng chỉ huy và quản lý tốt.
+          </div>
+        </div>
+
+        <!-- Tab: Mệnh -->
+        <div id="tab-menh" class="tab-content active">
+          <div class="content-block block-green">
+            <div class="block-header">
+              <span class="block-icon">🌟</span>
+              <span style="color:#065f46">Tổng quan tính cách</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Bạn là người có bản lĩnh, tự lập và có tư chất lãnh đạo bẩm sinh. Mọi việc thường muốn tự tay quyết định thay vì phụ thuộc người khác.</li>
+                <li>Thường xuyên được người xung quanh tin tưởng giao phó trọng trách lớn.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="content-block block-blue">
+            <div class="block-header">
+              <span class="block-icon">🎯</span>
+              <span style="color:#1e40af">Định hướng cuộc đời</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Phù hợp với các công việc đòi hỏi sự quyết đoán, tự do sáng tạo hoặc làm chủ doanh nghiệp.</li>
+                <li>Tiền vận có thể gặp nhiều thử thách nhưng trung và hậu vận sẽ rực rỡ nếu biết kiềm chế cái tôi.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Phụ Mẫu -->
+        <div id="tab-phu_mau" class="tab-content">
+          <div class="content-block block-blue">
+            <div class="block-header">
+              <span class="block-icon">👴</span>
+              <span style="color:#1e40af">Mối quan hệ gia đình</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Quan hệ với cha mẹ nhìn chung hòa thuận, luôn nhận được sự hậu thuẫn và lời khuyên hữu ích từ đấng sinh thành.</li>
+                <li>Có lúc sẽ bất đồng quan điểm do khoảng cách thế hệ nhưng dễ dàng được hóa giải nếu bạn chịu lắng nghe.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Phúc Đức -->
+        <div id="tab-phuc_duc" class="tab-content">
+          <div class="content-block block-green">
+            <div class="block-header">
+              <span class="block-icon">⛩️</span>
+              <span style="color:#065f46">Hưởng phúc tổ tiên</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Được hưởng nhiều phúc lộc từ gia tiên, thường gặp quý nhân phù trợ những lúc nguy nan nhất.</li>
+                <li>Hậu vận an nhàn, đời sống tinh thần phong phú, vui vẻ bên con cháu.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Điền Trạch -->
+        <div id="tab-dien_trach" class="tab-content">
+          <div class="content-block block-amber">
+            <div class="block-header">
+              <span class="block-icon">🏠</span>
+              <span style="color:#92400e">Lưu ý nhà cửa, đất đai</span>
+            </div>
+            <div class="block-body">
+              <ul>
+                <li>Nên cẩn trọng khi đứng tên bất động sản hoặc hùng vốn mua đất. Chú ý các vấn đề pháp lý để tránh rủi ro tranh chấp.</li>
+                <li>Việc mua bán nhà cửa có thể bị chậm trễ so với dự định, cần kiên nhẫn.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:32px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId, name, summary) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      let targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      event.currentTarget.classList.add('active');
+      
+      document.getElementById('summary-title').innerText = 'Tổng kết cung ' + name;
+      document.getElementById('summary-text').innerText = summary;
+      
+      // Scroll tab button into view safely
+      const container = document.querySelector('.tab-scroll-wrap');
+      const btn = event.currentTarget;
+      const scrollLeft = btn.offsetLeft - (container.offsetWidth / 2) + (btn.offsetWidth / 2);
+      container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

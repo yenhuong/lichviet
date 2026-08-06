@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lá Số Bát Tự - Lịch Việt</title>
+    <style>
+        :root {
+            --primary-bg: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-dark: #1b4332;
+            --text-gray: #4B5563;
+            --deep-green: #174F38;
+            --header-green: #1b4d34;
+            --gold: #B67F30;
+            --gold-soft: rgba(182, 127, 48, 0.35);
+            --el-moc: #2d6a4f;
+            --el-hoa: #A1201B;
+            --el-tho: #8a6d3b;
+            --el-kim: #6b6f76;
+            --el-thuy: #2563eb;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .phone-mockup {
+            position: relative;
+            width: 438px;
+            height: 920px;
+            background: #1F1F1F;
+            border-radius: 48px;
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-bg);
+            border-radius: 38px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .status-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            z-index: 16;
+            pointer-events: none;
+        }
+        .status-icons { display: flex; align-items: center; gap: 6px; }
+        .floating-back-btn {
+            position: absolute;
+            top: 56px; left: 20px;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            z-index: 17;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .floating-back-btn:active { transform: scale(0.92); background: #f3f4f6; }
+
+        .app-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 96px;
+            background-color: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 48px;
+            box-sizing: border-box;
+            z-index: 15;
+            border-bottom: 1px solid rgba(182, 127, 48, 0.08);
+            box-shadow: 0 2px 6px rgba(27, 67, 50, 0.04);
+        }
+        .app-bar-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .scroller {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* momentum scroll mượt trên iOS */
+            display: flex;
+            flex-direction: column;
+            background-color: var(--primary-bg);
+            position: relative;
+            padding-top: 96px; /* clear app bar */
+        }
+        .scroller > * { flex-shrink: 0; } /* không cho các khối bị nén → cuộn thay vì cắt cụt */
+        .scroller::-webkit-scrollbar { width: 4px; }
+        .scroller::-webkit-scrollbar-track { background: transparent; }
+        .scroller::-webkit-scrollbar-thumb { background: rgba(27, 67, 50, 0.12); border-radius: 2px; }
+
+        /* Ẩn thanh cuộn ngang nhưng vẫn cho phép cuộn */
+        .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; height: 0; width: 0; }
+
+        /* ===== Header ===== */
+        .hero {
+            position: relative;
+            padding: 16px 16px 20px 16px;
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        .user-basic {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 22px;
+        }
+        .user-name {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--deep-green);
+        }
+        .user-meta {
+            margin-top: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--text-gray);
+        }
+        /* ===== Thông tin ngày/giờ sinh 2 cột ===== */
+        .id-namerow {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .id-gender {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-gray);
+            flex-shrink: 0;
+        }
+        .id-grid {
+            display: flex;
+            gap: 44px;
+            margin-top: 14px;
+        }
+        .id-col {
+            flex: 0 1 auto;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .id-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: var(--text-gray);
+        }
+        .id-label svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--gold); }
+        .id-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 5px;
+        }
+        .id-sub {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-top: 5px;
+        }
+        .hero-title {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 22px;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--deep-green);
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== Info Cards ===== */
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin: 8px 16px 0 16px;
+            border: 1px solid var(--gold-soft);
+            border-radius: 16px;
+            background: rgba(255,253,249,0.6);
+            overflow: hidden;
+        }
+        .info-card {
+            padding: 16px 14px;
+        }
+        .info-card + .info-card {
+            border-left: 1px solid var(--gold-soft);
+        }
+        .info-card-title {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: var(--deep-green);
+            margin-bottom: 12px;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: var(--deep-green);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .mini-table {
+            flex: 1;
+            border: 1px solid var(--gold-soft);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .mini-th {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--deep-green);
+        }
+        .mini-th span {
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #f3e9d2;
+            padding: 3px 0;
+        }
+        .mini-td {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .mini-td span {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 4px 0;
+        }
+        .single-badge {
+            flex: 1;
+            border: 1px solid var(--gold-soft);
+            border-radius: 8px;
+            text-align: center;
+            padding: 6px 0;
+        }
+        .single-badge .lbl {
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #f3e9d2;
+            background: var(--deep-green);
+            display: block;
+            padding: 3px 0;
+            margin: -6px 0 5px 0;
+        }
+        .single-badge .val {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .info-sub {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-top: 8px;
+        }
+        .info-divider {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 8px 0;
+            color: var(--gold);
+        }
+        .lunar-row .info-icon {
+            background: var(--deep-green);
+        }
+        .tietkhi-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tietkhi-text .k {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--deep-green);
+        }
+        .tietkhi-text .v {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* ===== Four Pillars Table ===== */
+        .pillars {
+            margin: 6px 16px 0 16px;
+            border: 1.5px solid #D9DED9;
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--card-bg);
+        }
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .p-cell {
+            padding: 10px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-right: 1px solid rgba(217, 222, 217, 0.5);
+            border-bottom: 1px solid rgba(217, 222, 217, 0.5);
+        }
+        .pillar-grid > .p-cell:nth-child(4n) { border-right: none; }
+
+        /* header row */
+        .p-head {
+            background: rgba(28, 81, 56, 0.2);
+            border-right: 1px solid rgba(217, 222, 217, 0.5);
+            border-bottom: none;
+            padding: 12px 6px;
+            color: var(--text-dark);
+        }
+        .pillar-grid > .p-head:nth-child(4n) { border-right: none; }
+        .p-head .col {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+        }
+        .p-head .npy {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--text-dark);
+            margin: 4px 0 6px 0;
+        }
+        .p-head .num {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .p-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-gray);
+            padding-top: 12px;
+        }
+        .p-big {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.1;
+            padding: 2px 0 0 0;
+            color: var(--deep-green);
+        }
+        .p-big.red { color: var(--el-hoa); }
+        .p-small {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: var(--text-gray);
+            padding: 2px 0 12px 0;
+        }
+        .p-small.red { color: var(--el-hoa); }
+
+        /* tang can */
+        .p-tang {
+            padding: 10px 0 12px 0;
+        }
+        .p-tang .tline {
+            font-size: 11.5px;
+            font-weight: 600;
+            line-height: 1.9;
+        }
+        .m-moc { color: var(--el-moc); }
+        .m-hoa { color: var(--el-hoa); }
+        .m-tho { color: var(--el-tho); }
+        .m-kim { color: var(--el-kim); }
+        .m-thuy { color: var(--el-thuy); }
+
+        /* thap than */
+        .p-than { padding: 12px 0 14px 0; }
+        .p-than .tt {
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--deep-green);
+        }
+        .p-than .tt.faded { color: var(--text-gray); }
+        .p-than .ttsub {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-gray);
+            margin-top: 5px;
+        }
+        .pillar-grid > .p-than { border-bottom: none; }
+
+        /* ===== Menh Chu ===== */
+        /* Cầu nối lá số → luận giải */
+        .derive-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 16px 16px 0 16px;
+        }
+        .derive-arrow {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 3px 8px rgba(182,127,48,0.35);
+        }
+        .derive-caption {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            color: var(--text-gray);
+        }
+        .menhchu {
+            margin: 16px 16px 28px 16px;
+        }
+        .menhchu-head {
+            display: block;
+            line-height: 1.3;
+        }
+        .menhchu-label {
+            display: inline;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-style: normal;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            text-transform: none;
+            color: var(--gold);
+        }
+        .menhchu-name {
+            display: inline;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+            color: var(--deep-green);
+        }
+        .menhchu-body {
+            margin-top: 14px;
+            font-size: 15px;
+            line-height: 1.65;
+            font-weight: 500;
+            color: #333333;
+        }
+        .menhchu-body em {
+            font-style: normal;
+        }
+        .menhchu-body b {
+            font-weight: 700;
+        }
+        .menhchu-body p { margin: 0 0 12px 0; }
+        .highlight-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .highlight-icon {
+            flex-shrink: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .highlight-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--deep-green);
+        }
+        .cach-cuc-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8B6914;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        /* ===== CTA ghim cố định đáy màn (đồng bộ giao diện màn Intro) ===== */
+        #cta-bar {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            padding: 11px 16px calc(14px + env(safe-area-inset-bottom, 0px)) 16px;
+            background-color: #FFFDFA;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+            z-index: 20;
+            transform: translateY(140%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        }
+        #cta-bar.cta-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #cta-bar .cta-btn {
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(135deg, #C8901A 0%, #B67F30 45%, #94601A 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-family: "SF Pro", -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 0 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(148, 96, 26, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        #cta-bar .cta-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 3px 8px rgba(148, 96, 26, 0.22);
+        }
+
+
+
+        /* ===== Responsive: trên điện thoại thật, bỏ khung mockup và lấp đầy màn hình ===== */
+        /* ===== Trên điện thoại: GIỮ viền điện thoại giả lập, thu nhỏ vừa khít màn hình ===== */
+        @media (max-width: 480px) {
+            body {
+                overflow: hidden; /* khung cố định, không cho trang cuộn */
+            }
+            .phone-mockup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* JS thêm scale() cho vừa màn hình */
+                transform-origin: center center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-mockup">
+        <div class="screen-content">
+            <!-- iOS Status Bar -->
+            <div class="status-bar">
+                <div>09:50</div>
+                <div class="status-icons">📶 🔋</div>
+            </div>
+
+            <!-- Floating Back Button -->
+            <button class="floating-back-btn" onclick="history.back()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1b4332" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <!-- Fixed App Bar -->
+            <div class="app-bar">
+                <span class="app-bar-title">Kết quả luận giải</span>
+            </div>
+
+            <div class="scroller">
+                <!-- ===== Hero ===== -->
+                <div class="hero" style="position: relative; padding: 16px 16px 4px 16px; text-align: left;">
+                    <h1 class="hero-title" style="font-size: 24px !important; line-height: 1.25 !important; margin: 0 !important; text-align: left !important;">Lá số Bát tự của bạn</h1>
+
+                    <div class="user-basic" style="margin: 14px 0 6px 0 !important;">
+                        <div class="id-namerow" style="justify-content: flex-start !important;">
+                            <div class="user-name" id="res-name" style="font-size: 20px !important; color: var(--gold) !important; text-align: left !important;">Nguyễn Hiếu Minh</div>
+                        </div>
+                        <div class="id-grid">
+                            <div class="id-col">
+                                <div class="id-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Ngày sinh</div>
+                                <div class="id-value">09/01/1998</div>
+                                <div class="id-sub">Âm lịch 11/12/1997</div>
+                            </div>
+                            <div class="id-col">
+                                <div class="id-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline></svg>Giờ sinh</div>
+                                <div class="id-value">05:30</div>
+                                <div class="id-sub">Giờ Mão</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ===== Four Pillars ===== -->
+                <div class="pillars">
+                    <div class="pillar-grid">
+                        <!-- Header row -->
+                        <div class="p-cell p-head"><div class="col">NĂM</div><div class="npy">THIÊN ĐẦU THỔ</div><div class="num">1998</div></div>
+                        <div class="p-cell p-head"><div class="col">THÁNG</div><div class="npy">ẤT TRUNG THỔ</div><div class="num">1</div></div>
+                        <div class="p-cell p-head"><div class="col">NGÀY</div><div class="npy">ĐẠI LÂM<br>MỘC</div><div class="num">9</div></div>
+                        <div class="p-cell p-head"><div class="col">GIỜ</div><div class="npy">THẠCH LƯU MỘC</div><div class="num">05:30</div></div>
+
+                        <!-- Thien can -->
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big">MẬU</div><div class="p-small">DƯƠNG THỔ</div></div>
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big red">ĐINH</div><div class="p-small red">ÂM HỎA</div></div>
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big">MẬU</div><div class="p-small">DƯƠNG THỔ</div></div>
+                        <div class="p-cell"><div class="p-label">Thiên can</div><div class="p-big">CANH</div><div class="p-small">DƯƠNG KIM</div></div>
+
+                        <!-- Dia chi -->
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big">DẦN</div><div class="p-small">Lâm Quan</div></div>
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big red">TỊ</div><div class="p-small">Đế Vượng</div></div>
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big">THÌN</div><div class="p-small">Lâm Quan</div></div>
+                        <div class="p-cell"><div class="p-label">Địa chi</div><div class="p-big">THÂN</div><div class="p-small">Trường Sinh</div></div>
+
+                        <!-- Tang can -->
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-moc">Giáp (Mộc)</div>
+                            <div class="tline m-hoa">Bính (Hỏa)</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                        </div>
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-hoa">Bính (Hỏa)</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                            <div class="tline m-kim">Canh (Kim)</div>
+                        </div>
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                            <div class="tline m-moc">Ất (Mộc)</div>
+                            <div class="tline m-thuy">Quý (Thủy)</div>
+                        </div>
+                        <div class="p-cell p-tang"><div class="p-label">Tàng can</div>
+                            <div class="tline m-kim">Canh (Kim)</div>
+                            <div class="tline m-thuy">Nhâm (Thủy)</div>
+                            <div class="tline m-tho">Mậu (Thổ)</div>
+                        </div>
+
+                        <!-- Thap than -->
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Tỷ</div><div class="ttsub">Kiếp tài</div></div>
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Ấn</div><div class="ttsub">Chính ấn</div></div>
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Nhật chủ</div><div class="ttsub">(Thân chủ)</div></div>
+                        <div class="p-cell p-than"><div class="p-label">Thập thần</div><div class="tt">Thực</div><div class="ttsub">Thực thần</div></div>
+                    </div>
+                </div>
+
+                <!-- ===== Menh Chu ===== -->
+                <div class="menhchu" style="background: #FFFDF8; border: 1px solid #EBD6BA; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                    <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 16px; font-weight: 700; color: var(--deep-green); line-height: 1.5; margin-bottom: 12px;">
+                        Lá số Bát tự của bạn thuộc cách cục <span style="font-size: 20px; font-weight: 800; color: var(--gold); white-space: nowrap;">Kiến Lộc</span>
+                    </div>
+                    <div class="menhchu-body" style="margin-top: 8px;">
+                        <div class="highlight-section" style="margin-bottom: 8px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Điểm mạnh nổi bật</div>
+                        </div>
+                        <p style="margin-bottom: 16px;">Bạn là người điềm đạm, thực tế, luôn biết cách thầm lặng chăm lo, vun vén và có khả năng xây dựng một <b>nền tảng bền vững</b>, ổn định cho tập thể hoặc gia đình. Sự kiên trì, chu đáo của bạn giúp bạn thầm lặng nhặt nhạnh thành quả nhỏ để tạo nền móng vững chắc.</p>
+                        
+                        <div class="highlight-section" style="margin-bottom: 8px; margin-top: 16px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="7" x2="12" y2="13"/>
+                                    <circle cx="12" cy="17" r="0.9" fill="var(--gold)"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Điểm cần lưu ý</div>
+                        </div>
+                        <p style="margin-bottom: 0;">Bản tính <b>quá thận trọng</b> khiến tốc độ ra quyết định của bạn khá chậm rãi. Trước những biến động đột ngột cần sự xoay chuyển tình thế nhanh chóng, bạn dễ bị lúng túng, thiếu sự linh hoạt bứt tốc và có xu hướng né tránh những lựa chọn mang tính mạo hiểm.</p>
+                    </div>
+                </div>
+
+                <!-- Section Separator -->
+                <div style="height: 10px; background-color: rgba(182, 127, 48, 0.08); border-top: 1px solid rgba(182, 127, 48, 0.12); border-bottom: 1px solid rgba(182, 127, 48, 0.12); margin: 16px 0 8px 0;"></div>
+
+                <!-- ===== Biểu đồ ngũ hành ===== -->
+                <div class="hero" style="padding: 16px 16px 0 16px;">
+                    <h1 class="hero-title" style="font-size: 24px !important; margin: 0 !important;">Biểu đồ Ngũ hành</h1>
+                    <p style="font-size: 15px; color: #333333; line-height: 1.5; margin: 6px 0 0 0; font-weight: 500;">Lá số Bát tự cho thấy cấu trúc ngũ hành riêng của bạn. Giúp nhận biết điểm mạnh, điểm yếu và định hướng cân bằng bản mệnh.</p>
+                </div>
+
+                <div class="no-scrollbar" style="margin: -6px 8px 14px 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                    <div style="display: flex; flex-direction: column; min-width: 560px;">
+                        <!-- Bars Section -->
+                        <div style="display: flex; height: 180px; align-items: flex-end; margin-bottom: -1px;">
+                            <!-- Left spacer matching table first column width -->
+                            <div style="width: 60px; flex-shrink: 0;"></div>
+                            <!-- Bars Area -->
+                            <div style="display: flex; flex: 1; justify-content: space-around; align-items: flex-end; height: 100%; padding-bottom: 0;">
+                                <!-- Canh -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">20%</span>
+                                    <div style="width: 18px; height: 120px; background: #6b6b6b; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Tân -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">4%</span>
+                                    <div style="width: 18px; height: 24px; background: #9ca3af; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Nhâm -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">11%</span>
+                                    <div style="width: 18px; height: 66px; background: #2563eb; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Quý -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">8%</span>
+                                    <div style="width: 18px; height: 48px; background: #60a5fa; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Giáp -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">10%</span>
+                                    <div style="width: 18px; height: 60px; background: #2d6a4f; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Ất -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">0%</span>
+                                    <div style="width: 18px; height: 0; background: #52b788; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Bính -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">5%</span>
+                                    <div style="width: 18px; height: 30px; background: #c53030; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Đinh -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">7%</span>
+                                    <div style="width: 18px; height: 42px; background: #f87171; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Mậu -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">26%</span>
+                                    <div style="width: 18px; height: 156px; background: #b67f30; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                                <!-- Kỷ -->
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 0;">
+                                    <span style="font-size: 13px; font-weight: 700; color: var(--text-dark); text-align: center; margin-bottom: 6px; white-space: nowrap;">9%</span>
+                                    <div style="width: 18px; height: 54px; background: #f59e0b; border-radius: 3px 3px 0 0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Table Section -->
+                        <table style="width: 100%; table-layout: fixed; border-collapse: collapse; border: 1px solid #E3E7E4; border-radius: 8px; background: #FFFFFF; overflow: hidden;">
+                            <colgroup>
+                                <col style="width: 60px;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            
+                            <!-- Header Row (Deities & Stems) -->
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #F0F5F2; height: 38px;">
+                                <th style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px; background: #FAF7F1;">Thần</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center;">Thực</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center;">Thương</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center;">Thê</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center;">Tài</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center;">Sát</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #52b788; text-align: center;">Quan</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #c53030; text-align: center;">Kiêu</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #f87171; text-align: center;">Ấn</th>
+                                <th style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center;">Tỷ</th>
+                                <th style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center;">Kiếp</th>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 800; color: var(--text-dark); text-align: left; padding-left: 6px; background: #FAF7F1;">Can</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #6b6b6b; text-align: center; text-transform: uppercase;">Canh</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #9ca3af; text-align: center; text-transform: uppercase;">Tân</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2563eb; text-align: center; text-transform: uppercase;">Nhâm</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #60a5fa; text-align: center; text-transform: uppercase;">Quý</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #2d6a4f; text-align: center; text-transform: uppercase;">Giáp</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #52b788; text-align: center; text-transform: uppercase;">Ất</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #c53030; text-align: center; text-transform: uppercase;">Bính</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #f87171; text-align: center; text-transform: uppercase;">Đinh</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: #b67f30; text-align: center; text-transform: uppercase;">Mậu</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 700; color: #f59e0b; text-align: center; text-transform: uppercase;">Kỷ</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 6px; line-height: 1.15; background: #FAF7F1;">Thiên<br>can</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">11%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">20%</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15; background: #FAF7F1;">Địa chi</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">4%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">10%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-gray); text-align: center;"></td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">5%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">7%</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">6%</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 700; color: var(--text-dark); text-align: center;">9%</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #E3E7E4; background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15; background: #FAF7F1;">Trạng<br>thái</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">T</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tử</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">Tù</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">H</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; font-weight: 600; color: var(--text-dark); text-align: center;">V</td>
+                            </tr>
+                            <tr style="background: #FFFFFF; height: 38px;">
+                                <td style="border-left: 1px solid #E3E7E4; border-right: 1px solid #E3E7E4; font-size: 12px; font-weight: 700; color: var(--text-gray); text-align: left; padding-left: 4px; line-height: 1.15; background: #FAF7F1;">Trường<br>sinh</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">QĐ</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">S</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                                <td style="border-right: 1px solid rgba(227, 231, 228, 0.6); font-size: 11px; color: var(--text-dark); text-align: center;">M</td>
+                                <td style="border-right: 1px solid #E3E7E4; font-size: 11px; color: var(--text-dark); text-align: center;">D</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ===== Luận giải ===== -->
+                <div class="menhchu" style="margin-top: 0; margin-bottom: 16px; background: #FFFDF8; border: 1px solid #EBD6BA; border-radius: 14px; padding: 16px; box-shadow: 0 2px 6px rgba(182, 127, 48, 0.03);">
+                    <div style="margin-bottom: 14px;">
+                        <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; margin-bottom: 8px; text-transform: uppercase;">NHẬN ĐỊNH TỪ NGŨ HÀNH</div>
+                        <div style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 19px; color: var(--deep-green); line-height: 1.3; white-space: nowrap;"><span style="font-weight: 600;">Nhật chủ</span> <span style="font-weight: 800;">Giáp</span><span style="font-weight: 600;"> · Sinh tháng</span> <span style="font-weight: 800;">Tý</span></div>
+                    </div>
+                    <div class="menhchu-body" style="margin-top: 8px;">
+                        <div class="highlight-section" style="margin-bottom: 8px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Chân dung năng lực</div>
+                        </div>
+                        <p style="margin-bottom: 16px; color: #333333;">Bạn sở hữu phản xạ nhạy bén, khả năng nhận biết vấn đề phát sinh và đánh giá tình huống cực nhanh dưới áp lực cao. Thử thách đột ngột không dễ làm bạn hoang mang; bạn hành động nhanh, quyết đoán và sẵn sàng đối mặt trực diện. Bạn cũng sống rất thân thiện, nhiệt tình, luôn sẵn sàng xả thân để hỗ trợ mọi người bên cạnh.</p>
+                        
+                        <div class="highlight-section" style="margin-bottom: 8px; margin-top: 16px;">
+                            <div class="highlight-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <line x1="12" y1="7" x2="12" y2="13"/>
+                                    <circle cx="12" cy="17" r="0.9" fill="var(--gold)"/>
+                                </svg>
+                            </div>
+                            <div class="highlight-title">Điểm cần lưu ý</div>
+                        </div>
+                        <p style="margin-bottom: 0; color: #333333;">Bạn thường xuyên đối mặt với sự căng thẳng nội tâm do bản tính hay tư duy, suy nghĩ quá nhiều về rủi ro và trở ngại. Năng lượng bùng nổ tốt ngắn hạn nhưng khó duy trì trạng thái tập trung dài hạn, và việc căng sức đề phòng quá lâu dễ làm bạn bị kiệt sức, đưa ra quyết định cảm tính lúc nhất thời.</p>
+                    </div>
+                </div>
+
+                <!-- ===== Khối Mở Khoá Premium ===== -->
+                <div id="unlock-block" class="menhchu" style="position: relative; margin: 8px 0 0 0; background: #FFFCF7; border-radius: 16px 16px 0 0; padding: 22px 16px 96px 16px; box-shadow: 0 -4px 20px rgba(182, 127, 48, 0.08); overflow: hidden;">
+                    <!-- Hoạ tiết nền đầu khối -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 220px; pointer-events: none; overflow: hidden; border-radius: 16px 16px 0 0;">
+                        <!-- Vầng sáng gradient (đẩy lên đỉnh, chừa vùng tiêu đề) -->
+                        <div style="position: absolute; top: -230px; left: 50%; transform: translateX(-50%); width: 420px; height: 340px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(182,127,48,0.14) 0%, rgba(182,127,48,0.05) 50%, rgba(182,127,48,0) 75%);"></div>
+                        <!-- Ngôi sao lấp lánh rải đối xứng -->
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(182,127,48,0.28)" style="position: absolute; left: 26px; top: 30px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(182,127,48,0.22)" style="position: absolute; left: 54px; top: 62px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="rgba(182,127,48,0.20)" style="position: absolute; left: 96px; top: 20px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                        <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(182,127,48,0.22)" style="position: absolute; right: 96px; top: 24px;"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+                    </div>
+
+                    <!-- Sparkle Decorations -->
+                    <div style="position: absolute; right: 20px; top: 22px; pointer-events: none; opacity: 0.9; filter: drop-shadow(0 2px 4px rgba(182, 127, 48, 0.35));">
+                        <!-- Large Sparkle -->
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#B67F30" style="position: absolute; right: 0; top: 0;">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                        </svg>
+                        <!-- Small Sparkle -->
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="#B67F30" style="position: absolute; right: 2px; top: 20px;">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+                        </svg>
+                    </div>
+
+                    <!-- Badge Premium -->
+                    <div style="display: flex; justify-content: center; margin-bottom: 8px;">
+                        <div style="background: linear-gradient(135deg, #B67F30 0%, #94601A 100%); color: #FFFFFF; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 4px rgba(148, 96, 26, 0.2);">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 14h14v2H5v-2z"/>
+                            </svg>
+                            PREMIUM
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <h2 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 28px; font-weight: 800; color: #174F38; text-align: center; margin: 4px 0 8px 0; letter-spacing: -0.2px; line-height: 1.25;">Mở khoá luận giải<br>chuyên sâu</h2>
+                    <p style="font-size: 15px; color: #333333; text-align: center; margin: 0 auto 20px auto; line-height: 1.45; font-weight: 500;">Xem đầy đủ phân tích và gợi ý phù hợp<br>theo lá số của bạn.</p>
+
+                    <!-- Inner White Box -->
+                    <div style="background: #FFFFFF; border: 1px solid #E8D8C4; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(182, 127, 48, 0.03);">
+                        <!-- Group 1 Header with Green Background -->
+                        <div style="background: #F2F6EF; padding: 14px 16px 14px 16px; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 16px; font-weight: 800; color: #17533B; letter-spacing: -0.1px; font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;">Bản phân tích dành riêng cho bạn</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(148, 96, 26, 0.28));">
+                                <defs>
+                                    <linearGradient id="lockGoldG1" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0" stop-color="#EFC873"/>
+                                        <stop offset="0.5" stop-color="#C8901A"/>
+                                        <stop offset="1" stop-color="#9C6A12"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M7.5 10V7.2a4.5 4.5 0 0 1 9 0V10" fill="none" stroke="#B67F30" stroke-width="2.1" stroke-linecap="round"/>
+                                <rect x="4" y="10" width="16" height="11" rx="3" fill="url(#lockGoldG1)" stroke="#8A5E12" stroke-width="0.6"/>
+                                <path d="M4.6 11.4c4.4-1 10.4-1 14.8 0" fill="none" stroke="#F6E3AC" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+                                <circle cx="12" cy="14.6" r="1.9" fill="#5C3D0A"/>
+                                <rect x="11.1" y="15" width="1.8" height="3.4" rx="0.9" fill="#5C3D0A"/>
+                            </svg>
+                        </div>
+
+                        <!-- Item 1 -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px; border-bottom: 1px solid #EEEAE4;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="8.5" cy="7" r="4"/>
+                                    <polygon points="19 8 20.3 11 23.5 11.2 21 13.5 21.8 16.8 19 15 16.2 16.8 17 13.5 14.5 11.2 17.7 11 19 8" fill="#B67F30" stroke="#B67F30" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Chân dung năng lượng của bạn</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Hiểu điểm mạnh tự nhiên của bạn và những điểm cần chú ý để phát triển một cách cân bằng, bền vững.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px; border-bottom: 1px solid #EEEAE4;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10" stroke="#EBD6BA" stroke-width="1.5"/>
+                                    <path d="M12 2a5 5 0 0 0 0 10 5 5 0 0 1 0 10 10 10 0 0 0 0-20z" fill="#B67F30"/>
+                                    <circle cx="12" cy="7" r="1.5" fill="#0d2e20"/>
+                                    <circle cx="12" cy="17" r="1.5" fill="#B67F30"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Bản đồ ngũ hành cá nhân</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Biết ngũ hành nào đang vượng, đang thiếu và tác động đến công việc, tài chính, sức khỏe và các mối quan hệ.</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="6" y1="20" x2="6" y2="14" stroke="#EBD6BA" stroke-width="2"/>
+                                    <line x1="12" y1="20" x2="12" y2="10" stroke="#EBD6BA" stroke-width="2"/>
+                                    <line x1="18" y1="20" x2="18" y2="6" stroke="#EBD6BA" stroke-width="2"/>
+                                    <path d="M2 17l5-5 5 4 8-8" stroke="#B67F30" stroke-width="2"/>
+                                    <polyline points="17 8 21 8 21 12" stroke="#B67F30" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Hướng phát triển phù hợp</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Nhận gợi ý về hướng đi phù hợp, phát triển công việc và xây dựng nền tảng tài chính ổn định theo lá số của mình.</p>
+                            </div>
+                        </div>
+
+                        <!-- Group 2 Header with Green Background -->
+                        <div style="background: #F2F6EF; padding: 14px 16px 14px 16px; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 16px; font-weight: 800; color: #17533B; letter-spacing: -0.1px; font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;">Giải pháp kích hoạt theo lá số</span>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(148, 96, 26, 0.28));">
+                                <defs>
+                                    <linearGradient id="lockGoldG2" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0" stop-color="#EFC873"/>
+                                        <stop offset="0.5" stop-color="#C8901A"/>
+                                        <stop offset="1" stop-color="#9C6A12"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M7.5 10V7.2a4.5 4.5 0 0 1 9 0V10" fill="none" stroke="#B67F30" stroke-width="2.1" stroke-linecap="round"/>
+                                <rect x="4" y="10" width="16" height="11" rx="3" fill="url(#lockGoldG2)" stroke="#8A5E12" stroke-width="0.6"/>
+                                <path d="M4.6 11.4c4.4-1 10.4-1 14.8 0" fill="none" stroke="#F6E3AC" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+                                <circle cx="12" cy="14.6" r="1.9" fill="#5C3D0A"/>
+                                <rect x="11.1" y="15" width="1.8" height="3.4" rx="0.9" fill="#5C3D0A"/>
+                            </svg>
+                        </div>
+
+                        <!-- Item 4 (Linh vật đặt) -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px 2px 16px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 3h12l4 6-10 12L2 9z"/>
+                                    <path d="M11 3 8 9l4 12 4-12-3-6"/>
+                                    <path d="M2 9h20"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Linh vật đặt</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Gợi ý linh vật đặt phù hợp với lá số, hỗ trợ tài lộc, mở rộng cơ hội và tăng khả năng gặp được quý nhân nâng đỡ.</p>
+                            </div>
+                        </div>
+
+                        <!-- 4 linh vật đặt gợi ý (2x2) -->
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 14px; padding: 14px 16px 16px 16px; border-bottom: 1px solid #EEEAE4;">
+                            <!-- Lộc -->
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FBF1DA 0%, #F3E1B8 100%); border: 1px solid rgba(182, 127, 48, 0.35); box-shadow: 0 2px 6px rgba(182, 127, 48, 0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" style="flex-shrink: 0;">
+                                    <ellipse cx="12" cy="7.5" rx="5.5" ry="2" fill="#E0A81E"/>
+                                    <path d="M6 8.2c-.9 0-1.5.8-1.3 1.7C5.5 13.4 8.4 15.5 12 15.5s6.5-2.1 7.3-5.6c.2-.9-.4-1.7-1.3-1.7H6z" fill="#C8901A"/>
+                                    <circle cx="12" cy="6.6" r="1.3" fill="#F4D06F"/>
+                                    <circle cx="9.4" cy="7.1" r="1" fill="#F4D06F"/>
+                                    <circle cx="14.6" cy="7.1" r="1" fill="#F4D06F"/>
+                                </svg>
+                                </div>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">LỘC</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kích hoạt tài lộc, duy trì dòng tiền bền vững</div>
+                                </div>
+                            </div>
+                            <!-- Mã -->
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FBF1DA 0%, #F3E1B8 100%); border: 1px solid rgba(182, 127, 48, 0.35); box-shadow: 0 2px 6px rgba(182, 127, 48, 0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="#C8901A" style="flex-shrink: 0;">
+                                    <path d="M14.5 3c-.4.9-.3 1.6.1 2.3-2.6.5-5.2 2.4-6.3 5.2-.4 1-1.3 1.4-1.9 2.2-.5.6-.2 1.3.5 1.3.6 0 1.2-.4 1.7-1 .2 1.4-.3 2.6-1 3.8-.6 1-.2 2.2.9 2.2H12v-2c0-1.8.8-2.9 2-4 1.6-1.4 2.4-3 2.4-5.2 0-1.4-.5-2.6-1.3-3.6.6-.3 1-1 .9-1.8-.6.3-1.2.3-1.7-.1.3-.4.4-.9.2-1.3z"/>
+                                </svg>
+                                </div>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">MÃ</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kích hoạt cơ hội, mở rộng kết nối phát triển</div>
+                                </div>
+                            </div>
+                            <!-- Âm quý nhân -->
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FBF1DA 0%, #F3E1B8 100%); border: 1px solid rgba(182, 127, 48, 0.35); box-shadow: 0 2px 6px rgba(182, 127, 48, 0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="#C8901A" style="flex-shrink: 0;">
+                                    <path d="M12 5.5c1.7 1.9 2.4 3.8 2.2 5.8 1-1.3 1.4-2.6 1.4-4.2 1.3 1.2 2 2.7 2 4.6 0 .5-.1 1-.2 1.4 1-.6 1.7-1.5 2.1-2.7.8 1 .8 2.3.1 3.6-1.4 2.5-4.2 4-7.6 4s-6.2-1.5-7.6-4c-.7-1.3-.7-2.6.1-3.6.4 1.2 1.1 2.1 2.1 2.7-.1-.4-.2-.9-.2-1.4 0-1.9.7-3.4 2-4.6-.2 1.6.2 2.9 1.4 4.2-.2-2 .5-3.9 2.2-5.8z"/>
+                                </svg>
+                                </div>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">ÂM QUÝ NHÂN</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kết nối quý nhân, thuận lợi mọi việc</div>
+                                </div>
+                            </div>
+                            <!-- Dương quý nhân -->
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #FBF1DA 0%, #F3E1B8 100%); border: 1px solid rgba(182, 127, 48, 0.35); box-shadow: 0 2px 6px rgba(182, 127, 48, 0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C8901A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                                    <path d="M8 12.5 5 9.5 2.5 12l3.5 3.5c.6.6 1.5.6 2.1 0l1.4-1.4"/>
+                                    <path d="m16 12.5 3-3L21.5 12 18 15.5c-.6.6-1.5.6-2.1 0l-1.4-1.4"/>
+                                    <path d="M9 13.5 11 15.5c.6.6 1.5.6 2.1 0l.4-.4c.6.6 1.5.6 2.1 0"/>
+                                    <path d="M6 9.5 9 7l3 1.5L15 7l3 2.5"/>
+                                </svg>
+                                </div>
+                                <div style="min-width: 0;">
+                                    <div style="font-size: 13px; font-weight: 700; color: #174F38; letter-spacing: 0.1px; white-space: nowrap;">DƯƠNG QUÝ NHÂN</div>
+                                    <div style="font-size: 12px; font-weight: 600; color: var(--text-gray); margin-top: 3px;">Kết nối người trao đổi cơ hội, thuận lợi phát triển</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 (Linh vật hộ thân) -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding: 15px 16px 20px 16px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: radial-gradient(circle, #1a4f37 0%, #0d2e20 100%); border: 1px solid rgba(182, 127, 48, 0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EBD6BA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <polygon points="12 8 13.5 11 16.5 11.2 14.2 13.3 14.8 16.2 12 14.8 9.2 16.2 9.8 13.3 7.5 11.2 10.5 11 12 8" fill="#B67F30" stroke="#B67F30" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; font-weight: 700; color: #174F38; margin: 0 0 3px 0; line-height: 1.3; letter-spacing: -0.1px;">Linh vật hộ thân</h4>
+                                <p style="font-size: 15px; color: var(--text-gray); margin: 0; line-height: 1.3; font-weight: 500;">Giúp cân bằng năng lượng, tăng sự an tâm và hỗ trợ hóa giải những điều chưa thuận trong cuộc sống.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA ghim cố định đáy màn, chỉ hiện khi cuộn tới khối mở khoá -->
+            <div id="cta-bar">
+                <button class="cta-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                        <rect x="4" y="11" width="16" height="10" rx="2"/>
+                        <path d="M8 11V7a4 4 0 0 1 8 0"/>
+                    </svg>
+                    <span class="cta-btn-text">Mở khoá luận giải chuyên sâu</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Trên điện thoại: thu nhỏ khung mockup cho vừa khít màn hình (giữ viền giả lập)
+        function fitMockup() {
+            const mockup = document.querySelector('.phone-mockup');
+            if (!mockup) return;
+            if (window.matchMedia('(max-width: 480px)').matches) {
+                const FRAME_W = 462; // 438 + viền #111 (12px mỗi bên)
+                const FRAME_H = 944; // 920 + viền #111 (12px mỗi bên)
+                const scale = Math.min(window.innerWidth / FRAME_W, window.innerHeight / FRAME_H);
+                mockup.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            } else {
+                mockup.style.transform = '';
+            }
+        }
+        window.addEventListener('resize', fitMockup);
+        window.addEventListener('orientationchange', fitMockup);
+        window.addEventListener('DOMContentLoaded', fitMockup);
+        fitMockup();
+
+        // CTA ghim đáy: hiện khi khối mở khoá lọt vào vùng nhìn, ẩn khi cuộn ra
+        (function () {
+            const bar = document.getElementById('cta-bar');
+            const block = document.getElementById('unlock-block');
+            const scroller = document.querySelector('.scroller');
+            if (!bar || !block || !scroller) return;
+            const io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    bar.classList.toggle('cta-visible', e.isIntersecting);
+                });
+            }, { root: scroller, threshold: 0.12 });
+            io.observe(block);
+        })();
+    </script>
+</body>
+</html>

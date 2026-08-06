@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Ngày Tốt Cưới Hỏi - Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F4F8FC;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* Hide scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Bottom Sheet Slide Up Animation */
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bottom-sheet.open {
+            transform: translateY(0);
+        }
+
+        /* Overlay Fade Animation */
+        .backdrop {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+        <!-- HEADER TOP (Status Bar + Title Navigation) -->
+        <div class="bg-[#005CAC] text-white shrink-0 relative z-30 pt-3 pb-4">
+            <!-- Status Bar -->
+            <div class="flex justify-between items-center px-6 font-semibold text-[15px] tracking-tight">
+                <div>9:41</div>
+                <div class="flex items-center gap-1.5">
+                    <div class="flex items-end gap-[2px] h-[12px]">
+                        <div class="w-[3px] h-1.5 bg-white rounded-[1px]"></div>
+                        <div class="w-[3px] h-2 bg-white rounded-[1px]"></div>
+                        <div class="w-[3px] h-2.5 bg-white rounded-[1px]"></div>
+                        <div class="w-[3px] h-3 bg-white rounded-[1px]"></div>
+                    </div>
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <div class="w-6 h-3 rounded-sm border border-white p-[1px] relative">
+                        <div class="bg-white w-[80%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-1 top-1 w-[2px] h-1 bg-white rounded-r-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navbar Title -->
+            <div class="flex items-center px-4 mt-3 relative">
+                <!-- Back Button -->
+                <button onclick="window.location.href='../../prototype/TrangChu_V2.html'"
+                    class="p-1 text-white hover:opacity-80 transition-opacity absolute left-4 z-10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Screen Title -->
+                <h1 class="text-[17px] font-bold tracking-wide text-center w-full">Chọn ngày tốt cưới hỏi</h1>
+            </div>
+        </div>
+
+        <!-- MAIN SCROLLABLE CONTENT -->
+        <div class="flex-1 overflow-y-auto relative pb-8">
+            <!-- Top Romantic Illustration Banner -->
+            <div class="relative bg-gradient-to-b from-[#EBF4FC] to-[#FFF0F4] pt-6 pb-28 px-5 overflow-hidden">
+                <!-- Heart Floating Decor -->
+                <div class="absolute top-10 left-8 text-pink-300/40 text-xl animate-pulse">❤️</div>
+                <div class="absolute top-24 right-12 text-pink-300/30 text-2xl animate-ping" style="animation-duration: 3s">❤️</div>
+                <div class="absolute bottom-16 left-1/2 text-pink-300/25 text-lg">❤️</div>
+
+                <div class="relative z-10 flex justify-between items-start gap-4">
+                    <div class="flex-1">
+                        <h2 class="text-[#0B4C8C] font-extrabold text-[15px] tracking-tight leading-tight uppercase">
+                            Trăm năm hòa hợp,<br>hỷ sự viên mãn
+                        </h2>
+                        <p class="text-gray-600 text-[12px] font-medium mt-1.5 leading-relaxed">
+                            Xem ngày hợp tuổi để cưới hỏi thuận lành, khởi đầu hôn nhân viên mãn
+                        </p>
+                    </div>
+                    <!-- Cute Couple SVG Drawing -->
+                    <div class="w-[100px] h-[100px] shrink-0 -mt-2">
+                        <svg viewBox="0 0 120 120" class="w-full h-full text-pink-400">
+                            <!-- Background Glow -->
+                            <circle cx="60" cy="60" r="50" fill="url(#coupleGlow)" />
+                            <!-- Bride & Groom stylized avatars -->
+                            <!-- Groom -->
+                            <circle cx="45" cy="65" r="22" fill="#EBF3FC" stroke="#90CDF4" stroke-width="2" />
+                            <path d="M45 48c5 0 9 4 9 9s-9 11-9 11-9-6-9-11 4-9 9-9z" fill="#2B6CB0" opacity="0.8" />
+                            <circle cx="45" cy="61" r="12" fill="#FEEBC8" />
+                            <!-- Hair groom -->
+                            <path d="M33 58c2-6 8-8 12-8s10 2 12 8c-3-2-7-2-12-1s-9 2-12 1z" fill="#2D3748" />
+                            <!-- Bowtie -->
+                            <path d="M41 71h8l-4-3z" fill="#2B6CB0" />
+                            <!-- Bride -->
+                            <circle cx="75" cy="65" r="22" fill="#FFF5F7" stroke="#FEB2B2" stroke-width="2" />
+                            <!-- Veil background -->
+                            <path d="M75 42c8 0 18 5 18 18s-10 22-18 22-18-10-18-22 10-18 18-18z" fill="white" opacity="0.7" />
+                            <circle cx="75" cy="61" r="12" fill="#FEEBC8" />
+                            <!-- Hair bride -->
+                            <path d="M63 59c2-5 7-7 12-7s10 2 12 7c-2-2-6-3-12-2s-9 2-12 2z" fill="#742A2A" />
+                            <!-- Tiara -->
+                            <path d="M71 49l4-3 4 3z" fill="#ECC94B" />
+                            <!-- Flowers / Bouquet -->
+                            <circle cx="60" cy="78" r="8" fill="#ED64A6" />
+                            <circle cx="55" cy="82" r="6" fill="#F687B3" />
+                            <circle cx="65" cy="82" r="6" fill="#FEB2B2" />
+                            <!-- Gradients -->
+                            <defs>
+                                <radialGradient id="coupleGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#FFF5F5" stop-opacity="1" />
+                                    <stop offset="100%" stop-color="#FFF5F5" stop-opacity="0" />
+                                </radialGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INPUT FORM CARD - OVERLAPS THE BANNER -->
+            <div class="px-4 -mt-24 relative z-20">
+                <div class="bg-white rounded-[24px] p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 space-y-5">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-[15.5px]">Thông tin xem ngày</h3>
+                        <p class="text-gray-500 text-[12.5px] mt-0.5 font-medium">Chọn cô dâu để xem ngày. Thêm chú rể để luận giải đầy đủ hơn.</p>
+                    </div>
+
+                    <!-- BRIDE SELECT FIELD (Required) -->
+                    <div onclick="openPickerSheet('bride')" class="flex items-center justify-between p-3.5 rounded-[16px] bg-gray-50 border border-gray-100 hover:border-pink-200 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3.5">
+                            <!-- Bride Avatar placeholder -->
+                            <div id="brideAvatarContainer" class="w-12 h-12 rounded-full bg-[#FFF0F4] border border-[#FDE2E8] flex items-center justify-center text-2xl">
+                                👰‍♀️
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[12.5px] font-bold text-gray-500">Cô dâu</span>
+                                    <span class="bg-[#FFF0F0] text-red-500 font-bold text-[9.5px] px-1.5 py-0.5 rounded">Bắt buộc</span>
+                                </div>
+                                <span id="brideName" class="font-bold text-gray-800 text-[15px] mt-0.5">Chọn cô dâu</span>
+                                <span id="brideInfo" class="text-[12px] text-gray-500 hidden"></span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+
+                    <!-- GROOM SELECT FIELD (Optional) -->
+                    <div onclick="openPickerSheet('groom')" class="flex items-center justify-between p-3.5 rounded-[16px] bg-gray-50 border border-gray-100 hover:border-blue-200 transition-all cursor-pointer">
+                        <div class="flex items-center gap-3.5">
+                            <!-- Groom Avatar placeholder -->
+                            <div id="groomAvatarContainer" class="w-12 h-12 rounded-full bg-[#EBF4FC] border border-[#DCEBF7] flex items-center justify-center text-2xl">
+                                🤵‍♂️
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[12.5px] font-bold text-gray-500">Chú rể</span>
+                                    <span class="bg-[#EBF4FC] text-blue-500 font-bold text-[9.5px] px-1.5 py-0.5 rounded">Tùy chọn</span>
+                                </div>
+                                <span id="groomName" class="font-bold text-gray-800 text-[15px] mt-0.5">Thêm chú rể</span>
+                                <span id="groomSub" class="text-[12px] text-gray-500">Để kết quả đầy đủ hơn</span>
+                            </div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+
+                    <!-- WORK TO VIEW (Việc cần xem) -->
+                    <div class="space-y-2">
+                        <label class="text-[13.5px] font-semibold text-gray-700 block">Việc cần xem</label>
+                        <div onclick="openEventSheet()" class="border border-gray-200 rounded-[12px] py-3 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
+                            <span id="selectedEventText" class="text-gray-800 font-bold text-[14.5px]">Lễ cưới</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- TIMEFRAME TO VIEW (Khoảng thời gian xem) -->
+                    <div class="space-y-2">
+                        <label class="text-[13.5px] font-semibold text-gray-700 block">Khoảng thời gian xem</label>
+                        <div onclick="openTimeframeSheet()" class="border border-gray-200 rounded-[12px] py-2.5 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
+                            <div class="flex flex-col">
+                                <span id="selectedTimeframeText" class="text-gray-800 font-bold text-[14.5px]">30 ngày tới</span>
+                                <span id="selectedDateRange" class="text-gray-500 text-[12.5px] mt-0.5">30/7/2026 - 30/8/2026 (DL)</span>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT CTA BUTTON -->
+                    <button onclick="calculateResults()" class="w-full bg-[#005CAC] hover:bg-[#004d90] active:bg-[#003c70] text-white font-bold text-[15.5px] py-4 rounded-[12px] transition-all active:scale-[0.97] shadow-md">
+                        Tìm ngày cưới hỏi hợp tuổi
+                    </button>
+                </div>
+            </div>
+
+            <!-- PROMOTIONAL BENEFITS LIST -->
+            <div class="px-5 mt-6 space-y-4">
+                <h3 class="font-bold text-[#005CAC] text-[14.5px]">
+                    Gợi ý ngày cưới hỏi hợp tuổi
+                </h3>
+                <div class="space-y-3 text-[13px] text-gray-700 font-medium">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-[18px] h-[18px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="leading-relaxed">Ngày tốt để tổ chức lễ cưới hoặc ăn hỏi</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-[18px] h-[18px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="leading-relaxed">Khung giờ đẹp nên chọn trong ngày</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-[18px] h-[18px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="leading-relaxed">Luận giải theo tuổi của cô dâu và chú rể</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end pr-1 mt-1">
+                    <button class="text-[13px] text-[#005CAC] hover:underline font-bold flex items-center gap-1">
+                        Xem cách luận ngày <span class="text-[11px] font-black">»</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- iOS Home Indicator -->
+        <div class="bg-white shrink-0 py-3 flex justify-center items-center relative z-10 border-t border-gray-50">
+            <div class="w-[134px] h-[5px] bg-black rounded-full"></div>
+        </div>
+
+        <!-- BACKDROP OVERLAY FOR SHEETS -->
+        <div id="backdropOverlay" onclick="closeAllSheets()" class="backdrop absolute inset-0 bg-black/40 z-40"></div>
+
+        <!-- CHOOSE BRIDE/GROOM BOTTOM SHEET -->
+        <div id="personPickerSheet" class="bottom-sheet absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] z-50 p-5 pb-8 space-y-4 max-h-[70%] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 id="pickerSheetTitle" class="font-bold text-gray-800 text-[16.5px]">Chọn Cô Dâu</h3>
+                <button onclick="closeAllSheets()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- List of family members -->
+            <div id="pickerSheetList" class="space-y-2.5 pt-1">
+                <!-- Dynamically loaded options based on role -->
+            </div>
+
+            <!-- Create new profile button -->
+            <button onclick="openCreateProfileModal()" class="w-full flex items-center justify-center gap-2 py-3.5 border border-dashed border-[#005CAC] text-[#005CAC] font-bold rounded-[12px] text-[14.5px] active:scale-[0.98] transition-all bg-blue-50/20">
+                <span>➕</span> Thêm thành viên mới
+            </button>
+        </div>
+
+        <!-- EVENT TYPE SELECT BOTTOM SHEET -->
+        <div id="eventSheet" class="bottom-sheet absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] z-50 p-5 pb-8 space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 class="font-bold text-gray-800 text-[16.5px]">Chọn Việc Cần Xem</h3>
+                <button onclick="closeAllSheets()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-2.5">
+                <div onclick="selectEvent('Lễ cưới')" class="event-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-100 cursor-pointer flex justify-between items-center font-bold text-gray-800 text-[14px]">
+                    <span>Lễ cưới (Mặc định)</span>
+                </div>
+                <div onclick="selectEvent('Lễ ăn hỏi')" class="event-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-100 cursor-pointer flex justify-between items-center font-bold text-gray-800 text-[14px]">
+                    <span>Lễ ăn hỏi</span>
+                </div>
+                <div onclick="selectEvent('Lễ dạm ngõ')" class="event-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-100 cursor-pointer flex justify-between items-center font-bold text-gray-800 text-[14px]">
+                    <span>Lễ dạm ngõ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMEFRAME SELECT BOTTOM SHEET -->
+        <div id="timeframeSheet" class="bottom-sheet absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] z-50 p-5 pb-8 space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 class="font-bold text-gray-800 text-[16.5px]">Chọn Khoảng Thời Gian Xem</h3>
+                <button onclick="closeAllSheets()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="space-y-2.5">
+                <div onclick="selectTimeframe('30 ngày tới', '30/7/2026 - 30/8/2026')" class="p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-100 cursor-pointer flex justify-between items-center font-bold text-gray-800 text-[14px]">
+                    <span>30 ngày tới (Mặc định)</span>
+                </div>
+                <div onclick="selectTimeframe('3 tháng tới', '30/7/2026 - 30/10/2026')" class="p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-100 cursor-pointer flex justify-between items-center font-bold text-gray-800 text-[14px]">
+                    <span>3 tháng tới</span>
+                </div>
+                <div onclick="selectTimeframe('6 tháng tới', '30/7/2026 - 30/1/2027')" class="p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-100 cursor-pointer flex justify-between items-center font-bold text-gray-800 text-[14px]">
+                    <span>6 tháng tới</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADD NEW PROFILE MODAL -->
+        <div id="createProfileModal" class="hidden absolute inset-0 bg-black/60 z-50 flex items-center justify-center p-6">
+            <div class="bg-white rounded-[24px] w-full p-5 space-y-4 shadow-xl">
+                <h3 class="font-bold text-gray-800 text-[17px] text-center border-b border-gray-100 pb-2">Thêm Thành Viên Mới</h3>
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Họ và Tên</label>
+                        <input type="text" id="inputName" class="w-full border border-gray-200 rounded-[10px] p-3 text-[14.5px] font-semibold text-gray-800 focus:border-blue-500 focus:outline-none" placeholder="Nhập họ và tên" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Ngày sinh dương lịch</label>
+                        <input type="date" id="inputDob" class="w-full border border-gray-200 rounded-[10px] p-3 text-[14.5px] font-semibold text-gray-800 focus:border-blue-500 focus:outline-none" />
+                    </div>
+                </div>
+                <div class="flex gap-2.5 pt-2">
+                    <button onclick="closeCreateProfileModal()" class="flex-1 border border-gray-200 text-gray-500 font-bold py-3 rounded-[10px] text-[14px]">
+                        Hủy
+                    </button>
+                    <button onclick="saveNewProfile()" class="flex-1 bg-[#005CAC] text-white font-bold py-3 rounded-[10px] text-[14px]">
+                        Lưu thông tin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRole = 'bride'; // 'bride' or 'groom'
+        let familyMembers = [
+            { id: 1, name: 'Nguyễn Thùy Chi', dob: '12/08/1996', gender: 'nu', label: 'Bản thân', lunar: 'Bính Tý', element: 'Giản Hạ Thủy', avatar: '👧' },
+            { id: 2, name: 'Trần Thu Trang', dob: '15/10/1998', gender: 'nu', label: 'Em gái', lunar: 'Mậu Dần', element: 'Thành Đầu Thổ', avatar: '👩' },
+            { id: 3, name: 'Nguyễn Anh Đức', dob: '22/04/1993', gender: 'nam', label: 'Bạn trai', lunar: 'Quý Dậu', element: 'Kiếm Phong Kim', avatar: '👦' },
+            { id: 4, name: 'Lê Minh Tuấn', dob: '08/11/1991', gender: 'nam', label: 'Anh trai', lunar: 'Tân Mùi', element: 'Lộ Bàng Thổ', avatar: '👨' }
+        ];
+
+        let selectedBride = null;
+        let selectedGroom = null;
+
+        function openPickerSheet(role) {
+            currentRole = role;
+            const titleEl = document.getElementById('pickerSheetTitle');
+            titleEl.innerText = role === 'bride' ? 'Chọn Cô Dâu' : 'Chọn Chú Rể';
+
+            const listEl = document.getElementById('pickerSheetList');
+            listEl.innerHTML = '';
+
+            // Filter by gender: bride is 'nu', groom is 'nam'
+            const filtered = familyMembers.filter(m => role === 'bride' ? m.gender === 'nu' : m.gender === 'nam');
+
+            filtered.forEach(m => {
+                const isSelected = (role === 'bride' && selectedBride?.id === m.id) || (role === 'groom' && selectedGroom?.id === m.id);
+                const opt = document.createElement('div');
+                opt.className = `flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border ${isSelected ? 'border-[#005CAC]' : 'border-gray-200/50'} transition-all`;
+                opt.onclick = () => selectPerson(m);
+
+                opt.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full ${role === 'bride' ? 'bg-[#FFF0F4] border-[#FDE2E8]' : 'bg-[#EBF4FC] border-[#DCEBF7]'} flex items-center justify-center border text-lg">
+                            ${m.avatar}
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-gray-800 text-[14px]">${m.name} (${m.label})</span>
+                            <span class="text-gray-500 text-[11.5px]">${m.dob} &middot; ${m.lunar} (${m.element})</span>
+                        </div>
+                    </div>
+                    ${isSelected ? `
+                        <svg class="w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    ` : ''}
+                `;
+                listEl.appendChild(opt);
+            });
+
+            document.getElementById('backdropOverlay').classList.add('open');
+            document.getElementById('personPickerSheet').classList.add('open');
+        }
+
+        function selectPerson(person) {
+            if (currentRole === 'bride') {
+                selectedBride = person;
+                document.getElementById('brideName').innerText = person.name;
+                document.getElementById('brideInfo').innerText = `${person.dob} - ${person.lunar} (${person.element})`;
+                document.getElementById('brideInfo').classList.remove('hidden');
+                // Set avatar
+                document.getElementById('brideAvatarContainer').innerText = person.avatar;
+            } else {
+                selectedGroom = person;
+                document.getElementById('groomName').innerText = person.name;
+                document.getElementById('groomSub').innerText = `${person.dob} - ${person.lunar} (${person.element})`;
+                document.getElementById('groomAvatarContainer').innerText = person.avatar;
+            }
+            closeAllSheets();
+        }
+
+        function openEventSheet() {
+            document.getElementById('backdropOverlay').classList.add('open');
+            document.getElementById('eventSheet').classList.add('open');
+        }
+
+        function selectEvent(name) {
+            document.getElementById('selectedEventText').innerText = name;
+            closeAllSheets();
+        }
+
+        function openTimeframeSheet() {
+            document.getElementById('backdropOverlay').classList.add('open');
+            document.getElementById('timeframeSheet').classList.add('open');
+        }
+
+        function selectTimeframe(name, range) {
+            document.getElementById('selectedTimeframeText').innerText = name;
+            document.getElementById('selectedDateRange').innerText = `${range} (DL)`;
+            closeAllSheets();
+        }
+
+        function openCreateProfileModal() {
+            closeAllSheets();
+            document.getElementById('createProfileModal').classList.remove('hidden');
+        }
+
+        function closeCreateProfileModal() {
+            document.getElementById('createProfileModal').classList.add('hidden');
+        }
+
+        function saveNewProfile() {
+            const name = document.getElementById('inputName').value.trim();
+            const dob = document.getElementById('inputDob').value;
+            if (!name || !dob) {
+                alert('Vui lòng nhập đầy đủ thông tin');
+                return;
+            }
+
+            // Simple parse date
+            const dateParts = dob.split('-');
+            const formattedDob = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+
+            const newMember = {
+                id: familyMembers.length + 1,
+                name: name,
+                dob: formattedDob,
+                gender: currentRole === 'bride' ? 'nu' : 'nam',
+                label: 'Thành viên mới',
+                lunar: 'Đinh Sửu', // Hardcoded mock lunar
+                element: 'Giản Hạ Thủy',
+                avatar: currentRole === 'bride' ? '👧' : '👦'
+            };
+
+            familyMembers.push(newMember);
+            selectPerson(newMember);
+            closeCreateProfileModal();
+        }
+
+        function closeAllSheets() {
+            document.getElementById('backdropOverlay').classList.remove('open');
+            document.getElementById('personPickerSheet').classList.remove('open');
+            document.getElementById('eventSheet').classList.remove('open');
+            document.getElementById('timeframeSheet').classList.remove('open');
+        }
+
+        function calculateResults() {
+            if (!selectedBride) {
+                alert('Vui lòng chọn thông tin Cô dâu (bắt buộc).');
+                return;
+            }
+            alert('Đang tiến hành luận giải ngày cưới hỏi hợp tuổi...');
+            // Redirect to a mock results screen (we'll implement this later)
+            // window.location.href = 'ChonNgayCuoiHoi_Result.html';
+        }
+    </script>
+
+</body>
+
+</html>

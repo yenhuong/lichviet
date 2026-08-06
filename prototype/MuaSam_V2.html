@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giao diện Mua sắm - Lịch Việt Shop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        .font-sf-pro {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #FFFFFF;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Ảnh minh hoạ hộp hương (mô phỏng bằng CSS) */
+        .incense-box {
+            background: linear-gradient(180deg, #f6ede0 0%, #f0e2cf 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+
+        <!-- ================= HEADER ================= -->
+        <div class="bg-[#1565D8] text-white shrink-0 relative z-20">
+            <!-- Status Bar -->
+            <div class="flex justify-between items-center px-6 pt-3 pb-1 text-[15px] font-semibold">
+                <span>15:37</span>
+                <div class="flex items-center gap-1.5">
+                    <!-- Signal -->
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="13" width="3" height="7" rx="1" />
+                        <rect x="7" y="9" width="3" height="11" rx="1" />
+                        <rect x="12" y="5" width="3" height="15" rx="1" />
+                        <rect x="17" y="2" width="3" height="18" rx="1" opacity="0.4" />
+                    </svg>
+                    <!-- Wifi -->
+                    <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <!-- Pin đang sạc -->
+                    <div class="w-7 h-3.5 rounded-[3px] border border-white/80 p-[1.5px] relative">
+                        <div class="bg-[#4ade80] w-[85%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-[3px] top-1 w-[2px] h-1.5 bg-white rounded-r-[1px]"></div>
+                        <svg class="absolute inset-0 m-auto w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13 2L3 14h6l-2 8 10-12h-6z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Bar -->
+            <div class="grid grid-cols-[40px_1fr_40px] items-center px-4 pt-2 pb-4">
+                <!-- Hamburger -->
+                <button class="flex flex-col justify-center items-center gap-[5px] w-10 h-10 hover:bg-white/10 rounded-full transition-colors">
+                    <div class="w-[22px] h-[2.5px] bg-white rounded-full"></div>
+                    <div class="w-[22px] h-[2.5px] bg-white rounded-full"></div>
+                    <div class="w-[22px] h-[2.5px] bg-white rounded-full"></div>
+                </button>
+                <!-- Title -->
+                <h1 class="text-[19px] font-bold text-center tracking-tight">Lịch Việt Shop</h1>
+                <!-- Notification -->
+                <button class="relative w-10 h-10 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors">
+                    <svg class="w-[23px] h-[23px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= SCROLL AREA ================= -->
+        <div class="flex-1 overflow-y-auto bg-white hide-scrollbar">
+
+            <!-- Shortcut buttons: Vé máy bay / Khách sạn -->
+            <div class="flex flex-wrap gap-2.5 px-5 pt-3 pb-1">
+                <button class="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow active:scale-[0.98] whitespace-nowrap">
+                    <span class="text-[20px] leading-none">✈️</span>
+                    <span class="text-[13px] font-medium text-gray-800 whitespace-nowrap">Vé máy bay</span>
+                </button>
+                <button class="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 shadow-[0_1px_4px_rgba(0,0,0,0.04)] hover:shadow-md transition-shadow active:scale-[0.98] whitespace-nowrap">
+                    <span class="text-[20px] leading-none">🏨</span>
+                    <span class="text-[13px] font-medium text-gray-800 whitespace-nowrap">Khách sạn</span>
+                </button>
+            </div>
+
+            <!-- ===== Promo Banner: THIẾT KẾ PHONG THỦY CÙNG CHUYÊN GIA ===== -->
+            <div class="w-full px-4 py-2 mt-1">
+                <div class="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#77AB91] via-[#92C5AC] to-[#609980] border border-[#86BC9E]/70 shadow-sm p-3.5 flex items-center justify-between min-h-[168px]">
+                    
+                    <!-- Decorative Silk Wave Background Effect -->
+                    <div class="absolute -left-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+                    <div class="absolute right-10 -bottom-6 w-36 h-36 bg-[#FDE68A]/15 rounded-full blur-xl pointer-events-none"></div>
+
+                    <!-- Left Side Content Container -->
+                    <div class="flex flex-col items-start relative z-10 max-w-[62%]">
+                        <!-- Main Title -->
+                        <h2 class="text-[17px] font-black text-[#0B3C2A] tracking-tight uppercase leading-none drop-shadow-2xs">
+                            Thiết Kế Phong Thủy
+                        </h2>
+                        <!-- Subtitle Script -->
+                        <span class="text-[16px] font-bold text-[#B91C1C] italic tracking-wide mt-0.5 mb-1.5 font-serif">
+                            Cùng chuyên gia
+                        </span>
+
+                        <!-- Middle Parchment Ribbon Badge -->
+                        <div class="bg-[#FFFDF3] border border-[#D97706]/60 rounded-md px-2.5 py-0.5 shadow-2xs mb-2.5 flex items-center gap-1">
+                            <span class="text-[11px] font-black text-[#991B1B] tracking-wider uppercase whitespace-nowrap">
+                                VƯỢNG TÀI LỘC - ĐÓN BÌNH AN
+                            </span>
+                        </div>
+
+                        <!-- 3D Isometric House Blueprint Scroll Illustration -->
+                        <div class="relative w-full h-[60px] flex items-center justify-start my-0.5">
+                            <svg class="w-[130px] h-[60px]" viewBox="0 0 200 95" fill="none">
+                                <!-- Scroll Wooden Roller Left & Right -->
+                                <rect x="5" y="10" width="8" height="75" rx="3" fill="#78350F" />
+                                <rect x="187" y="10" width="8" height="75" rx="3" fill="#78350F" />
+                                <!-- Unrolled Golden Parchment Paper -->
+                                <rect x="9" y="15" width="182" height="65" rx="2" fill="#FFFDF0" stroke="#D97706" stroke-width="1.5" />
+                                <!-- Isometric Blueprint Floorplan Base Grid -->
+                                <path d="M100 22 L160 42 L100 62 L40 42 Z" fill="#93C5FD" fill-opacity="0.35" stroke="#2563EB" stroke-width="1.5" />
+                                <path d="M100 22 L100 62" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2 2" />
+                                <path d="M40 42 L160 42" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2 2" />
+                                <!-- Isometric 3D House Model Walls & Roof -->
+                                <path d="M100 25 L135 38 L135 54 L100 41 Z" fill="#F87171" fill-opacity="0.8" stroke="#DC2626" stroke-width="1.5" />
+                                <path d="M100 25 L65 38 L65 54 L100 41 Z" fill="#FBBF24" fill-opacity="0.8" stroke="#D97706" stroke-width="1.5" />
+                                <path d="M100 25 L120 16 L155 29 L135 38 Z" fill="#34D399" fill-opacity="0.8" stroke="#059669" stroke-width="1.5" />
+                            </svg>
+                        </div>
+
+                        <!-- Yellow CTA Oval Button -->
+                        <button class="mt-1 bg-gradient-to-r from-[#FDE047] via-[#FACC15] to-[#EAB308] text-[#991B1B] text-[12.5px] font-black px-4 py-1.5 rounded-full shadow-md border-2 border-white hover:scale-105 active:scale-95 transition-all uppercase tracking-wider flex items-center gap-1">
+                            ĐĂNG KÝ NGAY
+                        </button>
+                    </div>
+
+                    <!-- Right Side Illustration: Feng Shui Expert Master -->
+                    <div class="relative w-[118px] h-[160px] flex items-end justify-center shrink-0 -mr-1 z-10">
+                        <svg class="w-full h-full object-contain drop-shadow-md" viewBox="0 0 120 160" fill="none">
+                            <!-- Expert Linen Shirt Body -->
+                            <path d="M22 160 C22 108 34 94 60 94 C86 94 98 108 98 160 Z" fill="#A3B18A" />
+                            <path d="M48 94 L60 114 L72 94" stroke="#FFFFFF" stroke-width="2.5" />
+                            <!-- Collar buttons -->
+                            <circle cx="60" cy="125" r="1.5" fill="#FFFFFF" />
+                            <circle cx="60" cy="138" r="1.5" fill="#FFFFFF" />
+                            <!-- Head & Warm Skin Tone -->
+                            <circle cx="60" cy="62" r="22" fill="#F8C471" />
+                            <!-- Short Hair cut -->
+                            <path d="M38 52 C38 38 48 34 60 34 C72 34 82 38 82 52 C82 45 72 39 60 39 C48 39 38 45 38 52 Z" fill="#2C3E50" />
+                            <!-- Eyes & Gentle Smile -->
+                            <circle cx="52" cy="60" r="2.2" fill="#2C3E50" />
+                            <circle cx="68" cy="60" r="2.2" fill="#2C3E50" />
+                            <path d="M55 70 Q60 74 65 70" stroke="#B03A2E" stroke-width="2" stroke-linecap="round" fill="none" />
+                            <!-- Glasses -->
+                            <circle cx="52" cy="60" r="6.5" stroke="#4A235A" stroke-width="1.5" fill="none" />
+                            <circle cx="68" cy="60" r="6.5" stroke="#4A235A" stroke-width="1.5" fill="none" />
+                            <line x1="58.5" y1="60" x2="61.5" y2="60" stroke="#4A235A" stroke-width="1.5" />
+                            <!-- Feng Shui Book in Right Hand -->
+                            <g transform="rotate(-15 35 110)">
+                                <rect x="15" y="88" width="34" height="46" rx="3" fill="#1D4ED8" />
+                                <rect x="18" y="91" width="28" height="40" rx="2" fill="#FFFDF0" />
+                                <rect x="23" y="100" width="18" height="3" fill="#D97706" />
+                                <rect x="23" y="107" width="18" height="2" fill="#94A3B8" />
+                                <rect x="23" y="113" width="14" height="2" fill="#94A3B8" />
+                            </g>
+                            <!-- Left Hand Palm pointing/welcoming gesture -->
+                            <path d="M85 112 Q92 110 95 106 Q97 112 92 118 Z" fill="#F8C471" />
+                            <circle cx="84" cy="113" r="6" fill="#F8C471" />
+                        </svg>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== Section: Dụng Thần & Linh Vật (Option 1: Hero Banner + Horizontal Benefits Carousel) ===== -->
+            <div class="w-full bg-gradient-to-br from-[#FFFDF7] via-[#FFF8EA] to-[#FFF3DC] px-4 pt-4 pb-4 my-2 relative overflow-hidden">
+                
+                <!-- Background Ambient Glow & Feng Shui Pattern Watermarks -->
+                <div class="absolute -top-10 -right-10 w-44 h-44 border border-[#F59E0B]/20 rounded-full pointer-events-none"></div>
+                <div class="absolute -top-4 -right-4 w-32 h-32 border border-dashed border-[#D97706]/20 rounded-full pointer-events-none"></div>
+                <div class="absolute top-2 right-4 w-28 h-28 bg-[#F59E0B]/15 blur-xl rounded-full pointer-events-none"></div>
+                <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-[#F59E0B]/10 blur-xl rounded-full pointer-events-none"></div>
+
+                <!-- Top Hero Banner (Left Title + Right Illustration) -->
+                <div class="flex items-center justify-between relative z-10 mb-4 px-1">
+                    <div class="max-w-[68%] text-left">
+                        <!-- Title với dải chuyển màu ánh kim sang trọng -->
+                        <h3 class="text-[18px] font-semibold text-gray-800 leading-[1.3] tracking-tight">
+                            Khám phá <span class="bg-gradient-to-r from-[#B45309] via-[#D97706] to-[#92400E] bg-clip-text text-transparent text-[20.5px] font-black drop-shadow-2xs">Dụng Thần</span><br><span class="bg-gradient-to-r from-[#B45309] via-[#D97706] to-[#92400E] bg-clip-text text-transparent text-[20.5px] font-black drop-shadow-2xs">& Linh Vật</span> của riêng bạn
+                        </h3>
+                    </div>
+
+                    <!-- Right Foreground Illustration (Vòng Ngũ Hành Tối Giản & Âm Dương 60px) -->
+                    <div class="relative w-[60px] h-[60px] flex items-center justify-center shrink-0">
+                        <svg class="w-[60px] h-[60px] drop-shadow-sm" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer Golden Feng Shui Compass Ring -->
+                            <circle cx="50" cy="50" r="46" stroke="#D97706" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.7" />
+                            <circle cx="50" cy="50" r="41" stroke="#F59E0B" stroke-width="1.2" opacity="0.9" />
+                            
+                            <!-- Connecting Pentagram / Element Flow Lines -->
+                            <circle cx="50" cy="50" r="32" stroke="#FCD34D" stroke-width="1" opacity="0.5" />
+
+                            <!-- 5 Elemental Colored Nodes (Hỏa, Thổ, Kim, Thủy, Mộc) -->
+                            <circle cx="50" cy="18" r="5" fill="#EF4444" stroke="#FFFFFF" stroke-width="1.5" />
+                            <circle cx="80" cy="40" r="5" fill="#F59E0B" stroke="#FFFFFF" stroke-width="1.5" />
+                            <circle cx="69" cy="76" r="5" fill="#64748B" stroke="#FFFFFF" stroke-width="1.5" />
+                            <circle cx="31" cy="76" r="5" fill="#3B82F6" stroke="#FFFFFF" stroke-width="1.5" />
+                            <circle cx="20" cy="40" r="5" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5" />
+
+                            <!-- Center Circle Background & Yin Yang -->
+                            <circle cx="50" cy="50" r="18" fill="#FFFBEB" stroke="#F59E0B" stroke-width="1.5" />
+                            <g transform="translate(35, 35) scale(1.25)">
+                                <circle cx="12" cy="12" r="11" fill="#1E293B" stroke="#B45309" stroke-width="0.8"/>
+                                <path d="M12 1 A 11 11 0 0 1 12 23 A 5.5 5.5 0 0 1 12 12 A 5.5 5.5 0 0 0 12 1 Z" fill="#FFFFFF"/>
+                                <circle cx="12" cy="6.5" r="1.8" fill="#1E293B"/>
+                                <circle cx="12" cy="17.5" r="1.8" fill="#FFFFFF"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 4 Visible Benefits Panel (Khoảng cách tiêu chuẩn Tiêu đề -> Khối: 18px, Khối -> Card: 16px) -->
+                <div class="bg-white rounded-2xl px-2 pt-4 pb-4 mt-4.5 mb-4 border border-[#FDE68A]/40 font-sf-pro relative z-10 shadow-xs">
+                    <!-- Title Row (Căn giữa đối xứng 2 bên icon ✦, cân bằng 100%) -->
+                    <div class="flex items-center justify-center gap-1.5 mb-3.5 px-0.5">
+                        <svg class="w-3.5 h-3.5 text-[#D97706]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2c0 5.5-4.5 10-10 10 5.5 0 10 4.5 10 10 0-5.5 4.5-10 10-10-5.5 0-10-4.5-10-10z" />
+                        </svg>
+                        <h4 class="text-[15px] font-bold text-[#B45309] tracking-wide">Lợi ích bạn nhận được</h4>
+                        <svg class="w-3.5 h-3.5 text-[#D97706]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2c0 5.5-4.5 10-10 10 5.5 0 10 4.5 10 10 0-5.5 4.5-10 10-10-5.5 0-10-4.5-10-10z" />
+                        </svg>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-x-3.5 gap-y-3.5">
+                        <!-- Item 1 -->
+                        <div class="flex items-start gap-2.5 min-w-0 pl-[2px]">
+                            <div class="w-7 h-7 rounded-full bg-[#EEF2FF] text-[#4F46E5] flex items-center justify-center shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m0-18C8.5 7.5 4 12 4 17.5c0 0 5-1 8-5.5m0-9c3.5 4.5 8 9 8 14.5 0 0-5-1-8-5.5" />
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-[15px] font-bold text-gray-900 leading-[1.3]">Xác định<br>Dụng thần</h4>
+                                <p class="text-[14px] text-gray-600 leading-snug mt-0.5">Giúp cân bằng Ngũ hành trong Bát tự</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex items-start gap-2.5 min-w-0">
+                            <div class="w-7 h-7 rounded-full bg-[#FEF3C7] text-[#D97706] flex items-center justify-center shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-[15px] font-bold text-gray-900 leading-[1.3]">Kích hoạt<br>tài lộc</h4>
+                                <p class="text-[14px] text-gray-600 leading-snug mt-0.5">Hỗ trợ mở rộng nguồn thu tài chính</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex items-start gap-2.5 min-w-0 pl-[2px]">
+                            <div class="w-7 h-7 rounded-full bg-[#DCFCE7] text-[#16A34A] flex items-center justify-center shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-[15px] font-bold text-gray-900 leading-[1.3]">Quý nhân<br>hỗ trợ</h4>
+                                <p class="text-[14px] text-gray-600 leading-snug mt-0.5">Thu hút mối quan hệ tốt</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex items-start gap-2.5 min-w-0">
+                            <div class="w-7 h-7 rounded-full bg-[#F3E8FF] text-[#9333EA] flex items-center justify-center shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 4.8 5.3.8-3.8 3.7.9 5.3-4.8-2.5-4.8 2.5.9-5.3-3.8-3.7 5.3-.8L12 2z" />
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="text-[15px] font-bold text-gray-900 leading-[1.3]">Gợi ý linh vật<br>phù hợp</h4>
+                                <p class="text-[14px] text-gray-600 leading-snug mt-0.5">Giúp kích hoạt may mắn, tài lộc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom 2 Cards Grid (Connected Action Cards) -->
+                <div class="grid grid-cols-2 gap-2.5 relative z-10">
+                    <!-- Card 1: Linh vật hộ thân -->
+                    <div class="bg-[#F3FCF7] border border-[#BBF7D0]/80 rounded-2xl p-3.5 relative flex flex-col items-center text-center justify-between overflow-hidden shadow-[0_4px_14px_rgba(5,150,105,0.12)] hover:shadow-[0_6px_20px_rgba(5,150,105,0.18)] hover:-translate-y-0.5 transition-all min-h-[178px]">
+                        <div class="flex flex-col items-center w-full">
+                            <!-- Centered Image at top -->
+                            <div class="h-[60px] w-full flex items-center justify-center mb-1">
+                                <img src="./assets/jade_pendant_transparent.png" alt="Dụng thần & Linh vật hộ thân" class="h-[55px] max-w-[60px] object-contain drop-shadow-sm">
+                            </div>
+                            <h4 class="text-[16px] font-bold text-[#15803D] leading-snug">Linh vật hộ thân</h4>
+                            <p class="text-[14px] text-gray-600 leading-[1.3] mt-0.5">Mang theo bên mình để bảo vệ và cân bằng năng lượng.</p>
+                        </div>
+                        <div class="w-full flex justify-center mt-2.5">
+                            <button class="w-full py-1.5 px-2.5 rounded-xl bg-[#059669] text-white text-[12px] font-bold shadow-2xs hover:bg-[#047857] active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                                Khám phá
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Linh vật đặt -->
+                    <div class="bg-[#FFF8F1] border border-[#FDE68A]/80 rounded-2xl p-3.5 relative flex flex-col items-center text-center justify-between overflow-hidden shadow-[0_4px_14px_rgba(234,88,12,0.12)] hover:shadow-[0_6px_20px_rgba(234,88,12,0.18)] hover:-translate-y-0.5 transition-all min-h-[178px]">
+                        <div class="flex flex-col items-center w-full">
+                            <!-- Centered Image at top -->
+                            <div class="h-[60px] w-full flex items-center justify-center mb-1">
+                                <img src="./assets/golden_dragon_transparent.png" alt="Dụng thần & Linh vật đặt" class="h-[55px] max-w-[60px] object-contain drop-shadow-sm">
+                            </div>
+                            <h4 class="text-[16px] font-bold text-[#C2410C] leading-snug">Linh vật đặt</h4>
+                            <p class="text-[14px] text-gray-600 leading-[1.3] mt-0.5">Đặt tại nơi làm việc, nhà ở để hỗ trợ tài lộc và vượng khí.</p>
+                        </div>
+                        <div class="w-full flex justify-center mt-2.5">
+                            <button class="w-full py-1.5 px-2.5 rounded-xl bg-[#EA580C] text-white text-[12px] font-bold shadow-2xs hover:bg-[#C2410C] active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                                Khám phá
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group Container: Đơn Hàng Của Tôi & Vật Phẩm Của Tôi -->
+                <div class="mt-3 relative z-10 w-full bg-white border border-[#EEE7DD] rounded-[13px] shadow-2xs overflow-hidden divide-y divide-[#EEE7DD]">
+                    <!-- Row 1: Đơn Hàng Của Tôi -->
+                    <a href="#" onclick="alert('Tính năng Đơn hàng của tôi đang được cập nhật!'); return false;" class="w-full h-[50px] px-3.5 flex items-center justify-between cursor-pointer no-underline active:bg-amber-50/30 transition-colors block">
+                        <div class="flex items-center gap-2.5">
+                            <!-- Icon Đơn hàng (Hộp hàng 📦) 20px -->
+                            <svg class="w-5 h-5 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                            <span class="text-[14px] font-semibold text-gray-800">Đơn hàng của tôi</span>
+                        </div>
+                        <!-- Chevron xám bên phải -->
+                        <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+
+                    <!-- Row 2: Vật Phẩm Của Tôi -->
+                    <a href="DonHangCuaToi.html" onclick="if(window.openOrderHistory){ window.openOrderHistory(); return false; }" class="w-full h-[50px] px-3.5 flex items-center justify-between cursor-pointer no-underline active:bg-amber-50/30 transition-colors block">
+                        <div class="flex items-center gap-2.5">
+                            <!-- Icon Vật phẩm (Viên ngọc 💎) 20px -->
+                            <svg class="w-5 h-5 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h12l4 6-10 12L2 9l4-6z M2 9h20 M12 21L6 9 M12 21l6-12 M6 3l6 6 6-6" />
+                            </svg>
+                            <span class="text-[14px] font-semibold text-gray-800">Vật phẩm của tôi</span>
+                        </div>
+                        <!-- Chevron xám bên phải -->
+                        <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- ===== Section: Hương sạch ===== -->
+            <div class="pt-4">
+                <div class="flex items-center justify-between px-5 mb-3">
+                    <h2 class="text-[18px] font-bold text-gray-900 tracking-tight">Hương sạch</h2>
+                    <button class="flex items-center gap-1 text-[#1565D8] text-[14px] font-semibold">
+                        Xem thêm
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Horizontal product list -->
+                <div class="flex gap-3.5 overflow-x-auto hide-scrollbar px-5 pb-1 snap-x scroll-pl-5">
+                    <!-- Product card template -->
+                    <div class="snap-start shrink-0 w-[160px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform">
+                        <div class="h-[150px] incense-box flex items-center justify-center relative overflow-hidden">
+                            <!-- Hộp hương -->
+                            <div class="flex items-end gap-1.5 transform scale-[0.68] origin-bottom mb-2">
+                                <div class="w-[46px] h-[170px] bg-gradient-to-b from-[#f2c94c] to-[#e8b632] rounded-[3px] border border-[#c99a1e] shadow-md flex flex-col items-center justify-center px-1">
+                                    <div class="w-full h-8 bg-[#b91c1c] rounded-t-sm mb-1 flex items-center justify-center">
+                                        <span class="text-[6px] text-yellow-200 font-bold text-center leading-tight">CÁT<br>VIỆT</span>
+                                    </div>
+                                    <div class="flex-1 w-[70%] bg-[#7f1d1d] rounded-sm my-1 flex items-center justify-center">
+                                        <span class="text-[7px] text-yellow-100 font-bold text-center leading-[1.3] px-0.5">HƯƠNG<br>SẠCH<br>THẢO<br>MỘC</span>
+                                    </div>
+                                </div>
+                                <!-- Bó hương -->
+                                <div class="relative flex flex-col items-center">
+                                    <div class="flex gap-[1.5px] items-end">
+                                        <div class="w-[2px] h-[95px] bg-[#a8763a] rounded-full"></div>
+                                        <div class="w-[2px] h-[105px] bg-[#b5824a] rounded-full"></div>
+                                        <div class="w-[2px] h-[88px] bg-[#a8763a] rounded-full"></div>
+                                        <div class="w-[2px] h-[100px] bg-[#b5824a] rounded-full"></div>
+                                        <div class="w-[2px] h-[92px] bg-[#a8763a] rounded-full"></div>
+                                    </div>
+                                    <div class="w-9 h-14 bg-gradient-to-b from-[#e8ede8] to-[#cfd8cf] rounded-b-2xl rounded-t-md -mt-1 border border-gray-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2.5">
+                            <p class="text-[13.5px] font-semibold text-gray-800 leading-snug">Hương sạch thảo mộc 23 cm</p>
+                        </div>
+                    </div>
+
+                    <div class="snap-start shrink-0 w-[160px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform">
+                        <div class="h-[150px] incense-box flex items-center justify-center relative overflow-hidden">
+                            <div class="flex items-end gap-1.5 transform scale-[0.68] origin-bottom mb-2">
+                                <div class="w-[46px] h-[170px] bg-gradient-to-b from-[#f2c94c] to-[#e8b632] rounded-[3px] border border-[#c99a1e] shadow-md flex flex-col items-center justify-center px-1">
+                                    <div class="w-full h-8 bg-[#b91c1c] rounded-t-sm mb-1 flex items-center justify-center">
+                                        <span class="text-[6px] text-yellow-200 font-bold text-center leading-tight">CÁT<br>VIỆT</span>
+                                    </div>
+                                    <div class="flex-1 w-[70%] bg-[#7f1d1d] rounded-sm my-1 flex items-center justify-center">
+                                        <span class="text-[7px] text-yellow-100 font-bold text-center leading-[1.3] px-0.5">HƯƠNG<br>SẠCH<br>THẢO<br>MỘC</span>
+                                    </div>
+                                </div>
+                                <div class="relative flex flex-col items-center">
+                                    <div class="flex gap-[1.5px] items-end">
+                                        <div class="w-[2px] h-[100px] bg-[#a8763a] rounded-full"></div>
+                                        <div class="w-[2px] h-[112px] bg-[#b5824a] rounded-full"></div>
+                                        <div class="w-[2px] h-[95px] bg-[#a8763a] rounded-full"></div>
+                                        <div class="w-[2px] h-[108px] bg-[#b5824a] rounded-full"></div>
+                                        <div class="w-[2px] h-[98px] bg-[#a8763a] rounded-full"></div>
+                                    </div>
+                                    <div class="w-9 h-14 bg-gradient-to-b from-[#e8ede8] to-[#cfd8cf] rounded-b-2xl rounded-t-md -mt-1 border border-gray-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2.5">
+                            <p class="text-[13.5px] font-semibold text-gray-800 leading-snug">Hương sạch thảo mộc 29 cm</p>
+                        </div>
+                    </div>
+
+                    <!-- Peek card -->
+                    <div class="snap-start shrink-0 w-[160px] bg-white rounded-xl border border-gray-200 overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+                        <div class="h-[150px] incense-box"></div>
+                        <div class="p-2.5">
+                            <p class="text-[13.5px] font-semibold text-gray-800 leading-snug">Hương sạch thảo mộc 38 cm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="mx-5 my-6 border-t border-gray-200"></div>
+
+            <!-- ===== Section: Du lịch - Đi lại ===== -->
+            <div class="px-5 pb-8">
+                <h2 class="text-[18px] font-bold text-gray-900 tracking-tight mb-4">Du lịch - Đi lại</h2>
+
+                <div class="grid grid-cols-4 gap-x-3 gap-y-7">
+                    <!-- Vé máy bay (Mytour.vn) -->
+                    <button class="flex flex-col items-center gap-2 group">
+                        <div class="w-[64px] h-[64px] rounded-[20px] bg-[#DCE9FF] flex items-center justify-center group-active:scale-95 transition-transform">
+                            <svg class="w-8 h-8 text-[#2563EB]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0011.5 2 1.5 1.5 0 0010 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" />
+                            </svg>
+                        </div>
+                        <span class="text-[13.5px] font-medium text-gray-800 text-center leading-tight">Vé máy bay (Mytour.vn)</span>
+                    </button>
+
+                    <!-- Vé máy bay (iPass) -->
+                    <button class="flex flex-col items-center gap-2 group">
+                        <div class="w-[64px] h-[64px] rounded-[20px] bg-[#CFEAF3] flex items-center justify-center group-active:scale-95 transition-transform">
+                            <svg class="w-8 h-8 text-[#0E7490]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="9" />
+                                <path stroke-linecap="round" d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18" />
+                                <path fill="currentColor" stroke="none" d="M18 5l3-1-1 3-4 2z" />
+                            </svg>
+                        </div>
+                        <span class="text-[13.5px] font-medium text-gray-800 text-center leading-tight">Vé máy bay (iPass)</span>
+                    </button>
+
+                    <!-- Khách sạn (Mytour.vn) -->
+                    <button class="flex flex-col items-center gap-2 group">
+                        <div class="w-[64px] h-[64px] rounded-[20px] bg-[#D3F0DA] flex items-center justify-center group-active:scale-95 transition-transform">
+                            <svg class="w-8 h-8 text-[#15803D]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M5 3h14a1 1 0 011 1v17H4V4a1 1 0 011-1zm3 4v2h2V7H8zm4 0v2h2V7h-2zm-4 4v2h2v-2H8zm4 0v2h2v-2h-2zm-1 6v4h2v-4h-2z" />
+                            </svg>
+                        </div>
+                        <span class="text-[13.5px] font-medium text-gray-800 text-center leading-tight">Khách sạn (Mytour.vn)</span>
+                    </button>
+
+                    <!-- Taxi sân bay -->
+                    <button class="flex flex-col items-center gap-2 group">
+                        <div class="w-[64px] h-[64px] rounded-[20px] bg-[#FDECB8] flex items-center justify-center group-active:scale-95 transition-transform">
+                            <svg class="w-8 h-8 text-[#D97706]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.9 7.5A1.5 1.5 0 0017.5 6.5h-11A1.5 1.5 0 005.1 7.5L3 12v6a1 1 0 001 1h1a1 1 0 001-1v-1h12v1a1 1 0 001 1h1a1 1 0 001-1v-6l-2.1-4.5zM6.5 15a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm11 0a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM5.5 11l1.2-3h10.6l1.2 3H5.5z" />
+                                <path d="M14 3l4 1.5-3 1.5z" />
+                            </svg>
+                        </div>
+                        <span class="text-[13.5px] font-medium text-gray-800 text-center leading-tight">Taxi sân bay</span>
+                    </button>
+
+                    <!-- Vé vui chơi -->
+                    <button class="flex flex-col items-center gap-2 group">
+                        <div class="w-[64px] h-[64px] rounded-[20px] bg-[#E0DBFB] flex items-center justify-center group-active:scale-95 transition-transform">
+                            <svg class="w-8 h-8 text-[#6D28D9]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M4 6a2 2 0 00-2 2v2a2 2 0 010 4v2a2 2 0 002 2h16a2 2 0 002-2v-2a2 2 0 010-4V8a2 2 0 00-2-2H4zm8 2.5l1.2 2.5 2.8.3-2 2 .6 2.7L12 15l-2.6 1.3.6-2.7-2-2 2.8-.3L12 8.5z" />
+                            </svg>
+                        </div>
+                        <span class="text-[13.5px] font-medium text-gray-800 text-center leading-tight">Vé vui chơi</span>
+                    </button>
+
+                    <!-- Vé xe khách -->
+                    <button class="flex flex-col items-center gap-2 group">
+                        <div class="w-[64px] h-[64px] rounded-[20px] bg-[#C7F0E4] flex items-center justify-center group-active:scale-95 transition-transform">
+                            <svg class="w-8 h-8 text-[#0F766E]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 3h12a2 2 0 012 2v11a2 2 0 01-1 1.73V19a1 1 0 01-1 1h-1a1 1 0 01-1-1v-1H9v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-1.27A2 2 0 015 16V5a2 2 0 012-2zm0 4v5h12V7H6zm2 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm8 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                            </svg>
+                        </div>
+                        <span class="text-[13.5px] font-medium text-gray-800 text-center leading-tight">Vé xe khách</span>
+                    </button>
+                </div>
+            </div>
+
+        </div> <!-- /SCROLL AREA -->
+
+        <!-- ================= BOTTOM TAB BAR ================= -->
+        <div class="relative bg-[#F9F9FB] border-t border-gray-200 pb-6 pt-2.5 px-2 flex justify-between items-end z-40 shrink-0">
+            <!-- Center Curve Cutout -->
+            <div class="absolute -top-[22px] left-1/2 -translate-x-1/2 w-[72px] h-[36px] bg-transparent overflow-hidden">
+                <div class="absolute top-[20px] left-1/2 -translate-x-1/2 w-[76px] h-[76px] bg-[#F9F9FB] rounded-full border border-gray-200"></div>
+            </div>
+
+            <!-- Trang chủ -->
+            <div class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors z-10">
+                <svg class="w-[26px] h-[26px]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10" />
+                </svg>
+                <span class="text-[10px] font-medium tracking-wide">Trang chủ</span>
+            </div>
+
+            <!-- Sự kiện -->
+            <div class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors z-10">
+                <svg class="w-[26px] h-[26px]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+                <span class="text-[10px] font-medium tracking-wide">Sự kiện</span>
+            </div>
+
+            <!-- Dịch vụ (Center) -->
+            <div class="flex-1 flex flex-col items-center justify-end relative cursor-pointer text-gray-500 z-20">
+                <div class="absolute -top-[23px] left-1/2 -translate-x-1/2">
+                    <div class="w-[52px] h-[52px] bg-[#616BFF] rounded-[18px] flex items-center justify-center shadow-[0_6px_12px_rgba(97,107,255,0.4)] transition-transform hover:scale-105 active:scale-95">
+                        <svg class="w-[28px] h-[28px] text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <rect x="4" y="4" width="6.5" height="6.5" rx="2" />
+                            <rect x="13.5" y="4" width="6.5" height="6.5" rx="2" />
+                            <rect x="4" y="13.5" width="6.5" height="6.5" rx="2" />
+                            <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="2" />
+                        </svg>
+                    </div>
+                </div>
+                <span class="text-[10px] font-medium tracking-wide mt-7">Dịch vụ</span>
+            </div>
+
+            <!-- Video -->
+            <div class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-gray-500 hover:text-blue-600 transition-colors z-10">
+                <svg class="w-[28px] h-[28px]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <rect x="3" y="6" width="18" height="13" rx="4" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 9.5l5 3-5 3v-6z" />
+                </svg>
+                <span class="text-[10px] font-medium tracking-wide">Video</span>
+            </div>
+
+            <!-- Mua sắm (Active) -->
+            <div class="flex-1 flex flex-col items-center gap-1 cursor-pointer text-[#4F46E5] z-10">
+                <svg class="w-[26px] h-[26px]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6.5 2h11a1 1 0 01.9.55L21 8v1a2.5 2.5 0 01-4 2 2.5 2.5 0 01-4 0 2.5 2.5 0 01-4 0 2.5 2.5 0 01-4-2V8l2.6-5.45A1 1 0 016.5 2z" opacity="0.35" />
+                    <path d="M5 11.8V20a1 1 0 001 1h12a1 1 0 001-1v-8.2a3.5 3.5 0 01-2 .2 3.5 3.5 0 01-2-.9 3.5 3.5 0 01-4 0 3.5 3.5 0 01-2 .9 3.5 3.5 0 01-2-.2z" />
+                </svg>
+                <span class="text-[10px] font-bold tracking-wide">Mua sắm</span>
+            </div>
+
+            <!-- Home Indicator -->
+            <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[120px] h-[5px] bg-gray-800 rounded-full"></div>
+        </div>
+
+        <!-- FULL-SCREEN OVERLAY: LINH VẬT CỦA TÔI -->
+        <div id="order-history-overlay" class="hidden absolute inset-0 bg-[#F8FAFC] z-50 flex flex-col font-sf-pro transition-all duration-300">
+            <!-- HEADER -->
+            <div class="bg-white shrink-0 shadow-xs relative z-20 flex flex-col border-b border-gray-100">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-4 text-black font-medium relative z-10 bg-white">
+                    <div class="font-semibold text-[15px] tracking-tight">9:41</div>
+                    <div class="flex items-center gap-[5px]">
+                        <div class="flex items-end gap-[2px] h-[12px]">
+                            <div class="w-[3px] h-1.5 bg-black rounded-[1px]"></div>
+                            <div class="w-[3px] h-2 bg-black rounded-[1px]"></div>
+                            <div class="w-[3px] h-2.5 bg-black rounded-[1px]"></div>
+                            <div class="w-[3px] h-3 bg-black rounded-[1px]"></div>
+                        </div>
+                        <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                        </svg>
+                        <div class="w-6 h-3 rounded-sm border border-black p-[1px] relative ml-1">
+                            <div class="bg-black w-[80%] h-full rounded-[1px]"></div>
+                            <div class="absolute -right-1 top-1 w-[2px] h-1 bg-black rounded-r-[1px]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Bar -->
+                <div class="flex items-center justify-between px-4 pt-3 pb-3 relative z-10 w-full">
+                    <button onclick="closeOrderHistory()" class="w-9 h-9 flex items-center justify-center rounded-full active:bg-gray-100 transition-colors text-gray-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <h1 class="text-[18px] font-extrabold text-gray-900 tracking-tight text-center flex-1">Vật phẩm của tôi</h1>
+                    <div class="w-9 h-9"></div>
+                </div>
+
+
+            </div>
+
+            <!-- CONTENT OVERLAY -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                <!-- MASCOT ITEM 1: NGỌC BÍCH HỘ THÂN -->
+                <div class="bg-white rounded-2xl p-4 shadow-xs border border-[#EEDDBE] relative flex flex-col gap-3">
+                <!-- Product Info Row -->
+                <div class="flex gap-3.5 items-center">
+                    <div class="w-[110px] h-[110px] rounded-xl bg-emerald-50/60 border border-emerald-100 p-2 flex items-center justify-center shrink-0">
+                        <img src="./assets/jade_pendant_transparent.png" alt="Mặt Dây Chuyền Ngọc Bích Hộ Thân" class="max-h-full max-w-full object-contain drop-shadow-xs">
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                        <div>
+                            <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100/80">
+                                Linh vật hộ thân
+                            </span>
+                        </div>
+                        <h4 class="text-[15px] font-bold text-gray-900 leading-snug">Mặt Dây Chuyền Ngọc Bích Hộ Thân</h4>
+                        <div class="flex flex-col gap-1 text-[12.5px] text-gray-600">
+                            <div>Dành cho: <strong class="text-gray-900 font-bold">Minh Anh</strong></div>
+                            <div>Phù hợp với <strong class="text-[#16A34A] font-bold">Dụng thần Mộc</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Bottom Actions: 2 Nút Chia sẻ & Xem chi tiết -->
+                    <div class="pt-1 flex items-center gap-2.5">
+                        <button onclick="alert('Đã sao chép liên kết chia sẻ Linh vật!')" class="flex-1 py-2 px-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-700 text-[13px] font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                            Chia sẻ
+                        </button>
+                        <button onclick="openGuideOverlay('ngoc_bich')" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] text-[#B45309] text-[13px] font-bold shadow-2xs hover:shadow-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                            <span>Xem chi tiết</span>
+                            <svg class="w-4 h-4 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MASCOT ITEM 2: TƯỢNG KIM LONG CHIÊU TÀI -->
+                <div class="bg-white rounded-2xl p-4 shadow-xs border border-[#EEDDBE] relative flex flex-col gap-3">
+                <!-- Product Info Row -->
+                <div class="flex gap-3.5 items-center">
+                    <div class="w-[110px] h-[110px] rounded-xl bg-amber-50/60 border border-amber-100 p-2 flex items-center justify-center shrink-0">
+                        <img src="./assets/golden_dragon_transparent.png" alt="Tượng Kim Long Chiêu Tài 24K" class="max-h-full max-w-full object-contain drop-shadow-xs">
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                        <div>
+                            <span class="text-[11px] font-bold text-[#C2410C] bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100/80">
+                                Linh vật đặt
+                            </span>
+                        </div>
+                        <h4 class="text-[15px] font-bold text-gray-900 leading-snug">Tượng Kim Long Chiêu Tài 24K</h4>
+                        <div class="flex flex-col gap-1 text-[12.5px] text-gray-600">
+                            <div>Dành cho: <strong class="text-gray-900 font-bold">Minh Anh</strong></div>
+                            <div>Phù hợp với <strong class="text-[#16A34A] font-bold">Dụng thần Mộc</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Bottom Actions: 2 Nút Chia sẻ & Xem chi tiết -->
+                    <div class="pt-1 flex items-center gap-2.5">
+                        <button onclick="alert('Đã sao chép liên kết chia sẻ Linh vật!')" class="flex-1 py-2 px-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-700 text-[13px] font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                            </svg>
+                            Chia sẻ
+                        </button>
+                        <button onclick="openGuideOverlay('kim_long')" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] text-[#B45309] text-[13px] font-bold shadow-2xs hover:shadow-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                            <span>Xem chi tiết</span>
+                            <svg class="w-4 h-4 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- MODAL BOTTOM SHEET IN OVERLAY -->
+        <div id="guide-modal-overlay" class="hidden absolute inset-0 bg-black/60 z-60 flex flex-col justify-end transition-opacity">
+            <div class="bg-white rounded-t-[28px] max-h-[85%] flex flex-col overflow-hidden shadow-2xl relative">
+                <div class="px-5 pt-4 pb-3 border-b border-gray-100 flex items-center justify-between shrink-0 bg-[#FFFDF7]">
+                    <div class="flex items-center gap-2">
+                        <span class="text-[20px]">🔮</span>
+                        <div>
+                            <h3 id="overlay-modal-title" class="text-[16px] font-extrabold text-gray-900">Giải mã Bát tự & HDSD</h3>
+                            <p class="text-[12px] text-amber-700 font-semibold">Tương hợp cá nhân hóa theo Lá số của bạn</p>
+                        </div>
+                    </div>
+                    <button onclick="closeGuideOverlay()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-[18px] font-bold">✕</button>
+                </div>
+                <div class="p-5 overflow-y-auto space-y-4 text-[13.5px] leading-relaxed text-gray-700">
+                    <div class="bg-[#FFFBEB] p-3.5 rounded-2xl border border-[#FDE68A]">
+                        <h4 class="font-extrabold text-[#B45309] text-[14px] flex items-center gap-1.5 mb-1.5">
+                            <span>🧬</span> Vì sao sản phẩm này hợp với Bát tự của bạn?
+                        </h4>
+                        <p id="overlay-modal-battu" class="text-gray-800 font-medium"></p>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="font-extrabold text-gray-900 text-[14.5px] flex items-center gap-1.5 border-b border-gray-100 pb-2">
+                            <span>📘</span> Hướng dẫn Khai quang & Sử dụng linh nghiệm
+                        </h4>
+                        <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-[13px]">1</div>
+                            <div>
+                                <strong class="text-gray-900 block text-[13.5px]">Giờ Hoàng Đạo đeo/đặt lần đầu:</strong>
+                                <span id="overlay-modal-time" class="text-gray-600"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-[13px]">2</div>
+                            <div>
+                                <strong class="text-gray-900 block text-[13.5px]">Vị trí đeo hoặc bài trí:</strong>
+                                <span id="overlay-modal-position" class="text-gray-600"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-[13px]">3</div>
+                            <div>
+                                <strong class="text-gray-900 block text-[13.5px]">Cách tẩy uế & Nạp năng lượng định kỳ:</strong>
+                                <span id="overlay-modal-clean" class="text-gray-600"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="closeGuideOverlay()" class="w-full py-3 rounded-xl bg-[#059669] text-white text-[14px] font-bold shadow-xs">Đã hiểu & Lưu sổ tay</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const mascotGuideData = {
+            'ngoc_bich': {
+                title: 'Mặt Dây Chuyền Ngọc Bích Hộ Thân',
+                battu: 'Lá số Bát tự của bạn thiếu hành Mộc. Mặt dây Ngọc Bích tự nhiên thuộc hành Mộc giúp bổ trợ Dụng thần Mộc, tăng cường sinh khí và cân bằng năng lượng cá nhân.',
+                time: 'Đeo lần đầu vào khoảng 07:00 – 09:00 sáng (Giờ Thìn) ngày Mùng 1 hoặc thứ Ba hoàng đạo.',
+                position: 'Đeo trước ngực gần tim hoặc để trong túi xách cá nhân mang theo bên mình.',
+                clean: 'Lau rửa bằng nước muối loãng ấm 15 phút định kỳ mỗi tháng một lần để trì chú nạp lại năng lượng.'
+            },
+            'kim_long': {
+                title: 'Tượng Kim Long Chiêu Tài 24K',
+                battu: 'Lá số Bát tự của bạn khuyết Kim/Thổ. Tượng Kim Long Mạ Vàng 24K giúp vượng tài lộc, nâng cao quyền lực và mở rộng các mối quan hệ quý nhân.',
+                time: 'Đặt bài trí lần đầu vào 09:00 – 11:00 sáng (Giờ Tị) hướng Đông Nam hoặc góc tài lộc.',
+                position: 'Đặt trên bàn làm việc, kệ sách phòng khách hướng nhìn ra cửa chính.',
+                clean: 'Dùng khăn sạch mềm lau bụi định kỳ, tránh đặt tượng sát khu vực ẩm thấp.'
+            }
+        };
+
+        function openOrderHistory() {
+            const overlay = document.getElementById('order-history-overlay');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+            }
+        }
+        function closeOrderHistory() {
+            const overlay = document.getElementById('order-history-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function openGuideOverlay(id) {
+            const data = mascotGuideData[id] || mascotGuideData['ngoc_bich'];
+            document.getElementById('overlay-modal-title').innerText = data.title;
+            document.getElementById('overlay-modal-battu').innerText = data.battu;
+            document.getElementById('overlay-modal-time').innerText = data.time;
+            document.getElementById('overlay-modal-position').innerText = data.position;
+            document.getElementById('overlay-modal-clean').innerText = data.clean;
+
+            document.getElementById('guide-modal-overlay').classList.remove('hidden');
+        }
+
+        function closeGuideOverlay() {
+            document.getElementById('guide-modal-overlay').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>

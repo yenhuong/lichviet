@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linh Vật Của Tôi - Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        .font-sf-pro {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F8FAFC;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container font-sf-pro">
+        <!-- HEADER STATIC -->
+        <div class="bg-white shrink-0 shadow-xs relative z-20 flex flex-col border-b border-gray-100">
+            <!-- iOS Status Bar -->
+            <div class="flex justify-between items-center px-6 pt-4 text-black font-medium relative z-10 bg-white">
+                <div class="font-semibold text-[15px] tracking-tight">9:41</div>
+                <div class="flex items-center gap-[5px]">
+                    <div class="flex items-end gap-[2px] h-[12px]">
+                        <div class="w-[3px] h-1.5 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-2 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-2.5 bg-black rounded-[1px]"></div>
+                        <div class="w-[3px] h-3 bg-black rounded-[1px]"></div>
+                    </div>
+                    <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <div class="w-6 h-3 rounded-sm border border-black p-[1px] relative ml-1">
+                        <div class="bg-black w-[80%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-1 top-1 w-[2px] h-1 bg-black rounded-r-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Bar -->
+            <div class="flex items-center justify-between px-4 pt-3 pb-3 relative z-10 w-full">
+                <button onclick="window.history.back()"
+                    class="w-9 h-9 flex items-center justify-center rounded-full active:bg-gray-100 transition-colors text-gray-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <h1 class="text-[18px] font-extrabold text-gray-900 tracking-tight text-center flex-1">Vật phẩm của tôi</h1>
+                <div class="w-9 h-9"></div>
+            </div>
+
+
+        </div>
+
+        <!-- MAIN SCROLLABLE CONTENT -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-4">
+
+            <!-- MASCOT ITEM 1: NGỌC BÍCH HỘ THÂN -->
+            <div class="bg-white rounded-2xl p-4 shadow-xs border border-[#EEDDBE] relative flex flex-col gap-3">
+                <!-- Product Info Row -->
+                <div class="flex gap-3.5 items-center">
+                    <div class="w-[110px] h-[110px] rounded-xl bg-emerald-50/60 border border-emerald-100 p-2 flex items-center justify-center shrink-0">
+                        <img src="./assets/jade_pendant_transparent.png" alt="Mặt Dây Chuyền Ngọc Bích Hộ Thân" class="max-h-full max-w-full object-contain drop-shadow-xs">
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                        <div>
+                            <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100/80">
+                                Linh vật hộ thân
+                            </span>
+                        </div>
+                        <h4 class="text-[15px] font-bold text-gray-900 leading-snug">Mặt Dây Chuyền Ngọc Bích Hộ Thân</h4>
+                        <div class="flex flex-col gap-1 text-[12.5px] text-gray-600">
+                            <div>Dành cho: <strong class="text-gray-900 font-bold">Minh Anh</strong></div>
+                            <div>Phù hợp với <strong class="text-[#16A34A] font-bold">Dụng thần Mộc</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Actions: 2 Nút Chia sẻ & Xem chi tiết -->
+                <div class="pt-1 flex items-center gap-2.5">
+                    <button onclick="alert('Đã sao chép liên kết chia sẻ Linh vật!')" class="flex-1 py-2 px-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-700 text-[13px] font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Chia sẻ
+                    </button>
+                    <button onclick="openGuideModal('ngoc_bich')" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] text-[#B45309] text-[13px] font-bold shadow-2xs hover:shadow-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                        <span>Xem chi tiết</span>
+                        <svg class="w-4 h-4 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- MASCOT ITEM 2: TƯỢNG KIM LONG CHIÊU TÀI -->
+            <div class="bg-white rounded-2xl p-4 shadow-xs border border-[#EEDDBE] relative flex flex-col gap-3">
+                <!-- Product Info Row -->
+                <div class="flex gap-3.5 items-center">
+                    <div class="w-[110px] h-[110px] rounded-xl bg-amber-50/60 border border-amber-100 p-2 flex items-center justify-center shrink-0">
+                        <img src="./assets/golden_dragon_transparent.png" alt="Tượng Kim Long Chiêu Tài 24K" class="max-h-full max-w-full object-contain drop-shadow-xs">
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                        <div>
+                            <span class="text-[11px] font-bold text-[#C2410C] bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100/80">
+                                Linh vật đặt
+                            </span>
+                        </div>
+                        <h4 class="text-[15px] font-bold text-gray-900 leading-snug">Tượng Kim Long Chiêu Tài 24K</h4>
+                        <div class="flex flex-col gap-1 text-[12.5px] text-gray-600">
+                            <div>Dành cho: <strong class="text-gray-900 font-bold">Minh Anh</strong></div>
+                            <div>Phù hợp với <strong class="text-[#16A34A] font-bold">Dụng thần Mộc</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Actions: 2 Nút Chia sẻ & Xem chi tiết -->
+                <div class="pt-1 flex items-center gap-2.5">
+                    <button onclick="alert('Đã sao chép liên kết chia sẻ Linh vật!')" class="flex-1 py-2 px-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-700 text-[13px] font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Chia sẻ
+                    </button>
+                    <button onclick="openGuideModal('kim_long')" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] text-[#B45309] text-[13px] font-bold shadow-2xs hover:shadow-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                        <span>Xem chi tiết</span>
+                        <svg class="w-4 h-4 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- MASCOT ITEM 3: VÒNG TAY TRẦM HƯƠNG -->
+            <div class="bg-white rounded-2xl p-4 shadow-xs border border-[#EEDDBE] relative flex flex-col gap-3">
+                <!-- Product Info Row -->
+                <div class="flex gap-3.5 items-center">
+                    <div class="w-[110px] h-[110px] rounded-xl bg-orange-50/60 border border-orange-100 p-2 flex items-center justify-center shrink-0">
+                        <img src="./real_vong_tay_tram_huong.png" alt="Vòng Tay Trầm Hương Ngũ Hành" class="max-h-full max-w-full object-contain drop-shadow-xs">
+                    </div>
+                    <div class="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                        <div>
+                            <span class="text-[11px] font-bold text-[#EA580C] bg-orange-50 px-2 py-0.5 rounded-md border border-orange-100/80">
+                                Vòng tay phong thủy
+                            </span>
+                        </div>
+                        <h4 class="text-[15px] font-bold text-gray-900 leading-snug">Vòng Tay Trầm Hương Ngũ Hành</h4>
+                        <div class="flex flex-col gap-1 text-[12.5px] text-gray-600">
+                            <div>Phù hợp với <strong class="text-[#16A34A] font-bold">Dụng thần Mộc</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Actions: 2 Nút Chia sẻ & Xem chi tiết -->
+                <div class="pt-1 flex items-center gap-2.5">
+                    <button onclick="alert('Đã sao chép liên kết chia sẻ Linh vật!')" class="flex-1 py-2 px-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-700 text-[13px] font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        Chia sẻ
+                    </button>
+                    <button onclick="openGuideModal('tram_huong')" class="flex-1 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FFFBEB] to-[#FEF3C7] border border-[#FDE68A] text-[#B45309] text-[13px] font-bold shadow-2xs hover:shadow-xs active:scale-[0.98] transition-all flex items-center justify-center gap-1">
+                        <span>Xem chi tiết</span>
+                        <svg class="w-4 h-4 text-[#D97706] shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- MODAL BOTTOM SHEET: GIẢI MÃ BÁT TỰ & HƯỚNG DẪN SỬ DỤNG -->
+    <div id="guide-modal" class="hidden absolute inset-0 bg-black/60 z-50 flex flex-col justify-end transition-opacity">
+        <div class="bg-white rounded-t-[28px] max-h-[85%] flex flex-col overflow-hidden shadow-2xl relative animate-slide-up">
+            <!-- Modal Header -->
+            <div class="px-5 pt-4 pb-3 border-b border-gray-100 flex items-center justify-between shrink-0 bg-[#FFFDF7]">
+                <div class="flex items-center gap-2">
+                    <span class="text-[20px]">🔮</span>
+                    <div>
+                        <h3 id="modal-title" class="text-[16px] font-extrabold text-gray-900">Giải mã Bát tự & HDSD</h3>
+                        <p class="text-[12px] text-amber-700 font-semibold">Tương hợp cá nhân hóa theo Lá số của bạn</p>
+                    </div>
+                </div>
+                <button onclick="closeGuideModal()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center text-[18px] font-bold active:bg-gray-200">✕</button>
+            </div>
+
+            <!-- Modal Scrollable Content -->
+            <div class="p-5 overflow-y-auto space-y-4 text-[13.5px] leading-relaxed text-gray-700">
+                
+                <!-- SECTION 1: LÝ DO CHỌN SẢN PHẨM / GIẢI MÃ BÁT TỰ -->
+                <div class="bg-[#FFFBEB] p-3.5 rounded-2xl border border-[#FDE68A]">
+                    <h4 class="font-extrabold text-[#B45309] text-[14px] flex items-center gap-1.5 mb-1.5">
+                        <span>🧬</span> Vì sao sản phẩm này hợp với Bát tự của bạn?
+                    </h4>
+                    <p id="modal-bat-tu" class="text-gray-800 font-medium">
+                        Lá số Bát tự của bạn thiếu hành Mộc. Mặt dây Ngọc Bích tự nhiên thuộc hành Mộc giúp cân bằng Ngũ hành, tăng năng lượng sinh khí và bảo vệ vương khí cá nhân.
+                    </p>
+                </div>
+
+                <!-- SECTION 2: HƯỚNG DẪN KHAI QUANG & SỬ DỤNG -->
+                <div class="space-y-3">
+                    <h4 class="font-extrabold text-gray-900 text-[14.5px] flex items-center gap-1.5 border-b border-gray-100 pb-2">
+                        <span>📘</span> Hướng dẫn Khai quang & Sử dụng linh nghiệm
+                    </h4>
+
+                    <!-- Step 1 -->
+                    <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-[13px]">1</div>
+                        <div>
+                            <strong class="text-gray-900 block text-[13.5px]">Giờ Hoàng Đạo đeo/đặt lần đầu:</strong>
+                            <span id="modal-time" class="text-gray-600">Đeo lần đầu vào khoảng 07:00 – 09:00 sáng (Giờ Thìn) thứ Ba hoặc ngày hợp mệnh.</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-[13px]">2</div>
+                        <div>
+                            <strong class="text-gray-900 block text-[13.5px]">Vị trí đeo hoặc bài trí:</strong>
+                            <span id="modal-position" class="text-gray-600">Đeo trước ngực gần tim hoặc mang theo túi xách cá nhân ở hướng Đông Nam.</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex items-start gap-3 bg-emerald-50/80 p-3 rounded-xl border border-emerald-200/80">
+                        <div class="w-7 h-7 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 text-[13px]">3</div>
+                        <div>
+                            <strong class="text-emerald-950 block text-[13.5px]">Hướng đặt hợp Dụng thần:</strong>
+                            <span id="modal-direction" class="text-emerald-800 font-medium">Hướng Đông hoặc Đông Nam (hợp Dụng thần Mộc - thu hút tài lộc & vượng khí).</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex items-start gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center shrink-0 text-[13px]">4</div>
+                        <div>
+                            <strong class="text-gray-900 block text-[13.5px]">Cách tẩy uế & Nạp năng lượng định kỳ:</strong>
+                            <span id="modal-clean" class="text-gray-600">Ngâm rửa bằng nước gừng ấm hoặc nước muối loãng 15 phút vào ngày Mùng 1 và Rằm hàng tháng.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Action Button -->
+                <button onclick="closeGuideModal()" class="w-full py-3 rounded-xl bg-[#059669] text-white text-[14px] font-bold shadow-xs hover:bg-[#047857] active:scale-[0.98] transition-all">
+                    Đã hiểu & Lưu sổ tay
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mascotData = {
+            'ngoc_bich': {
+                title: 'Mặt Dây Chuyền Ngọc Bích Hộ Thân',
+                battu: 'Lá số Bát tự của bạn thiếu hành Mộc. Mặt dây Ngọc Bích tự nhiên thuộc hành Mộc giúp bổ trợ Dụng thần Mộc, tăng cường sinh khí và cân bằng năng lượng cá nhân.',
+                time: 'Đeo lần đầu vào khoảng 07:00 – 09:00 sáng (Giờ Thìn) ngày Mùng 1 hoặc thứ Ba hoàng đạo.',
+                position: 'Đeo trước ngực gần tim hoặc để trong túi xách cá nhân mang theo bên mình.',
+                direction: 'Hướng Đông hoặc Đông Nam (hợp Dụng thần Mộc - thu hút vượng tài & sinh khí).',
+                clean: 'Lau rửa bằng nước muối loãng ấm 15 phút định kỳ mỗi tháng một lần để trì chú nạp lại năng lượng.'
+            },
+            'kim_long': {
+                title: 'Tượng Kim Long Chiêu Tài 24K',
+                battu: 'Lá số Bát tự của bạn khuyết Kim/Thổ. Tượng Kim Long Mạ Vàng 24K giúp vượng tài lộc, nâng cao quyền lực và mở rộng các mối quan hệ quý nhân.',
+                time: 'Đặt bài trí lần đầu vào 09:00 – 11:00 sáng (Giờ Tị) hướng Đông Nam hoặc góc tài lộc.',
+                position: 'Đặt trên bàn làm việc, kệ sách phòng khách hướng nhìn ra cửa chính.',
+                direction: 'Hướng Tây, Tây Bắc hoặc Đông Nam (hợp Dụng thần Kim/Thổ - góc tài lộc).',
+                clean: 'Dùng khăn sạch mềm lau bụi định kỳ, tránh đặt tượng sát khu vực ẩm thấp.'
+            },
+            'tram_huong': {
+                title: 'Vòng Tay Trầm Hương Ngũ Hành',
+                battu: 'Trầm hương tự nhiên chứa nguồn năng lượng Dương cực mạnh, giúp tịnh hóa xui xẻo, giải trừ vận hạn và mang lại sự bình an cho tâm trí.',
+                time: 'Đeo vòng lần đầu vào lúc 06:00 - 08:00 sáng, niệm chú bình an.',
+                position: 'Đeo tay trái khi dự sự kiện quan trọng để chiêu tài; đeo tay phải khi đi tới nơi có năng lượng xấu.',
+                direction: 'Hướng Đông hoặc Nam (hợp Dụng thần Mộc/Hỏa - vị trí cao ráo trang trọng).',
+                clean: 'Tránh ngâm nước lâu; lau nhẹ bằng khăn mềm khô và bảo quản trong hộp gỗ thơm.'
+            }
+        };
+
+        function openGuideModal(id) {
+            const data = mascotData[id] || mascotData['ngoc_bich'];
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-bat-tu').innerText = data.battu;
+            document.getElementById('modal-time').innerText = data.time;
+            document.getElementById('modal-position').innerText = data.position;
+            document.getElementById('modal-direction').innerText = data.direction || 'Hướng Đông hoặc Đông Nam';
+            document.getElementById('modal-clean').innerText = data.clean;
+
+            document.getElementById('guide-modal').classList.remove('hidden');
+        }
+
+        function closeGuideModal() {
+            document.getElementById('guide-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>

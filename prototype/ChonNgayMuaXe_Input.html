@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngày Tốt Mua Xe - Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F9FAFB;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+        }
+
+        /* Ẩn thanh cuộn */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Bottom Sheet Slide Up Animation */
+        .bottom-sheet {
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bottom-sheet.open {
+            transform: translateY(0);
+        }
+
+        /* Overlay Fade Animation */
+        .backdrop {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Loader pulse animations */
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-spinner {
+            animation: orbit 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+        <!-- HEADER TOP (Status Bar + Title Navigation) -->
+        <div class="bg-[#005CAC] text-white shrink-0 relative z-30 pt-3 pb-4">
+            <!-- Status Bar -->
+            <div class="flex justify-between items-center px-6 font-semibold text-[15px] tracking-tight">
+                <div>9:41</div>
+                <div class="flex items-center gap-1.5">
+                    <!-- Tín hiệu mạng -->
+                    <div class="flex items-end gap-[2px] h-[12px]">
+                        <div class="w-[3px] h-1.5 bg-white rounded-[1px]"></div>
+                        <div class="w-[3px] h-2 bg-white rounded-[1px]"></div>
+                        <div class="w-[3px] h-2.5 bg-white rounded-[1px]"></div>
+                        <div class="w-[3px] h-3 bg-white rounded-[1px]"></div>
+                    </div>
+                    <!-- Wifi -->
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <!-- Pin -->
+                    <div class="w-6 h-3 rounded-sm border border-white p-[1px] relative">
+                        <div class="bg-white w-[80%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-1 top-1 w-[2px] h-1 bg-white rounded-r-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navbar Title -->
+            <div class="flex items-center px-4 mt-3 relative">
+                <!-- Back Button -->
+                <button onclick="window.location.href='TrangChu_V2.html'"
+                    class="p-1 text-white hover:opacity-80 transition-opacity absolute left-4 z-10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Screen Title -->
+                <h1 class="text-[17px] font-bold tracking-wide text-center w-full">Chọn ngày tốt mua xe</h1>
+            </div>
+        </div>
+
+        <!-- MAIN SCROLLABLE CONTENT -->
+        <div class="flex-1 overflow-y-auto px-4 py-5 space-y-5">
+
+            <!-- UNIFIED HEADER & INPUT CONTAINER -->
+            <div class="-mx-4 -mt-5 bg-gradient-to-b from-[#FFF5EC] via-[#F0F7FF] to-[#F9FAFB] pt-[30px] pb-1 px-4 relative overflow-hidden">
+                <!-- Họa tiết phong thủy chìm và các vòng tròn màu sắc (aurora gradients) -->
+                <div class="absolute -left-10 -top-10 w-44 h-44 rounded-full bg-amber-200/50 blur-3xl"></div>
+                <div class="absolute right-12 -top-6 w-32 h-32 rounded-full bg-rose-200/40 blur-2xl"></div>
+                <div class="absolute -right-6 -bottom-6 w-36 h-36 rounded-full bg-blue-300/30 blur-2xl"></div>
+
+                <!-- Intro Header Row -->
+                <div class="relative z-10 flex items-center justify-between gap-3.5 px-1 mb-5">
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-[16px] font-extrabold text-[#B45309] leading-tight tracking-tight">
+                            Vạn dặm bình an, phúc lộc vẹn toàn
+                        </h2>
+                        <p class="text-gray-600 text-[12.5px] leading-relaxed font-medium mt-1">
+                            Xem ngày hợp tuổi để mua xe an tâm, khởi đầu thuận lợi.
+                        </p>
+                    </div>
+                    <!-- Car Icon -->
+                    <div class="w-[74px] h-[74px] shrink-0 relative -mt-1">
+                        <img src="clean_car_icon.png" alt="Auspicious Lucky Car" class="w-full h-full object-contain">
+                    </div>
+                </div>
+
+                <!-- OUTER FORM CARD WRAPPER -->
+                <div
+                    class="bg-white border border-gray-200/40 rounded-[16px] pt-3.5 pb-3 px-4 shadow-[0_6px_20px_rgba(0,0,0,0.015)] space-y-4 relative z-10">
+
+                    <!-- USER INFO SECTION (CLICKABLE CARD TO CHOOSE FAMILY MEMBER) -->
+                    <div onclick="openFamilySheet()" class="flex items-start bg-transparent relative py-1.5 px-2 -mx-2 cursor-pointer hover:bg-gray-50/70 rounded-[12px] transition-all">
+                        <div class="flex items-start gap-3.5 flex-1 pr-6">
+                            <!-- Avatar -->
+                            <div id="userAvatarContainer"
+                                class="w-8 h-8 rounded-full bg-[#FFEAEF] flex items-center justify-center shadow-inner relative overflow-hidden border border-[#FFD0DB] shrink-0">
+                                <span class="text-xl relative top-0.5" id="userAvatar">👧</span>
+                            </div>
+                            <!-- User text details -->
+                            <div class="flex flex-col min-w-0">
+                                <span class="font-bold text-gray-800 text-[15.5px] leading-tight truncate" id="profileName">Do Thi Mit Na</span>
+                                <div id="profileSubRow" class="flex items-center gap-1.5 text-gray-500 text-[13px] font-medium mt-0.5 whitespace-nowrap">
+                                    <span id="profileDob">15/10/1992</span>
+                                    <span class="text-gray-400">&middot;</span>
+                                    <span>Tuổi <span id="profileLunarAge" class="font-bold text-gray-800">Nhâm Thân</span></span>
+                                </div>
+                                <span id="profileLunarElementContainer" class="text-[12.5px] text-gray-500 mt-1 block">Mệnh <span id="profileLunarElement" class="font-bold text-gray-800">Kiếm Phong Kim</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Chevron Icon -->
+                        <div class="absolute top-1/2 -translate-y-1/2 right-1 text-[#005CAC] active:scale-95 transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- CAR COLOR SECTION -->
+                    <div class="space-y-2">
+                        <label class="text-[14px] font-semibold text-gray-700 tracking-wide block">Màu xe</label>
+                        <div onclick="openColorSheet()"
+                            class="border border-gray-200/60 rounded-[12px] py-3 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
+                            <div class="flex items-center gap-3">
+                                <span id="selectedColorText" class="text-gray-400 font-medium text-[15px]">Nhập màu xe
+                                    của bạn</span>
+                            </div>
+                            <!-- Dropdown Icon -->
+                            <div class="text-gray-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TIMEFRAME SECTION -->
+                    <div class="space-y-2">
+                        <label class="text-[14px] font-semibold text-gray-700 tracking-wide block">Khoảng thời gian
+                            xem</label>
+                        <div onclick="openTimeframeSheet()"
+                            class="border border-gray-200/60 rounded-[12px] py-2.5 px-4 flex justify-between items-center bg-white active:scale-[0.99] transition-all cursor-pointer hover:border-blue-300">
+                            <div class="flex flex-col">
+                                <span id="selectedTimeframeText" class="text-gray-800 font-bold text-[15px]">30 ngày
+                                    tới</span>
+                                <span id="selectedDateRange" class="text-gray-500 text-[13px] mt-0.5">15/06/2026 -
+                                    15/07/2026 (DL)</span>
+                            </div>
+                            <!-- Dropdown Icon -->
+                            <div class="text-gray-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT CTA BUTTON (Moved inside the card) -->
+                    <div class="pt-2">
+                        <button onclick="calculateResults()"
+                            class="w-full bg-[#005CAC] hover:bg-[#004d90] active:bg-[#003c70] text-white font-bold text-[15.5px] py-3.5 rounded-[12px] transition-all active:scale-[0.97] shadow-lg shadow-blue-900/15">
+                            Tìm ngày mua xe hợp tuổi
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- PROMOTIONAL BENEFITS SECTION (FLAT & READ-ONLY LIST) -->
+            <div class="px-1 pt-0 pb-2 space-y-2.5 !mt-5">
+                <h3 class="font-semibold text-[#005CAC] text-[15px] text-left px-1">
+                    Kết quả được luận riêng cho bạn
+                </h3>
+
+                <div class="space-y-2.5 text-[13.5px] px-1">
+                    <!-- Item 1: Ngày tốt hợp tuổi, hợp xe -->
+                    <div class="flex items-start gap-2.5">
+                        <svg class="w-[16px] h-[16px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="text-gray-700 font-medium leading-[1.7]">
+                            Ngày tốt hợp tuổi, hợp xe
+                        </p>
+                    </div>
+
+                    <!-- Item 2: Giờ tốt nên chọn để khởi đầu thuận lợi -->
+                    <div class="flex items-start gap-2.5">
+                        <svg class="w-[16px] h-[16px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="text-gray-700 font-medium leading-[1.7]">
+                            Giờ tốt nên chọn để khởi đầu thuận lợi
+                        </p>
+                    </div>
+
+                    <!-- Item 3: Luận giải vì sao ngày đó phù hợp với bạn -->
+                    <div class="flex flex-col">
+                        <div class="flex items-start gap-2.5">
+                            <svg class="w-[16px] h-[16px] text-emerald-600 shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <p class="text-gray-700 font-medium leading-[1.7]">
+                                Luận giải vì sao ngày đó phù hợp với bạn
+                            </p>
+                        </div>
+                        <div class="flex justify-end pr-1 mt-3">
+                            <button onclick="openLdpModal()"
+                                class="text-[13px] text-[#005CAC] hover:underline font-semibold flex items-center gap-0.5 cursor-pointer bg-transparent border-none p-0 focus:outline-none">
+                                Xem cách luận ngày ➔
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Link to Video (Interactive Thumbnail Card) -->
+                <div class="pt-3.5 border-t border-gray-100">
+                    <button onclick="openVideoModal()"
+                        class="w-full relative group rounded-[12px] overflow-hidden aspect-[16/7] bg-gray-900 flex items-center justify-center cursor-pointer focus:outline-none">
+                        <!-- Background Image (Mock Thumbnail) -->
+                        <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=600&q=80"
+                            alt="Video Thumbnail"
+                            class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-300">
+
+                        <!-- Overlay & Play Button -->
+                        <div
+                            class="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-all flex flex-col justify-between p-3 text-left">
+                            <!-- Duration Tag -->
+                            <div
+                                class="self-end bg-black/60 backdrop-blur-[2px] text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                                1:15
+                            </div>
+
+                            <!-- Middle Play Button -->
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div
+                                    class="w-11 h-11 bg-white/95 text-[#005CAC] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
+                                    <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Video Title Overlay -->
+                            <div class="text-white text-[12px] font-semibold drop-shadow-md pr-12 truncate">
+                                Vì sao mua xe cần xem ngày tốt?
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Xem thêm (Kiến thức phong thủy liên quan) -->
+                <div class="pt-3.5 border-t border-gray-100 space-y-2.5">
+                    <span class="text-[14px] font-bold text-gray-800 tracking-wide block">Xem thêm kiến thức phong thủy</span>
+                    <div class="space-y-2">
+                        <div onclick="openDeeplink('lichviet://article/huong-dan-cung-xe-moi-chuan-phong-thuy')" class="flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/40 hover:border-blue-200 transition-all">
+                            <span class="text-[13px] font-semibold text-gray-700">Hướng dẫn cúng xe mới chuẩn phong thủy ➔</span>
+                        </div>
+                        <div onclick="openDeeplink('lichviet://article/cach-hoa-giai-mau-xe-xung-khac-menh')" class="flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/40 hover:border-blue-200 transition-all">
+                            <span class="text-[13px] font-semibold text-gray-700">Cách hóa giải khi màu xe xung khắc mệnh ➔</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small spacer for comfortable scrolling -->
+                <div class="h-6"></div>
+            </div>
+
+        </div> <!-- /MAIN SCROLLABLE CONTENT -->
+
+        <!-- iOS Home Indicator -->
+        <div class="bg-white shrink-0 py-3 flex justify-center items-center relative z-10 border-t border-gray-50">
+            <div class="w-[134px] h-[5px] bg-black rounded-full"></div>
+        </div>
+
+        <!-- BACKDROP OVERLAY FOR SHEETS -->
+        <div id="backdropOverlay" onclick="closeAllSheets()" class="backdrop absolute inset-0 bg-black/40 z-40"></div>
+
+        <!-- 0. CHOOSE FAMILY MEMBER BOTTOM SHEET -->
+        <div id="familySheet"
+            class="bottom-sheet absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] z-50 p-5 pb-8 space-y-4 max-h-[70%] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 class="font-bold text-gray-800 text-[16.5px]">Chọn Thành Viên Gia Đình</h3>
+                <button onclick="closeAllSheets()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- List of family members -->
+            <div class="space-y-2.5 pt-1">
+                <!-- Member 1: Bản thân -->
+                <div onclick="selectFamilyMember('Do Thi Mit Na', '1992-10-15', 'nu')"
+                    class="family-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-blue-200 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-[#FFEAEF] flex items-center justify-center border border-[#FFD0DB]">
+                            <span class="text-lg">👧</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-gray-800 text-[14.5px]">Do Thi Mit Na (Bạn)</span>
+                            <span class="text-gray-500 text-[12px]">15/10/1992 &middot; Nhâm Thân</span>
+                        </div>
+                    </div>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+
+                <!-- Member 2: Chồng -->
+                <div onclick="selectFamilyMember('Nguyen Van Anh', '1988-05-12', 'nam')"
+                    class="family-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-blue-200 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-[#EBF5FF] flex items-center justify-center border border-[#BFDBFE]">
+                            <span class="text-lg">👦</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-gray-800 text-[14.5px]">Nguyen Van Anh (Chồng)</span>
+                            <span class="text-gray-500 text-[12px]">12/05/1988 &middot; Mậu Thìn</span>
+                        </div>
+                    </div>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+
+                <!-- Member 3: Con gái -->
+                <div onclick="selectFamilyMember('Nguyen Khanh Vy', '2018-08-20', 'nu')"
+                    class="family-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-blue-200 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-[#FFEAEF] flex items-center justify-center border border-[#FFD0DB]">
+                            <span class="text-lg">👧</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-gray-800 text-[14.5px]">Nguyen Khanh Vy (Con gái)</span>
+                            <span class="text-gray-500 text-[12px]">20/08/2018 &middot; Mậu Tuất</span>
+                        </div>
+                    </div>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Create new profile button -->
+            <button onclick="openProfileModalFromFamily()" class="w-full flex items-center justify-center gap-2 py-3.5 border border-dashed border-[#005CAC] text-[#005CAC] font-bold rounded-[12px] text-[14.5px] active:scale-[0.98] transition-all bg-blue-50/20">
+                <span>➕</span> Thêm thành viên gia đình
+            </button>
+        </div>
+
+        <!-- 1. COLOR SELECT BOTTOM SHEET -->
+        <div id="colorSheet"
+            class="bottom-sheet absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] z-50 p-5 pb-8 space-y-4 max-h-[70%] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 class="font-bold text-gray-800 text-[16px]">Chọn Màu Xe Hợp Bản Mệnh</h3>
+                <button onclick="closeAllSheets()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- List of options -->
+            <div class="space-y-2.5 pt-1">
+                <!-- Red Option -->
+                <div onclick="selectColor('Đỏ', '#EF4444', this)"
+                    class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-red-200 transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-[#EF4444] border border-black/10"></span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Đỏ (Hành Hỏa)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">Tương
+                            sinh</span>
+                        <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Black Option -->
+                <div onclick="selectColor('Đen', '#111827', this)"
+                    class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-[#111827] border border-black/10"></span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Đen (Hành Thủy)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">Hòa
+                            hợp</span>
+                        <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- White Option -->
+                <div onclick="selectColor('Trắng', '#FFFFFF', this)"
+                    class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-[#FFFFFF] border border-gray-300"></span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Trắng (Hành Kim)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">Bình
+                            thường</span>
+                        <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Silver Option -->
+                <div onclick="selectColor('Bạc / Xám', '#D1D5DB', this)"
+                    class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-gray-300 transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-[#D1D5DB] border border-black/10"></span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Bạc / Xám (Hành Kim)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">Bình
+                            thường</span>
+                        <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Blue Option -->
+                <div onclick="selectColor('Xanh dương', '#3B82F6', this)"
+                    class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-blue-200 transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-[#3B82F6] border border-black/10"></span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Xanh dương (Hành Thủy)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">Hòa
+                            hợp</span>
+                        <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- Gold/Brown Option -->
+                <div onclick="selectColor('Vàng / Nâu', '#EAB308', this)"
+                    class="color-option flex items-center justify-between p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer border border-gray-200/50 hover:border-yellow-200 transition-all">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-[#EAB308] border border-black/10"></span>
+                        <span class="font-semibold text-gray-800 text-[14.5px]">Vàng / Nâu (Hành Thổ)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="text-xs font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded border border-red-100">Khắc
+                            hành</span>
+                        <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. TIMEFRAME SELECT BOTTOM SHEET -->
+        <div id="timeframeSheet"
+            class="bottom-sheet absolute bottom-0 left-0 right-0 bg-white rounded-t-[24px] z-50 p-5 pb-8 space-y-4">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 class="font-bold text-gray-800 text-[16px]">Chọn Khoảng Thời Gian Xem</h3>
+                <button onclick="closeAllSheets()" class="text-gray-400 hover:text-gray-600 p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- List of options -->
+            <div class="space-y-2.5 pt-1 animate-fadeIn">
+                <div onclick="selectTimeframe('30 ngày tới', 1, this)"
+                    class="timeframe-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer flex justify-between items-center font-semibold text-gray-800 text-[14.5px] border border-transparent transition-all">
+                    <span>30 ngày tới (Mặc định)</span>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div onclick="selectTimeframe('3 tháng tới', 3, this)"
+                    class="timeframe-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer flex justify-between items-center font-semibold text-gray-800 text-[14.5px] border border-transparent transition-all">
+                    <span>3 tháng tới</span>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div onclick="selectTimeframe('6 tháng tới', 6, this)"
+                    class="timeframe-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer flex justify-between items-center font-semibold text-gray-800 text-[14.5px] border border-transparent transition-all">
+                    <span>6 tháng tới</span>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div onclick="selectTimeframe('1 năm tới', 12, this)"
+                    class="timeframe-option p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer flex justify-between items-center font-semibold text-gray-800 text-[14.5px] border border-transparent transition-all">
+                    <span>1 năm tới</span>
+                    <svg class="check-icon hidden w-5 h-5 text-[#005CAC]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <!-- Custom Range Trigger -->
+                <div onclick="toggleCustomRange()"
+                    class="p-3.5 rounded-[12px] bg-gray-50 active:bg-gray-200 cursor-pointer flex justify-between items-center font-semibold text-gray-800 text-[14.5px]">
+                    <span>Tùy chỉnh khoảng ngày</span>
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. CUSTOM DATE RANGE PICKER MODAL -->
+        <div id="customRangeModal"
+            class="hidden absolute inset-0 bg-black/60 z-50 flex items-center justify-center p-6">
+            <div class="bg-white rounded-[20px] w-full p-5 space-y-4 shadow-xl">
+                <h3 class="font-bold text-gray-800 text-[16px] text-center border-b border-gray-100 pb-2">Chọn Khoảng
+                    Ngày</h3>
+
+                <div class="space-y-3">
+                    <div class="space-y-1">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Từ ngày</label>
+                        <input type="date" id="startDateInput"
+                            class="w-full border border-gray-200 rounded-[10px] p-3 text-[14px] font-semibold text-gray-800 focus:border-blue-500 focus:outline-none" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Đến ngày</label>
+                        <input type="date" id="endDateInput"
+                            class="w-full border border-gray-200 rounded-[10px] p-3 text-[14px] font-semibold text-gray-800 focus:border-blue-500 focus:outline-none" />
+                    </div>
+                </div>
+
+                <div class="flex gap-2.5 pt-2">
+                    <button onclick="closeCustomRange()"
+                        class="flex-1 border border-gray-200 text-gray-500 font-bold py-3 rounded-[10px] text-[14px]">
+                        Hủy
+                    </button>
+                    <button onclick="saveCustomRange()"
+                        class="flex-1 bg-[#005CAC] text-white font-bold py-3 rounded-[10px] text-[14px]">
+                        Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. PROFILE EDIT MODAL (WITH Tactile gender selection buttons) -->
+        <div id="profileModal" class="hidden absolute inset-0 bg-black/60 z-50 flex items-center justify-center p-6">
+            <div class="bg-white rounded-[24px] w-full p-5 space-y-4 shadow-xl">
+                <h3 class="font-bold text-gray-800 text-[17px] text-center border-b border-gray-100 pb-2">Thông Tin
+                    Người Xem</h3>
+
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Họ và Tên</label>
+                        <input type="text" id="inputName"
+                            class="w-full border border-gray-200 rounded-[10px] p-3 text-[14.5px] font-semibold text-gray-800 focus:border-blue-500 focus:outline-none"
+                            placeholder="Do Thi Mit Na" />
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Ngày sinh dương lịch</label>
+                        <input type="date" id="inputDob"
+                            class="w-full border border-gray-200 rounded-[10px] p-3 text-[14.5px] font-semibold text-gray-800 focus:border-blue-500 focus:outline-none" />
+                    </div>
+
+                    <!-- Large tactile buttons for gender selection -->
+                    <div class="space-y-2">
+                        <label class="text-[12px] font-bold text-gray-500 uppercase">Giới tính</label>
+                        <div class="flex gap-3 pt-0.5">
+                            <button type="button" onclick="setGender('nu')" id="genderBtnNu"
+                                class="flex-1 flex items-center justify-center gap-2 py-3 rounded-[12px] border border-gray-200 bg-gray-50 text-gray-600 font-semibold text-[15px] transition-all">
+                                <span>👧 Nữ</span>
+                            </button>
+                            <button type="button" onclick="setGender('nam')" id="genderBtnNam"
+                                class="flex-1 flex items-center justify-center gap-2 py-3 rounded-[12px] border border-gray-200 bg-gray-50 text-gray-600 font-semibold text-[15px] transition-all">
+                                <span>👦 Nam</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2.5 pt-2">
+                    <button onclick="closeProfileModal()"
+                        class="flex-1 border border-gray-200 text-gray-500 font-bold py-3 rounded-[10px] text-[14px]">
+                        Hủy
+                    </button>
+                    <button onclick="saveProfile()"
+                        class="flex-1 bg-[#005CAC] text-white font-bold py-3 rounded-[10px] text-[14px]">
+                        Lưu thông tin
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Modal (Full-Screen Vertical Player) -->
+        <div id="videoModal" class="hidden absolute inset-0 bg-black z-50 flex flex-col justify-between p-4">
+            <!-- Close Button -->
+            <div class="flex justify-end relative z-20">
+                <button onclick="closeVideoModal()"
+                    class="text-white/80 hover:text-white bg-black/40 hover:bg-black/60 w-9 h-9 rounded-full flex items-center justify-center cursor-pointer transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Video Content View (Mock Vertical Video) -->
+            <div class="absolute inset-0 z-0">
+                <img id="videoBgImage"
+                    src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=600&auto=format&fit=crop"
+                    alt="Mock Video Content" class="w-full h-full object-cover brightness-[0.55]">
+            </div>
+
+            <!-- Loading Spinner Overlay (Simulating video load) -->
+            <div id="videoLoader" class="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3">
+                <div class="w-12 h-12 rounded-full border-4 border-white/20 border-t-white animate-spin"></div>
+                <span class="text-xs text-white/80 font-medium">Đang tải video...</span>
+            </div>
+
+            <!-- Playing State UI Overlay (Simulating play control) -->
+            <div id="videoPlayingUI"
+                class="hidden absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-5 pt-20 flex flex-col gap-4 text-white">
+                <!-- Video Metadata -->
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-6 h-6 rounded-full bg-[#005CAC] flex items-center justify-center text-[10px] font-bold">
+                            LV</div>
+                        <span class="font-bold text-[13px]">@Cố vấn Lịch Việt</span>
+                    </div>
+                    <p class="text-[12px] font-medium text-white/90 leading-relaxed">
+                        Ý nghĩa xem ngày tốt rước xe giúp vạn dặm bình an & khai thông tài lộc.
+                    </p>
+                </div>
+
+                <!-- Controls & Seek bar -->
+                <div class="space-y-2.5">
+                    <!-- Seek Bar -->
+                    <div class="flex items-center justify-between text-[11px] text-white/70">
+                        <div class="flex-1 h-1 bg-white/25 rounded-full overflow-hidden mr-3 relative">
+                            <!-- Progress Bar Animation simulation -->
+                            <div id="videoProgressBar" class="absolute left-0 top-0 bottom-0 bg-[#005CAC] w-[0%]"></div>
+                        </div>
+                        <span id="videoTimeText">0:00 / 1:15</span>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="flex items-center justify-between">
+                        <button id="videoPlayPauseBtn" onclick="togglePlayPause()"
+                            class="flex items-center gap-1.5 text-[11px] font-bold text-white/90 bg-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition-all cursor-pointer">
+                            <span id="videoBtnIcon">⏸️</span>
+                            <span id="videoBtnText">Tạm dừng</span>
+                        </button>
+                        <span class="text-[10px] text-white/40">Lịch Việt Phong Thủy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Landing Page Modal (Chi tiết phương pháp tính) -->
+        <div id="ldpModal" class="hidden absolute inset-0 bg-black/60 z-50 flex flex-col justify-end">
+            <!-- Modal Body (Bottom Sheet style but higher, e.g. 85% height) -->
+            <div
+                class="bg-white rounded-t-[24px] w-full h-[85%] flex flex-col overflow-hidden animate-[slideUp_0.3s_ease-out] shadow-2xl">
+                <!-- Header -->
+                <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between shrink-0">
+                    <h3 class="font-extrabold text-[15px] text-gray-800">Phương Pháp Tính Ngày Tốt Mua Xe</h3>
+                    <button onclick="closeLdpModal()"
+                        class="text-gray-400 hover:text-gray-600 bg-gray-100 p-1.5 rounded-full cursor-pointer focus:outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto p-5 space-y-5 text-gray-600 text-[12.5px] leading-relaxed">
+                    <!-- Section 1 -->
+                    <div class="space-y-1.5">
+                        <h4 class="font-bold text-[13.5px] text-gray-800 flex items-center gap-1.5">
+                            <span class="text-[#005CAC]">📜</span> Nguồn Gốc & Cơ Sở Khoa Học
+                        </h4>
+                        <p>
+                            Phương pháp xem ngày tốt mua xe của Lịch Việt kế thừa tinh hoa từ hệ thống Trạch Cát học cổ
+                            đại (Kinh Dịch, Thần Sa, Can Chi) kết hợp với thuật toán Phong Thủy Hiện Đại, được nghiên
+                            cứu và cố vấn bởi các chuyên gia dịch lý hàng đầu.
+                        </p>
+                    </div>
+
+                    <!-- Section 2 -->
+                    <div class="space-y-2.5">
+                        <h4 class="font-bold text-[13.5px] text-gray-800 flex items-center gap-1.5">
+                            <span class="text-[#005CAC]">🧮</span> Quy Trình Tính Toán 4 Lớp Lọc
+                        </h4>
+
+                        <div class="space-y-2.5 pl-0.5">
+                            <div class="p-3 bg-gray-50 rounded-[12px] border border-gray-100">
+                                <span class="font-bold text-gray-800 block mb-0.5 text-[13px]">Lớp 1: Loại bỏ ngày Đại
+                                    Xung Sát</span>
+                                Hệ thống tự động quét và loại bỏ triệt để các ngày đại hung ảnh hưởng xấu đến giao thông
+                                và mua bán: Sát Chủ, Thọ Tử, Vãng Vong, Nguyệt Kỵ, Tam Nương...
+                            </div>
+
+                            <div class="p-3 bg-gray-50 rounded-[12px] border border-gray-100">
+                                <span class="font-bold text-gray-800 block mb-0.5 text-[13px]">Lớp 2: Chọn ngày có Cát
+                                    Thần hộ mệnh</span>
+                                Lựa chọn ngày có các sao tốt chủ về bình an, may mắn nâng đỡ như: Dịch Mã (thuận lợi di
+                                chuyển), Thiên Đức, Nguyệt Đức, Lộc Mã, Sinh Khí...
+                            </div>
+
+                            <div class="p-3 bg-gray-50 rounded-[12px] border border-gray-100">
+                                <span class="font-bold text-gray-800 block mb-0.5 text-[13px]">Lớp 3: Tương hợp Can Chi
+                                    & Bản Mệnh</span>
+                                Phân tích thiên can, địa chi của ngày mua xe so với ngày tháng năm sinh của chủ xe. Loại
+                                bỏ ngày xung tuổi, chọn ngày tương sinh hoặc tam hợp/lục hợp với bản mệnh.
+                            </div>
+
+                            <div class="p-3 bg-gray-50 rounded-[12px] border border-gray-100">
+                                <span class="font-bold text-gray-800 block mb-0.5 text-[13px]">Lớp 4: Tương sinh Ngũ
+                                    Hành Màu Xe</span>
+                                Đối chiếu màu sắc chiếc xe với ngũ hành của ngày mua xe. Đảm bảo ngày rước xe không xung
+                                khắc với màu xe, tạo nên vòng tròn năng lượng hài hòa nhất.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 -->
+                    <div class="p-4 bg-orange-50/60 rounded-[16px] border border-orange-100/70 space-y-1.5">
+                        <span class="font-bold text-orange-800 text-[13px] block">💡 Lời khuyên từ Cố vấn Lịch
+                            Việt</span>
+                        <p class="text-orange-950 text-[12px] leading-relaxed">
+                            Chọn được ngày giờ cát tường tương hợp với bản mệnh không chỉ giúp quá trình di chuyển sau
+                            này hanh thông, tránh va chạm, mà còn giúp kích hoạt phong thủy, mang lại tài lộc, may mắn
+                            cho công việc làm ăn của chủ xe.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer button -->
+                <div class="p-4 border-t border-gray-100 shrink-0 bg-white">
+                    <button onclick="closeLdpModal()"
+                        class="w-full bg-[#005CAC] text-white font-bold py-3 rounded-[12px] text-[14px] cursor-pointer focus:outline-none hover:bg-[#004C8C] active:scale-[0.98] transition-all">
+                        Tôi đã hiểu, quay lại xem ngày tốt
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. HOROSCOPE CALCULATION LOADER (PREMIUM FEATURE) -->
+        <div id="loaderModal"
+            class="hidden absolute inset-0 bg-white/95 z-[60] flex flex-col items-center justify-center p-6 text-center">
+            <!-- Loading animated spinner with Chinese Bagua layout vibe -->
+            <div class="relative w-24 h-24 mb-6">
+                <!-- Outer spinning ring -->
+                <div
+                    class="absolute inset-0 rounded-full border-4 border-dashed border-[#005CAC] opacity-25 loading-spinner">
+                </div>
+                <!-- Inner spinning ring (opposite direction) -->
+                <div class="absolute inset-2 rounded-full border-4 border-double border-orange-500 loading-spinner"
+                    style="animation-duration: 2s; animation-direction: reverse;"></div>
+                <!-- Center Yin Yang symbol -->
+                <div
+                    class="absolute inset-6 rounded-full bg-gray-50 flex items-center justify-center text-3xl shadow-inner">
+                    ☯️
+                </div>
+            </div>
+
+            <h3 class="font-bold text-[18px] text-gray-800" id="loaderTitle">Đang phân tích phong thủy...</h3>
+            <p class="text-gray-500 text-[13.5px] mt-2 max-w-[80%] mx-auto" id="loaderSubtitle">Đang đối chiếu can chi
+                ngũ hành bản mệnh</p>
+        </div>
+
+        <!-- 6. PREVENT TOAST OVERLAY -->
+        <div id="toast"
+            class="absolute bottom-16 left-1/2 -translate-x-1/2 w-[85%] bg-gray-900/95 backdrop-blur-sm text-white text-[13.5px] font-medium p-3.5 rounded-[12px] z-[70] shadow-xl text-center transition-all opacity-0 pointer-events-none translate-y-4">
+            Vui lòng chọn đầy đủ thông tin!
+        </div>
+
+    </div> <!-- /phone-container -->
+
+    <script>
+        // Default initial states
+        let selectedColor = null;
+        let selectedTimeframe = "30 ngày tới";
+        let dateRange = "15/06/2026 - 15/07/2026 (DL)";
+
+        let userName = "Chọn thông tin người xem";
+        let userDob = "";
+        let userGender = "nu"; // nu | nam
+        let tempGender = "nu";
+
+        // Format date from YYYY-MM-DD to DD/MM/YYYY
+        function formatDateString(dateStr) {
+            if (!dateStr) return "";
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            return dateStr;
+        }
+
+        // Initialize state on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            // Load custom state from localStorage if exists to simulate real app state persistence
+            const savedName = localStorage.getItem('user_car_name');
+            const savedDob = localStorage.getItem('user_car_dob');
+            const savedGender = localStorage.getItem('user_car_gender');
+            const savedTimeframe = localStorage.getItem('selected_timeframe');
+            const savedDateRange = localStorage.getItem('selected_date_range');
+
+            if (savedName) userName = savedName;
+            if (savedDob) userDob = savedDob;
+            if (savedGender) userGender = savedGender;
+            if (savedTimeframe && savedTimeframe !== '3 tháng tới') {
+                selectedTimeframe = savedTimeframe;
+                document.getElementById('selectedTimeframeText').innerText = savedTimeframe;
+                if (savedDateRange) {
+                    dateRange = savedDateRange;
+                    document.getElementById('selectedDateRange').innerText = savedDateRange;
+                }
+            } else {
+                localStorage.removeItem('selected_timeframe');
+                localStorage.removeItem('selected_date_range');
+            }
+
+            updateProfileUI();
+            updateTestToggleUI();
+
+            // Set default date range picker inputs
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+
+            document.getElementById('startDateInput').value = today.toISOString().split('T')[0];
+
+            const sixMonths = new Date(today);
+            sixMonths.setMonth(today.getMonth() + 6);
+            document.getElementById('endDateInput').value = sixMonths.toISOString().split('T')[0];
+
+            document.getElementById('inputDob').value = "1992-10-15"; // default
+
+            // Set default color to "Đỏ" (Red)
+            let savedColor = localStorage.getItem('selected_car_color') || localStorage.getItem('user_car_color') || 'Đỏ';
+            if (savedColor === 'Đỏ cá tính') savedColor = 'Đỏ';
+            if (savedColor === 'Đen huyền bí') savedColor = 'Đen';
+            if (savedColor === 'Trắng tinh tế') savedColor = 'Trắng';
+            if (savedColor === 'Bạc / Xám lịch lãm') savedColor = 'Bạc / Xám';
+            if (savedColor === 'Xanh dương năng động') savedColor = 'Xanh dương';
+            if (savedColor === 'Vàng cát phú quý') savedColor = 'Vàng / Nâu';
+            const colorOptions = {
+                'Đỏ': '#EF4444',
+                'Đen': '#111827',
+                'Trắng': '#FFFFFF',
+                'Bạc / Xám': '#D1D5DB',
+                'Xanh dương': '#3B82F6',
+                'Vàng / Nâu': '#EAB308'
+            };
+            const hex = colorOptions[savedColor] || '#EF4444';
+            selectedColor = savedColor;
+            const text = document.getElementById('selectedColorText');
+            text.innerText = savedColor;
+            text.classList.remove('text-gray-400');
+            text.classList.add('text-gray-800', 'font-bold');
+        });
+
+        // Helper to get lunar year and element based on Gregorian Birth Year
+        function getLunarInfo(birthDateStr) {
+            let year = 1992;
+            if (birthDateStr) {
+                let parts = birthDateStr.split('-');
+                if (parts.length === 3) {
+                    year = parseInt(parts[0]);
+                } else {
+                    parts = birthDateStr.split('/');
+                    if (parts.length === 3) {
+                        year = parseInt(parts[2]);
+                    }
+                }
+            }
+            if (isNaN(year) || year < 1900 || year > 2100) year = 1992;
+
+            // 1984 is Giáp Tý
+            let diff = (year - 1984) % 60;
+            if (diff < 0) diff += 60;
+
+            const lunarData = [
+                { name: "Giáp Tý", element: "Hải Trung Kim" },
+                { name: "Ất Sửu", element: "Hải Trung Kim" },
+                { name: "Bính Dần", element: "Lư Trung Hỏa" },
+                { name: "Đinh Mão", element: "Lư Trung Hỏa" },
+                { name: "Mậu Thìn", element: "Đại Lâm Mộc" },
+                { name: "Kỷ Tỵ", element: "Đại Lâm Mộc" },
+                { name: "Canh Ngọ", element: "Lộ Bàng Thổ" },
+                { name: "Tân Mùi", element: "Lộ Bàng Thổ" },
+                { name: "Nhâm Thân", element: "Kiếm Phong Kim" },
+                { name: "Quý Dậu", element: "Kiếm Phong Kim" },
+                { name: "Giáp Tuất", element: "Sơn Đầu Hỏa" },
+                { name: "Ất Hợi", element: "Sơn Đầu Hỏa" },
+                { name: "Bính Tý", element: "Giản Hạ Thủy" },
+                { name: "Đinh Sửu", element: "Giản Hạ Thủy" },
+                { name: "Mậu Dần", element: "Thành Đầu Thổ" },
+                { name: "Kỷ Mão", element: "Thành Đầu Thổ" },
+                { name: "Canh Thìn", element: "Bạch Lạp Kim" },
+                { name: "Tân Tỵ", element: "Bạch Lạp Kim" },
+                { name: "Nhâm Ngọ", element: "Dương Liễu Mộc" },
+                { name: "Quý Mùi", element: "Dương Liễu Mộc" },
+                { name: "Giáp Thân", element: "Tuyền Trung Thủy" },
+                { name: "Ất Dậu", element: "Tuyền Trung Thủy" },
+                { name: "Bính Tuất", element: "Ốc Thượng Thổ" },
+                { name: "Đinh Hợi", element: "Ốc Thượng Thổ" },
+                { name: "Mậu Tý", element: "Tích Lịch Hỏa" },
+                { name: "Kỷ Sửu", element: "Tích Lịch Hỏa" },
+                { name: "Canh Dần", element: "Tùng Bách Mộc" },
+                { name: "Tân Mão", element: "Tùng Bách Mộc" },
+                { name: "Nhâm Thìn", element: "Trường Lưu Thủy" },
+                { name: "Quý Tỵ", element: "Trường Lưu Thủy" },
+                { name: "Giáp Ngọ", element: "Sa Trung Kim" },
+                { name: "Ất Mùi", element: "Sa Trung Kim" },
+                { name: "Bính Thân", element: "Sơn Hạ Hỏa" },
+                { name: "Đinh Dậu", element: "Sơn Hạ Hỏa" },
+                { name: "Mậu Tuất", element: "Bình Địa Mộc" },
+                { name: "Kỷ Hợi", element: "Bình Địa Mộc" },
+                { name: "Canh Tý", element: "Bích Thượng Thổ" },
+                { name: "Tân Sửu", element: "Bích Thượng Thổ" },
+                { name: "Nhâm Dần", element: "Kim Bạch Kim" },
+                { name: "Quý Mão", element: "Kim Bạch Kim" },
+                { name: "Giáp Thìn", element: "Phúc Đăng Hỏa" },
+                { name: "Ất Tỵ", element: "Phúc Đăng Hỏa" },
+                { name: "Bính Ngọ", element: "Thiên Hà Thủy" },
+                { name: "Đinh Mùi", element: "Thiên Hà Thủy" },
+                { name: "Mậu Thân", element: "Đại Trạch Thổ" },
+                { name: "Kỷ Dậu", element: "Đại Trạch Thổ" },
+                { name: "Canh Tuất", element: "Thoa Xuyến Kim" },
+                { name: "Tân Hợi", element: "Thoa Xuyến Kim" },
+                { name: "Nhâm Tý", element: "Tang Đố Mộc" },
+                { name: "Quý Sửu", element: "Tang Đố Mộc" },
+                { name: "Giáp Dần", element: "Đại Khê Thủy" },
+                { name: "Ất Mão", element: "Đại Khê Thủy" },
+                { name: "Bính Thìn", element: "Sa Trung Thổ" },
+                { name: "Đinh Tỵ", element: "Sa Trung Thổ" },
+                { name: "Mậu Ngọ", element: "Thiên Thượng Hỏa" },
+                { name: "Kỷ Mùi", element: "Thiên Thượng Hỏa" },
+                { name: "Canh Thân", element: "Thạch Lựu Mộc" },
+                { name: "Tân Dậu", element: "Thạch Lựu Mộc" },
+                { name: "Nhâm Tuất", element: "Đại Hải Thủy" },
+                { name: "Quý Hợi", element: "Đại Hải Thủy" }
+            ];
+
+            return lunarData[diff];
+        }
+
+        function updateProfileUI() {
+            if (!userName || userName === "Chọn thông tin người xem") {
+                document.getElementById('profileName').innerText = "Chọn thông tin người xem";
+                document.getElementById('profileSubRow').classList.add('hidden');
+                document.getElementById('profileLunarElementContainer').classList.add('hidden');
+                document.getElementById('userAvatar').innerText = "👤";
+                document.getElementById('userAvatarContainer').className = "w-8 h-8 rounded-full bg-gray-150 flex items-center justify-center shadow-inner relative overflow-hidden border border-gray-250 shrink-0";
+            } else {
+                document.getElementById('profileName').innerText = userName;
+                document.getElementById('profileDob').innerText = formatDateString(userDob);
+                document.getElementById('profileSubRow').classList.remove('hidden');
+                document.getElementById('profileLunarElementContainer').classList.remove('hidden');
+
+                // Cập nhật tuổi và mệnh âm lịch
+                const lunar = getLunarInfo(userDob);
+                document.getElementById('profileLunarAge').innerText = lunar.name;
+                document.getElementById('profileLunarElement').innerText = lunar.element;
+
+                const avatarSpan = document.getElementById('userAvatar');
+                if (userGender === 'nam') {
+                    avatarSpan.innerText = "👦";
+                    document.getElementById('userAvatarContainer').className = "w-8 h-8 rounded-full bg-[#EBF5FF] flex items-center justify-center shadow-inner relative overflow-hidden border border-[#BFDBFE] shrink-0";
+                } else {
+                    avatarSpan.innerText = "👧";
+                    document.getElementById('userAvatarContainer').className = "w-8 h-8 rounded-full bg-[#FFEAEF] flex items-center justify-center shadow-inner relative overflow-hidden border border-[#FFD0DB] shrink-0";
+                }
+            }
+        }
+
+        // --- SHEET & DIALOG CONTROLLERS ---
+
+        function openColorSheet() {
+            document.getElementById('backdropOverlay').classList.add('open');
+            document.getElementById('colorSheet').classList.add('open');
+
+            // Highlight current selection
+            document.querySelectorAll('.color-option').forEach(opt => {
+                const optText = opt.querySelector('.font-semibold').innerText;
+                if (selectedColor && optText.includes(selectedColor)) {
+                    opt.classList.add('border-[#005CAC]', 'bg-blue-50/40');
+                    opt.querySelector('.check-icon').classList.remove('hidden');
+                } else {
+                    opt.classList.remove('border-[#005CAC]', 'bg-blue-50/40');
+                    opt.querySelector('.check-icon').classList.add('hidden');
+                }
+            });
+        }
+
+        function openTimeframeSheet() {
+            document.getElementById('backdropOverlay').classList.add('open');
+            document.getElementById('timeframeSheet').classList.add('open');
+
+            // Highlight current selection
+            document.querySelectorAll('.timeframe-option').forEach(opt => {
+                const optText = opt.querySelector('span').innerText;
+                if (optText.includes(selectedTimeframe)) {
+                    opt.classList.add('border-[#005CAC]', 'bg-blue-50/40');
+                    opt.querySelector('.check-icon').classList.remove('hidden');
+                } else {
+                    opt.classList.remove('border-[#005CAC]', 'bg-blue-50/40');
+                    opt.querySelector('.check-icon').classList.add('hidden');
+                }
+            });
+        }
+
+        function closeAllSheets() {
+            document.getElementById('backdropOverlay').classList.remove('open');
+            document.getElementById('colorSheet').classList.remove('open');
+            document.getElementById('timeframeSheet').classList.remove('open');
+            document.getElementById('familySheet').classList.remove('open');
+        }
+
+        function openFamilySheet() {
+            document.getElementById('backdropOverlay').classList.add('open');
+            document.getElementById('familySheet').classList.add('open');
+
+            // Highlight current selection
+            document.querySelectorAll('.family-option').forEach(opt => {
+                const optText = opt.querySelector('.font-bold').innerText;
+                if (userName && optText.includes(userName)) {
+                    opt.classList.add('border-[#005CAC]', 'bg-blue-50/40');
+                    opt.querySelector('.check-icon').classList.remove('hidden');
+                } else {
+                    opt.classList.remove('border-[#005CAC]', 'bg-blue-50/40');
+                    opt.querySelector('.check-icon').classList.add('hidden');
+                }
+            });
+        }
+
+        function selectFamilyMember(name, dob, gender) {
+            userName = name;
+            userDob = dob;
+            userGender = gender;
+
+            updateProfileUI();
+            closeAllSheets();
+            showToast("Đã chọn người xem: " + name);
+        }
+
+        function openProfileModalFromFamily() {
+            closeAllSheets();
+            openProfileModal();
+        }
+
+        function openProfileModal() {
+            document.getElementById('inputName').value = userName;
+
+            // Format YYYY-MM-DD for date input
+            let formatedDob = userDob;
+            if (userDob.includes('/')) {
+                const parts = userDob.split('/');
+                formatedDob = `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+            document.getElementById('inputDob').value = formatedDob;
+
+            setGender(userGender);
+            document.getElementById('profileModal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').classList.add('hidden');
+        }
+
+        function toggleCustomRange() {
+            closeAllSheets();
+            document.getElementById('customRangeModal').classList.remove('hidden');
+        }
+
+        function closeCustomRange() {
+            document.getElementById('customRangeModal').classList.add('hidden');
+        }
+
+        function setGender(gender) {
+            tempGender = gender;
+            const btnNu = document.getElementById('genderBtnNu');
+            const btnNam = document.getElementById('genderBtnNam');
+
+            if (gender === 'nu') {
+                btnNu.className = "flex-1 flex items-center justify-center gap-2 py-3 rounded-[12px] border border-[#FFB6C1] bg-[#FFEAEF] text-[#D01C5C] font-semibold text-[15px] transition-all";
+                btnNam.className = "flex-1 flex items-center justify-center gap-2 py-3 rounded-[12px] border border-gray-200 bg-gray-50 text-gray-500 font-semibold text-[15px] transition-all";
+            } else {
+                btnNu.className = "flex-1 flex items-center justify-center gap-2 py-3 rounded-[12px] border border-gray-200 bg-gray-50 text-gray-500 font-semibold text-[15px] transition-all";
+                btnNam.className = "flex-1 flex items-center justify-center gap-2 py-3 rounded-[12px] border border-[#93C5FD] bg-[#EFF6FF] text-[#1E40AF] font-semibold text-[15px] transition-all";
+            }
+        }
+
+        // --- VIDEO INTRO HANDLERS ---
+        let videoInterval = null;
+        let videoCurrentSeconds = 0;
+        const videoTotalSeconds = 75; // 1:15
+        let isVideoPlaying = false;
+
+        function formatVideoTime(secs) {
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function openVideoModal() {
+            document.getElementById('videoModal').classList.remove('hidden');
+
+            // Reset state
+            isVideoPlaying = false;
+            videoCurrentSeconds = 0;
+            if (videoInterval) clearInterval(videoInterval);
+
+            document.getElementById('videoLoader').classList.remove('hidden');
+            document.getElementById('videoPlayingUI').classList.add('hidden');
+
+            // Simulate loading for 1s, then play
+            setTimeout(() => {
+                document.getElementById('videoLoader').classList.add('hidden');
+                document.getElementById('videoPlayingUI').classList.remove('hidden');
+                startPlayback();
+            }, 1000);
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').classList.add('hidden');
+            pausePlayback();
+        }
+
+        function startPlayback() {
+            isVideoPlaying = true;
+            document.getElementById('videoBtnIcon').innerText = "⏸️";
+            document.getElementById('videoBtnText').innerText = "Tạm dừng";
+
+            videoInterval = setInterval(() => {
+                if (videoCurrentSeconds < videoTotalSeconds) {
+                    videoCurrentSeconds++;
+                    // Update progress UI
+                    const percent = (videoCurrentSeconds / videoTotalSeconds) * 100;
+                    document.getElementById('videoProgressBar').style.width = percent + '%';
+                    document.getElementById('videoTimeText').innerText = `${formatVideoTime(videoCurrentSeconds)} / 1:15`;
+                } else {
+                    // Reset on end
+                    videoCurrentSeconds = 0;
+                    document.getElementById('videoProgressBar').style.width = '0%';
+                    document.getElementById('videoTimeText').innerText = `0:00 / 1:15`;
+                }
+            }, 1000);
+        }
+
+        function pausePlayback() {
+            isVideoPlaying = false;
+            document.getElementById('videoBtnIcon').innerText = "▶️";
+            document.getElementById('videoBtnText').innerText = "Tiếp tục";
+            if (videoInterval) clearInterval(videoInterval);
+        }
+
+        function togglePlayPause() {
+            if (isVideoPlaying) {
+                pausePlayback();
+            } else {
+                startPlayback();
+            }
+        }
+
+        // --- LDP INTRO HANDLERS ---
+        function openLdpModal() {
+            document.getElementById('ldpModal').classList.remove('hidden');
+        }
+
+        function closeLdpModal() {
+            document.getElementById('ldpModal').classList.add('hidden');
+        }
+
+        // --- ACTION HANDLERS ---
+
+        function selectColor(name, colorHex, element) {
+            selectedColor = name;
+
+            const text = document.getElementById('selectedColorText');
+            text.innerText = name;
+            text.classList.remove('text-gray-400');
+            text.classList.add('text-gray-800', 'font-bold');
+
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('border-[#005CAC]', 'bg-blue-50/40');
+                opt.querySelector('.check-icon').classList.add('hidden');
+            });
+
+            if (element) {
+                element.classList.add('border-[#005CAC]', 'bg-blue-50/40');
+                element.querySelector('.check-icon').classList.remove('hidden');
+            }
+
+            setTimeout(closeAllSheets, 200);
+        }
+
+        function selectTimeframe(label, monthsCount, element) {
+            selectedTimeframe = label;
+
+            // Calculate dynamic dates starting from today
+            const start = new Date();
+            const end = new Date();
+            end.setMonth(start.getMonth() + monthsCount);
+
+            const format = (d) => `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+            dateRange = `${format(start)} - ${format(end)}`;
+
+            document.getElementById('selectedTimeframeText').innerText = label;
+            document.getElementById('selectedDateRange').innerText = dateRange;
+
+            document.querySelectorAll('.timeframe-option').forEach(opt => {
+                opt.classList.remove('border-[#005CAC]', 'bg-blue-50/40');
+                opt.querySelector('.check-icon').classList.add('hidden');
+            });
+
+            if (element) {
+                element.classList.add('border-[#005CAC]', 'bg-blue-50/40');
+                element.querySelector('.check-icon').classList.remove('hidden');
+            }
+
+            setTimeout(closeAllSheets, 200);
+        }
+
+        function saveCustomRange() {
+            const startVal = document.getElementById('startDateInput').value;
+            const endVal = document.getElementById('endDateInput').value;
+
+            if (!startVal || !endVal) {
+                showToast("Vui lòng điền đủ khoảng ngày!");
+                return;
+            }
+
+            const start = new Date(startVal);
+            const end = new Date(endVal);
+
+            if (end <= start) {
+                showToast("Ngày kết thúc phải sau ngày bắt đầu!");
+                return;
+            }
+
+            const format = (d) => `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+            dateRange = `${format(start)} - ${format(end)}`;
+            selectedTimeframe = "Khoảng ngày chọn";
+
+            document.getElementById('selectedTimeframeText').innerText = selectedTimeframe;
+            document.getElementById('selectedDateRange').innerText = dateRange;
+
+            closeCustomRange();
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('inputName').value.trim();
+            const dob = document.getElementById('inputDob').value;
+
+            if (!name) {
+                showToast("Họ tên không được để trống!");
+                return;
+            }
+            if (!dob) {
+                showToast("Ngày sinh không được để trống!");
+                return;
+            }
+
+            userName = name;
+            userDob = dob;
+            userGender = tempGender;
+
+            updateProfileUI();
+            closeProfileModal();
+            showToast("Đã chọn hồ sơ mới!");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.className = "absolute bottom-20 left-1/2 -translate-x-1/2 w-[85%] bg-gray-900/95 backdrop-blur-sm text-white text-[13.5px] font-semibold p-3.5 rounded-[12px] z-[70] shadow-xl text-center transition-all opacity-100 translate-y-0";
+
+            setTimeout(() => {
+                toast.className = "absolute bottom-20 left-1/2 -translate-x-1/2 w-[85%] bg-gray-900/95 backdrop-blur-sm text-white text-[13.5px] font-semibold p-3.5 rounded-[12px] z-[70] shadow-xl text-center transition-all opacity-0 translate-y-4 pointer-events-none";
+            }, 2500);
+        }
+
+        function openDeeplink(url) {
+            showToast("Mở deeplink đã cấu hình:\n" + url);
+        }
+
+        // --- SIMULATED AUSPICIOUS DAYS CALCULATION ---
+
+        function calculateResults() {
+            if (!userName || userName === "Chọn thông tin người xem" || !userDob) {
+                showToast("Vui lòng chọn thông tin người xem");
+                return;
+            }
+
+            // Save to localStorage for the result screen to consume (Only save on CTA click)
+            localStorage.setItem('user_car_name', userName);
+            localStorage.setItem('user_car_dob', formatDateString(userDob));
+            localStorage.setItem('user_car_gender', userGender);
+            localStorage.setItem('selected_car_color', selectedColor || "");
+            localStorage.setItem('user_car_color', selectedColor || "");
+            localStorage.setItem('selected_timeframe', selectedTimeframe);
+            localStorage.setItem('selected_date_range', dateRange);
+
+            // Redirect immediately
+            window.location.href = 'ChonNgayMuaXe_Result.html';
+        }
+
+        function toggleTestPremiumMode() {
+            const current = localStorage.getItem('is_premium_user') === 'true';
+            localStorage.setItem('is_premium_user', current ? 'false' : 'true');
+            updateTestToggleUI();
+            showToast("Đã chuyển sang chế độ " + (current ? "Free" : "Premium"));
+        }
+
+        function updateTestToggleUI() {
+            const isPremium = localStorage.getItem('is_premium_user') === 'true';
+            document.getElementById('testModeText').innerText = "Chế độ: " + (isPremium ? "Premium 👑" : "Free");
+        }
+    </script>
+
+    <!-- TEST UTILITY TOGGLE -->
+    <div
+        class="fixed bottom-4 right-4 z-[99] bg-white/90 backdrop-blur-sm border border-gray-200 rounded-full shadow-lg px-3 py-1.5 flex items-center gap-2 text-xs font-bold text-gray-700">
+        <span id="testModeText">Chế độ: Free</span>
+        <button onclick="toggleTestPremiumMode()"
+            class="bg-[#005CAC] text-white px-2.5 py-1 rounded-full active:scale-95 transition-all">Đổi</button>
+    </div>
+</body>
+
+</html>

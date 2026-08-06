@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sự Kiện: Ngày Mùng Một</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e1e;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #FAF6EE;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Custom toggle styling using teal theme */
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0f766e;
+        }
+        .toggle-checkbox:checked + .toggle-label .toggle-dot {
+            transform: translateX(100%);
+        }
+
+        /* Slide up animation for bottom sheet */
+        .bottom-sheet {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .backdrop {
+            transition: opacity 0.3s ease;
+        }
+
+        .serif-font {
+            font-family: 'Lora', serif;
+        }
+
+        .text-glow {
+            text-shadow: 0 1px 3px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* Section label (nhãn dải nhóm) */
+        .section-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-container">
+        <!-- ============================================================= -->
+        <!-- COLLAPSING APP BAR (dính trên cùng, z-30) -->
+        <!-- Status bar + nút back luôn hiện; nền + tiêu đề "Ngày Mùng Một" mờ dần hiện ra khi cuộn -->
+        <!-- ============================================================= -->
+        <div class="absolute top-0 inset-x-0 z-30 select-none">
+            <!-- Lớp nền app bar (mờ 0 -> hiện dần khi cuộn) -->
+            <div id="appbar-bg" class="absolute inset-0 bg-[#FAF6EE] opacity-0 shadow-[0_2px_10px_rgba(0,0,0,0.06)] pointer-events-none"></div>
+
+            <div class="relative px-6 pt-3 pb-2">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center font-semibold text-[14px] text-gray-800 tracking-tight mb-1.5 opacity-90">
+                    <div>09:50</div>
+                    <div class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-800" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                        </svg>
+                        <div class="flex items-center gap-0.5">
+                            <span class="w-[3px] h-[6px] bg-gray-800 rounded-full"></span>
+                            <span class="w-[3px] h-[8px] bg-gray-800 rounded-full"></span>
+                            <span class="w-[3px] h-[10px] bg-gray-800 rounded-full"></span>
+                            <span class="w-[3px] h-[12px] bg-gray-800 rounded-full"></span>
+                        </div>
+                        <div class="w-6 h-3 rounded-sm border border-gray-800 p-[1px] relative">
+                            <div class="bg-gray-800 w-[80%] h-full rounded-[1px]"></div>
+                            <div class="absolute -right-1 top-1 w-[2px] h-1 bg-gray-800 rounded-r-[1px]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Bar Row: Back + Tiêu đề thu gọn (mờ 0 -> hiện khi hero cuộn đi) -->
+                <div class="flex items-center relative h-9">
+                    <button onclick="window.history.back()" class="relative z-10 w-7 h-7 shrink-0 bg-white hover:bg-gray-50 rounded-md flex items-center justify-center transition-colors shadow-sm">
+                        <svg class="w-3.5 h-3.5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <h1 id="appbar-title" class="absolute inset-x-0 text-center serif-font text-[17px] font-bold text-[#1b4332] opacity-0 transition-opacity duration-150 pointer-events-none">
+                        Ngày Mùng Một
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- SCROLLER (hero + quote + nội dung đều cuộn) -->
+        <!-- ============================================================= -->
+        <div id="scroller" class="flex-1 overflow-y-auto pb-6">
+
+            <!-- HERO (ảnh sen + tiêu đề) — nằm trong vùng cuộn nên trượt đi khi vuốt -->
+            <div class="relative h-[210px] px-6 pb-2 flex flex-col overflow-hidden select-none">
+                <!-- Background Image -->
+                <img src="./lotus_temple_v2.png" alt="Lotus Background" class="absolute inset-0 w-full h-full object-cover object-right-top z-0">
+
+                <!-- Gradient che phủ làm nhạt phần bên trái để dễ đọc chữ, phần phải trong suốt để nổi bật hoa sen -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#FAF6EE] via-[#FAF6EE]/40 to-transparent z-[1] pointer-events-none"></div>
+
+                <!-- Bottom Fade Gradient (Cho ảnh hero hoà nhập mượt mà với nền dưới) -->
+                <div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#FAF6EE] to-transparent z-[1] pointer-events-none"></div>
+
+                <!-- Hero Main Text (chừa chỗ pt-[100px] cho app bar phía trên) -->
+                <div class="relative z-10 flex flex-col items-start text-left flex-1 pt-[100px]">
+                    <!-- Title with Serif Font -->
+                    <h2 class="serif-font text-[21px] font-bold text-[#1b4332] leading-tight tracking-wide mb-0.5">
+                        Ngày Mùng Một
+                    </h2>
+                    <!-- Lunar Month Subtitle -->
+                    <div class="text-[17px] font-bold text-[#1b4332] opacity-90 tracking-wide mb-1">
+                        Tháng 6 âm lịch
+                    </div>
+                    <!-- Solar Date text flat -->
+                    <div class="text-[13.5px] font-medium text-[#1b4332]/80">
+                        Thứ Ba, 14/7/2026
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZONE 1 · BÌA CẢM XÚC: Quote nằm trên nền màu kem của app -->
+            <div class="px-6 pt-2 pb-2 relative select-none mt-[-6px]">
+                <div class="max-w-[95%] relative">
+                    <span class="text-[34px] font-serif text-[#0f766e]/25 leading-none absolute -top-1 -left-3 select-none">“</span>
+                    <p class="text-[13.5px] text-[#1b4332] font-semibold leading-relaxed pl-4">
+                        Khởi đầu tháng mới an lành,<br>giữ tâm sáng và đón những điều tốt đẹp.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Spacer to give first card breathing room since we removed Zone 1 -->
+            <div class="h-2"></div>
+
+                <!-- ============================================================= -->
+                <!-- THẺ A · LỄ ĐẦU THÁNG (thẻ trắng nổi) -->
+                <!-- ============================================================= -->
+                <section class="mx-4 mb-3 bg-white rounded-2xl px-5 py-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <span class="section-label text-gray-400">Lễ đầu tháng</span>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <img src="./i_VanKhan Copy@3x.png" alt="Văn khấn" class="w-11 h-11 object-contain shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-[15.5px] font-extrabold text-[#1b4332] mb-1">
+                                Văn khấn mùng 1
+                            </h4>
+                            <p class="text-[12px] text-gray-500 leading-relaxed font-medium">
+                                Bài khấn đầy đủ, kèm lễ vật gợi ý để chuẩn bị lễ cúng đầu tháng chu đáo hơn.
+                            </p>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-[#224d36] hover:bg-[#1a3b29] text-white font-extrabold text-[13px] py-3.5 rounded-xl transition-all active:scale-[0.99] shadow-sm flex justify-center items-center gap-2 mt-4">
+                        <span>📖</span> Xem văn khấn & lễ vật
+                    </button>
+                </section>
+
+                <!-- ============================================================= -->
+                <!-- THẺ B · NGÀY CỦA BẠN (thẻ trắng, nhấn bằng % teal + thanh tiến trình) -->
+                <!-- ============================================================= -->
+                <section class="mx-4 mb-3 bg-white rounded-2xl px-5 py-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <span class="section-label text-[#0f766e]/70">Ngày của bạn</span>
+                        <span class="flex-1 h-px bg-[#0f766e]/15"></span>
+                    </div>
+
+                    <!-- Chỉ số nổi bật + nhãn -->
+                    <div class="flex items-end justify-between mb-2">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-[34px] leading-none font-black text-[#0f766e]">75%</span>
+                            <span class="text-[15px] font-extrabold text-[#0f766e]/80 pb-0.5">· Khá tốt</span>
+                        </div>
+                        <span class="text-[12px] font-bold text-[#0f766e]/70 flex items-center gap-1 pb-1">
+                            🔮 Chỉ số hợp tuổi
+                        </span>
+                    </div>
+
+                    <!-- Thanh tiến trình chỉ số -->
+                    <div class="h-1.5 w-full bg-[#0f766e]/10 rounded-full overflow-hidden mb-4">
+                        <div class="h-full bg-[#0f766e] rounded-full" style="width:75%"></div>
+                    </div>
+
+                    <p class="text-[12.5px] text-[#1b4332]/70 font-medium leading-relaxed mb-3.5">
+                        Khí vận tương sinh, rất thích hợp cho các hoạt động thường nhật:
+                    </p>
+
+                    <!-- Badges việc hợp tuổi -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-gray-100 text-gray-700 text-[12px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
+                            🛍️ Mua sắm
+                        </span>
+                        <span class="bg-gray-100 text-gray-700 text-[12px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
+                            ⛩️ Đi chùa
+                        </span>
+                        <span class="bg-gray-100 text-gray-700 text-[12px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
+                            👥 Gặp bạn bè
+                        </span>
+                    </div>
+
+                    <a href="./ChonNgayMuaXe_Detail.html" class="w-full bg-[#f0f7f5] hover:bg-[#e5f1ee] text-[#0f766e] font-bold text-[13px] py-3 rounded-xl border border-[#0f766e]/20 transition-colors flex justify-center items-center gap-1">
+                        Xem chi tiết ngày tốt xấu
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </section>
+
+                <!-- ============================================================= -->
+                <!-- THẺ C · GỢI Ý CHO BẠN — Upsell Tử Vi (thẻ trắng viền hổ phách) -->
+                <!-- ============================================================= -->
+                <section class="mx-4 mb-3 bg-white rounded-2xl px-5 py-5 shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-amber-100">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <span class="section-label text-[#b45309]/70">Gợi ý cho bạn</span>
+                        <span class="flex-1 h-px bg-[#b45309]/15"></span>
+                    </div>
+
+                    <h4 class="text-[14.5px] font-extrabold text-gray-900 mb-1">Luận giải Tử Vi tháng mới</h4>
+                    <p class="text-[12.5px] text-gray-600 mb-3.5 leading-relaxed">
+                        Nhận phân tích vận hạn tài lộc, tình duyên chi tiết theo Lá Số Bát Tự.
+                    </p>
+                    <button class="w-full bg-amber-50/60 hover:bg-amber-50 text-[#78350F] font-bold text-[13px] py-2.5 rounded-xl border border-amber-300 transition-colors flex justify-center items-center gap-1">
+                        ✨ Xem Lá Số Của Tôi
+                    </button>
+                </section>
+
+                <!-- ============================================================= -->
+                <!-- THẺ D · CÀI ĐẶT & TÌM HIỂU THÊM (thẻ trắng) -->
+                <!-- ============================================================= -->
+                <section class="mx-4 mb-3 bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+                    <!-- Nhóm con: Cài đặt nhắc nhở -->
+                    <div class="px-5 pt-5 pb-1">
+                        <div class="flex items-center gap-2.5">
+                            <span class="section-label text-gray-400">Cài đặt nhắc nhở</span>
+                        </div>
+                    </div>
+
+                    <div class="divide-y divide-gray-100 px-5">
+                        <!-- Tần suất lặp lại -->
+                        <div class="flex items-center justify-between py-3.5">
+                            <span class="text-[13.5px] font-medium text-gray-700">Tần suất</span>
+                            <span class="text-[13.5px] font-bold text-gray-400">Lặp lại hàng tháng</span>
+                        </div>
+
+                        <!-- Nhắc đúng ngày -->
+                        <div class="flex items-center justify-between py-3.5">
+                            <div class="flex flex-col">
+                                <span class="text-[13.5px] font-bold text-gray-800">Nhắc đúng ngày</span>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <span class="text-[12.5px] font-bold text-[#0f766e] bg-teal-50 px-2 py-0.5 rounded" id="time1-display">06:30</span>
+                                    <button onclick="openTimePicker(1)" class="text-gray-400 hover:text-[#0f766e] p-0.5 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="relative inline-block w-11 h-6 select-none">
+                                <input type="checkbox" id="toggle1" class="toggle-checkbox absolute block w-0 h-0 opacity-0" checked>
+                                <label for="toggle1" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 cursor-pointer transition-colors duration-200">
+                                    <span class="toggle-dot block w-5 h-5 rounded-full bg-white shadow-sm absolute left-0.5 top-0.5 transition-transform duration-200"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Nhắc trước 1 ngày -->
+                        <div class="flex items-center justify-between py-3.5">
+                            <div class="flex flex-col">
+                                <span class="text-[13.5px] font-bold text-gray-800">Nhắc trước 1 ngày</span>
+                                <div class="flex items-center gap-1.5 mt-0.5">
+                                    <span class="text-[12.5px] font-bold text-[#0f766e] bg-teal-50 px-2 py-0.5 rounded" id="time2-display">06:30</span>
+                                    <button onclick="openTimePicker(2)" class="text-gray-400 hover:text-[#0f766e] p-0.5 transition-colors">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="relative inline-block w-11 h-6 select-none">
+                                <input type="checkbox" id="toggle2" class="toggle-checkbox absolute block w-0 h-0 opacity-0">
+                                <label for="toggle2" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-200 cursor-pointer transition-colors duration-200">
+                                    <span class="toggle-dot block w-5 h-5 rounded-full bg-white shadow-sm absolute left-0.5 top-0.5 transition-transform duration-200"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nhóm con: Góc tri thức (Accordion) -->
+                    <div class="border-t border-gray-100 mt-3">
+                        <button onclick="toggleAccordion()" class="w-full px-5 py-4 flex items-center justify-between hover:bg-amber-100/15 transition-colors">
+                            <span class="text-[14.5px] font-extrabold text-gray-800 flex items-center gap-1.5">
+                                <span>📖</span> Ý nghĩa ngày mùng 1 âm lịch
+                            </span>
+                            <svg id="accordion-arrow" class="w-5 h-5 text-gray-400 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div id="accordion-content" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-5 pb-5 pt-1 text-[13px] text-gray-600 leading-relaxed font-medium space-y-2.5">
+                                <p>
+                                    Ngày mùng 1 âm lịch (hay còn gọi là ngày Sóc) là thời điểm trăng hoàn toàn bị che khuất khi Mặt Trăng nằm giữa Trái Đất và Mặt Trời.
+                                </p>
+                                <p>
+                                    Trong truyền thống Á Đông, đây là thời khắc giao thời quan trọng khi khí âm cũ tan đi, khí dương mới bắt đầu sinh sôi nảy nở. Do đó, mùng 1 được coi là ngày khởi đầu, rất thích hợp để cầu may mắn, tịnh tâm thiền định, ăn chay thanh lọc cơ thể và hướng tới những ý niệm thiện lành.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        <!-- SIMULATED BOTTOM SHEET FOR TIME PICKER -->
+        <div id="backdrop" onclick="closeTimePicker()" class="backdrop fixed inset-0 bg-black/60 z-40 opacity-0 pointer-events-none"></div>
+        <div id="bottom-sheet" class="bottom-sheet fixed bottom-0 left-0 right-0 max-w-[390px] mx-auto bg-white rounded-t-[32px] p-6 z-50 transform translate-y-full shadow-[0_-8px_30px_rgba(0,0,0,0.15)]">
+            <!-- Indicator bar -->
+            <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
+
+            <h4 class="text-[16px] font-black text-gray-800 mb-4 text-center">Chỉnh sửa giờ nhắc nhở</h4>
+
+            <!-- Time Picker Selector Inputs -->
+            <div class="flex justify-center items-center gap-3 my-6">
+                <!-- Hour select -->
+                <div class="flex flex-col items-center">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Giờ</span>
+                    <select id="hour-select" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-[18px] font-black text-gray-800 focus:outline-none focus:border-indigo-500">
+                        <!-- Hour Options populated by JS -->
+                    </select>
+                </div>
+
+                <span class="text-[20px] font-bold text-gray-400 mt-4">:</span>
+
+                <!-- Minute select -->
+                <div class="flex flex-col items-center">
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Phút</span>
+                    <select id="minute-select" class="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-[18px] font-black text-gray-800 focus:outline-none focus:border-indigo-500">
+                        <!-- Minute Options populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeTimePicker()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-[13.5px] py-3.5 rounded-xl transition-colors">
+                    Hủy
+                </button>
+                <button onclick="saveTime()" class="flex-1 bg-[#0f766e] hover:bg-[#0d9488] text-white font-bold text-[13.5px] py-3.5 rounded-xl transition-colors shadow-md shadow-teal-900/10">
+                    Lưu thay đổi
+                </button>
+            </div>
+        </div>
+
+        <!-- Home Indicator (iOS Bar) -->
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black/80 rounded-full z-30"></div>
+    </div>
+
+    <!-- JAVASCRIPT FOR INTERACTION -->
+    <script>
+        // ---- Collapsing app bar khi cuộn: hero + quote trượt đi, chỉ còn app bar + tiêu đề ----
+        const scroller = document.getElementById('scroller');
+        const appbarBg = document.getElementById('appbar-bg');
+        const appbarTitle = document.getElementById('appbar-title');
+        const COLLAPSE = 190; // khoảng cuộn (px) để app bar hiện đầy
+
+        scroller.addEventListener('scroll', () => {
+            const t = Math.min(scroller.scrollTop / COLLAPSE, 1);
+            appbarBg.style.opacity = t;                          // nền app bar mờ -> đặc
+            appbarTitle.style.opacity = Math.max(0, (t - 0.55) / 0.45); // tiêu đề hiện ở đoạn cuối
+        });
+
+        // Populate select elements
+        const hourSelect = document.getElementById('hour-select');
+        const minuteSelect = document.getElementById('minute-select');
+
+        for (let i = 0; i < 24; i++) {
+            const h = i < 10 ? '0' + i : i;
+            hourSelect.options.add(new Option(h, h));
+        }
+        for (let i = 0; i < 60; i += 5) { // 5 minutes step
+            const m = i < 10 ? '0' + i : i;
+            minuteSelect.options.add(new Option(m, m));
+        }
+
+        let activeTimerIndex = 0;
+
+        function openTimePicker(index) {
+            activeTimerIndex = index;
+            const displayEl = document.getElementById(`time${index}-display`);
+            const [currentHour, currentMin] = displayEl.innerText.split(':');
+
+            // Set current values
+            hourSelect.value = currentHour;
+            // Round to nearest 5 minutes option
+            const nearestFive = Math.round(parseInt(currentMin) / 5) * 5;
+            const nearestFiveStr = nearestFive < 10 ? '0' + nearestFive : (nearestFive === 60 ? '00' : nearestFive.toString());
+            minuteSelect.value = nearestFiveStr;
+
+            // Slide up
+            document.getElementById('backdrop').classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('bottom-sheet').classList.remove('translate-y-full');
+        }
+
+        function closeTimePicker() {
+            document.getElementById('backdrop').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('bottom-sheet').classList.add('translate-y-full');
+        }
+
+        function saveTime() {
+            const newTime = `${hourSelect.value}:${minuteSelect.value}`;
+            document.getElementById(`time${activeTimerIndex}-display`).innerText = newTime;
+            closeTimePicker();
+        }
+
+        // Accordion toggle
+        let isAccordionOpen = false;
+        function toggleAccordion() {
+            isAccordionOpen = !isAccordionOpen;
+            const content = document.getElementById('accordion-content');
+            const arrow = document.getElementById('accordion-arrow');
+
+            if (isAccordionOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                content.style.maxHeight = '0';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
+</body>
+
+</html>
