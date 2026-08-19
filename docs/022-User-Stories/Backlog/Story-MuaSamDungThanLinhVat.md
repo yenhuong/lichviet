@@ -110,7 +110,7 @@ Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) gi�
 
 - [ ] Mỗi linh vật (đã mua thành công) hiển thị: ảnh sản phẩm, nhãn loại, tên sản phẩm, dòng dụng thần phù hợp (ví dụ `"Phù hợp với Dụng thần Mộc"`), và 2 nút `"Chia sẻ"` / `"Xem chi tiết"`.
 - [ ] Nhãn loại hiển thị đúng theo nhóm linh vật: `"Linh vật hộ thân"`, `"Linh vật đặt"` hoặc `"Vòng tay phong thủy"`.
-- [ ] **TH1 - Linh vật gắn với người nhận**: hiển thị dòng `"Dành cho"` kèm tên người dùng (ví dụ `"Dành cho: Minh Anh"`).
+- [ ] **TH1 - Linh vật gắn với người nhận (người mà người dùng nhập thông tin lá số)**: hiển thị dòng `"Dành cho"` kèm tên người dùng (ví dụ `"Dành cho: Minh Anh"`).
 - [ ] **TH2 - Linh vật không gắn người nhận cụ thể**: ẩn dòng `"Dành cho"`, chỉ hiển thị dòng dụng thần phù hợp (không hiển thị nhãn rỗng).
 
 **4. Nút "Chia sẻ" trên mỗi thẻ (Interaction)**
@@ -122,9 +122,7 @@ Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) gi�
 
 **5. Nút "Xem chi tiết" trên mỗi thẻ (Interaction)**
 
-- [ ] Bấm nút `"Xem chi tiết"` trên một thẻ linh vật → mở file PDF thông tin chi tiết của đúng linh vật đó, không nhầm sang linh vật khác (nội dung file PDF xem [US-03](#us-03-xem-chi-tiết-linh-vật-qua-file-pdf)).
-- [ ] **Khi linh vật chưa có file PDF**: ẩn hoàn toàn nút `"Xem chi tiết"` trên thẻ đó (không hiển thị nút bị vô hiệu).
-- [ ] **Khi mở PDF thất bại (lỗi mạng / không tải được file)**: hệ thống báo cho người dùng biết thay vì im lặng.
+- [ ] Bấm nút `"Xem chi tiết"` trên một thẻ linh vật → mở ra màn tổng hợp nội dung vật phẩm
 
 **6. Đóng / quay lại (Interaction)**
 
@@ -132,39 +130,39 @@ Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) gi�
 
 ---
 
-## US-03: Xem chi tiết linh vật qua file PDF
+## US-03: Xem chi tiết nội dung tổng hợp vật phẩm
 
 **User Story**
 **As a** người dùng Lịch Việt đang xem danh sách "Vật phẩm của tôi"
-**I want to** mở file PDF thông tin chi tiết của một linh vật đã mua thành công
+**I want to** mở màn nội dung tổng hợp của một linh vật đã mua thành công
 **So that** tôi hiểu ý nghĩa, lý do hợp Bát tự và biết cách dùng linh vật đúng để phát huy hiệu quả
 
 **INVEST Self-check**
 
-| Tiêu chí            | Đánh giá | Ghi chú                                                                           |
-| --------------------- | ----------- | ---------------------------------------------------------------------------------- |
-| **I**ndependent | ✅          | Nội dung file PDF gắn với từng linh vật, không phụ thuộc story khác.      |
-| **N**egotiable  | ✅          | Bố cục và cách trình bày nội dung PDF có thể tinh chỉnh theo thiết kế. |
-| **V**aluable    | ✅          | Tăng niềm tin và trải nghiệm sử dụng linh vật của người dùng.          |
-| **E**stimable   | ✅          | Nội dung PDF theo từng loại linh vật rõ ràng, dễ ước lượng.             |
-| **S**mall       | ✅          | Thực hiện trong 1 ngày làm việc.                                              |
-| **T**estable    | ✅          | Kiểm chứng được nội dung PDF đúng theo từng linh vật.                    |
+| Tiêu chí            | Đánh giá | Ghi chú                                                                                       |
+| --------------------- | ----------- | ---------------------------------------------------------------------------------------------- |
+| **I**ndependent | ✅          | Nội dung màn tổng hợp gắn với từng linh vật, không phụ thuộc story khác.           |
+| **N**egotiable  | ✅          | Bố cục và cách trình bày nội dung màn tổng hợp có thể tinh chỉnh theo thiết kế. |
+| **V**aluable    | ✅          | Tăng niềm tin và trải nghiệm sử dụng linh vật của người dùng.                      |
+| **E**stimable   | ✅          | Nội dung màn tổng hợp theo từng loại linh vật rõ ràng, dễ ước lượng.             |
+| **S**mall       | ✅          | Thực hiện trong 1 ngày làm việc.                                                          |
+| **T**estable    | ✅          | Kiểm chứng được nội dung màn tổng hợp đúng theo từng linh vật.                    |
 
 ### Tiêu chí nghiệm thu
 
-**1. Nội dung file PDF (Happy path)**
+**1. Nội dung màn tổng hợp vật phẩm (Happy path)**
 
-- [ ] File PDF hiển thị tên linh vật đang xem (ví dụ `"Mặt Dây Chuyền Ngọc Bích Hộ Thân"`).
-- [ ] File PDF có phần giải mã Bát tự - lý do linh vật hợp với Bát tự của người dùng.
-- [ ] File PDF có phần hướng dẫn khai quang & sử dụng gồm: giờ Hoàng Đạo đeo/đặt lần đầu, vị trí đeo hoặc bài trí, cách tẩy uế & nạp năng lượng định kỳ.
+- [ ] Màn tổng hợp hiển thị tên linh vật đang xem (ví dụ `"Mặt Dây Chuyền Ngọc Bích Hộ Thân"`).
+- [ ] Màn tổng hợp có phần giải mã Bát tự - lý do linh vật hợp với Bát tự của người dùng.
+- [ ] Màn tổng hợp có phần hướng dẫn khai quang & sử dụng gồm: giờ tốt đeo/đặt lần đầu, vị trí đeo hoặc bài trí, cách tẩy uế & nạp năng lượng định kỳ.
 
 **2. Cá nhân hoá nội dung theo linh vật (Happy path & Edge case)**
 
-- [ ] Nội dung trong PDF thay đổi đúng theo linh vật được chọn, không hiển thị nhầm nội dung của linh vật khác.
+- [ ] Nội dung trong màn tổng hợp thay đổi đúng theo linh vật được chọn, không hiển thị nhầm nội dung của linh vật khác.
 - [ ] **TH1 - Linh vật hộ thân (ví dụ Ngọc Bích)**: nội dung đúng theo linh vật đeo/mang bên mình.
 - [ ] **TH2 - Linh vật đặt (ví dụ Kim Long)**: nội dung đúng theo linh vật bài trí tại vị trí.
 - [ ] **TH3 - Vòng tay phong thủy (ví dụ Vòng tay Trầm hương)**: nội dung đúng theo linh vật đeo tay (bao gồm hướng dẫn đeo tay trái/tay phải theo mục đích).
 
 **3. Trường hợp lỗi (Negative path)**
 
-- [ ] **Khi nội dung PDF của linh vật thiếu/không đầy đủ**: hệ thống báo cho người dùng biết thay vì hiển thị PDF rỗng hoặc nội dung sai.
+- [ ] **Khi nội dung tổng hợp của linh vật thiếu/không đầy đủ**: hệ thống báo cho người dùng biết thay vì hiển thị màn trống hoặc nội dung sai.

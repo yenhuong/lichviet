@@ -21,7 +21,7 @@ Tài liệu này chốt lại bộ template để Dev cấu hình FCM và tránh
 
 - **Đối tượng nhận:** Người dùng bật thông báo **và** đã thiết lập ngày sinh **khác ngày sinh mặc định** (`15/05/1950`, `01/01/2000`). Người dùng còn ngày sinh mặc định → dùng bản fallback không cá nhân hóa (mục 6).
 - **Thời điểm:** 06:30 sáng đúng ngày Mùng 1 âm lịch (múi giờ thiết bị, mặc định GMT+7).
-- **Click action:** Mở màn hình **Chi tiết ngày** của hôm nay, mở sẵn tab/pop-up **Văn khấn Mùng 1**.
+- **Click action:** Mở màn hình **Bản tin đầu tháng** (`prototype/BanTinDauThang.html`) — bản tin theo dịp bao gồm tổng quan tháng, vận trình tháng, tử vi hôm nay, gieo quẻ đầu tháng, thời điểm đáng chú ý, việc hợp tuổi và tâm linh Mùng 1.
 
 ---
 
@@ -128,5 +128,5 @@ Không có `{can_chi}` đáng tin → **bỏ chỉ số & việc hợp tuổi**,
 - [ ] Dev map được `{chi_so} → {tier} → cụm chỉ số/lời chúc` đúng bảng mục 3.
 - [ ] Engine trả `{ds_viec}` đã sắp xếp theo điểm hợp tuổi, client cắt còn ≤3 mục + `…`.
 - [ ] 4 case chính + fallback render đúng trên Android & iOS, không tràn/cắt chữ ở trạng thái thu gọn.
-- [ ] Deep link mở Chi tiết ngày + tab Văn khấn Mùng 1.
+- [ ] Deep link mở màn hình Bản tin đầu tháng (`BanTinDauThang.html`).
 - [ ] Gắn đủ tracking params (mục 8), verify sự kiện Sent/Delivered/Opened.
