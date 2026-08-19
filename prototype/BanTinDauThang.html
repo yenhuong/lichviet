@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản tin đầu tháng - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #1B4D3E;
+            --primary-light: #2D6A4F;
+            --accent-gold: #D97706;
+            --gold-light: #FEF3C7;
+            --bg-page: #F6F7F2;
+            --card-bg: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --border-subtle: #E2E8F0;
+            --blue-bg: #EFF6FF;
+            --blue-text: #1D4ED8;
+            --amber-bg: #FFFBEB;
+            --amber-text: #92400E;
+            --red-bg: #FEF2F2;
+            --red-text: #DC2626;
+            --green-badge: #DCFCE7;
+            --green-text: #15803D;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            font-variant-numeric: lining-nums proportional-nums;
+            font-feature-settings: "lnum" 1;
+            color: var(--text-dark);
+            padding: 20px 0;
+        }
+
+        /* Phone Mockup Shell */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #090D16;
+            border-radius: 54px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 2px #334155,
+                0 25px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 10px #0F172A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Phone Side Buttons */
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 90px;
+            background: #1E293B;
+            border-radius: 4px 0 0 4px;
+        }
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 70px;
+            background: #1E293B;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: #FFFFFF;
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 44px;
+            background-color: #FAFBF7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Top App Bar */
+        .app-bar {
+            height: 52px;
+            background-color: #FAFBF7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 99;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+            flex-shrink: 0;
+        }
+
+        .app-bar .action-btn {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: background 0.2s;
+            border: none;
+            background: transparent;
+        }
+
+        .app-bar .action-btn:active {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .app-bar .title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Main Scrollable Area */
+        .scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scroll-behavior: smooth;
+        }
+
+        /* Ngăn các card bị flexbox co lại và đè lên nhau
+           (flex item có overflow:hidden sẽ có min-height:auto = 0) */
+        .scroll-container > * {
+            flex-shrink: 0;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.15);
+            border-radius: 4px;
+        }
+
+        /* Responsive Mobile Breakpoint */
+        @media (max-width: 480px) {
+            body {
+                background: var(--bg-page);
+                padding: 0;
+            }
+            .phone-mockup {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                background: none;
+            }
+            .phone-mockup::before, .phone-mockup::after {
+                display: none;
+            }
+            .screen-content {
+                border-radius: 0;
+            }
+            .status-bar {
+                display: none;
+            }
+        }
+
+        /* Standard Card Style (Mỗi khối 1 hàng full-width) */
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            border: 1px solid rgba(226, 232, 240, 0.35);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        /* Khối A: Hero Banner (Tổng quan tháng mới) - ảnh tràn viền, bỏ khung */
+        .hero-banner {
+            background: linear-gradient(135deg, #F5F7EF 0%, #EAEFE2 100%);
+            padding: 18px 20px 16px;
+            position: relative;
+            overflow: hidden;
+            /* Tràn hết chiều rộng: huỷ padding 16px của .scroll-container */
+            margin: -16px -16px 0;
+            width: calc(100% + 32px);
+            min-height: 155px;
+        }
+
+        /* Ảnh nền minh hoạ mùng 1 - phủ full chiều rộng khối */
+        .hero-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Lớp phủ mờ giúp chữ (phía trái) luôn đọc rõ trên ảnh nền */
+        .hero-scrim {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(95deg,
+                rgba(246, 247, 242, 0.92) 0%,
+                rgba(246, 247, 242, 0.88) 45%,
+                rgba(246, 247, 242, 0.85) 65%,
+                rgba(246, 247, 242, 0.35) 85%,
+                rgba(246, 247, 242, 0) 100%);
+        }
+
+        .hero-header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .hero-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-green);
+            line-height: 1.2;
+            margin-bottom: 0;
+            font-variant-numeric: lining-nums;
+            font-feature-settings: "lnum" 1;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #475569;
+            font-weight: 700;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .hero-canchi {
+            font-size: 15px;
+            color: #475569;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        /* Icon nhỏ đầu mỗi dòng trong khối tổng quan */
+        .hero-line-ic {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .hero-tietkhi {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+            color: #334155;
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+
+        .stamp-red {
+            width: 22px;
+            height: 22px;
+            background: #B91C1C;
+            color: #FFFFFF;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(185, 28, 28, 0.3);
+        }
+
+        /* Khối Thông tin người dùng (Avatar, Tên, Ngày sinh, Giờ sinh) - Thanh phụ dịu nhẹ */
+        .user-profile-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: none;
+            transition: transform 0.15s, background 0.2s;
+        }
+        .user-profile-card:hover {
+            background: #F1F5F9;
+        }
+        .user-profile-card:active {
+            transform: scale(0.99);
+        }
+
+        .user-profile-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar-wrap {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-green);
+            flex-shrink: 0;
+            background: #DCFCE7;
+        }
+
+        .user-info-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .user-name-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .user-birth-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .edit-profile-btn {
+            background: transparent;
+            border: none;
+            padding: 5px 4px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-green);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s;
+        }
+        .edit-profile-btn:hover {
+            opacity: 0.7;
+        }
+
+        /* Section Title Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .indicator-line {
+            width: 4px;
+            height: 20px;
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
+
+        .section-title-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Icon badge tiêu đề khối sinh động & rực rỡ màu sắc */
+        .header-icon-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 11px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.10),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+        }
+
+        .icon-badge-green {
+            background: linear-gradient(140deg, #D1FAE5 0%, #6EE7B7 100%);
+        }
+
+        .icon-badge-blue {
+            background: linear-gradient(140deg, #DBEAFE 0%, #93C5FD 100%);
+        }
+
+        .icon-badge-amber {
+            background: linear-gradient(140deg, #FEF3C7 0%, #FCD34D 100%);
+        }
+
+        .icon-badge-emerald {
+            background: linear-gradient(140deg, #CCFBF1 0%, #5EEAD4 100%);
+        }
+
+        .icon-badge-red {
+            background: linear-gradient(140deg, #FFE4E6 0%, #FDA4AF 100%);
+        }
+
+        .icon-badge-violet {
+            background: linear-gradient(140deg, #EDE9FE 0%, #C4B5FD 100%);
+        }
+
+        /* Icon đứng trước tiêu đề khối */
+        .section-ic {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+        }
+
+
+        /* Khối B: Vận trình tháng của bạn */
+        .van-trinh-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .badge-on-dinh {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--green-badge);
+            color: var(--green-text);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .summary-text {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .van-trinh-circle-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, #FEF9C3, #D97706);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0 16px;
+        }
+
+        .metric-card {
+            background: #F8FAFC;
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            border-radius: 14px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .metric-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            line-height: 1;
+            flex-shrink: 0;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+        }
+
+        .metric-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .text-tot { color: var(--green-text); }
+        .text-can-luu-y { color: var(--red-text); }
+        .text-on-dinh { color: #15803D; }
+
+        .cta-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            cursor: pointer;
+            padding-top: 4px;
+            transition: opacity 0.2s;
+        }
+
+        /* CTA text link có đường kẻ ngăn cách phía trên */
+        .cta-divided {
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+            margin-top: 14px;
+            padding-top: 14px;
+        }
+        .cta-link:hover {
+            opacity: 0.85;
+        }
+
+        /* Đường kẻ phân cách xám - kem trước khối Thời điểm */
+        .section-divider-bar {
+            width: calc(100% + 32px);
+            margin: 6px -16px 10px;
+            height: 10px;
+            background: #E2E8F0;
+            flex-shrink: 0;
+        }
+
+        .section-divider-bar-inner {
+            display: none;
+        }
+
+        /* Khối C: Tử vi hôm nay (Full-width 1 hàng) */
+        .card-tu-vi {
+            background: linear-gradient(135deg, #F0F7FF 0%, #E6F0FA 100%);
+            border: 1px solid rgba(208, 227, 255, 0.5);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.06);
+            border-radius: 20px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .card-tu-vi-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--blue-text);
+        }
+
+        .tu-vi-date {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--blue-text);
+            margin-top: -4px;
+        }
+        .tu-vi-date strong {
+            font-weight: 700;
+        }
+
+        .tu-vi-desc {
+            font-size: 15px;
+            color: #334155;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .pills-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pill-item {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .number-pill {
+            width: 24px;
+            height: 24px;
+            background: #60A5FA;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Khối D: Gieo quẻ đầu tháng (Full-width 1 hàng) */
+        .card-gieo-que {
+            background:
+                radial-gradient(120% 140% at 0% 30%, #FFFFFF 0%, rgba(255, 255, 255, 0.82) 50%, rgba(254, 243, 199, 0.25) 100%),
+                linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 60%, #FDE68A 100%);
+            border: 1px solid #FDE68A;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(180, 83, 9, 0.10);
+        }
+
+        .gieo-que-bottom {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 4px;
+            margin-top: -10px;
+        }
+
+        .gieo-que-textcol {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex: 1;
+        }
+
+        /* Hình minh hoạ ống quẻ bên phải - tạo điểm hút thị giác */
+        .gieo-illus {
+            width: 122px;
+            height: 122px;
+            flex-shrink: 0;
+            margin-bottom: -10px;
+            margin-right: -16px;
+        }
+
+        .gq-halo {
+            transform-origin: center;
+            animation: gqGlow 2.8s ease-in-out infinite;
+        }
+
+        @keyframes gqGlow {
+            0%, 100% { opacity: 0.55; }
+            50% { opacity: 1; }
+        }
+
+        .gieo-que-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .card-gieo-que-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            color: #78350F;
+            white-space: nowrap;
+        }
+
+        .gieo-que-desc {
+            font-size: 15px;
+            color: #57250A;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .gieo-que-btn {
+            background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 6px 16px rgba(180, 83, 9, 0.38);
+            transition: transform 0.15s, background 0.2s;
+            flex-shrink: 0;
+            align-self: flex-start;
+            animation: gieoPulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes gieoPulse {
+            0%, 100% { box-shadow: 0 6px 16px rgba(180, 83, 9, 0.38); }
+            50% { box-shadow: 0 8px 24px rgba(217, 119, 6, 0.60); }
+        }
+
+        .gieo-que-btn:active {
+            transform: scale(0.95);
+            animation: none;
+        }
+
+        /* Khối E: Thời điểm đáng chú ý trong tháng (Xếp dọc, không đóng khung hàng phụ) */
+        .notable-days-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .best-day-card-full {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border: 1.5px solid #FDE68A;
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 10px rgba(217, 119, 6, 0.06);
+        }
+
+        .best-day-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .best-day-star {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .best-day-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 2px;
+        }
+
+        .best-day-date {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-green);
+            line-height: 1.1;
+        }
+
+        .best-day-date span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748B;
+        }
+
+        .best-day-score-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .best-day-score-val {
+            font-size: 22px;
+            font-weight: 800;
+            color: #D97706;
+            line-height: 1;
+        }
+
+        .best-day-score-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: #B45309;
+            margin-top: 2px;
+        }
+
+        /* Khối ngày tốt / kiêng (Không đóng khung, tiêu đề ở trên - các ngày ở dưới) */
+        .day-unboxed-block {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 4px 2px;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+        .day-unboxed-block:active {
+            opacity: 0.8;
+        }
+
+        .day-unboxed-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .day-unboxed-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E293B;
+        }
+
+        .day-unboxed-label.danger-label {
+            color: #1E293B;
+        }
+
+        .day-list-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .pills-scroll {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+        }
+        .pills-scroll::-webkit-scrollbar { display: none; }
+
+        .date-chip {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .date-chip.highlight {
+            background: #DCFCE7;
+            border-color: #86EFAC;
+            color: #166534;
+        }
+
+        .date-chip.danger {
+            background: #F1F5F9;
+            border-color: #CBD5E1;
+            color: #475569;
+        }
+
+        /* Line Chart Box */
+        .chart-box {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 108px;
+            position: relative;
+            display: flex;
+        }
+        /* Trục Oy cố định bên trái */
+        .chart-yaxis-canvas {
+            width: 28px;
+            height: 100%;
+            flex-shrink: 0;
+        }
+        /* Vùng biểu đồ cuộn ngang (15 ngày/màn) */
+        .chart-scroll {
+            flex: 1;
+            height: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;         /* Firefox */
+            -ms-overflow-style: none;      /* IE/Edge */
+        }
+        .chart-scroll::-webkit-scrollbar {
+            display: none;                 /* Chrome/Safari */
+        }
+        #dayChart {
+            display: block;
+            height: 100%;
+        }
+
+        /* Khối F: Việc hợp tuổi sắp tới */
+        .timeline-box {
+            background: #FFFFFF;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 16px;
+            padding: 16px 16px 16px 14px;
+            margin: 12px 0 16px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+        }
+
+        .timeline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline-list::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            background: #CBD5E1;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            padding-left: 4px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 3px solid var(--primary-green);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--primary-green);
+            width: 95px;
+            flex-shrink: 0;
+        }
+
+        .timeline-tags {
+            font-weight: 600;
+            color: #334155;
+            text-align: right;
+        }
+
+        /* Khối G: Chuẩn bị cho ngày Mùng 1 (1 khung gộp) */
+        .mung1-prep-box {
+            background: #FFF9EE;
+            border: 1.5px solid #E7C983;
+            border-radius: 16px;
+            padding: 14px 16px;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .mung1-van-khan-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 4px;
+            margin: -4px;
+            transition: background 0.15s;
+        }
+
+        .mung1-van-khan-row:hover {
+            background: rgba(254, 243, 199, 0.5);
+        }
+
+        .mung1-van-khan-row:active {
+            transform: scale(0.99);
+        }
+
+        .mung1-divider {
+            height: 1px;
+            background: #FDE68A;
+            width: 100%;
+        }
+
+        .mung1-gio-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 4px 0 2px;
+        }
+
+        .gio-row-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            line-height: 1.2;
+        }
+
+        .gio-row-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .gio-row-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1F2937;
+        }
+
+        .gio-row-text {
+            font-size: 13.5px;
+            color: #1F2937;
+            font-weight: 500;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-top: 2px;
+        }
+
+        .gio-row-text strong {
+            font-weight: 700;
+            color: #451A03;
+        }
+
+        .tam-linh-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .tam-linh-icon {
+            width: 36px;
+            height: 36px;
+            background: #FEF3C7;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #D97706;
+            flex-shrink: 0;
+        }
+
+        .tam-linh-img {
+            width: 33%;
+            max-width: 105px;
+            height: 72px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .tam-linh-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tam-linh-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1F2937;
+            white-space: nowrap;
+        }
+
+        .tam-linh-sub {
+            font-size: 14px;
+            color: #1F2937;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* Khối H: Bottom Quote Section (Không khung, ảnh minh hoạ thân thiện) */
+        .quote-banner {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 14px 16px 6px;
+            position: relative;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quote-illus-img {
+            width: 96px;
+            height: 96px;
+            object-fit: contain;
+            border-radius: 0;
+            box-shadow: none;
+            border: none;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            mix-blend-mode: multiply;
+            transition: transform 0.2s ease;
+        }
+        .quote-illus-img:hover {
+            transform: scale(1.05);
+        }
+
+        .crane-bg-deco {
+            position: absolute;
+            right: -10px;
+            bottom: -5px;
+            width: 120px;
+            opacity: 0.85;
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: #1E3A2B;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+            padding: 0 6px;
+        }
+
+        /* Interactive Modal */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 24px 20px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+
+        .modal-body {
+            font-size: 13.5px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-close-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Phone Mockup Frame -->
+    <div class="phone-mockup">
+        <div class="screen-content">
+            
+            <!-- Top Status Bar -->
+            <div class="status-bar">
+                <div class="time">09:41</div>
+                <div class="status-icons">
+                    <!-- Signal -->
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z"/>
+                    </svg>
+                    <!-- Wifi -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <!-- Battery -->
+                    <svg width="22" height="11" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5"/>
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Top Navigation Bar -->
+            <div class="app-bar">
+                <button class="action-btn" onclick="showToast('Quay lại màn hình trước')">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="title">Bản tin đầu tháng</div>
+                <button class="action-btn" onclick="showToast('Chia sẻ bản tin đầu tháng')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Scrollable Content Body (Mỗi khối 1 hàng dọc) -->
+            <div class="scroll-container">
+
+                <!-- KHỐI A: Tổng quan tháng mới -->
+                <div class="hero-banner">
+                    <!-- Ảnh nền nghệ thuật thuỷ mặc mùng 1 chất lượng cao -->
+                    <img class="hero-bg-img" src="header_mung_mot.png" alt="Minh hoạ Mùng 1" style="object-fit: cover; object-position: center right;" />
+
+                    <!-- Lớp phủ mờ cho chữ đọc rõ -->
+                    <div class="hero-scrim"></div>
+
+                    <div class="hero-header-content">
+                        <div class="hero-title">Tháng 7 âm lịch</div>
+                        <div class="hero-subtitle">
+                            <svg class="hero-line-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>13/08 - 10/09/2026 (DL)</span>
+                        </div>
+                        <div class="hero-canchi">
+                            <svg class="hero-line-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                            <span>Tháng <strong style="font-weight: 700;">Bính Thân</strong> có 29 ngày</span>
+                        </div>
+                        <div class="hero-tietkhi">
+                            <svg class="hero-line-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"></path>
+                                <path d="M2 21c0-3 1.85-5.36 5.08-6"></path>
+                            </svg>
+                            <span>Tiết khí đầu tháng: <strong style="color: #15803D; font-weight: 700;">Lập Thu</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI THÔNG TIN NGƯỜI DÙNG -->
+                <div class="user-profile-card" onclick="openModal('Chọn thành viên gia đình', 'Nhấn vào khối này thì chuyển tới màn hình chọn thành viên gia đình (danh sách đã có sẵn) để xem bản tin cho người đó.', '👨‍👩‍👧‍👦')">
+                    <div class="user-profile-left">
+                        <div class="user-avatar-wrap">
+                            <svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="22" cy="22" r="22" fill="#E2E8F0"/>
+                                <circle cx="22" cy="16" r="8" fill="#1B4D3E"/>
+                                <path d="M7 36C7 28.5 13.5 25.5 22 25.5C30.5 25.5 37 28.5 37 36" fill="#1B4D3E"/>
+                            </svg>
+                        </div>
+                        <div class="user-info-detail">
+                            <div class="user-name-text">
+                                <span>Nguyễn Văn An</span>
+                                <span style="font-size:11px; background:#FEF3C7; color:#92400E; padding:1px 7px; border-radius:8px; font-weight:700;">Nhâm Thân</span>
+                            </div>
+                            <div class="user-birth-text">
+                                <span>15/08/1992 · 08:30 (Giờ Thìn)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="edit-profile-btn" onclick="event.stopPropagation(); openModal('Chọn thành viên gia đình', 'Nhấn vào khối này thì chuyển tới màn hình chọn thành viên gia đình (danh sách đã có sẵn) để xem bản tin cho người đó.', '👨‍👩‍👧‍👦')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- KHỐI B: Vận trình tháng của bạn -->
+                <div class="card" style="border: 1px solid #E2E8F0; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.09);">
+                    <div class="section-header">
+                        <div class="indicator-line"></div>
+                        <div class="section-title-text">Vận trình tháng của bạn</div>
+                        <div class="badge-on-dinh" style="margin: 0 0 0 auto; flex-shrink: 0; white-space: nowrap;">
+                            <span>Tháng tốt</span>
+                        </div>
+                    </div>
+
+                    <div class="van-trinh-top">
+                        <div>
+                            <div class="summary-text">
+                                Tài chính có tín hiệu tích cực, công việc thuận lợi hơn vào giữa tháng nhưng chuyện tình cảm cần được quan tâm.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4 Assessment Metrics Grid -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-icon">💼</span>
+                            <div class="metric-info">
+                                <span class="metric-label">Công việc</span>
+                                <span class="metric-value text-tot">Tốt</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <span class="metric-icon">💰</span>
+                            <div class="metric-info">
+                                <span class="metric-label">Tài chính</span>
+                                <span class="metric-value text-tot">Tốt</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <span class="metric-icon">💖</span>
+                            <div class="metric-info">
+                                <span class="metric-label">Tình cảm</span>
+                                <span class="metric-value text-can-luu-y">Cần lưu ý</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <span class="metric-icon">🏡</span>
+                            <div class="metric-info">
+                                <span class="metric-label">Gia đạo</span>
+                                <span class="metric-value text-on-dinh">Ổn định</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cta-link cta-divided" onclick="openModal('Luận giải vận hạn tháng', 'Nhấn vào đây thì chuyển tới màn hình luận giải vận hạn tháng chi tiết.', '📊')">
+                        <span>Xem luận giải vận hạn tháng</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- KHỐI C: Tử vi hôm nay (1 hàng riêng) -->
+                <div class="card-tu-vi">
+                    <div class="card-tu-vi-header">
+                        <div class="header-icon-badge icon-badge-violet">🔮</div>
+                        <span>Tử vi hôm nay</span>
+                    </div>
+                    <div class="tu-vi-date">Thứ Sáu, 14/08/2026 · <strong>Mùng 2 tháng 7 (ÂL)</strong></div>
+                    <div class="tu-vi-desc">
+                        Một ngày hiệu quả bắt đầu khi bạn chọn cách phản ứng điềm tĩnh thay vì để cảm xúc dẫn lối.
+                    </div>
+                    <div class="pills-row">
+                        <div class="pill-item">
+                            <span>Màu hợp</span>
+                            <span style="color:#16A34A; font-weight:700;">●</span>
+                        </div>
+                        <div class="pill-item" style="gap:6px;">
+                            <span>Số may mắn</span>
+                            <div class="number-pill">3</div>
+                            <div class="number-pill" style="background:#3B82F6;">8</div>
+                        </div>
+                    </div>
+                    <div class="cta-link" onclick="openModal('Tử vi hôm nay', 'Nhấn vào đây thì chuyển tới màn hình tử vi hôm nay chi tiết.', '🔮')">
+                        <span>Xem chi tiết tử vi hôm nay</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- KHỐI D: Gieo quẻ đầu tháng (1 hàng riêng) -->
+                <div class="card-gieo-que">
+                    <div class="card-gieo-que-header">
+                        <span>Thông điệp tháng mới đang chờ bạn</span>
+                    </div>
+
+                    <div class="gieo-que-bottom">
+                        <div class="gieo-que-textcol">
+                            <div class="gieo-que-desc">
+                                Gieo quẻ để khám phá lời nhắn dành riêng cho bạn.
+                            </div>
+                            <button class="gieo-que-btn" onclick="gieoQueAnimation()">
+                                Gieo quẻ ngay
+                            </button>
+                        </div>
+
+                        <!-- Minh hoạ: Ống lắc đồng xe + 3 đồng xu cổ -->
+                        <svg class="gieo-illus" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <!-- Quầng sáng phông nền -->
+                                <radialGradient id="gqHalo" cx="0.5" cy="0.5" r="0.5">
+                                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+                                    <stop offset="55%" stop-color="#FDE68A" stop-opacity="0.45"/>
+                                    <stop offset="100%" stop-color="#FEF3C7" stop-opacity="0"/>
+                                </radialGradient>
+
+                                <!-- Thân ống lắc bằng đồng xe -->
+                                <linearGradient id="bronzeBody" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#582909"/>
+                                    <stop offset="18%" stop-color="#9C5418"/>
+                                    <stop offset="42%" stop-color="#F3C36D"/>
+                                    <stop offset="68%" stop-color="#B86C1D"/>
+                                    <stop offset="100%" stop-color="#421B04"/>
+                                </linearGradient>
+
+                                <!-- Viền ống đồng -->
+                                <linearGradient id="bronzeGoldRim" x1="0" y1="0" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#92400E"/>
+                                    <stop offset="35%" stop-color="#FEF08A"/>
+                                    <stop offset="70%" stop-color="#F59E0B"/>
+                                    <stop offset="100%" stop-color="#78350F"/>
+                                </linearGradient>
+
+                                <!-- Đồng xu 1 & 2 -->
+                                <linearGradient id="coinGold1" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#FFFBEB"/>
+                                    <stop offset="35%" stop-color="#FBBF24"/>
+                                    <stop offset="75%" stop-color="#D97706"/>
+                                    <stop offset="100%" stop-color="#78350F"/>
+                                </linearGradient>
+
+                                <!-- Đồng xu nổi bật -->
+                                <linearGradient id="coinGold2" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#FFFFFF"/>
+                                    <stop offset="30%" stop-color="#FDE047"/>
+                                    <stop offset="70%" stop-color="#EAB308"/>
+                                    <stop offset="100%" stop-color="#854D0E"/>
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Quầng sáng hiệu ứng -->
+                            <circle class="gq-halo" cx="50" cy="50" r="42" fill="url(#gqHalo)"/>
+                            <circle cx="50" cy="50" r="35" stroke="#F59E0B" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.65"/>
+
+                            <!-- 1. Ống lắc đồng xe (Thân & Đáy) -->
+                            <g>
+                                <!-- Đáy ống -->
+                                <ellipse cx="50" cy="81" rx="16" ry="5.5" fill="#361502"/>
+                                
+                                <!-- Thân ống lắc -->
+                                <path d="M34 46 L34 78 Q34 85 50 85 Q66 85 66 78 L66 46 Z" fill="url(#bronzeBody)"/>
+                                
+                                <!-- Vòng kim loại trang trí thân ống -->
+                                <path d="M34 60 C34 63.5 66 63.5 66 60 L66 64 C66 67.5 34 67.5 34 64 Z" fill="url(#bronzeGoldRim)" opacity="0.9"/>
+                                <ellipse cx="50" cy="60" rx="16" ry="3.5" fill="none" stroke="#FEF08A" stroke-width="0.8" opacity="0.7"/>
+
+                                <!-- Họa tiết Bát quái / Thái cực trên ống đồng -->
+                                <circle cx="50" cy="73" r="5" fill="#361502" stroke="url(#bronzeGoldRim)" stroke-width="1"/>
+                                <path d="M50 68 A2.5 2.5 0 0 1 50 73 A2.5 2.5 0 0 0 50 78" stroke="#FDE047" stroke-width="0.9" fill="none"/>
+                                <circle cx="50" cy="70.5" r="0.7" fill="#FDE047"/>
+                                <circle cx="50" cy="75.5" r="0.7" fill="#361502"/>
+
+                                <!-- Lòng ống bên trong (Miệng ống mở) -->
+                                <ellipse cx="50" cy="46" rx="16" ry="5.5" fill="#260D01"/>
+                                <ellipse cx="50" cy="46" rx="16" ry="5.5" stroke="url(#bronzeGoldRim)" stroke-width="2.2" fill="none"/>
+                            </g>
+
+                            <!-- 2. Đồng xu 1 (Đang lắc nảy lên góc trên bên trái) -->
+                            <g transform="translate(26, 23) rotate(-22)">
+                                <ellipse cx="0" cy="0" rx="11" ry="8.5" fill="#78350F"/>
+                                <ellipse cx="0" cy="0" rx="10" ry="7.5" fill="url(#coinGold1)"/>
+                                <ellipse cx="0" cy="0" rx="8.5" ry="6.2" fill="none" stroke="#B45309" stroke-width="0.6"/>
+                                <!-- Lỗ vuông giữa đồng xu -->
+                                <rect x="-3" y="-2.5" width="6" height="5" rx="0.5" fill="#451A03" stroke="#FDE047" stroke-width="0.6"/>
+                                <!-- Ký tự nhỏ 4 góc -->
+                                <circle cx="0" cy="-4.5" r="0.7" fill="#78350F"/>
+                                <circle cx="0" cy="4.5" r="0.7" fill="#78350F"/>
+                                <circle cx="-5" cy="0" r="0.7" fill="#78350F"/>
+                                <circle cx="5" cy="0" r="0.7" fill="#78350F"/>
+                            </g>
+
+                            <!-- 3. Đồng xu 2 (Đứng ở miệng ống bên phải) -->
+                            <g transform="translate(68, 30) rotate(28)">
+                                <ellipse cx="0" cy="0" rx="11.5" ry="9" fill="#582909"/>
+                                <ellipse cx="0" cy="0" rx="10.5" ry="8" fill="url(#coinGold2)"/>
+                                <ellipse cx="0" cy="0" rx="9" ry="6.8" fill="none" stroke="#92400E" stroke-width="0.7"/>
+                                <!-- Lỗ vuông giữa đồng xu -->
+                                <rect x="-3.2" y="-2.6" width="6.4" height="5.2" rx="0.5" fill="#361502" stroke="#FEF08A" stroke-width="0.7"/>
+                                <!-- Ký tự nhỏ 4 góc -->
+                                <circle cx="0" cy="-5" r="0.7" fill="#78350F"/>
+                                <circle cx="0" cy="5" r="0.7" fill="#78350F"/>
+                                <circle cx="-5.5" cy="0" r="0.7" fill="#78350F"/>
+                                <circle cx="5.5" cy="0" r="0.7" fill="#78350F"/>
+                            </g>
+
+                            <!-- 4. Đồng xu 3 (Nằm nổi bật phía trước trung tâm miệng ống) -->
+                            <g transform="translate(48, 36) rotate(-5)">
+                                <ellipse cx="0" cy="0" rx="13" ry="9.5" fill="#451A03"/>
+                                <ellipse cx="0" cy="0" rx="12" ry="8.5" fill="url(#coinGold2)"/>
+                                <ellipse cx="0" cy="0" rx="10" ry="7" fill="none" stroke="#B45309" stroke-width="0.8"/>
+                                <!-- Lỗ vuông giữa đồng xu -->
+                                <rect x="-3.5" y="-2.8" width="7" height="5.6" rx="0.6" fill="#260D01" stroke="#FFFBEB" stroke-width="0.8"/>
+                                <!-- Ký tự / Chấm họa tiết 4 phía -->
+                                <circle cx="0" cy="-5.2" r="0.8" fill="#78350F"/>
+                                <circle cx="0" cy="5.2" r="0.8" fill="#78350F"/>
+                                <circle cx="-6" cy="0" r="0.8" fill="#78350F"/>
+                                <circle cx="6" cy="0" r="0.8" fill="#78350F"/>
+                            </g>
+
+                            <!-- Ánh sáng lấp lánh (Sparkles) -->
+                            <path d="M18 18 L19.5 22.5 L24 24 L19.5 25.5 L18 30 L16.5 25.5 L12 24 L16.5 22.5 Z" fill="#FDE047"/>
+                            <path d="M78 16 L79.2 19.2 L82.4 20.4 L79.2 21.6 L78 24.8 L76.8 21.6 L73.6 20.4 L76.8 19.2 Z" fill="#FBBF24"/>
+                            <circle cx="83" cy="38" r="1.8" fill="#FDE047"/>
+                            <circle cx="16" cy="42" r="1.3" fill="#FBBF24" opacity="0.85"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Đường kẻ phân cách xám - kem -->
+                <div class="section-divider-bar">
+                    <div class="section-divider-bar-inner"></div>
+                </div>
+
+                <!-- KHỐI E: Thời điểm đáng chú ý trong tháng (1 hàng riêng) -->
+                <div class="card" style="background: transparent; border: none; box-shadow: none; padding: 0; border-radius: 0; overflow: visible;">
+                    <div class="section-header">
+                        <div class="header-icon-badge icon-badge-blue">📅</div>
+                        <div class="section-title-text">Thời điểm đáng chú ý trong tháng</div>
+                    </div>
+
+                    <!-- Container xếp dọc dưới ngày tốt nhất -->
+                    <div class="notable-days-wrapper">
+                        <!-- 1. Card Ngày tốt nhất tháng -->
+                        <div class="best-day-card-full" style="cursor: pointer;" onclick="openDayDetail('18/7')">
+                            <div class="best-day-left">
+                                <span class="best-day-star">⭐</span>
+                                <div>
+                                    <div class="best-day-title">Ngày tốt nhất tháng</div>
+                                    <div class="best-day-date">18/7 <span>âm lịch</span></div>
+                                </div>
+                            </div>
+                            <div class="best-day-score-badge">
+                                <span class="best-day-score-val">92%</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. Khối Các ngày tốt trong tháng (tiêu đề ở trên, các ngày ở dưới) -->
+                        <div class="day-unboxed-block" onclick="openModal('Các ngày tốt trong tháng', 'Nhấn vào đây thì chuyển tới màn hình danh sách các ngày tốt trong tháng.', '👍')">
+                            <div class="day-unboxed-header">
+                                <div class="day-unboxed-label">
+                                    <span style="color:#059669;">👍</span>
+                                    <span>Các ngày tốt trong tháng</span>
+                                </div>
+                            </div>
+                            <div class="pills-scroll">
+                                <div class="date-chip" onclick="event.stopPropagation(); openDayDetail('05/7')">05/7</div>
+                                <div class="date-chip" onclick="event.stopPropagation(); openDayDetail('12/7')">12/7</div>
+                                <div class="date-chip highlight" onclick="event.stopPropagation(); openDayDetail('18/7')">18/7</div>
+                                <div class="date-chip" onclick="event.stopPropagation(); openDayDetail('26/7')">26/7</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Khối Ngày kiêng việc trọng đại (tiêu đề ở trên, các ngày ở dưới) -->
+                        <div class="day-unboxed-block" onclick="openModal('Ngày kiêng việc trọng đại', 'Nhấn vào đây thì chuyển tới màn hình danh sách ngày kiêng việc trọng đại.', '⭐')">
+                            <div class="day-unboxed-header">
+                                <div class="day-unboxed-label danger-label">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#1E293B" style="flex-shrink:0;">
+                                        <path d="M12 2l2.9 6.26 6.86.6-5.18 4.51 1.56 6.63L12 16.98 5.86 20l1.56-6.63L2.24 8.86l6.86-.6z"/>
+                                    </svg>
+                                    <span>Ngày kiêng việc trọng đại</span>
+                                </div>
+                            </div>
+                            <div class="pills-scroll">
+                                <div class="date-chip danger" onclick="event.stopPropagation(); openDayDetail('09/7')">09/7</div>
+                                <div class="date-chip danger" onclick="event.stopPropagation(); openDayDetail('21/7')">21/7</div>
+                                <div class="date-chip danger" onclick="event.stopPropagation(); openDayDetail('28/7')">28/7</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Chart Box -->
+                    <div class="chart-box">
+                        <div class="chart-header" onclick="openModal('Chỉ số ngày tốt trong tháng', 'Nhấn vào đây thì chuyển tới màn hình chỉ số ngày tốt chi tiết cả tháng.', '📈')">
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <span style="color:#10B981;">📊</span>
+                                <span>Chỉ số ngày tốt trong tháng</span>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Dynamic Line Chart (trục Oy cố định, cuộn ngang 15 ngày/màn) -->
+                        <div class="chart-container">
+                            <canvas id="dayAxis" class="chart-yaxis-canvas"></canvas>
+                            <div class="chart-scroll">
+                                <canvas id="dayChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đường kẻ ngang mảnh 1px -->
+                <div style="height: 1px; background: #CBD5E1; margin: 16px 0;"></div>
+
+                <!-- KHỐI F: Việc hợp tuổi sắp tới (1 hàng riêng) -->
+                <div class="card" style="background: transparent; border: none; box-shadow: none; padding: 0; border-radius: 0; overflow: visible;">
+                    <div class="section-header">
+                        <div class="header-icon-badge icon-badge-emerald">🤝</div>
+                        <div class="section-title-text">Việc hợp tuổi sắp tới</div>
+                    </div>
+
+                    <div class="timeline-box">
+                        <div class="timeline-list">
+                            <div class="timeline-item">
+                                <div class="timeline-date">05/7 âm</div>
+                                <div class="timeline-tags">Cầu tài · Gặp gỡ · Xuất hành</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">08/7 âm</div>
+                                <div class="timeline-tags">Ký kết · Giao dịch</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date">12/7 âm</div>
+                                <div class="timeline-tags">Khai trương · Cầu tài</div>
+                            </div>
+                        </div>
+
+                        <div class="cta-link" style="font-size: 13.5px; margin-top: 14px; padding-top: 14px; border-top: 1px solid #CBD5E1;" onclick="openModal('Việc hợp tuổi cả tháng', 'Nhấn vào đây thì chuyển tới màn hình danh sách việc hợp tuổi cả tháng.', '🤝')">
+                            <span>Xem việc hợp tuổi cả tháng</span>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đường kẻ phân cách xám -->
+                <div class="section-divider-bar">
+                    <div class="section-divider-bar-inner"></div>
+                </div>
+
+                <!-- KHỐI G: Chuẩn bị cho ngày Mùng 1 (1 hàng riêng, gộp khung) -->
+                <div class="card" style="background: transparent; border: none; box-shadow: none; padding: 0; border-radius: 0; overflow: visible;">
+                    <div class="section-header">
+                        <div class="section-title-text">Chuẩn bị cho ngày Mùng 1</div>
+                    </div>
+
+                    <!-- Khung gộp Văn khấn & Giờ thắp hương tốt -->
+                    <div class="mung1-prep-box">
+                        <!-- Phần 1: Văn khấn & Lễ vật Mùng 1 (nhấn vào mở màn chi tiết SuKien_ChiTiet.html) -->
+                        <div class="mung1-van-khan-row" onclick="window.location.href='SuKien_ChiTiet.html'">
+                            <div class="tam-linh-left">
+                                <img src="./mung1_altar_bright.png" alt="Văn khấn & lễ vật Mùng 1" class="tam-linh-img">
+                                <div class="tam-linh-info">
+                                    <div class="tam-linh-title">Văn khấn &amp; lễ vật Mùng 1</div>
+                                    <div class="tam-linh-sub">Hướng dẫn chuẩn bị chu đáo cho ngày đầu tháng</div>
+                                </div>
+                            </div>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto; flex-shrink: 0;">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+
+                        <!-- Đường phân cách ngang trong khung -->
+                        <div class="mung1-divider"></div>
+
+                        <!-- Phần 2: Thời điểm phù hợp thắp hương (chỉ liệt kê ra, không có liên kết) -->
+                        <div class="mung1-gio-row">
+                            <div class="gio-row-icon">⏰</div>
+                            <div class="gio-row-content">
+                                <div class="gio-row-label">Thời điểm phù hợp thắp hương</div>
+                                <div class="gio-row-text">
+                                    <div><strong>07:00 – 09:00</strong> (Giờ Thìn)</div>
+                                    <div><strong>11:00 – 13:00</strong> (Giờ Ngọ)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI H: Quote Bottom Section (Sạch sẽ, thuần Việt) -->
+                <div class="quote-banner">
+                    <!-- Ảnh bông sen màu nước PNG không nền -->
+                    <img src="./lotus_transparent.png" alt="Bông sen không nền thông điệp đầu tháng" class="quote-illus-img">
+
+                    <div class="quote-text">
+                        “Tháng mới mở ra những cơ hội mới. Chúc bạn luôn tâm an trí sáng, vạn sự hanh thông và chủ động đón nhận những điều tốt đẹp nhất.”
+                    </div>
+                </div>
+
+                <div style="height: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Modal Popup -->
+    <div class="modal-overlay" id="infoModal">
+        <div class="modal-card">
+            <div class="modal-icon" id="modalIcon">✨</div>
+            <div class="modal-title" id="modalTitle">Thông báo</div>
+            <div class="modal-body" id="modalBody">Nội dung chi tiết...</div>
+            <button class="modal-close-btn" onclick="closeModal()">Đã hiểu</button>
+        </div>
+    </div>
+
+    <script>
+        // Render Canvas Line Chart for Days 1 to 30
+        function renderDayChart() {
+            const canvas = document.getElementById('dayChart');
+            const axisCanvas = document.getElementById('dayAxis');
+            if (!canvas || !axisCanvas) return;
+            const scroll = canvas.parentElement;
+            const ctx = canvas.getContext('2d');
+            const actx = axisCanvas.getContext('2d');
+
+            const dpr = window.devicePixelRatio || 1;
+
+            // Điểm số 30 ngày (đỉnh ở ngày 18 = 92)
+            const dayScores = [
+                38, 45, 60, 48, 45, 50, 56, 68, 52, 50,
+                62, 80, 60, 58, 62, 52, 78, 92, 75, 75,
+                78, 68, 72, 65, 70, 62, 58, 52, 48, 42
+            ];
+
+            const TODAY = 2;   // hôm nay là ngày 2/7 âm lịch
+
+            const height = scroll.clientHeight;
+            const visibleW = scroll.clientWidth;
+            const paddingTop = 18;
+            const paddingBottom = 22;
+            const chartH = height - paddingTop - paddingBottom;
+
+            const VISIBLE_DAYS = 15;                       // 15 ngày hiện trên màn
+            const spacing = visibleW / VISIBLE_DAYS;
+            const totalW = spacing * dayScores.length;     // tổng bề rộng cho 30 ngày
+
+            const yFor = v => height - paddingBottom - (v / 100) * chartH;
+
+            // Canvas biểu đồ rộng gấp đôi để cuộn ngang
+            canvas.style.width = totalW + 'px';
+            canvas.style.height = height + 'px';
+            canvas.width = totalW * dpr;
+            canvas.height = height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, totalW, height);
+
+            // Lưới ngang 0 / 50 / 100 (kéo dài toàn biểu đồ)
+            ctx.strokeStyle = '#E2E8F0';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 3]);
+            [0, 50, 100].forEach(val => {
+                const y = yFor(val);
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(totalW, y);
+                ctx.stroke();
+            });
+            ctx.setLineDash([]);
+
+            // Toạ độ các điểm
+            const points = dayScores.map((score, idx) => ({
+                x: (idx + 0.5) * spacing,
+                y: yFor(score),
+                score,
+                day: idx + 1
+            }));
+
+            // Đường biểu đồ
+            ctx.beginPath();
+            points.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+            ctx.strokeStyle = '#10B981';
+            ctx.lineWidth = 2.2;
+            ctx.stroke();
+
+            // Tô nền dưới đường
+            const gradient = ctx.createLinearGradient(0, paddingTop, 0, height - paddingBottom);
+            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.25)');
+            gradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+            ctx.lineTo(points[points.length - 1].x, height - paddingBottom);
+            ctx.lineTo(points[0].x, height - paddingBottom);
+            ctx.closePath();
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // Chấm điểm + nhấn mạnh ngày hôm nay (hiện % chỉ số của ngày đó)
+            points.forEach(pt => {
+                const isToday = pt.day === TODAY;
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, isToday ? 5 : 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = isToday ? '#15803D' : '#10B981';
+                ctx.fill();
+                if (isToday) {
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    const label = pt.score + '%';
+                    ctx.font = 'bold 9px "Plus Jakarta Sans"';
+                    const bw = ctx.measureText(label).width + 12;
+                    ctx.fillStyle = '#15803D';
+                    ctx.beginPath();
+                    ctx.roundRect(pt.x - bw / 2, pt.y - 20, bw, 15, 4);
+                    ctx.fill();
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(label, pt.x, pt.y - 9);
+                }
+            });
+
+            // Nhãn ngày (mỗi ngày) - nằm ngang
+            points.forEach(pt => {
+                ctx.fillStyle = '#64748B';
+                ctx.font = '10px "Plus Jakarta Sans"';
+                ctx.textAlign = 'center';
+                ctx.fillText(pt.day, pt.x, height - 6);
+            });
+
+            // Nhấn vào ngày bất kỳ -> mở chi tiết ngày đó
+            canvas.style.cursor = 'pointer';
+            canvas.onclick = function (e) {
+                const r = canvas.getBoundingClientRect();
+                const cx = e.clientX - r.left;
+                let nearest = points[0];
+                points.forEach(pt => {
+                    if (Math.abs(pt.x - cx) < Math.abs(nearest.x - cx)) nearest = pt;
+                });
+                openDayDetail(nearest.day + '/7');
+            };
+
+            // Trục Oy cố định bên trái (không cuộn theo)
+            const axW = axisCanvas.clientWidth;
+            axisCanvas.style.height = height + 'px';
+            axisCanvas.width = axW * dpr;
+            axisCanvas.height = height * dpr;
+            actx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            actx.clearRect(0, 0, axW, height);
+            [0, 50, 100].forEach(val => {
+                const y = yFor(val);
+                actx.fillStyle = '#94A3B8';
+                actx.font = '10px "Plus Jakarta Sans"';
+                actx.textAlign = 'right';
+                actx.fillText(val, axW - 4, y + 3);
+            });
+        }
+
+        // Modal Helpers
+        function openModal(title, body, icon = '✨') {
+            document.getElementById('modalIcon').innerText = icon;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('infoModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').classList.remove('active');
+        }
+
+        function showToast(msg) {
+            openModal('Thông báo', msg, '📌');
+        }
+
+        // Mở popup chi tiết của 1 ngày cụ thể (chip ngày / điểm trên biểu đồ)
+        function openDayDetail(dayLabel) {
+            openModal('Chi tiết ngày ' + dayLabel,
+                'Nhấn vào đây thì chuyển tới màn hình chi tiết của ngày ' + dayLabel + ' (âm lịch).',
+                '📅');
+        }
+
+        // Gieo Quẻ Animation & Result
+        function gieoQueAnimation() {
+            const fortuneMessages = [
+                "Quẻ Thượng Cát: Tháng này vạn sự khởi đầu thuận lợi, tài lộc dồi dào, gặp nhiều quý nhân giúp đỡ.",
+                "Quẻ Trung Cát: Công việc phát triển ổn định, kiên trì theo đuổi mục tiêu sẽ thu về thành quả xứng đáng.",
+                "Quẻ Đại Cát: Khí vận thanh cao, danh lộc song toàn. Thời điểm vàng để mở rộng hợp tác kinh doanh!"
+            ];
+            const randomMsg = fortuneMessages[Math.floor(Math.random() * fortuneMessages.length)];
+            openModal("Chúc Mừng Quẻ Tháng", randomMsg, "🧭");
+        }
+
+        // Initialize Chart on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderDayChart();
+        });
+    </script>
+</body>
+
+</html>
