@@ -14,3 +14,9 @@
 tmp/
 temp/
 node_modules/
+.vercel
+.env*
+
+# Designer skill downloaded deps (venv + ML model, too large for git)
+.agents/skills/designer/scripts/libs/
+.agents/skills/designer/scripts/models/

@@ -937,13 +937,14 @@
 
         .chart-container {
             width: 100%;
-            height: 108px;
+            height: 114px;
             position: relative;
             display: flex;
+            align-items: stretch;
         }
         /* Trục Oy cố định bên trái */
         .chart-yaxis-canvas {
-            width: 28px;
+            width: 32px;
             height: 100%;
             flex-shrink: 0;
         }
@@ -1851,18 +1852,28 @@
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.clearRect(0, 0, totalW, height);
 
-            // Lưới ngang 0 / 50 / 100 (kéo dài toàn biểu đồ)
-            ctx.strokeStyle = '#E2E8F0';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([3, 3]);
-            [0, 50, 100].forEach(val => {
+            // Lưới ngang: 50 / 100 nét đứt mờ nhẹ
+            ctx.lineCap = 'round';
+            [50, 100].forEach(val => {
                 const y = yFor(val);
                 ctx.beginPath();
                 ctx.moveTo(0, y);
                 ctx.lineTo(totalW, y);
+                ctx.strokeStyle = '#E2E8F0';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([3, 3]);
                 ctx.stroke();
             });
             ctx.setLineDash([]);
+
+            // Trục Ox nét liền tinh tế (y = 0)
+            const yZero = yFor(0);
+            ctx.beginPath();
+            ctx.moveTo(0, yZero);
+            ctx.lineTo(totalW, yZero);
+            ctx.strokeStyle = '#CBD5E1';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
 
             // Toạ độ các điểm
             const points = dayScores.map((score, idx) => ({
@@ -1914,12 +1925,36 @@
                 }
             });
 
-            // Nhãn ngày (mỗi ngày) - nằm ngang
+            // Vạch vạch trục Ox (Ticks) & Nhãn ngày (mỗi ngày)
             points.forEach(pt => {
-                ctx.fillStyle = '#64748B';
-                ctx.font = '10px "Plus Jakarta Sans"';
-                ctx.textAlign = 'center';
-                ctx.fillText(pt.day, pt.x, height - 6);
+                const isToday = pt.day === TODAY;
+                const isPeak = pt.day === 18;
+
+                // Vạch vạch Ox
+                ctx.beginPath();
+                ctx.moveTo(pt.x, yZero);
+                ctx.lineTo(pt.x, yZero + 3.5);
+                ctx.strokeStyle = isToday ? '#15803D' : '#CBD5E1';
+                ctx.lineWidth = isToday ? 1.5 : 1;
+                ctx.stroke();
+
+                // Nhãn ngày OX
+                if (isToday) {
+                    // Badge hôm nay màu xanh lá nhạt nổi bật
+                    ctx.fillStyle = '#DCFCE7';
+                    ctx.beginPath();
+                    ctx.roundRect(pt.x - 9, height - 16, 18, 14, 4);
+                    ctx.fill();
+                    ctx.fillStyle = '#15803D';
+                    ctx.font = 'bold 10px "Plus Jakarta Sans"';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(pt.day, pt.x, height - 5);
+                } else {
+                    ctx.fillStyle = isPeak ? '#059669' : '#64748B';
+                    ctx.font = isPeak ? 'bold 10.5px "Plus Jakarta Sans"' : '500 10px "Plus Jakarta Sans"';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(pt.day, pt.x, height - 5);
+                }
             });
 
             // Nhấn vào ngày bất kỳ -> mở chi tiết ngày đó
@@ -1941,12 +1976,23 @@
             axisCanvas.height = height * dpr;
             actx.setTransform(dpr, 0, 0, dpr, 0, 0);
             actx.clearRect(0, 0, axW, height);
+
+            // Nét trục Oy liền tinh tế sát mép phải cột Oy
+            actx.lineCap = 'round';
+            actx.beginPath();
+            actx.moveTo(axW - 1, yFor(100) - 4);
+            actx.lineTo(axW - 1, yFor(0) + 1);
+            actx.strokeStyle = '#CBD5E1';
+            actx.lineWidth = 1.5;
+            actx.stroke();
+
+            // Nhãn số 0, 50, 100 trên Oy
             [0, 50, 100].forEach(val => {
                 const y = yFor(val);
-                actx.fillStyle = '#94A3B8';
-                actx.font = '10px "Plus Jakarta Sans"';
+                actx.fillStyle = '#64748B';
+                actx.font = '600 10px "Plus Jakarta Sans"';
                 actx.textAlign = 'right';
-                actx.fillText(val, axW - 4, y + 3);
+                actx.fillText(val, axW - 6, y + 3.5);
             });
         }
 
