@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Đại vận - Lịch Việt</title>
+    <style>
+        :root {
+            --primary: #169172;
+            --primary-dark: #0F6B54;
+            --bg-light: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #1F1F1F;
+            --text-secondary: #666666;
+            --border-color: #E5E7EB;
+        }
+
+        * { box-sizing: border-box; }
+
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Mobile Device Mockup */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .buttons-left {
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 100px;
+            background: #111;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .buttons-right {
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 80px;
+            background: #111;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .status-bar {
+            height: 44px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            z-index: 101;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 500px) {
+            body { background: var(--bg-light); display: block; }
+            .phone-mockup { width: 100%; height: 100vh; padding: 0; border-radius: 0; box-shadow: none; background: none; display: block; }
+            .screen-content { border-radius: 0; }
+            .status-bar, .buttons-left, .buttons-right { display: none; }
+        }
+
+        .app-bar {
+            background-color: var(--primary);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            font-size: 17px;
+            font-weight: 500;
+            z-index: 10;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .app-bar .back-btn {
+            position: absolute;
+            left: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+            text-decoration: none;
+            color: white;
+        }
+
+        .app-bar .back-btn:active { background: rgba(255, 255, 255, 0.2); }
+
+        .app-bar .title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 44px;
+            line-height: 1.2;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        ::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+        /* ===== Dải chọn Đại vận ===== */
+        .dv-tabs-container {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0 14px;
+            flex-shrink: 0;
+            z-index: 5;
+            position: relative;
+        }
+
+        .dv-tabs-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 32px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.96));
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .dv-tabs-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 4px 16px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .dv-pill {
+            flex: 0 0 auto;
+            min-width: 104px;
+            padding: 9px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dv-pill:active { transform: scale(0.96); }
+
+        .dv-pill-index {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+
+        .dv-pill-years {
+            display: block;
+            margin-top: 3px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .dv-pill-age {
+            display: block;
+            margin-top: 2px;
+            font-size: 11.5px;
+            color: #64748b;
+        }
+
+        .dv-pill.active {
+            background: linear-gradient(180deg, #ffffff 0%, #edf7f3 100%);
+            border: 2px solid var(--primary-dark);
+            box-shadow: 0 6px 18px rgba(30, 107, 82, 0.18);
+        }
+
+        .dv-pill.active .dv-pill-index { color: var(--primary-dark); }
+        .dv-pill.active .dv-pill-years { color: #064e3b; }
+
+        /* ===== Thẻ tổng quan giai đoạn (đồng bộ với màn Nghề nghiệp kết quả) ===== */
+        .dv-hero {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 22px 20px;
+            margin: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+
+        .dv-hero-title {
+            margin: 0 0 18px 0;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e6b52;
+            letter-spacing: 0.6px;
+        }
+
+        .dv-hero-period-wrap {
+            margin: 0 0 20px 0;
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .dv-hero-info-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .dv-hero-info-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .dv-hero-info-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            margin-top: 6px;
+        }
+
+        .dv-hero-badges {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .dv-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 16px;
+        }
+
+        .dv-badge-score {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .dv-badge-eval {
+            background: #e6f4ef;
+            color: #1e6b52;
+        }
+
+        /* ===== Các mục nội dung ===== */
+        .dv-section {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin: 0 16px 14px;
+            overflow: hidden;
+        }
+
+        .dv-section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #F8FAFC;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dv-section-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .dv-section-title {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: #1B5E43;
+            letter-spacing: -0.2px;
+        }
+
+        .dv-section-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dv-paragraph {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #1f2937;
+        }
+
+        .dv-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #334155;
+        }
+
+        .dv-list li {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .dv-list li::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .dv-section-conclusion .dv-section-header {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border-bottom: 1px solid #A7F3D0;
+        }
+
+        .dv-placeholder {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Điều hướng giai đoạn trước/sau */
+        .dv-nav {
+            display: flex;
+            gap: 10px;
+            margin: 4px 16px 24px;
+        }
+
+        .dv-nav-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
+
+        .dv-nav-btn:active { transform: scale(0.98); }
+
+        .dv-nav-btn[disabled] {
+            opacity: 0.4;
+            cursor: default;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="buttons-left"></div>
+        <div class="buttons-right"></div>
+        <div class="screen-content">
+            <div class="status-bar">
+                <div class="time">19:45</div>
+                <div class="status-icons">
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z" />
+                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" />
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round" />
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="app-bar">
+                <a href="tuvi_nghenghiep_ketqua.html" class="back-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </a>
+                <span class="title">Chi tiết Đại vận</span>
+            </div>
+
+            <!-- Dải chọn giai đoạn Đại vận -->
+            <div class="dv-tabs-container">
+                <div class="dv-tabs-scroll" id="dvTabsScroll"></div>
+            </div>
+
+            <div class="content" id="dvContent"></div>
+        </div>
+    </div>
+
+    <script>
+        /* Dữ liệu 6 giai đoạn Đại vận - dùng chung với màn kết quả tư vấn nghề nghiệp */
+        var DAIVAN = [
+            {
+                        "tag": "Đại vận đã qua",
+                        "years": "1990–1999",
+                        "age": "4–13 tuổi",
+                        "cung": "",
+                        "score": "52 điểm",
+                        "eval": "Trung bình",
+                        "overview": [],
+                        "work": [],
+                        "finance": [],
+                        "direction": [],
+                        "conclusion": ""
+            },
+            {
+                        "tag": "Đại vận đã qua",
+                        "years": "2000–2009",
+                        "age": "14–23 tuổi",
+                        "cung": "",
+                        "score": "66 điểm",
+                        "eval": "Trung bình",
+                        "overview": [],
+                        "work": [],
+                        "finance": [],
+                        "direction": [],
+                        "conclusion": ""
+            },
+            {
+                        "tag": "Đại vận đã qua",
+                        "years": "2010–2019",
+                        "age": "24–33 tuổi",
+                        "cung": "",
+                        "score": "71 điểm",
+                        "eval": "Khá thuận lợi",
+                        "overview": [],
+                        "work": [],
+                        "finance": [],
+                        "direction": [],
+                        "conclusion": ""
+            },
+            {
+                        "tag": "Đại vận hiện tại",
+                        "years": "2020–2029",
+                        "age": "34–43 tuổi",
+                        "cung": "",
+                        "score": "72 điểm",
+                        "eval": "Khá thuận lợi",
+                        "overview": [
+                                    "Đại vận này mở ra một giai đoạn mang tính chất giao tiếp, mở rộng và kết nối, với trọng tâm là những vấn đề xoay quanh sự phát triển thế hệ tiếp nối hoặc các mối quan hệ mang tính lan tỏa. Bạn có vai trò chủ động trong việc dẫn dắt, truyền đạt, nhưng giai đoạn này không phải là lúc để bạn tập trung toàn lực vào việc chinh phục các mục tiêu cá nhân mà là lúc học cách vun đắp và kiến tạo giá trị lâu dài.",
+                                    "Mặc dù vận trình khá thuận lợi, bạn vẫn phải đối diện với những lo toan, trăn trở nội tâm liên quan đến trách nhiệm và sự kỳ vọng. Áp lực không đến từ những biến cố lớn mà đến từ sự dằn vặt, tự vấn về hướng đi và cách thức quản lý các mối quan hệ, khiến bạn có những lúc cảm thấy cô đơn ngay giữa dòng chảy của các mối giao tiếp.",
+                                    "Với bản tính cương trực, quyết đoán của người Vũ Khúc, Thất Sát, bạn vốn quen với việc hành động độc lập. Bước vào đại vận Cự Môn, bạn được yêu cầu phải mềm dẻo hơn, lắng nghe và thấu cảm nhiều hơn. Đây là một quá trình \"tôi luyện\" ngược với bản chất gốc, giúp bạn phát triển chiều sâu nội tâm và sự khôn ngoan trong ứng xử, thay vì chỉ dựa vào sức mạnh và sự quyết đoán.",
+                                    "Ý nghĩa của giai đoạn này là giúp bạn làm giàu vốn sống và xây dựng nền tảng tinh thần vững chắc. Những trải nghiệm về giao tiếp, chia sẻ và vun đắp các mối quan hệ trong đại vận này chính là hành trang quý giá, giúp bạn bước vào giai đoạn tiếp theo với một tâm thế điềm tĩnh, chín chắn và một mạng lưới hỗ trợ vững chắc hơn, thay vì chỉ có sự quả cảm của một mình bạn."
+                        ],
+                        "work": [
+                                    "Công việc của bạn trong đại vận này nghiêng về trạng thái ổn định và tích lũy, phù hợp với vai trò Lead hiện tại khi bạn cần duy trì vị thế đã xây dựng, không có dấu hiệu đảo lộn hay thay đổi đột ngột.",
+                                    "Áp lực công việc đến từ yêu cầu chuyên môn cao trong phân tích nghiệp vụ phần mềm, đòi hỏi sự tỉ mỉ và khả năng kiểm soát chi tiết; bạn sẽ phải đối mặt với khối lượng công việc đều đặn, ít biến động nhưng cần sự tập trung bền bỉ.",
+                                    "Môi trường làm việc có sự hỗ trợ tốt từ cấp trên và đồng nghiệp, tạo điều kiện để bạn củng cố chuyên môn và giữ vững vị trí quản lý; tuy nhiên, cơ hội thăng tiến vượt bậc không nổi bật, thiên về giữ vững hiện trạng hơn là mở rộng phạm vi ảnh hưởng.",
+                                    "Xu hướng chuyển việc hay đổi nghề gần như không xuất hiện trong giai đoạn này, nhưng bạn có thể cân nhắc điều chỉnh môi trường làm việc để tiến gần hơn đến mục tiêu gần nhà, nếu có cơ hội phù hợp thì nên thực hiện một cách thận trọng, không vội vàng."
+                        ],
+                        "finance": [
+                                    "Xu hướng tài chính tổng thể của bạn trong đại vận này nghiêng về sự ổn định và bảo toàn hơn là bứt phá mạnh mẽ, nhờ nền tảng vững chắc từ công việc hiện tại.",
+                                    "Khả năng tạo thu nhập được duy trì ổn định nhờ vai trò chuyên môn của bạn, nhưng việc tích lũy tài sản cần có kế hoạch rõ ràng để tránh tiền đến rồi đi mà không để lại nhiều giá trị lâu dài.",
+                                    "Giai đoạn này có dấu hiệu của những khoản chi tiêu phát sinh liên quan đến gia đình, con cái hoặc các mối quan hệ thân thiết, đòi hỏi bạn phải kiểm soát dòng tiền ở mức chiến lược.",
+                                    "Về các quyết định tài chính lớn, bạn nên thận trọng với các khoản vay mượn hoặc bảo lãnh, bởi vận trình có sự hóa kỵ tiềm ẩn, dễ dẫn đến những ràng buộc không mong muốn nếu không cân nhắc kỹ lưỡng."
+                        ],
+                        "direction": [
+                                    "Bạn đang bước vào giai đoạn Đại vận khá thuận lợi, vì vậy hãy đặt trọng tâm vào việc củng cố nền tảng sự nghiệp và tận hưởng cuộc sống gia đình, thay vì mạo hiểm thay đổi lớn.",
+                                    "Trong vai trò Lead, bạn nên tập trung phát huy năng lực quản lý và chuyên môn phân tích để ổn định vị thế, hướng tới mục tiêu công việc gần nhà với thu nhập vững chắc.",
+                                    "Về tài chính, giai đoạn này ủng hộ sự ổn định; bạn nên ưu tiên tích lũy và quản lý ngân sách chặt chẽ, tránh các khoản đầu tư rủi ro cao hay chi tiêu thất thường.",
+                                    "Sức khỏe tinh thần cần được chú ý vì áp lực công việc có thể tăng; hãy duy trì các mối quan hệ xã hội lành mạnh và dành thời gian cho gia đình để cân bằng cuộc sống.",
+                                    "Xuyên suốt Đại vận, bạn nên duy trì sự cẩn trọng vốn có, phát huy khả năng phân tích sắc bén, đồng thời tránh ôm đồm quá nhiều việc dẫn đến căng thẳng không đáng có."
+                        ],
+                        "conclusion": "Đại vận này là giai đoạn Thủy sinh Mộc, mang lại nguồn năng lượng thuận lợi rõ rệt cho bạn, dù bản mệnh Vũ Khúc Thất Sát vốn mang tính chất chủ động và đôi khi căng thẳng. Trọng tâm lớn nhất của giai đoạn nằm ở việc mở rộng các mối quan hệ và đầu tư cho thế hệ tương lai, nơi bạn có cơ hội thể hiện sự quan tâm, chia sẻ và tận hưởng niềm vui từ các mối giao hảo. Tuy nhiên, sự hiện diện của Hóa Kỵ nhắc nhở bạn về những mối bận tâm sâu kín, đòi hỏi sự thận trọng trong chi tiêu và quản lý cảm xúc cá nhân. Giai đoạn này giúp bạn học cách cân bằng giữa trách nhiệm và nhu cầu kết nối, tích lũy những bài học quý giá về lòng tin và sự sẻ chia, tạo nền tảng tinh thần vững chắc cho chặng đường phía trước."
+            },
+            {
+                        "tag": "Đại vận sắp tới",
+                        "years": "2030–2039",
+                        "age": "44–53 tuổi",
+                        "cung": "",
+                        "score": "69 điểm",
+                        "eval": "Thuận lợi",
+                        "overview": [],
+                        "work": [],
+                        "finance": [],
+                        "direction": [],
+                        "conclusion": ""
+            },
+            {
+                        "tag": "Đại vận sắp tới",
+                        "years": "2040–2049",
+                        "age": "54–63 tuổi",
+                        "cung": "",
+                        "score": "58 điểm",
+                        "eval": "Trung bình",
+                        "overview": [],
+                        "work": [],
+                        "finance": [],
+                        "direction": [],
+                        "conclusion": ""
+            }
+        ];
+
+        /* Các mục luận giải của một Đại vận, theo đúng thứ tự hiển thị */
+        var DV_SECTIONS = [
+            { key: "overview",  icon: "📜", title: "Tổng quan tình hình Đại vận" },
+            { key: "work",      icon: "💼", title: "Đánh giá công việc trong Đại vận" },
+            { key: "finance",   icon: "💰", title: "Đánh giá tài chính trong Đại vận" },
+            { key: "direction", icon: "🧭", title: "Định hướng Đại vận" }
+        ];
+
+        function currentIndex() {
+            var p = new URLSearchParams(window.location.search);
+            var n = parseInt(p.get('dv'), 10);
+            if (isNaN(n) || n < 1 || n > DAIVAN.length) n = 4;   // mặc định: đại vận hiện tại
+            return n - 1;
+        }
+
+        function esc(t) {
+            return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function renderTabs(idx) {
+            var html = DAIVAN.map(function (d, i) {
+                return '<div class="dv-pill' + (i === idx ? ' active' : '') + '" onclick="goTo(' + i + ')">' +
+                    '<span class="dv-pill-index">Đại vận ' + (i + 1) + '</span>' +
+                    '<span class="dv-pill-years">' + esc(d.years) + '</span>' +
+                    '<span class="dv-pill-age">' + esc(d.age) + '</span>' +
+                    '</div>';
+            }).join('');
+            document.getElementById('dvTabsScroll').innerHTML = html;
+
+            // đưa giai đoạn đang xem vào giữa dải chọn
+            var scroll = document.getElementById('dvTabsScroll');
+            var pill = scroll.children[idx];
+            if (pill) {
+                var target = pill.offsetLeft + pill.offsetWidth / 2 - scroll.clientWidth / 2;
+                scroll.scrollLeft = Math.max(0, Math.min(target, scroll.scrollWidth - scroll.clientWidth));
+            }
+        }
+
+        function renderContent(idx) {
+            var d = DAIVAN[idx];
+
+            var sections = DV_SECTIONS.map(function (s) {
+                var rows = d[s.key] || [];
+                var body = rows.length
+                    ? '<ul class="dv-list">' + rows.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'
+                    : '<p class="dv-placeholder">Nội dung luận giải đang được cập nhật.</p>';
+                return '<div class="dv-section">' +
+                    '<div class="dv-section-header"><span class="dv-section-icon">' + s.icon + '</span>' +
+                    '<span class="dv-section-title">' + s.title + '</span></div>' +
+                    '<div class="dv-section-body">' + body + '</div>' +
+                    '</div>';
+            }).join('');
+
+            var conclusion = '<div class="dv-section dv-section-conclusion">' +
+                '<div class="dv-section-header"><span class="dv-section-icon">⭐</span>' +
+                '<span class="dv-section-title">Kết luận Đại vận</span></div>' +
+                '<div class="dv-section-body">' +
+                (d.conclusion
+                    ? '<p class="dv-paragraph">' + esc(d.conclusion) + '</p>'
+                    : '<p class="dv-placeholder">Nội dung luận giải đang được cập nhật.</p>') +
+                '</div></div>';
+
+            document.getElementById('dvContent').innerHTML =
+                '<div class="dv-hero">' +
+                    '<h2 class="dv-hero-title">' + esc(d.tag) + ': ĐẠI VẬN ' + (idx + 1) + '</h2>' +
+                    '<div class="dv-hero-period-wrap">' +
+                        '<div class="dv-hero-info-item">' +
+                            '<div class="dv-hero-info-label"><span class="dv-hero-info-icon">📅</span>Giai đoạn từ năm</div>' +
+                            '<div class="dv-hero-info-value">' + esc(d.years) + '</div>' +
+                        '</div>' +
+                        '<div class="dv-hero-info-item">' +
+                            '<div class="dv-hero-info-label"><span class="dv-hero-info-icon">👤</span>Độ tuổi</div>' +
+                            '<div class="dv-hero-info-value">' + esc(d.age) + '</div>' +
+                        '</div>' +
+                        (d.cung
+                            ? '<div class="dv-hero-info-item">' +
+                                  '<div class="dv-hero-info-label"><span class="dv-hero-info-icon">🏠</span>Cung</div>' +
+                                  '<div class="dv-hero-info-value">' + esc(d.cung) + '</div>' +
+                              '</div>'
+                            : '') +
+                    '</div>' +
+                    '<div class="dv-hero-badges">' +
+                        '<span class="dv-badge dv-badge-score">' +
+                            '<svg viewBox="0 0 24 24" width="14" height="14" fill="#d97706"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' +
+                            '<span>' + esc(d.score) + '</span>' +
+                        '</span>' +
+                        '<span class="dv-badge dv-badge-eval">' +
+                            '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>' +
+                            '<span>' + esc(d.eval) + '</span>' +
+                        '</span>' +
+                    '</div>' +
+                '</div>' +
+                sections +
+                conclusion +
+                '<div class="dv-nav">' +
+                    '<button class="dv-nav-btn" type="button" onclick="goTo(' + (idx - 1) + ')"' + (idx === 0 ? ' disabled' : '') + '>‹ Giai đoạn trước</button>' +
+                    '<button class="dv-nav-btn" type="button" onclick="goTo(' + (idx + 1) + ')"' + (idx === DAIVAN.length - 1 ? ' disabled' : '') + '>Giai đoạn sau ›</button>' +
+                '</div>';
+            document.getElementById('dvContent').scrollTop = 0;
+        }
+
+        function goTo(i) {
+            if (i < 0 || i >= DAIVAN.length) return;
+            history.replaceState(null, '', 'tuvi_daivan_detail.html?dv=' + (i + 1));
+            render(i);
+        }
+
+        function render(idx) {
+            renderTabs(idx);
+            renderContent(idx);
+        }
+
+        render(currentIndex());
+
+        // canh lại dải chọn sau khi font/layout ổn định
+        window.addEventListener('load', function () { renderTabs(currentIndex()); });
+    </script>
+</body>
+
+</html>

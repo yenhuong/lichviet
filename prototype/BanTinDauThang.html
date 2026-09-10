@@ -1030,6 +1030,418 @@
             text-align: right;
         }
 
+        /* Khối Tiết Khí Trong Tháng */
+        .tietkhi-card {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .tietkhi-header-tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #2E6F40;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+        }
+
+        .tietkhi-hero-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            position: relative;
+        }
+
+        .tietkhi-hero-left {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .tietkhi-sub {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2D3748;
+            line-height: 1.6;
+        }
+
+        .tietkhi-title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .tietkhi-icon {
+            flex-shrink: 0;
+        }
+
+        .tietkhi-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1B4D3E;
+            line-height: 1.15;
+            margin-top: 2px;
+        }
+
+        .tietkhi-details-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 4px;
+        }
+
+        .tietkhi-countdown-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .start-date-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .tietkhi-countdown-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%);
+            border: 1.5px solid #FDE68A;
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 84px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.12);
+        }
+
+        .count-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #B45309;
+            letter-spacing: 0.5px;
+        }
+
+        .count-num {
+            font-size: 38px;
+            font-weight: 900;
+            color: #D97706;
+            line-height: 1;
+            margin: 2px 0;
+        }
+
+        .count-unit {
+            font-size: 11px;
+            font-weight: 800;
+            color: #B45309;
+            letter-spacing: 0.5px;
+        }
+
+        .tietkhi-icon-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tietkhi-highlight {
+            color: #D97706;
+            font-weight: 900;
+        }
+
+        .tietkhi-start-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 13px;
+            color: #64748B;
+            border-left: 1px solid #E2E8F0;
+            padding-left: 14px;
+        }
+
+        .start-date-label {
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .start-date-val {
+            font-size: 15px;
+            font-weight: 800;
+            color: #1E293B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .start-date-desc-col {
+            flex: 1;
+            align-self: flex-start;
+            padding-left: 18px;
+            margin-left: 4px;
+            border-left: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .tietkhi-note-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1B4D3E;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .start-date-desc {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.45;
+            padding-left: 14px;
+            list-style: none;
+            margin: 0;
+        }
+        .start-date-desc li {
+            position: relative;
+            margin-bottom: 5px;
+        }
+        .start-date-desc li:last-child {
+            margin-bottom: 0;
+        }
+        .start-date-desc li::before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 7px;
+            width: 4.5px;
+            height: 4.5px;
+            border-radius: 50%;
+            background: #2E6F40;
+        }
+
+        .tietkhi-cta-btn {
+            background: #1B4D3E;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 24px;
+            padding: 10px 18px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            align-self: flex-end;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(27, 77, 62, 0.2);
+            margin-top: -30px;
+        }
+        .tietkhi-cta-btn:active {
+            transform: scale(0.97);
+            background: #143B30;
+        }
+
+        .tietkhi-illus-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            background: linear-gradient(135deg, #FFFDE7 0%, #E8F5E9 50%, #C8E6C9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Inner Rhythm Box */
+        .tietkhi-rhythm-box {
+            background: #FBFDF9;
+            border: 1px solid #E6EFE3;
+            border-radius: 16px;
+            padding: 14px 12px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .rhythm-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E293B;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+        }
+
+        .rhythm-timeline-wrap {
+            position: relative;
+            margin: 6px 0 4px;
+            padding: 0;
+        }
+
+        /* Connecting Lines */
+        .rhythm-line-bg {
+            position: absolute;
+            top: 19px;
+            left: 42px;
+            right: 42px;
+            height: 2.5px;
+            z-index: 1;
+            display: flex;
+        }
+        .line-segment-solid {
+            flex: 1;
+            background: #CBD5E1;
+            height: 100%;
+        }
+        .line-segment-dashed {
+            flex: 1;
+            border-top: 2.5px dashed #CBD5E1;
+            height: 0;
+        }
+
+        .rhythm-nodes-grid {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rhythm-node {
+            width: 84px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .rhythm-node:active {
+            transform: scale(0.96);
+        }
+
+        /* Points */
+        .node-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+        }
+        .node-icon.icon-current {
+            background: linear-gradient(135deg, #DCFCE7 0%, #BBF7D0 100%);
+            box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.15);
+            border: 1.5px solid #86EFAC;
+        }
+
+        .rhythm-node-title.current-title {
+            font-weight: 800;
+            color: #15803D;
+        }
+        .node-icon.icon-upcoming {
+            background: #FFFBEB;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+            border: 1px solid #FDE68A;
+        }
+
+        .rhythm-node-title.upcoming-title {
+            font-weight: 800;
+            color: #B45309;
+        }
+        .node-icon.icon-next {
+            background: #F1F5F9;
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+        }
+
+        /* Node text elements */
+        .rhythm-badge {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 2.5px 8px;
+            border-radius: 10px;
+            margin-top: 10px;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+        }
+        .badge-current {
+            background: #1B4D3E;
+            color: #FFFFFF;
+        }
+        .badge-upcoming {
+            background: #FFF7ED;
+            color: #EA580C;
+            border: 1px solid #FFEDD5;
+        }
+        .badge-next {
+            background: #F1F5F9;
+            color: #64748B;
+        }
+
+        .rhythm-node-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E293B;
+            margin-top: 12px;
+        }
+
+        .rhythm-node-date {
+            font-size: 14px;
+            color: #475569;
+            font-weight: 500;
+            margin-top: 8px;
+            white-space: nowrap;
+        }
+
+        .rhythm-node-status {
+            font-size: 13.5px;
+            font-weight: 400;
+            margin-top: 12px;
+            min-height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .status-past { color: #2E6F40; }
+        .status-upcoming { color: #D97706; }
+        .status-future { color: #64748B; }
+
+        .rhythm-hint-footer {
+            text-align: center;
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 500;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
         /* Khối G: Chuẩn bị cho ngày Mùng 1 (1 khung gộp) */
         .mung1-prep-box {
             background: #FFF9EE;
@@ -1702,6 +2114,132 @@
                             <div class="chart-scroll">
                                 <canvas id="dayChart"></canvas>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đường kẻ ngang mảnh 1px -->
+                <div style="height: 1px; background: #CBD5E1; margin: 16px 0 0;"></div>
+
+                <!-- KHỐI TIẾT KHÍ TRONG THÁNG -->
+                <div class="tietkhi-card">
+                    <!-- Top Hero Section -->
+                    <div class="tietkhi-hero-wrapper">
+                        <div class="tietkhi-hero-left">
+                            <div class="tietkhi-title-text">
+                                <div class="tietkhi-sub">Sắp chuyển sang</div>
+                                <div class="tietkhi-title-row">
+                                    <div class="tietkhi-title">tiết khí <span class="tietkhi-highlight">Xử Thử</span></div>
+                                    <div class="tietkhi-icon-badge">
+                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.5 14C4.01472 14 2 11.9853 2 9.5C2 7.16315 3.78207 5.24156 6.07923 5.01947C6.78263 2.65471 8.94895 1 11.5 1C14.4842 1 16.9406 3.2952 17.1856 6.21447C19.3499 6.64333 21 8.53982 21 10.8C21 13.451 18.851 15.6 16.2 15.6H6.5Z" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.8" stroke-linejoin="round"/>
+                                            <path d="M8 17L7 20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M12 17L11 21" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+                                            <path d="M16 17L15 20" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tietkhi-details-row">
+                                <div class="tietkhi-countdown-col">
+                                    <div class="tietkhi-countdown-box">
+                                        <span class="count-label">CÒN</span>
+                                        <span class="count-num">10</span>
+                                        <span class="count-unit">NGÀY</span>
+                                    </div>
+                                    <div class="start-date-block">
+                                        <div class="start-date-label">Bắt đầu từ</div>
+                                        <div class="start-date-val">
+                                            <span>23/08/2026</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="start-date-desc-col">
+                                    <div class="tietkhi-note-title">Đặc điểm nổi bật</div>
+                                    <ul class="start-date-desc">
+                                        <li>Nóng giảm, thời tiết dịu dần</li>
+                                        <li>Phù hợp sắp xếp công việc, ổn định nhịp sống</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <button class="tietkhi-cta-btn" onclick="openModal('Chi tiết tiết Xử Thử', 'Tiết Xử Thử bắt đầu từ ngày 23/08/2026. Lúc này thời tiết bắt đầu hạ nhiệt, nắng nóng giảm dần, không khí mát mẻ dễ chịu hơn.', '🌧️')">
+                                <span>Xem có gì đáng chú ý</span>
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Inner Rhythm Box -->
+                    <div class="tietkhi-rhythm-box">
+                        <div class="rhythm-header" onclick="openModal('Nhịp tiết khí trong tháng', 'Trong một tháng Âm lịch thường trải qua 2 đến 3 mốc tiết khí. Mỗi tiết khí mang đặc trưng thời tiết và vận khí riêng.', '🌿')">
+                            <span>Nhịp tiết khí trong tháng</span>
+                        </div>
+
+                        <div class="rhythm-timeline-wrap">
+                            <!-- Background connecting line -->
+                            <div class="rhythm-line-bg">
+                                <div class="line-segment-solid"></div>
+                                <div class="line-segment-dashed"></div>
+                            </div>
+
+                            <!-- 3 Nodes Grid -->
+                            <div class="rhythm-nodes-grid">
+                                <!-- Node 1: Lập Thu -->
+                                <div class="rhythm-node" onclick="openModal('Tiết Lập Thu', 'Lập Thu bắt đầu từ 07/08/2026. Mùa thu chính thức bắt đầu, thời tiết chuyển từ chói chang sang mát mẻ.', '🌱')">
+                                    <div class="node-icon icon-current">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                                            <path d="M2 21c0-3 1.85-5.36 5.08-6"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="rhythm-node-title current-title">Lập Thu</div>
+                                    <div class="rhythm-node-date">Bắt đầu 07/08</div>
+                                    <div class="rhythm-node-status status-past" style="color: #15803D; font-weight: 700;">
+                                        Đang diễn ra
+                                    </div>
+                                </div>
+
+                                <!-- Node 2: Xử Thử -->
+                                <div class="rhythm-node" onclick="openModal('Tiết Xử Thử', 'Xử Thử bắt đầu từ 23/08/2026. Nắng nóng bắt đầu dịu dần, thời tiết bước vào giai đoạn chuyển mùa.', '🌧️')">
+                                    <div class="node-icon icon-upcoming">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6.5 14C4.01472 14 2 11.9853 2 9.5C2 7.16315 3.78207 5.24156 6.07923 5.01947C6.78263 2.65471 8.94895 1 11.5 1C14.4842 1 16.9406 3.2952 17.1856 6.21447C19.3499 6.64333 21 8.53982 21 10.8C21 13.451 18.851 15.6 16.2 15.6H6.5Z" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.8" stroke-linejoin="round"/>
+                                            <path d="M8 17L7 20" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/>
+                                            <path d="M12 17L11 21" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/>
+                                            <path d="M16 17L15 20" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="rhythm-node-title upcoming-title">Xử Thử</div>
+                                    <div class="rhythm-node-date">23/08</div>
+                                    <div class="rhythm-node-status status-upcoming">
+                                        Còn 10 ngày
+                                    </div>
+                                </div>
+
+                                <!-- Node 3: Bạch Lộ -->
+                                <div class="rhythm-node" onclick="openModal('Tiết Bạch Lộ', 'Bạch Lộ bắt đầu từ 07/09/2026. Nắng nhạt dần, đêm xuống bắt đầu có sương mù nhẹ và không khí se lạnh.', '🍂')">
+                                    <div class="node-icon icon-next">
+                                        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="8" cy="8" r="3.2" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+                                            <path d="M8 1.5v1.4M8 13.1v1.4M2.2 8h1.4M12.4 8h1.4M3.9 3.9l1 1M11.1 11.1l1 1M12.1 3.9l-1 1" stroke="#F59E0B" stroke-width="1.4" stroke-linecap="round"/>
+                                            <path d="M9 20C6.79086 20 5 18.2091 5 16C5 13.9204 6.58687 12.2114 8.61697 12.019C9.24251 10.2371 10.9426 9 12.9231 9C15.2731 9 17.1932 10.7681 17.4231 13.0428C19.0844 13.3663 20.3077 14.8062 20.3077 16.5C20.3077 18.433 18.7407 20 16.8077 20H9Z" fill="#F1F5F9" stroke="#64748B" stroke-width="1.6" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="rhythm-node-title">Bạch Lộ</div>
+                                    <div class="rhythm-node-date">07/09</div>
+                                    <div class="rhythm-node-status status-future">
+                                        Còn 25 ngày
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rhythm-hint-footer">
+                            <span>💡</span> Chạm từng mốc để xem chi tiết
                         </div>
                     </div>
                 </div>

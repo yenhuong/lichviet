@@ -159,9 +159,9 @@ File dữ liệu câu hỏi tử vi thường gặp: https://docs.google.com/spr
 
 **7. Khối "Có thể bạn quan tâm" (Happy path)**
 
-- [ ] Cuối trang hiển thị khối `"Có thể bạn quan tâm"` gồm danh sách các câu hỏi tử vi có cùng chủ đề với câu hỏi đang xem (dạng thẻ dọc); mỗi thẻ hiển thị nội dung câu hỏi kèm icon mũi tên điều hướng.
+- [ ] Cuối trang hiển thị khối `"Có thể bạn quan tâm"` gồm danh sách các câu hỏi tử vi có cùng chủ đề với câu hỏi đang xem (dạng thẻ dọc), hiện tối đa 3 câu hỏi; mỗi thẻ hiển thị nội dung câu hỏi kèm icon mũi tên điều hướng.
 - [ ] Khi nhấn vào một câu hỏi liên quan → hệ thống điều hướng sang màn hình chi tiết giải đáp của câu hỏi đó.
-- [ ] Cuối danh sách hiển thị hàng `"Xem tất cả câu hỏi"` → khi nhấn điều hướng sang màn hình danh sách tất cả câu hỏi tử vi.
+- [ ] Nhấn`"Xem tất cả"` → khi nhấn điều hướng sang màn hình danh sách tất cả câu hỏi tử vi.
 
 ---
 

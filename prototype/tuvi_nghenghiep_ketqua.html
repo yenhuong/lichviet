@@ -1,0 +1,4189 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả tư vấn nghề nghiệp & sự nghiệp - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700;1,600&family=Be+Vietnam+Pro:wght@600;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #169172;
+            --primary-dark: #0F6B54;
+            --bg-light: #F5F7FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-secondary: #666666;
+            --emerald: #10B981;
+            --amber: #F59E0B;
+            --sapphire: #3B82F6;
+            --ruby: #EF4444;
+            --border-color: #E5E7EB;
+        }
+
+        * { box-sizing: border-box; }
+
+        /* Ẩn mọi thanh cuộn (Chrome/Safari dùng ::-webkit-scrollbar bên dưới) */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+        }
+
+        /* Mobile Device Mockup */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .buttons-left {
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 100px;
+            background: #111;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .buttons-right {
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 80px;
+            background: #111;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .status-bar {
+            height: 44px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            z-index: 101;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 500px) {
+            body { background: var(--bg-light); display: block; }
+            .phone-mockup { width: 100%; height: 100vh; padding: 0; border-radius: 0; box-shadow: none; background: none; display: block; }
+            .screen-content { border-radius: 0; }
+            .status-bar, .buttons-left, .buttons-right { display: none; }
+        }
+
+        /* App Bar */
+        .app-bar {
+            background-color: var(--primary);
+            color: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+            font-size: 17px;
+            font-weight: 500;
+            z-index: 10;
+            position: relative;
+        }
+
+        .app-bar .back-btn,
+        .app-bar .share-btn {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s;
+            color: white;
+        }
+
+        .app-bar .back-btn { left: 8px; }
+        .app-bar .share-btn { right: 8px; }
+        .app-bar .back-btn:active,
+        .app-bar .share-btn:active { background: rgba(255, 255, 255, 0.2); }
+
+        .app-bar .title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 44px;
+            line-height: 1.2;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Chip điều hướng nhanh tới từng khối lớn */
+        .quick-nav {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            right: 0;
+            z-index: 9;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(22, 145, 114, 0.16);
+            box-shadow: 0 4px 14px rgba(15, 107, 84, 0.08);
+            transform: translateY(-110%);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.28s ease, opacity 0.22s ease, visibility 0.28s;
+        }
+
+        /* Gradient mờ góc phải báo hiệu còn nội dung cuộn */
+        .quick-nav::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 32px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.96));
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .quick-nav.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .quick-nav-inner {
+            display: flex;
+            gap: 10px;
+            padding: 10px 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        .quick-nav-inner::-webkit-scrollbar { display: none; }
+
+        .qn-chip {
+            flex-shrink: 0;
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1.5px solid #106B54;
+            background: #FFFFFF;
+            color: #106B54;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(16, 107, 84, 0.08);
+            transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.12s;
+            user-select: none;
+        }
+
+        .qn-chip:hover {
+            background: #F0FDF4;
+            border-color: #0B4F3E;
+            box-shadow: 0 4px 12px rgba(16, 107, 84, 0.14);
+        }
+
+        .qn-chip:active { transform: scale(0.95); }
+
+        .qn-chip.active {
+            background: linear-gradient(135deg, #106B54 0%, #0B4F3E 100%);
+            border-color: #106B54;
+            color: #FFFFFF;
+            font-weight: 800;
+            box-shadow: 0 4px 14px rgba(16, 107, 84, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* Không có status bar giả lập -> chip bám ngay dưới app bar */
+        @media (max-width: 500px) {
+            .quick-nav { top: 56px; }
+        }
+
+        ::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+        /* ============ THÔNG TIN LÁ SỐ (kiểu tuvi_nghenghiep.html) ============ */
+        .user-info-card {
+            background: #F6FEFF;
+            padding: 24px 20px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .user-info-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-details h2 {
+            margin: 0 0 8px 0;
+            font-size: 19px;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .user-meta {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .user-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: contain; }
+
+        .switch-member-btn {
+            background: #e6f4f1;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 14px;
+            width: auto;
+            align-self: flex-start;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .switch-member-btn:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Natal chart attributes on light theme */
+        .laso-attrs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .laso-attr {
+            background: #FFFFFF;
+            border: 1px solid rgba(22, 145, 114, 0.18);
+            border-radius: 12px;
+            padding: 9px 12px;
+        }
+        .laso-attr .k {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .laso-attr .v {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        .laso-attr-full { grid-column: span 2; }
+
+        .laso-stars {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .star-tag {
+            background: #E6F4F1;
+            border: 1px solid rgba(22, 145, 114, 0.3);
+            color: var(--primary-dark);
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 8px;
+        }
+
+        .laso-viewfull {
+            margin-top: 16px;
+            width: 100%;
+            background: #e6f4f1;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 11px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .laso-viewfull:active { background: var(--primary); color: #fff; }
+
+        /* Section body */
+        .body-pad { padding: 16px; }
+
+        /* Vùng nền trắng bao quanh khối Định hướng sự nghiệp / Hành trình sự nghiệp */
+        .dinh-huong-section,
+        .hanh-trinh-section {
+            background: #FFFFFF;
+            margin: 20px -16px;
+            padding: 20px 0;
+        }
+        .dinh-huong-section .hieu-ban-than-banner,
+        .hanh-trinh-section .hieu-ban-than-banner {
+            margin: 0 8px 16px 8px;
+        }
+        .dinh-huong-section .houses-list,
+        .hanh-trinh-section .houses-list {
+            margin: 0;
+        }
+
+        .dinh-huong-section .houses-list + .houses-list,
+        .hanh-trinh-section .houses-list + .houses-list {
+            margin-top: 22px;
+        }
+
+        /* Career Variants */
+        .insight-frame-header.header-career-path {
+            background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+            border-bottom: 1px solid #C7D2FE;
+        }
+        .header-career-path svg { color: #4F46E5; }
+        .header-career-path .insight-frame-title { color: #3730A3; }
+
+        .insight-frame-header.header-career-fit {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border-bottom: 1px solid #A7F3D0;
+        }
+        .header-career-fit svg { color: #059669; }
+        .header-career-fit .insight-frame-title { color: #065F46; }
+
+        .insight-frame-header.header-career-avoid {
+            background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
+            border-bottom: 1px solid #FECDD3;
+        }
+        .header-career-avoid svg { color: #E11D48; }
+        .header-career-avoid .insight-frame-title { color: #9F1239; }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            margin: 4px 0 14px;
+            color: var(--text-main);
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .title-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1FB08A 0%, #0F6B54 100%);
+            box-shadow: 0 6px 14px rgba(15, 107, 84, 0.32);
+        }
+        .title-icon svg {
+            width: 21px;
+            height: 21px;
+            color: #fff;
+        }
+
+        /* ============ TỔNG QUAN LÁ SỐ ============ */
+        .tq-header-centered {
+            text-align: center;
+            padding: 8px 0 6px;
+            margin-bottom: 12px;
+        }
+
+        .tq-main-title {
+            margin: 0 0 10px;
+            font-family: 'Lora', 'Be Vietnam Pro', Georgia, serif;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.35;
+            color: #044E3A;
+            background: linear-gradient(135deg, #044E3A 0%, #0F6B54 50%, #B45309 85%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.3px;
+            text-align: center;
+            display: inline-block;
+            filter: drop-shadow(0 3px 10px rgba(15, 107, 84, 0.18));
+        }
+
+        .tq-intro {
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #475569;
+            text-align: left;
+            margin: 0 0 0;
+        }
+
+        .tq-intro b {
+            color: #0F766E;
+            font-weight: 700;
+        }
+
+        /* Đánh giá từng cung - Group Card */
+        .tq-eval-group-card {
+            background: #FFFFFF;
+            border: 1.5px solid rgba(22, 145, 114, 0.2);
+            border-radius: 24px;
+            padding: 0 16px 18px 16px;
+            box-shadow: 0 8px 24px rgba(22, 145, 114, 0.08);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .tq-eval-group-header {
+            margin: 0 -16px 18px -16px;
+            padding: 13px 20px;
+            background-image: linear-gradient(110deg, #E8F3EF 0%, rgba(244, 250, 248, 0.96) 60%, rgba(248, 250, 246, 0.94) 100%), url('soft_cloud_stars.png');
+            background-position: center, right center;
+            background-size: cover, auto 120%;
+            background-repeat: no-repeat;
+            border-bottom: 1.5px solid rgba(22, 145, 114, 0.16);
+            position: relative;
+        }
+
+        .tq-eval-group-title {
+            margin-bottom: 4px;
+        }
+
+        .tq-eval-group-title h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0F6B54;
+            letter-spacing: -0.2px;
+        }
+
+        .tq-eval-group-subtitle {
+            margin: 0;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #334155;
+            padding-left: 0;
+            font-weight: 500;
+            max-width: 85%;
+        }
+
+        .tq-meanings {
+            list-style: none;
+            margin: 0 0 18px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+        .tq-meanings li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-main);
+        }
+        .tq-meanings li img {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+        .tq-meaning-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .tq-meaning-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .tq-meaning-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .tq-subtitle {
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            background: #E6F4F1;
+            padding: 7px 16px;
+            border-radius: 10px;
+            margin: 0 0 14px;
+        }
+
+        .tq-eval-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+        }
+        .tq-eval-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .tq-eval-item:first-child {
+            padding-top: 0;
+        }
+        .tq-eval-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .tq-eval-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+        }
+        .tq-eval-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tq-eval-icon-wrap {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tq-eval-icon-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .tq-eval-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0F172A;
+        }
+        .tq-eval-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+            width: 96px;
+        }
+        .tq-eval-score {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .tq-eval-right .tq-badge {
+            margin: 0;
+            padding: 4px 10px;
+            font-size: 11px;
+        }
+        .tq-eval-desc-box {
+            font-size: 15px;
+            line-height: 1.4;
+            color: #334155;
+        }
+
+        .tq-bridge {
+            font-size: 15px;
+            line-height: 1.4;
+            color: #111111;
+            font-weight: 600;
+            margin: 0 0 14px;
+        }
+
+        .section-divider {
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            margin: 8px -16px 24px;
+        }
+
+        /* 3 cung cards */
+        .tq-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .tq-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 14px 9px 15px;
+            text-align: center;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .tq-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 9px;
+        }
+        .tq-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .tq-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            min-height: 34px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.3;
+        }
+        .tq-score {
+            font-size: 25px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .tq-badge {
+            display: inline-block;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 8px 0 9px;
+            white-space: nowrap;
+        }
+        .badge-tb { background: #FEF3C7; color: #B45309; }
+        .badge-kha { background: #D1FAE5; color: #059669; }
+        .tq-desc {
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+
+        /* Đánh giá tổng quan */
+        .tq-overall {
+            background: linear-gradient(145deg, #FFFFFF 0%, #F0FDFA 55%, #FFFBEB 100%);
+            border: 1.5px solid rgba(22, 145, 114, 0.25);
+            border-radius: 24px;
+            padding: 22px 18px;
+            box-shadow: 0 10px 28px -4px rgba(22, 145, 114, 0.12), 0 4px 14px rgba(245, 158, 11, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tq-overall::before {
+            content: "";
+            position: absolute;
+            top: -24px;
+            right: -24px;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+        }
+
+        .tq-overall-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            border-bottom: 1.5px dashed rgba(22, 145, 114, 0.18);
+        }
+
+        .tq-overall-title-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1FB08A 0%, #0F6B54 100%);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(15, 107, 84, 0.22);
+        }
+
+        .tq-overall-title-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0F172A;
+            letter-spacing: -0.2px;
+        }
+
+        .tq-overall-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        .tq-gauge-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .tq-gauge {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: conic-gradient(#F59E0B 0% 67%, #E2E8F0 67% 100%);
+            box-shadow: 0 6px 18px rgba(245, 158, 11, 0.22);
+            padding: 5px;
+        }
+
+        .tq-gauge-inner {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .tq-gauge-num {
+            font-size: 21px;
+            font-weight: 800;
+            color: #D97706;
+            letter-spacing: -0.5px;
+        }
+
+        .tq-gauge-max {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 3px;
+        }
+
+        .tq-overall-rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #92400E;
+            font-size: 13.5px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(245, 158, 11, 0.12);
+        }
+
+        .tq-overall-mini-breakdown {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 14px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border: 1px dashed rgba(22, 145, 114, 0.2);
+        }
+
+        .mini-chip {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tq-overall-desc-box {
+            width: 100%;
+        }
+
+        .tq-overall-desc {
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #1E293B;
+            margin: 0;
+        }
+
+        .tq-overall-desc b {
+            color: #D97706;
+        }
+
+        /* Highlight card */
+        .highlight-card {
+            border: 1px solid rgba(22, 145, 114, 0.25);
+            background: linear-gradient(135deg, #F0FDFA 0%, #E6F4F1 100%);
+            border-radius: 24px;
+            padding: 20px 16px;
+            box-shadow: 0 2px 8px rgba(22, 145, 114, 0.04);
+            margin-bottom: 24px;
+        }
+        .highlight-quote-wrap {
+            text-align: center;
+            margin-bottom: 14px;
+            padding: 2px 14px;
+            position: relative;
+        }
+        .highlight-quote-wrap .qmark {
+            position: absolute; left: 2px; top: -10px;
+            font-size: 28px; color: rgba(22, 145, 114, 0.35);
+            font-family: Georgia, serif; line-height: 1; font-weight: bold;
+        }
+        .highlight-quote {
+            font-size: 15px; line-height: 1.5; color: #0F172A;
+            font-weight: 600; margin: 0; position: relative; z-index: 1;
+        }
+        .indicators { display: flex; flex-direction: column; gap: 18px; padding: 0 4px; }
+        .indicator-head { display: flex; align-items: center; gap: 6px; }
+        .indicator-head span { font-weight: 800; font-size: 12px; letter-spacing: 0.2px; }
+        .indicator-val { color: #1E293B; font-weight: 500; font-size: 14px; padding-left: 22px; line-height: 1.45; margin-top: 2px; }
+
+        /* Career analysis list */
+        .houses-list {
+            margin: 0 -16px 24px;
+        }
+        .houses-header {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px 22px;
+            text-align: center;
+            background-image: linear-gradient(135deg, rgba(230, 244, 241, 0.90) 0%, rgba(240, 253, 250, 0.86) 50%, rgba(220, 252, 231, 0.90) 100%), url('luan_giai_header_bg.png');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-bottom: 1.5px solid rgba(22, 145, 114, 0.22);
+            box-shadow: 0 4px 14px rgba(15, 107, 84, 0.08);
+            margin-bottom: 2px;
+        }
+
+        .houses-header-content {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .houses-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #1FB08A 0%, #0F6B54 100%);
+            color: #FFFFFF;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            box-shadow: 0 3px 8px rgba(15, 107, 84, 0.25);
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .houses-header-title {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: -0.3px;
+            color: #064E3B;
+            text-align: center;
+            font-family: system-ui, -apple-system, sans-serif;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 10px rgba(6, 78, 59, 0.15);
+        }
+
+        .houses-header-desc {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #14532D;
+            text-align: center;
+            max-width: 100%;
+            opacity: 0.95;
+        }
+        /* Banner Hiểu bản thân trong công việc - Biển hiệu 8px lề */
+        .hieu-ban-than-banner {
+            position: relative;
+            background: linear-gradient(135deg, #FFFDF0 0%, #FFFBEB 50%, #FEF3C7 100%);
+            border-radius: 16px;
+            padding: 22px 28px 20px 28px;
+            overflow: visible;
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1.5px solid rgba(217, 119, 6, 0.35);
+            outline: 1px dashed rgba(245, 158, 11, 0.35);
+            outline-offset: -6px;
+            margin: 24px -8px 20px -8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 145px;
+        }
+
+        .hbt-content {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Hoạ tiết 2 đầu biển hiệu */
+        .hbt-side-decor {
+            position: absolute;
+            top: 50%;
+            width: 34px;
+            height: 104px;
+            pointer-events: none;
+            z-index: 10;
+            filter: drop-shadow(0 3px 6px rgba(120, 53, 15, 0.22));
+        }
+
+        .hbt-side-left {
+            left: -8px;
+            transform: translateY(-50%);
+        }
+
+        .hbt-side-right {
+            right: -8px;
+            transform: translateY(-50%) scaleX(-1);
+        }
+
+        .hbt-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .hbt-flourish {
+            width: 60px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .hbt-flourish-right {
+            transform: scaleX(-1);
+        }
+
+        .hbt-title {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.4;
+            letter-spacing: -0.3px;
+            color: #044E3A;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+            font-family: system-ui, -apple-system, sans-serif;
+            white-space: nowrap;
+        }
+
+        .hbt-desc {
+            margin: 8px 0 0 0;
+            font-size: 14.5px;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #14532D;
+            opacity: 0.95;
+        }
+
+        .hbt-chip {
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #065F46;
+            width: fit-content;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+            white-space: nowrap;
+        }
+
+        .hbt-chip-leaf {
+            width: 14px;
+            height: 14px;
+            color: #10B981;
+            flex-shrink: 0;
+        }
+
+        /* Tiêu đề đầu khối Hiểu bản thân - Nổi bật không khung */
+        .hbt-main-block-header {
+            text-align: center;
+            margin: 32px 0 20px 0;
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hbt-block-title-row {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .hbt-main-block-title {
+            font-family: 'Lora', 'Be Vietnam Pro', Georgia, serif;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.35;
+            color: #044E3A;
+            background: linear-gradient(135deg, #044E3A 0%, #0F6B54 50%, #B45309 85%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.3px;
+            margin: 0;
+            text-align: center;
+            filter: drop-shadow(0 3px 10px rgba(15, 107, 84, 0.22));
+        }
+
+        .hbt-title-line {
+            height: 2px;
+            flex: 1;
+            max-width: 48px;
+            background: linear-gradient(90deg, rgba(217, 119, 6, 0) 0%, #D97706 100%);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .hbt-title-line.right {
+            background: linear-gradient(90deg, #D97706 0%, rgba(217, 119, 6, 0) 100%);
+        }
+
+        .hbt-title-star {
+            color: #D97706;
+            font-size: 14px;
+            line-height: 1;
+            filter: drop-shadow(0 2px 4px rgba(217, 119, 6, 0.35));
+            flex-shrink: 0;
+        }
+
+        /* Giải thích Đại vận: Tiêu đề nhỏ + Nội dung */
+        .daivan-intro-block {
+            margin: 20px 0 14px 0;
+            padding: 0 16px;
+        }
+
+        .daivan-intro-heading {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 8px 0;
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .daivan-heading-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: #D97706;
+        }
+
+        /* Tiêu đề "Các giai đoạn Đại vận của bạn" nhích lên sát phần giải thích phía trên */
+        .house-detail-header.header-daivan-list {
+            padding-top: 10px;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .daivan-intro-body {
+            font-size: 15px;
+            line-height: 1.4;
+            color: #475569;
+            margin: 0;
+        }
+
+        /* Timeline ngắn Các Đại Vận trong cuộc đời */
+        .daivan-tap-hint {
+            font-size: 13.5px;
+            color: #64748b;
+            margin-top: 3px;
+            padding: 0;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .daivan-timeline-wrapper {
+            position: relative;
+            margin-bottom: 0;
+            padding: 0 4px;
+        }
+
+        /* Mỗi cột = 1 mốc trên đường timeline + thẻ đại vận ngay bên dưới */
+        /* Mỗi cột = 1 mốc trên đường timeline + thẻ đại vận ngay bên dưới */
+        .daivan-col {
+            flex: 0 0 116px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .daivan-col.active-col {
+            flex: 0 0 138px;
+        }
+
+        .daivan-node-slot {
+            position: relative;
+            height: 52px;              /* chừa chỗ cho nhãn "Hiện tại" phía trên mốc */
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 6px;
+        }
+
+        .daivan-node-label {
+            position: absolute;
+            bottom: 29.8px;            /* mốc đang chọn phóng to (cao 15.6px): 6px padding + 7.8px nửa mốc + 10px cách */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1e6b52, #14523e);
+            white-space: nowrap;
+            line-height: 1.2;
+            padding: 2px 8px;
+            border-radius: 9px;
+            box-shadow: 0 2px 6px rgba(30, 107, 82, 0.22);
+            letter-spacing: 0.2px;
+        }
+
+        /* Đoạn line nối, kéo dài qua nửa khoảng cách giữa 2 cột để thành đường liền */
+        .daivan-node-slot::before {
+            content: "";
+            position: absolute;
+            bottom: 11.25px;           /* trùng tâm mốc */
+            left: -6px;
+            right: -6px;
+            height: 2px;
+            background: #cbd5e1;
+        }
+
+        .daivan-col:first-child .daivan-node-slot::before { left: 50%; }
+        .daivan-col:last-child .daivan-node-slot::before { right: 50%; }
+
+        .daivan-node {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2.5px solid #cbd5e1;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        .daivan-node.node-past {
+            border-color: #475569;
+            background: #ffffff;
+        }
+
+        .daivan-node.active {
+            border-color: #1e6b52;
+            background: #1e6b52;
+            box-shadow: 0 0 0 4px rgba(30, 107, 82, 0.25);
+            transform: scale(1.3);
+        }
+
+        .daivan-node.node-future {
+            border-color: #d97706;
+            background: #ffffff;
+        }
+
+        /* Scrollable Container & Cards */
+        .daivan-scroll-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 8px 6px 18px 6px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            align-items: stretch;
+        }
+
+        .daivan-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .daivan-card-item {
+            width: 100%;
+            flex: 1;                       /* các thẻ cao bằng nhau */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            user-select: none;
+            position: relative;
+        }
+
+        /* Hover effect kích thích người dùng bấm */
+        .daivan-card-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            border-color: #cbd5e1;
+        }
+
+        /* Phân biệt rõ ràng thẻ Quá khứ & Tương lai */
+        .daivan-card-item.past {
+            background: #ffffff;
+            border-color: #cbd5e1;
+        }
+        .daivan-card-item.past:hover {
+            border-color: #94a3b8;
+            background: #f8fafc;
+        }
+
+        .daivan-card-item.future {
+            background: linear-gradient(180deg, #ffffff 0%, #fffdf5 100%);
+            border-color: #fde68a;
+        }
+        .daivan-card-item.future:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 6px 18px rgba(217, 119, 6, 0.14);
+        }
+
+        /* Thẻ HIỆN TẠI (Active) - To nổi bật và thu hút hoàn toàn */
+        .daivan-card-item.active {
+            background: linear-gradient(180deg, #ffffff 0%, #edf7f3 100%);
+            border: 2px solid #1e6b52;
+            box-shadow: 0 8px 24px rgba(30, 107, 82, 0.22);
+            transform: translateY(-4px);
+            padding: 15px 12px;
+        }
+        .daivan-card-item.active:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(30, 107, 82, 0.28);
+        }
+
+        .daivan-card-index {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .daivan-card-item.active .daivan-card-index {
+            color: #1e6b52;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .daivan-card-years {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.25;
+        }
+
+        .daivan-card-item.past .daivan-card-years {
+            color: #0f172a;
+        }
+
+        .daivan-card-item.active .daivan-card-years {
+            font-size: 16.5px;
+            font-weight: 800;
+            color: #064e3b;
+        }
+
+        .daivan-card-age-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            font-size: 12px;
+            color: #334155;
+            margin: 4px 0 8px 0;
+        }
+
+        .daivan-card-item.past .daivan-card-age-row {
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .daivan-card-item.active .daivan-card-age-row {
+            color: #1e6b52;
+            font-weight: 700;
+            font-size: 13.5px;
+        }
+
+        .daivan-card-score {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+        }
+
+        .daivan-card-score.active-text {
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        /* 5 mức đánh giá - màu chữ theo mức, đè lên màu mặc định của thẻ */
+        .daivan-card-score.eval-1 { color: #047857; }   /* Rất thuận lợi */
+        .daivan-card-score.eval-2 { color: #059669; }   /* Thuận lợi */
+        .daivan-card-score.eval-3 { color: #0891B2; }   /* Khá thuận lợi */
+        .daivan-card-score.eval-4 { color: #B45309; }   /* Trung bình */
+        .daivan-card-score.eval-5 { color: #DC2626; }   /* Nhiều thử thách */
+
+        /* Detail Card */
+        .daivan-detail-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 22px 20px;
+            position: relative;
+            margin: 10px 16px 0 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+
+
+
+        .daivan-detail-content-left {
+            position: relative;
+            z-index: 2;
+        }
+
+        .daivan-detail-title {
+            margin: 0 0 18px 0;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e6b52;
+            letter-spacing: 0.6px;
+        }
+
+        .daivan-detail-period-wrap {
+            margin: 0 0 20px 0;
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .daivan-detail-info-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .daivan-detail-info-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .daivan-detail-info-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            margin-top: 6px;
+        }
+
+        .daivan-detail-badges-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .daivan-badge-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 16px;
+        }
+
+        .badge-score {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .badge-evaluation {
+            background: #e6f4ef;
+            color: #1e6b52;
+        }
+
+        .daivan-detail-conclusion {
+            font-size: 15px;
+            line-height: 1.4;
+            color: #1f2937;
+            margin: 0 0 22px 0;
+        }
+
+        .daivan-detail-action-btn {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #24755c, #165643);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 24px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(22, 86, 67, 0.25);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .daivan-detail-action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(22, 86, 67, 0.35);
+        }
+
+        .houses-bridge {
+            padding: 16px 16px 8px;
+            text-align: center;
+        }
+
+        .houses-bridge-text {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #0F6B54;
+        }
+
+        .hbt-illustration-wrap {
+            position: absolute;
+            right: 8px;
+            top: 10px;
+            width: 30%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hbt-mountain-svg {
+            width: 100%;
+            max-height: 92px;
+            object-fit: contain;
+            object-position: top right;
+        }
+
+        /* House detail block - Full Width */
+        .houses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 0 -16px 24px;
+        }
+
+        .house-detail-card {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E7EB;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding: 0;
+        }
+
+        .house-detail-card:last-child {
+            border-bottom: none;
+        }
+
+        .house-detail-header {
+            padding: 18px 16px;
+            border-bottom: 1.5px solid rgba(22, 145, 114, 0.16);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        /* Background & Border accents cho 3 khối tiêu đề nhỏ */
+        .header-sub-env {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+            border-bottom: 1.5px solid rgba(16, 107, 82, 0.15) !important;
+            padding: 16px 18px;
+        }
+
+        .header-sub-career {
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+            border-bottom: 1.5px solid rgba(37, 99, 235, 0.15) !important;
+            padding: 16px 18px;
+        }
+
+        .header-sub-daivan {
+            background: transparent !important;
+            border-bottom: none !important;
+            padding: 16px 18px 4px 18px;
+        }
+
+        .header-menh {
+            background: linear-gradient(135deg, #F5F3FF 0%, #F0FDF4 55%, #E6F4F1 100%), url('soft_cloud_stars.png');
+            background-size: cover;
+            border-bottom-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .header-quanloc {
+            background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 55%, #E6F4F1 100%), url('soft_cloud_stars.png');
+            background-size: cover;
+            border-bottom-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .header-taibach {
+            background: linear-gradient(135deg, #ECFDF5 0%, #FFFBEB 55%, #E6F4F1 100%), url('soft_cloud_stars.png');
+            background-size: cover;
+            border-bottom-color: rgba(5, 150, 105, 0.2);
+        }
+
+        .house-order-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 12px;
+            width: fit-content;
+        }
+
+        .badge-menh {
+            background: #EDE9FE;
+            color: #6D28D9;
+            border: 1px solid #DDD6FE;
+        }
+
+        .badge-quanloc {
+            background: #DBEAFE;
+            color: #1E40AF;
+            border: 1px solid #BFDBFE;
+        }
+
+        .badge-taibach {
+            background: #D1FAE5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
+        }
+
+        .house-detail-header-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .house-detail-header-main.header-main-center {
+            align-items: center;
+        }
+
+        .house-detail-icon-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .house-detail-icon {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+        }
+
+        .house-detail-title-wrap {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .house-detail-name-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .house-detail-name {
+            margin: 0;
+            font-size: 19px;
+            font-weight: 800;
+            color: #0F172A;
+            letter-spacing: -0.3px;
+        }
+
+        .house-detail-score {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .house-detail-score-num {
+            font-size: 19px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .house-detail-score .tq-badge {
+            margin: 0;
+        }
+
+        .house-detail-tag {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0F6B54;
+            margin-top: 2px;
+            line-height: 1.4;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .house-detail-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        /* Khung luận giải chi tiết */
+        .insight-frame {
+            border: 1px solid #E2E8F0;
+            background: #FFFFFF;
+            overflow: hidden;
+        }
+
+        .insight-frame:first-child {
+            border-radius: 16px 16px 0 0;
+        }
+
+        .insight-frame:last-child {
+            border-radius: 0 0 16px 16px;
+        }
+
+        .insight-frame + .insight-frame {
+            border-top: none;
+        }
+
+        .insight-frame-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #F8FAFC;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .insight-icon-box {
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: transparent;
+        }
+
+        .insight-icon-img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            filter: drop-shadow(0 1.5px 3px rgba(0, 0, 0, 0.16));
+        }
+
+        /* Env Variants */
+        .insight-frame-header.header-env-suitable {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border-bottom: 1px solid #A7F3D0;
+        }
+        .header-env-suitable .insight-frame-title { color: #065F46; }
+
+        .insight-frame-header.header-env-unsuitable {
+            background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);
+            border-bottom: 1px solid #FECDD3;
+        }
+        .header-env-unsuitable .insight-frame-title { color: #9F1239; }
+
+        .insight-frame-header.header-env-scale {
+            background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+            border-bottom: 1px solid #C7D2FE;
+        }
+        .header-env-scale .insight-frame-title { color: #3730A3; }
+
+        .insight-frame-header.header-env-stability {
+            background: linear-gradient(135deg, #F0FDFA 0%, #CCFBF1 100%);
+            border-bottom: 1px solid #99F6E4;
+        }
+        .header-env-stability .insight-frame-title { color: #115E59; }
+
+        .insight-frame-header.header-env-growth {
+            background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+            border-bottom: 1px solid #DDD6FE;
+        }
+        .header-env-growth .insight-frame-title { color: #5B21B6; }
+
+        .insight-frame-header.header-personality {
+            background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+            border-bottom: 1px solid #BAE6FD;
+        }
+        .insight-frame-header.header-personality svg { color: #0284C7; }
+        .insight-frame-header.header-personality .insight-frame-title { color: #0369A1; }
+
+        .insight-frame-header.header-strength {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border-bottom: 1px solid #A7F3D0;
+        }
+        .insight-frame-header.header-strength svg { color: #059669; }
+        .insight-frame-header.header-strength .insight-frame-title { color: #065F46; }
+
+        .insight-frame-header.header-improvement {
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border-bottom: 1px solid #FDE68A;
+        }
+        .insight-frame-header.header-improvement svg { color: #D97706; }
+        .insight-frame-header.header-improvement .insight-frame-title { color: #92400E; }
+
+        .personality-highlight-box {
+            background: #F0F9FF;
+            border-left: 4px solid #0284C7;
+            border-radius: 0 10px 10px 0;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #0C4A6E;
+        }
+
+        .insight-frame-header svg {
+            color: #C79A3A;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+        }
+
+        .insight-frame-title {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: #1B5E43;
+            letter-spacing: -0.2px;
+            line-height: 1.4;
+        }
+
+        .insight-frame-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 16px;
+        }
+
+        .house-strength-list.insight-list-strength {
+            padding-left: 0;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .house-strength-list.insight-list-strength li {
+            position: relative;
+            padding-left: 20px;
+            line-height: 1.4;
+        }
+
+        .house-strength-list.insight-list-strength li::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            width: 7px;
+            height: 7px;
+            background: #059669;
+            border-radius: 50%;
+        }
+
+        .house-strength-list.insight-list-improvement {
+            padding-left: 0;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .house-strength-list.insight-list-improvement li {
+            position: relative;
+            padding-left: 20px;
+            line-height: 1.4;
+        }
+
+        .house-strength-list.insight-list-improvement li::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            width: 7px;
+            height: 7px;
+            background: #D97706;
+            border-radius: 50%;
+        }
+
+        /* Mục nghề nghiệp: tên nhóm một hàng, danh sách nghề hàng dưới */
+        .job-group-name {
+            display: block;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .job-group-name::after {
+            content: ":";
+        }
+
+        .job-group-items {
+            display: block;
+            margin-top: 2px;
+        }
+
+        .house-sub-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sub-title-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 8px;
+            line-height: 1;
+            width: fit-content;
+        }
+
+        .badge-personality {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+        }
+
+        .badge-strength {
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
+        }
+
+        .badge-note {
+            background: #FFFBEB;
+            color: #B45309;
+            border: 1px solid #FDE68A;
+        }
+
+        .house-sub-content {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #334155;
+        }
+
+        .house-strength-list {
+            margin: 0;
+            padding-left: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 15px;
+            line-height: 1.4;
+            color: #334155;
+        }
+
+        .house-note-box {
+            background: #FFFBEB;
+            border-left: 4px solid #F59E0B;
+            padding: 10px 12px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #78350F;
+        }
+
+        .house-list-item {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent, #169172);
+            padding: 15px 14px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s;
+        }
+        .house-list-item:last-child { border-bottom: none; }
+        .house-list-item:active { background: rgba(0, 0, 0, 0.02); }
+        .hli-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+            transition: transform 0.2s;
+        }
+        .house-list-item:active .hli-icon {
+            transform: scale(0.94);
+        }
+        .hli-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+        .hli-title { font-size: 16px; font-weight: 700; line-height: 1.3; }
+        .hli-desc { font-size: 13.5px; line-height: 1.45; color: #4B5563; }
+        .hli-arrow {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F1F5F9;
+            color: #64748B;
+        }
+
+        /* Explore more */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px 8px;
+            margin-top: 16px;
+            padding: 0 4px;
+        }
+        .explore-item { display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; }
+        .explore-icon-wrapper {
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 -4px 8px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .explore-item:active .explore-icon-wrapper { transform: scale(0.92); }
+        .explore-icon { font-size: 28px; line-height: 1; }
+        .explore-text { font-size: 13px; font-weight: 500; color: var(--text-main); line-height: 1.4; }
+
+        .divider-section {
+            margin-top: 32px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+        }
+
+        /* ============ TỔNG KẾT DÀNH CHO BẠN ============ */
+        .tong-ket-section {
+            background: #FFFFFF;
+            margin: 20px -16px 0;
+            padding: 20px 0 24px;
+        }
+
+        .tong-ket-section .hieu-ban-than-banner {
+            margin: 0 8px 18px 8px;
+        }
+
+        .tk-blocks {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 16px;
+        }
+
+        .tk-block-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tk-outer-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 2px 2px;
+            margin-bottom: 2px;
+        }
+
+        .tk-header-img-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            flex-shrink: 0;
+            filter: drop-shadow(0 3px 8px rgba(99, 102, 241, 0.22));
+        }
+
+        .tk-icon-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tk-icon-badge svg {
+            width: 13.5px;
+            height: 13.5px;
+            color: #FFFFFF;
+        }
+
+        .tk-outer-title {
+            margin: 0;
+            font-size: 17.5px;
+            font-weight: 900;
+            letter-spacing: -0.35px;
+            line-height: 1.3;
+        }
+
+        .tk-outer-header.has-desc {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 6px;
+        }
+
+        .tk-outer-header-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tk-outer-desc {
+            margin: 0;
+            font-size: 13.5px;
+            font-weight: 500;
+            line-height: 1.45;
+            color: #475569;
+        }
+
+        /* 1. Kế hoạch phát triển bản thân */
+        .tk-header-plan .tk-icon-badge {
+            background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
+            box-shadow: 0 2px 6px rgba(99, 102, 241, 0.25);
+        }
+        .tk-header-plan .tk-outer-title { color: #1E1B4B; }
+
+        /* 2. Kết luận */
+        .tk-header-conclusion .tk-icon-badge {
+            background: linear-gradient(135deg, #1FB08A 0%, #0F6B54 100%);
+            box-shadow: 0 2px 6px rgba(31, 176, 138, 0.25);
+        }
+        .tk-header-conclusion .tk-outer-title { color: #022C22; }
+
+        /* 3. Thông điệp dành cho bạn */
+        .tk-header-message .tk-icon-badge {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
+        }
+        .tk-header-message .tk-outer-title { color: #451A03; }
+
+        .tk-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+        }
+
+        .tk-card-body {
+            padding: 16px;
+        }
+
+        /* Dạng nhóm ý trong Kế hoạch phát triển bản thân (không khung xám từng nhóm) */
+        .tk-plan-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tk-plan-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .tk-plan-group:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .tk-group-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tk-sub-icon-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .tk-sub-icon-badge svg {
+            width: 15px;
+            height: 15px;
+            color: #FFFFFF;
+        }
+
+        .tk-sub-icon-partner {
+            background: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
+        }
+
+        .tk-sub-icon-skill {
+            background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+        }
+
+        .tk-sub-icon-habit {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .tk-sub-icon-avoid {
+            background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%);
+        }
+
+        .tk-group-title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 800;
+            color: #1E293B;
+            letter-spacing: -0.2px;
+        }
+
+        .tk-group-bullets {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .tk-group-bullets li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .tk-group-bullets li::before {
+            content: "•";
+            position: absolute;
+            left: 3px;
+            top: -1px;
+            color: #6366F1;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .tk-plan-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tk-plan-list li {
+            position: relative;
+            padding-left: 22px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .tk-plan-list li::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4F46E5;
+        }
+
+        .tk-paragraph {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        .tk-paragraph + .tk-paragraph {
+            margin-top: 12px;
+        }
+
+        /* Thông điệp dành cho bạn: UI Chuẩn Mẫu Tham Khảo */
+        .tk-oriental-full-card {
+            background: #FAF5EE;
+            border: 1px solid #ECE0CE;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(180, 83, 9, 0.06);
+            margin-top: 6px;
+        }
+
+        /* Top Hero Quote Banner with Oriental Landscape */
+        .tk-oriental-hero {
+            position: relative;
+            background: #FAF6F0;
+            padding: 24px 20px 22px 20px;
+            min-height: 155px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            border-bottom: 1px solid #ECE0CE;
+        }
+
+        .tk-oriental-hero-art {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 48%;
+            object-fit: cover;
+            object-position: right center;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            mask-image: linear-gradient(to right, transparent 0%, black 40%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
+        }
+
+        .tk-oriental-quote-box {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-width: 72%;
+        }
+
+        .tk-quote-title-green {
+            margin: 0;
+            font-family: Georgia, "Merriweather", serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #1B4D3E;
+            line-height: 1.25;
+            letter-spacing: -0.2px;
+            white-space: nowrap;
+        }
+
+        .tk-quote-title-brown {
+            margin: 0 0 8px 0;
+            font-family: Georgia, "Merriweather", serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #8C531F;
+            line-height: 1.25;
+            letter-spacing: -0.2px;
+            white-space: nowrap;
+        }
+
+        .tk-quote-subtitle {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13.5px;
+            font-weight: 400;
+            color: #555E68;
+            line-height: 1.45;
+        }
+
+        /* Middle 4-Block Item List */
+        .tk-oriental-list {
+            padding: 4px 18px;
+            display: flex;
+            flex-direction: column;
+            background: #FAF5EE;
+        }
+
+        .tk-oriental-para {
+            margin: 0;
+            padding: 16px 0;
+            font-size: 14.5px;
+            line-height: 1.7;
+            color: #4A3A2C;
+            font-weight: 400;
+        }
+
+        .tk-oriental-para strong {
+            color: #261B12;
+            font-weight: 700;
+        }
+
+        /* Card Lời nhắn từ Lịch Việt */
+        .tk-message-footer-card {
+            position: relative;
+            margin-top: 14px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 20px 16px 20px;
+            text-align: center;
+            box-shadow: none;
+        }
+
+        .tk-msg-foot-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tk-msg-divider-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        .tk-msg-line {
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, #C8963E 50%, transparent);
+        }
+
+        .tk-msg-lotus-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tk-lotus-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 8px rgba(212, 175, 55, 0.35));
+        }
+
+        .tk-msg-foot-subtitle {
+            margin: 6px 0 6px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4A5568;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+        }
+
+        .tk-msg-foot-title {
+            margin: 0 0 10px;
+            font-family: Georgia, "Merriweather", serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1B4D3E;
+            line-height: 1.4;
+            letter-spacing: -0.1px;
+        }
+
+        .tk-msg-foot-pill {
+            width: 28px;
+            height: 3px;
+            background: #C8963E;
+            border-radius: 2px;
+            margin: 2px auto 0;
+        }
+
+        .tk-oriental-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #EFE4D4;
+        }
+
+        .tk-oriental-item:last-child {
+            border-bottom: none;
+        }
+
+        .tk-oriental-icon-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #F3E6D3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+            color: #8C531F;
+        }
+
+        .tk-oriental-item-text {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4A3A2C;
+            font-weight: 400;
+        }
+
+        .tk-oriental-item-text strong {
+            color: #261B12;
+            font-weight: 700;
+        }
+
+        /* Bottom Mascot Golden Banner Card */
+        .tk-oriental-banner-footer {
+            margin: 12px 14px 16px;
+            background: linear-gradient(135deg, #F5DFB8 0%, #E9C998 100%);
+            border: 1px solid #E2BD84;
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .tk-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tk-banner-mascot {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .tk-banner-text-box {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .tk-banner-quote {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: 13.5px;
+            font-style: italic;
+            color: #5A2717;
+            line-height: 1.4;
+        }
+
+        .tk-banner-quote strong {
+            font-weight: 700;
+        }
+
+        .tk-banner-caption {
+            font-size: 11px;
+            color: #8C531F;
+            font-weight: 500;
+            margin-top: 1px;
+        }
+
+        .tk-banner-stamp {
+            width: 32px;
+            height: 32px;
+            background: #B91C1C;
+            border-radius: 6px;
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: 800;
+            line-height: 1.1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(185, 28, 28, 0.3);
+            border: 1px solid #991B1B;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="buttons-left"></div>
+        <div class="buttons-right"></div>
+        <div class="screen-content">
+            <div class="status-bar">
+                <div class="time">19:45</div>
+                <div class="status-icons">
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z" />
+                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <svg width="24" height="12" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" />
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round" />
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- App Bar -->
+            <div class="app-bar">
+                <div class="back-btn" onclick="history.back()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </div>
+                <span class="title">Tư vấn nghề nghiệp &amp; sự nghiệp</span>
+                <div class="share-btn" onclick="shareResult()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Chip điều hướng nhanh -->
+            <div class="quick-nav" id="quickNav">
+                <div class="quick-nav-inner">
+                    <button type="button" class="qn-chip" data-target="sec-tongquan">Tổng quan lá số</button>
+                    <button type="button" class="qn-chip" data-target="sec-hieubanthan">Hiểu bản thân</button>
+                    <button type="button" class="qn-chip" data-target="sec-dinhhuong">Định hướng sự nghiệp</button>
+                    <button type="button" class="qn-chip" data-target="sec-hanhtrinh">Hành trình sự nghiệp</button>
+                    <button type="button" class="qn-chip" data-target="sec-tongket">Tổng kết</button>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- ============ THÔNG TIN LÁ SỐ ============ -->
+                <div class="user-info-card">
+                    <div class="user-info-top">
+                        <div class="user-details">
+                            <h2>Trần Nguyễn Hoàng Anh</h2>
+                            <div class="user-meta">
+                                <div class="user-meta-row">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    <span>15/08/1981 - Giờ Tị (9h-11h)</span>
+                                </div>
+                                <div class="user-meta-row">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                                        <circle cx="10" cy="14" r="5"></circle>
+                                        <line x1="13.5" y1="10.5" x2="19" y2="5"></line>
+                                        <polyline points="15 5 19 5 19 9"></polyline>
+                                    </svg>
+                                    <span>Nam</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-avatar">
+                            <img src="rooster.png" alt="Tuổi Dậu">
+                        </div>
+                    </div>
+                    <button class="switch-member-btn" onclick="window.location.href='tuvi_nghenghiep_input.html?bypass=false'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        Xem cho người thân
+                    </button>
+                </div>
+
+                <div class="body-pad">
+                    <!-- Tổng quan lá số -->
+                    <div class="tq-header-centered" id="sec-tongquan">
+                        <h2 class="tq-main-title">Tổng Quan Lá Số Của Bạn</h2>
+                        <p class="tq-intro">
+                            Định hướng công việc và sự nghiệp của bạn được luận giải dựa trên ba cung chính:
+                            <b>Mệnh, Quan Lộc và Tài Bạch</b>.
+                        </p>
+                    </div>
+
+                    <!-- Khung Đánh giá từng cung -->
+                    <div class="tq-eval-group-card">
+                        <div class="tq-eval-group-header">
+                            <div class="tq-eval-group-title">
+                                <h3>Đánh giá từng cung</h3>
+                            </div>
+                            <p class="tq-eval-group-subtitle">
+                                Trong lá số của bạn, ba cung thể hiện những đặc điểm riêng như sau:
+                            </p>
+                        </div>
+
+                        <ul class="tq-eval-list">
+                            <li class="tq-eval-item item-menh">
+                                <div class="tq-eval-top-row">
+                                    <div class="tq-eval-left">
+                                        <div class="tq-eval-icon-wrap">
+                                            <img src="i_Menh Copy.png" alt="Cung Mệnh">
+                                        </div>
+                                        <span class="tq-eval-name">Cung Mệnh</span>
+                                    </div>
+                                    <div class="tq-eval-right">
+                                        <span class="tq-eval-score" style="color:#7C3AED;">63%</span>
+                                        <span class="tq-badge badge-tb">Trung bình</span>
+                                    </div>
+                                </div>
+                                <div class="tq-eval-desc-box">
+                                    Thể hiện nền tảng hình thành tính cách và định hướng phát triển lâu dài.
+                                </div>
+                            </li>
+                            <li class="tq-eval-item item-quanloc">
+                                <div class="tq-eval-top-row">
+                                    <div class="tq-eval-left">
+                                        <div class="tq-eval-icon-wrap">
+                                            <img src="i_QuanLoc.png" alt="Cung Quan Lộc">
+                                        </div>
+                                        <span class="tq-eval-name">Cung Quan Lộc</span>
+                                    </div>
+                                    <div class="tq-eval-right">
+                                        <span class="tq-eval-score" style="color:#2563EB;">74%</span>
+                                        <span class="tq-badge badge-kha">Khá thuận lợi</span>
+                                    </div>
+                                </div>
+                                <div class="tq-eval-desc-box">
+                                    Cho biết khả năng đảm nhận trách nhiệm và gánh vác những công việc quan trọng.
+                                </div>
+                            </li>
+                            <li class="tq-eval-item item-taibach">
+                                <div class="tq-eval-top-row">
+                                    <div class="tq-eval-left">
+                                        <div class="tq-eval-icon-wrap">
+                                            <img src="i_TaiBach Copy 2.png" alt="Cung Tài Bạch">
+                                        </div>
+                                        <span class="tq-eval-name">Cung Tài Bạch</span>
+                                    </div>
+                                    <div class="tq-eval-right">
+                                        <span class="tq-eval-score" style="color:#059669;">68%</span>
+                                        <span class="tq-badge badge-tb">Trung bình</span>
+                                    </div>
+                                </div>
+                                <div class="tq-eval-desc-box">
+                                    Phản ánh năng lực quản lý, sử dụng và phân bổ nguồn tài chính một cách hiệu quả.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p class="tq-bridge">
+                        Dựa trên kết quả của 3 cung và sự liên kết giữa các cung, Lịch Việt đưa ra
+                        đánh giá tổng quan về sự nghiệp của bạn.
+                    </p>
+
+                    <!-- Đánh giá tổng quan -->
+                    <div class="tq-overall">
+                        <div class="tq-overall-title-row">
+                            <div class="tq-overall-title-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 20V10"></path>
+                                    <path d="M18 20V4"></path>
+                                    <path d="M6 20v-4"></path>
+                                </svg>
+                            </div>
+                            <div class="tq-overall-title-text">Đánh giá tổng quan sự nghiệp</div>
+                        </div>
+                        <div class="tq-overall-top">
+                            <div class="tq-gauge-wrapper">
+                                <div class="tq-gauge">
+                                    <div class="tq-gauge-inner">
+                                        <span class="tq-gauge-num">67%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tq-overall-rating-badge">
+                                <span>⭐</span> Mức đánh giá: <strong>Trung bình</strong>
+                            </div>
+                        </div>
+                        <div class="tq-overall-desc-box">
+                            <p class="tq-overall-desc">
+                                Việc đánh giá đồng thời Cung Mệnh, Cung Quan Lộc và Cung Tài Bạch cho thấy
+                                điểm số của ba cung đang tồn tại sự khác biệt nhất định. Mức độ chênh lệch này
+                                đã thể hiện khá rõ và tạo thành một đặc điểm nổi bật trong cấu trúc đánh giá
+                                tổng hợp. Kết quả chung đạt <b>67%</b>, tương ứng với mức đánh giá tổng thể
+                                là <b>Trung bình</b>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Đường ngăn giữa 2 khối -->
+                    <div class="section-divider" style="margin-bottom: 0;"></div>
+
+                    <!-- Tiêu đề khối Hiểu bản thân -->
+                    <div class="hbt-main-block-header" id="sec-hieubanthan">
+                        <div class="hbt-block-title-row">
+                            <span class="hbt-title-line"></span>
+                            <span class="hbt-title-star">✦</span>
+                            <h2 class="hbt-main-block-title">Luận Giải Chuyên Sâu Dành Riêng Cho Bạn</h2>
+                            <span class="hbt-title-star">✦</span>
+                            <span class="hbt-title-line right"></span>
+                        </div>
+                    </div>
+
+                    <!-- Banner Hiểu bản thân trong công việc -->
+                    <div class="hieu-ban-than-banner">
+                        <!-- Hoạ tiết 3D kim loại vàng đầu trái biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-left" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="hbtEndCapGold" x1="0" y1="0" x2="36" y2="110" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#FFFDF0"/>
+                                    <stop offset="25%" stop-color="#FDE047"/>
+                                    <stop offset="60%" stop-color="#F59E0B"/>
+                                    <stop offset="85%" stop-color="#D97706"/>
+                                    <stop offset="100%" stop-color="#78350F"/>
+                                </linearGradient>
+                                <linearGradient id="hbtEndCapLine" x1="0" y1="0" x2="0" y2="110" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+                                    <stop offset="50%" stop-color="#FEF08A" stop-opacity="0.9"/>
+                                    <stop offset="100%" stop-color="#D97706" stop-opacity="0.4"/>
+                                </linearGradient>
+                            </defs>
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <!-- Hoạ tiết 3D kim loại vàng đầu phải biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-right" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <div class="hbt-content">
+                            <div class="hbt-title-row">
+                                <svg class="hbt-flourish hbt-flourish-left" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="hbtFlrGrad" x1="0" y1="0" x2="64" y2="0" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#D97706" stop-opacity="0"/>
+                                            <stop offset="40%" stop-color="#F59E0B" stop-opacity="0.7"/>
+                                            <stop offset="80%" stop-color="#D97706"/>
+                                            <stop offset="100%" stop-color="#92400E"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                                <h3 class="hbt-title">Hiểu bản thân<br>trong công việc</h3>
+                                <svg class="hbt-flourish hbt-flourish-right" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                            </div>
+                            <p class="hbt-desc">
+                                Ba cung Mệnh, Quan Lộc và Tài Bạch giúp bạn hiểu rõ hơn về tính cách, thế mạnh, hạn chế và khả năng phát triển sự nghiệp
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Luận giải chuyên sâu -->
+                    <div class="houses-list">
+
+                        <!-- Khối 1: Cung Mệnh -->
+                        <div class="house-detail-card card-menh">
+                            <div class="house-detail-header header-menh">
+                                <div class="house-detail-header-main">
+                                    <div class="house-detail-icon-wrap icon-menh">
+                                        <img src="i_Menh Copy.png" alt="Cung Mệnh" class="house-detail-icon" />
+                                    </div>
+                                    <div class="house-detail-title-wrap">
+                                        <div class="house-detail-name-row">
+                                            <h4 class="house-detail-name">Cung Mệnh</h4>
+                                            <div class="house-detail-score">
+                                                <span class="house-detail-score-num" style="color:#7C3AED;">63%</span>
+                                                <span class="tq-badge badge-tb">Trung bình</span>
+                                            </div>
+                                        </div>
+                                        <span class="house-detail-tag">Hiểu mình trong công việc – Phát huy đúng thế mạnh</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="house-detail-body">
+                                <!-- 1. Tính cách -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-personality">
+                                        <div class="insight-icon-box">
+                                            <img src="menh_personality_icon.png" class="insight-icon-img" alt="Tính cách của bạn trong công việc" />
+                                        </div>
+                                        <span class="insight-frame-title">Tính cách của bạn trong công việc</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <p class="house-sub-content">
+                                            Mệnh có sao <b>Vũ Khúc, Thất Sát</b>, nên tính chất của các chính tinh này ảnh hưởng trực tiếp đến bản tính và cách xử lý công việc của bạn. Bạn là người có thiên hướng <b>hành động nhanh</b>, <b>quyết đoán</b> trong xử lý việc gấp. Tuy nhiên, bạn dễ bị cảm xúc nóng chi phối khi gặp sức ép và kết quả đôi lúc chưa thực sự ổn định do sự vội vàng.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Bên cạnh đó, Cung Mệnh cho thấy bạn sở hữu <b>nền tảng nội lực khá tốt</b>. Tư duy đủ khả năng tiếp nhận, suy xét và giải quyết các vấn đề phức tạp trong công việc, giúp bạn từng bước tạo dựng vị trí và uy tín cá nhân.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Điểm mạnh -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-strength">
+                                        <div class="insight-icon-box">
+                                            <img src="item_strength_icon.png" class="insight-icon-img" alt="Điểm mạnh trong cách bạn làm việc" />
+                                        </div>
+                                        <span class="insight-frame-title">Điểm mạnh trong cách bạn làm việc</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Giữ tác phong xử lý công việc nhanh gọn, không để cảm xúc tiêu cực làm xao nhãng mục tiêu.</li>
+                                            <li>Sắp xếp công việc theo thứ tự ưu tiên rõ ràng, kiểm soát chặt chẽ tiến độ và hạn chế sai sót.</li>
+                                            <li>Ứng biến linh hoạt trước tình huống bất ngờ, sẵn sàng chấp nhận rủi ro có tính toán.</li>
+                                            <li>Chủ động gánh vác phần việc khó, tạo sự tin cậy vững chắc từ đồng nghiệp và cấp trên.</li>
+                                            <li>Nhạy bén phát hiện các điểm bất thường từ sớm để kịp thời đưa ra phương án điều chỉnh.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Điểm cần cải thiện -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-improvement">
+                                        <div class="insight-icon-box">
+                                            <img src="item_improve_icon.png" class="insight-icon-img" alt="Điểm cần cải thiện trong cách bạn làm việc" />
+                                        </div>
+                                        <span class="insight-frame-title">Điểm cần cải thiện trong cách bạn làm việc</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-improvement">
+                                            <li>Dễ rơi vào trạng thái áp lực kéo dài khi công việc phát sinh sự cố, khiến phán đoán nóng vội.</li>
+                                            <li>Khó chấp nhận sự can thiệp từ bên ngoài, dễ tạo bầu không khí căng thẳng khi phối hợp nhóm.</li>
+                                            <li>Coi trọng kết quả trước mắt nên có lúc bỏ qua chi tiết nhỏ, gây ra sai sót về sau.</li>
+                                            <li>Duy trì tiến độ làm việc đôi lúc bị dao động – lúc quyết đoán mạnh mẽ, lúc lại do dự.</li>
+                                            <li>Thường phản ứng gay gắt trước phản biện, cần cởi mở hơn để học hỏi kinh nghiệm.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Khối 2: Cung Quan Lộc -->
+                        <div class="house-detail-card card-quanloc">
+                            <div class="house-detail-header header-quanloc">
+                                <div class="house-detail-header-main">
+                                    <div class="house-detail-icon-wrap icon-quanloc">
+                                        <img src="i_QuanLoc.png" alt="Cung Quan Lộc" class="house-detail-icon" />
+                                    </div>
+                                    <div class="house-detail-title-wrap">
+                                        <div class="house-detail-name-row">
+                                            <h4 class="house-detail-name">Cung Quan Lộc</h4>
+                                            <div class="house-detail-score">
+                                                <span class="house-detail-score-num" style="color:#2563EB;">77%</span>
+                                                <span class="tq-badge badge-kha">Khá thuận lợi</span>
+                                            </div>
+                                        </div>
+                                        <span class="house-detail-tag">Hiểu sự nghiệp – Nắm bắt cơ hội phát triển</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="house-detail-body">
+                                <!-- 1. Tổng quan sự nghiệp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-personality">
+                                        <div class="insight-icon-box">
+                                            <img src="quanloc_overview_icon.png" class="insight-icon-img" alt="Tổng quan sự nghiệp" />
+                                        </div>
+                                        <span class="insight-frame-title">Tổng quan sự nghiệp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <p class="house-sub-content">
+                                            Cung Quan Lộc cho thấy bạn có nền tảng tốt về công việc và sự nghiệp. Năng lực làm việc có điều kiện được phát huy, khả năng đảm nhận trách nhiệm và hoàn thành công việc tương đối tốt. Sự nghiệp cũng có cơ sở để phát triển, từng bước xây dựng vị trí và tạo ra những thành quả tương xứng với năng lực của bạn.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Cung Quan Lộc còn cho thấy bạn có năng lực xử lý công việc mang tính cải cách, dám đương đầu với thử thách lớn, biến áp lực thành đòn bẩy để tạo đột phá trong sự nghiệp. Các yếu tố tại cung này được xem xét tổng thể để đưa ra nhận định về công việc, sự nghiệp và quá trình phát triển nghề nghiệp của bạn, qua đó làm rõ những đặc điểm nổi bật của phương diện này trong lá số.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Với <b>77.12/100</b> và mức đánh giá <b>Khá thuận lợi</b>, Cung Quan Lộc phản ánh mức độ tổng thể của công việc và sự nghiệp trong lá số. Kết quả này được hình thành từ nhiều yếu tố cùng tác động, bao gồm cả những mặt cần phát huy và những điểm cần lưu ý. Dưới đây là những ưu điểm và nhược điểm nổi bật của Cung Quan Lộc.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Điểm mạnh trong sự nghiệp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-strength">
+                                        <div class="insight-icon-box">
+                                            <img src="item_strength_icon.png" class="insight-icon-img" alt="Điểm mạnh trong sự nghiệp" />
+                                        </div>
+                                        <span class="insight-frame-title">Điểm mạnh trong sự nghiệp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Có năng lực xử lý công việc mang tính cải cách, dám đương đầu với thử thách lớn, biến áp lực thành đòn bẩy để tạo đột phá trong sự nghiệp.</li>
+                                            <li>Khả năng thích nghi và xoay chuyển tình thế tốt khi môi trường biến động, nhờ sự quyết đoán và tinh thần tiên phong, giúp nhanh chóng tìm được hướng đi mới sau trở ngại.</li>
+                                            <li>Công việc có điều kiện phát triển theo hướng mở rộng quyền lực và tầm ảnh hưởng, đặc biệt phù hợp với vai trò lãnh đạo cần sự mạnh mẽ, dứt khoát trong các lĩnh vực đòi hỏi tính cạnh tranh cao.</li>
+                                            <li>Nhận được sự trợ giúp từ những mối quan hệ có vị thế trong công việc, cùng khả năng nắm bắt thời cơ từ các sự kiện lớn, giúp giảm bớt rủi ro và tạo thêm động lực cho sự nghiệp.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Điểm cần cải thiện -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-improvement">
+                                        <div class="insight-icon-box">
+                                            <img src="item_improve_icon.png" class="insight-icon-img" alt="Điểm cần lưu ý trong sự nghiệp" />
+                                        </div>
+                                        <span class="insight-frame-title">Điểm cần lưu ý trong sự nghiệp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-improvement">
+                                            <li>Dễ rơi vào trạng thái làm việc theo cảm hứng, lúc quyết đoán mạnh mẽ, lúc lại chùng xuống, khiến tiến độ công việc thiếu đều đặn và khó duy trì nhịp độ ổn định lâu dài.</li>
+                                            <li>Sự nghiệp tuy có bề thế nhưng tiềm ẩn nguy cơ xáo trộn nội bộ hoặc bất đồng với cấp trên, đối tác, dễ gặp áp lực cạnh tranh ngầm khiến vị thế đôi lúc bị thử thách.</li>
+                                            <li>Có xu hướng thay đổi phương hướng hoặc môi trường làm việc khi gặp trở ngại kéo dài, nhưng nhờ khả năng thích nghi nhanh nên những lần chuyển hướng này thường không gây tổn hại lớn.</li>
+                                            <li>Quá trình thăng tiến có thể bị chững lại ở những giai đoạn then chốt do thiếu sự ủng hộ bền vững từ các mối quan hệ, khiến công sức bỏ ra chưa được ghi nhận đúng mức tại thời điểm quyết định.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Khối 3: Cung Tài Bạch -->
+                        <div class="house-detail-card card-taibach">
+                            <div class="house-detail-header header-taibach">
+                                <div class="house-detail-header-main">
+                                    <div class="house-detail-icon-wrap icon-taibach">
+                                        <img src="i_TaiBach Copy 2.png" alt="Cung Tài Bạch" class="house-detail-icon" />
+                                    </div>
+                                    <div class="house-detail-title-wrap">
+                                        <div class="house-detail-name-row">
+                                            <h4 class="house-detail-name">Cung Tài Bạch</h4>
+                                            <div class="house-detail-score">
+                                                <span class="house-detail-score-num" style="color:#059669;">51%</span>
+                                                <span class="tq-badge badge-tb">Trung bình</span>
+                                            </div>
+                                        </div>
+                                        <span class="house-detail-tag">Hiểu dòng tiền – Chủ động tích lũy</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="house-detail-body">
+                                <!-- 1. Tổng quan tài chính -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-personality">
+                                        <div class="insight-icon-box">
+                                            <img src="taibach_overview_icon.png" class="insight-icon-img" alt="Tổng quan tài chính" />
+                                        </div>
+                                        <span class="insight-frame-title">Tổng quan tài chính</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <p class="house-sub-content">
+                                            Cung Tài Bạch phản ánh khả năng kiếm tiền và tạo thu nhập của bạn ở mức vừa phải. Cơ hội làm ăn, đầu tư và sinh lời vẫn có, nhưng lợi nhuận thường không quá lớn. Tiền bạc có thể chuyển thành tài sản và của cải, tốc độ hình thành tài sản chưa cao và quy mô tài chính chưa thật sự nổi bật.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Về vấn đề tài chính, Cung Tài Bạch có <b>Liêm Trinh, Tham Lang</b>. Qua các sao hiện diện tại đây, có thể thấy những nét chính về tiền bạc và tài sản, từ quá trình tạo thu nhập cho đến cách bạn duy trì và phát triển nguồn lực tài chính theo thời gian.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Cung Tài Bạch đạt <b>51.44/100</b>, được đánh giá ở mức <b>Trung bình</b>. Kết quả này cho thấy những đặc điểm tổng thể của phương diện tài chính, trong đó có cả những mặt cần phát huy và những điểm không nên bỏ qua khi nhìn về tiền bạc và tài sản. Dưới đây là những ưu điểm và nhược điểm nổi bật của Cung Tài Bạch.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Điểm mạnh về tài chính -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-strength">
+                                        <div class="insight-icon-box">
+                                            <img src="item_strength_icon.png" class="insight-icon-img" alt="Điểm mạnh về tài chính" />
+                                        </div>
+                                        <span class="insight-frame-title">Điểm mạnh về tài chính</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Có khả năng tìm kiếm nguồn thu qua các mối quan hệ xã giao, nhờ sự giúp đỡ từ người quen biết, dù thu nhập không thật sự ổn định.</li>
+                                            <li>Thu nhập có tính chu kỳ, lúc tăng lúc giảm, nhưng bản thân có sự linh hoạt để xoay xở và thích ứng khi dòng tiền gặp trục trặc.</li>
+                                            <li>Việc giữ tiền gặp trở ngại do xu hướng chi tiêu mạnh tay, khó tích lũy lâu dài; thành quả thường không được bảo toàn trọn vẹn.</li>
+                                            <li>Triển vọng tài lộc có cải thiện nhờ gặp thời điểm thuận lợi, nhưng mức tăng không lớn và cần nỗ lực duy trì để tránh hao hụt.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Điểm cần lưu ý về tài chính -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-improvement">
+                                        <div class="insight-icon-box">
+                                            <img src="item_improve_icon.png" class="insight-icon-img" alt="Điểm cần lưu ý về tài chính" />
+                                        </div>
+                                        <span class="insight-frame-title">Điểm cần lưu ý về tài chính</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-improvement">
+                                            <li>Việc tìm kiếm nguồn thu dễ rơi vào trạng thái hứng thú ban đầu rồi nhanh chán, khó kiên trì theo đuổi một hướng đến khi có kết quả ổn định.</li>
+                                            <li>Dòng tiền có xu hướng dao động theo từng giai đoạn, lúc thuận lợi thì dư dả nhưng cũng có thời điểm thu nhập chững lại, khó duy trì đều đặn.</li>
+                                            <li>Dễ phát sinh những khoản chi ngoài kế hoạch hoặc các rủi ro nhỏ trong giao dịch, khiến thành quả kiếm được đôi khi bị hao hụt trước khi kịp để dành.</li>
+                                            <li>Khả năng giữ tiền và tích lũy chỉ ở mức trung bình, tài sản có thể hình thành nhưng tốc độ tăng trưởng chậm, triển vọng cải thiện rõ rệt cần nhiều thời gian.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vùng nền trắng bao khối Định hướng -->
+                    <div class="dinh-huong-section" id="sec-dinhhuong">
+                    <!-- Banner Định hướng sự nghiệp -->
+                    <div class="hieu-ban-than-banner">
+                        <!-- Hoạ tiết 3D kim loại vàng đầu trái biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-left" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <!-- Hoạ tiết 3D kim loại vàng đầu phải biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-right" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <div class="hbt-content">
+                            <div class="hbt-title-row">
+                                <svg class="hbt-flourish hbt-flourish-left" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                                <h3 class="hbt-title">Định hướng sự nghiệp<br>phù hợp với bạn</h3>
+                                <svg class="hbt-flourish hbt-flourish-right" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                            </div>
+                            <p class="hbt-desc">
+                                Gợi ý môi trường làm việc, nghề nghiệp và hướng phát triển theo lá số của bạn
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Khối con: Môi trường làm việc phù hợp -->
+                    <div class="houses-list">
+                        <div class="house-detail-card">
+                            <div class="house-detail-header header-sub-env">
+                                <div class="house-detail-header-main header-main-center">
+                                    <div class="house-detail-icon-wrap">
+                                        <img src="env_header_icon.png" alt="Môi trường làm việc phù hợp" class="house-detail-icon" />
+                                    </div>
+                                    <div class="house-detail-title-wrap">
+                                        <div class="house-detail-name-row">
+                                            <h4 class="house-detail-name">Môi trường làm việc phù hợp</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="house-detail-body">
+                                <!-- 1. Môi trường phù hợp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-env-suitable">
+                                        <div class="insight-icon-box">
+                                            <img src="env_suitable_icon.png" class="insight-icon-img" alt="Môi trường phù hợp" />
+                                        </div>
+                                        <span class="insight-frame-title">Môi trường phù hợp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <p class="house-sub-content">
+                                            Có người hợp với công ty lớn, cơ quan có tổ chức và quy củ, có người lại hợp với môi trường vừa phải, nơi bản thân có thể chủ động và đảm nhận nhiều công việc hơn. Mỗi nơi có một đặc điểm riêng, chọn đúng nơi thì năng lực cũng dễ được phát huy hơn.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Từ lá số có thể luận nơi làm việc phù hợp, nơi làm việc không phù hợp, quy mô tổ chức, mức độ ổn định và cơ hội phát triển về sau. Qua đó giúp bạn có thêm định hướng khi lựa chọn công ty, cơ quan hoặc tổ chức để làm việc và xây dựng sự nghiệp lâu dài.
+                                        </p>
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Phù hợp với môi trường có tính thử thách và biến động ở mức vừa phải, nơi cần xử lý các tình huống đột xuất đòi hỏi quyết đoán nhanh, vì sự ổn định quá mức dễ khiến năng lực bị kìm hãm.</li>
+                                            <li>Nên làm việc tại nơi có phân cấp trách nhiệm rõ ràng nhưng vẫn cho phép chủ động xoay chuyển cục diện, tránh môi trường quá nguyên tắc cứng nhắc hay bị giám sát chặt chẽ từng khâu.</li>
+                                            <li>Thuận lợi hơn khi được trao quyền quyết định ở phạm vi nhất định và làm việc theo hướng độc lập, ít phụ thuộc vào ý kiến tập thể, nhờ đó giảm được áp lực từ các mối quan hệ phức tạp trong công việc.</li>
+                                            <li>Phát huy tốt ở môi trường có cơ hội mở rộng phạm vi công việc qua các dự án mới hoặc nhiệm vụ mang tính đột phá, nơi sự nỗ lực cá nhân được ghi nhận và tạo điều kiện thăng tiến rõ ràng.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Môi trường không phù hợp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-env-unsuitable">
+                                        <div class="insight-icon-box">
+                                            <img src="env_avoid_icon.png" class="insight-icon-img" alt="Môi trường không phù hợp" />
+                                        </div>
+                                        <span class="insight-frame-title">Môi trường không phù hợp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-improvement">
+                                            <li>Khó phát huy tốt trong môi trường quá ổn định, ít biến chuyển, vì bản chất công việc cần sự đổi mới và xử lý tình huống mới để duy trì động lực.</li>
+                                            <li>Nên thận trọng với nơi phân công trách nhiệm mơ hồ, thiếu ranh giới quyền hạn rõ ràng, dễ tạo xung đột và khiến quyết định nhanh bị vô hiệu hóa.</li>
+                                            <li>Dễ gặp trở ngại khi làm việc trong môi trường kiểm soát chặt chẽ, nhiều tầng duyệt ý kiến, làm giảm tính quyết đoán và khả năng xử lý trực diện.</li>
+                                            <li>Không phù hợp với nơi đề cao sự an toàn, ngại thay đổi, vì môi trường đó hạn chế cơ hội mở rộng phạm vi ảnh hưởng và tích lũy kinh nghiệm mới.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Quy mô, tổ chức phù hợp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-env-scale">
+                                        <div class="insight-icon-box">
+                                            <img src="env_scale_icon.png" class="insight-icon-img" alt="Quy mô, tổ chức phù hợp" />
+                                        </div>
+                                        <span class="insight-frame-title">Quy mô, tổ chức phù hợp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Phù hợp với tổ chức quy mô vừa, có dư địa mở rộng nhưng không quá cồng kềnh, nơi bản thân được giao quyền chủ động xử lý công việc.</li>
+                                            <li>Nên ưu tiên cơ cấu phân tầng rõ ràng nhưng linh hoạt, cho phép phá vỡ quy trình cứng nhắc để giải quyết việc gấp, đột xuất.</li>
+                                            <li>Thuận lợi hơn khi làm tại nơi có sự phân công trách nhiệm cụ thể, nhưng vẫn cần không gian để tự đề xuất và điều chỉnh cách làm.</li>
+                                            <li>Có thể phát huy tốt trong tổ chức đang phát triển, tạo điều kiện tích lũy kinh nghiệm thực chiến và từng bước nâng cao vị trí.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 4. Mức độ ổn định -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-env-stability">
+                                        <div class="insight-icon-box">
+                                            <img src="env_stability_icon.png" class="insight-icon-img" alt="Mức độ ổn định" />
+                                        </div>
+                                        <span class="insight-frame-title">Mức độ ổn định</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Công việc cốt lõi nên giữ nền tảng ổn định, nhưng sẵn sàng xử lý các biến động mang tính đột phá, không theo lối mòn.</li>
+                                            <li>Cách triển khai cần linh hoạt, dám phá vỡ quy trình cũ, nhưng mỗi thay đổi phải có kế hoạch và thời gian chuẩn bị rõ ràng.</li>
+                                            <li>Nhiệm vụ và mục tiêu nên có định hướng dài hạn, nhưng cho phép điều chỉnh khi gặp thách thức, tránh bị trói buộc vào một khuôn khổ duy nhất.</li>
+                                            <li>Khó phát huy nếu môi trường quá tĩnh tại; cần nhịp độ có lúc căng thẳng, lúc trầm lắng để duy trì năng lượng và tích lũy kinh nghiệm.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 5. Cơ hội phát triển -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-env-growth">
+                                        <div class="insight-icon-box">
+                                            <img src="env_growth_icon.png" class="insight-icon-img" alt="Cơ hội phát triển" />
+                                        </div>
+                                        <span class="insight-frame-title">Cơ hội phát triển</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Hướng phát triển chính là mở rộng quy mô công việc theo hướng đột phá, táo bạo, dám đảm nhận nhiệm vụ mới có tính thử thách cao.</li>
+                                            <li>Khả năng phát triển ở mức khá, có thể tiến tới vị trí quản lý cấp trung hoặc điều phối dự án quy mô vừa, không đạt tới tầm lãnh đạo chiến lược cấp cao.</li>
+                                            <li>Phạm vi trách nhiệm có thể mở rộng từ công việc chuyên môn sang vai trò giám sát, kiểm soát tiến độ và chịu trách nhiệm trực tiếp về kết quả của cả một bộ phận.</li>
+                                            <li>Điều kiện đạt mức cao nhất là chủ động xử lý áp lực, giữ vững quyết đoán trong tranh chấp và tận dụng các mối quan hệ hỗ trợ để ổn định đà phát triển.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khối con: Nghề nghiệp phù hợp với bạn -->
+                    <div class="houses-list">
+                        <div class="house-detail-card">
+                            <div class="house-detail-header header-sub-career">
+                                <div class="house-detail-header-main header-main-center">
+                                    <div class="house-detail-icon-wrap">
+                                        <img src="career_growth_icon.png" alt="Nghề nghiệp phù hợp với bạn" class="house-detail-icon" />
+                                    </div>
+                                    <div class="house-detail-title-wrap">
+                                        <div class="house-detail-name-row">
+                                            <h4 class="house-detail-name">Nghề nghiệp phù hợp với bạn</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="house-detail-body">
+                                <!-- 1. Hướng phát triển phù hợp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-career-path">
+                                        <div class="insight-icon-box">
+                                            <img src="path_suitable_icon.png" class="insight-icon-img" alt="Hướng phát triển phù hợp" />
+                                        </div>
+                                        <span class="insight-frame-title">Hướng phát triển phù hợp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <p class="house-sub-content">
+                                            Mỗi người đều có những công việc mà mình làm sẽ thuận hơn, bởi khả năng và cách làm việc của mỗi người vốn không giống nhau. Người hợp với công việc ổn định có thể càng làm lâu càng vững, người hợp với nghề giao tiếp lại dễ mở ra cơ hội thông qua các mối quan hệ, còn người có sở trường chuyên môn thì càng đi sâu vào nghề càng có lợi. Đó chính là lý do việc chọn nghề cần dựa vào sự phù hợp của chính mình.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Nếu chọn một công việc chỉ vì thấy người khác làm tốt mà không biết mình có hợp hay không, về sau rất dễ gặp trở ngại. Công việc có thể không phát huy được khả năng, kết quả đạt được không tương xứng với công sức và bản thân thường xuyên có ý định thay đổi. Khi tình trạng này kéo dài, việc gây dựng kinh nghiệm và vị trí cũng trở nên khó khăn hơn.
+                                        </p>
+                                        <p class="house-sub-content">
+                                            Sau đây là những nội dung luận về công việc phù hợp với bạn, hướng phát triển nên lựa chọn và những nghề nghiệp không nên theo đuổi lâu dài.
+                                        </p>
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li>Nên tập trung vào vai trò tiên phong, dẫn dắt các dự án cải tổ hoặc xử lý khủng hoảng, nơi sự quyết đoán và khả năng chịu áp lực được trọng dụng.</li>
+                                            <li>Ưu tiên phát triển năng lực ra quyết định nhanh và chịu trách nhiệm với kết quả, thay vì tìm kiếm sự ổn định hay an toàn trong công việc thường nhật.</li>
+                                            <li>Có thể mở rộng sang lĩnh vực đòi hỏi tính cạnh tranh hoặc cần phá vỡ hiện trạng, tận dụng khả năng tạo đột phá để khẳng định vị thế riêng.</li>
+                                            <li>Nên xây dựng uy tín qua các chiến dịch mang tính bước ngoặt, tạo dấu ấn cá nhân rõ nét để hướng tới vị trí có tầm ảnh hưởng và quyền quyết định lớn hơn.</li>
+                                            <li>Nếu muốn đi xa hơn, nên chủ động kiểm soát sự nóng vội, học cách tiết chế để duy trì thành quả bền vững, tránh hao tổn sức lực vì những mục tiêu quá sức.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Nghề nghiệp phát triển phù hợp -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-career-fit">
+                                        <div class="insight-icon-box">
+                                            <img src="job_suitable_icon.png" class="insight-icon-img" alt="Nghề nghiệp phát triển phù hợp" />
+                                        </div>
+                                        <span class="insight-frame-title">Nghề nghiệp phát triển phù hợp</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-strength">
+                                            <li><span class="job-group-name">Nhóm quản lý dự án, vận hành</span><span class="job-group-items">Chuyên viên triển khai dự án, điều phối sản xuất, giám sát thi công, quản lý chuỗi cung ứng.</span></li>
+                                            <li><span class="job-group-name">Nhóm cải tạo, chỉnh trang</span><span class="job-group-items">Chuyên viên quy hoạch đô thị, thiết kế nội thất, kiến trúc sư công trình, tư vấn cải tạo mặt bằng.</span></li>
+                                            <li><span class="job-group-name">Nhóm kỹ thuật, cơ khí</span><span class="job-group-items">Kỹ sư cơ khí chế tạo, kỹ thuật viên bảo trì thiết bị, giám sát lắp đặt máy móc, kỹ sư vận hành nhà máy.</span></li>
+                                            <li><span class="job-group-name">Nhóm thẩm định, kiểm tra</span><span class="job-group-items">Chuyên viên thẩm định giá, kiểm định chất lượng, thanh tra kỹ thuật, giám định hồ sơ dự án.</span></li>
+                                            <li><span class="job-group-name">Nhóm phát triển sản phẩm</span><span class="job-group-items">Chuyên viên nghiên cứu phát triển sản phẩm, tư vấn giải pháp kỹ thuật, quản trị danh mục đầu tư, điều phối dự án mở rộng.</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Nghề nghiệp cần cân nhắc kỹ -->
+                                <div class="insight-frame">
+                                    <div class="insight-frame-header header-career-avoid">
+                                        <div class="insight-icon-box">
+                                            <img src="job_avoid_icon.png" class="insight-icon-img" alt="Nghề nghiệp cần cân nhắc kỹ" />
+                                        </div>
+                                        <span class="insight-frame-title">Nghề nghiệp cần cân nhắc kỹ</span>
+                                    </div>
+                                    <div class="insight-frame-body">
+                                        <ul class="house-strength-list insight-list-improvement">
+                                            <li><span class="job-group-name">Nhóm nghề đòi hỏi tuân thủ quy trình cứng nhắc, ít phát sinh tình huống mới</span><span class="job-group-items">Kiểm toán nội bộ, vận hành hệ thống hành chính, thủ quỹ ngân hàng, chuyên viên pháp chế soạn thảo hợp đồng mẫu.</span></li>
+                                            <li><span class="job-group-name">Nhóm nghề có tính lặp lại cao, chu kỳ ngắn, ít thách thức thay đổi</span><span class="job-group-items">Lắp ráp linh kiện điện tử, đóng gói sản phẩm, nhập liệu, vận hành máy in công nghiệp, trực tổng đài chăm sóc khách hàng.</span></li>
+                                            <li><span class="job-group-name">Nhóm nghề yêu cầu kiên nhẫn xử lý chi tiết nhỏ trong thời gian dài, dễ gây nóng vội</span><span class="job-group-items">Kiểm tra chất lượng may mặc, kiểm đếm kho hàng, hiệu chỉnh thiết bị đo lường, soát lỗi bản in.</span></li>
+                                            <li><span class="job-group-name">Nhóm nghề phải chịu sự giám sát chặt chẽ, ít quyền tự quyết trong cách làm việc</span><span class="job-group-items">Giao dịch viên quầy, bảo vệ hiện trường, nhân viên trực ca theo kịch bản cố định, thư ký hành chính thuần túy.</span></li>
+                                            <li><span class="job-group-name">Nhóm nghề đối mặt áp lực cạnh tranh trực diện liên tục, dễ tạo căng thẳng kéo dài</span><span class="job-group-items">Môi giới bất động sản, tư vấn bảo hiểm theo chỉ tiêu tháng, kinh doanh đa cấp, bán hàng qua điện thoại.</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- ============ HÀNH TRÌNH SỰ NGHIỆP ============ -->
+                    <div class="hanh-trinh-section" id="sec-hanhtrinh">
+                    <!-- Banner Hành trình sự nghiệp -->
+                    <div class="hieu-ban-than-banner">
+                        <!-- Hoạ tiết 3D kim loại vàng đầu trái biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-left" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <!-- Hoạ tiết 3D kim loại vàng đầu phải biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-right" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <div class="hbt-content">
+                            <div class="hbt-title-row">
+                                <svg class="hbt-flourish hbt-flourish-left" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                                <h3 class="hbt-title">Hành trình sự nghiệp của bạn<br>qua từng đại vận</h3>
+                                <svg class="hbt-flourish hbt-flourish-right" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                            </div>
+                            <p class="hbt-desc">
+                                Nhận biết những thời điểm thuận lợi, thử thách và hướng phát triển đáng chú ý trên chặng đường sự nghiệp của bạn
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Giải thích Đại vận: Tiêu đề nhỏ + Nội dung -->
+                    <div class="daivan-intro-block">
+                        <h4 class="daivan-intro-heading">
+                            <svg class="daivan-heading-icon" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="rgba(217, 119, 6, 0.2)"></polygon>
+                            </svg>
+                            Đại vận trong Tử Vi là gì?
+                        </h4>
+                        <p class="daivan-intro-body">
+                            Đại vận trong Tử Vi là khoảng thời gian 10 năm phản ánh những xu hướng, biến số và áp lực lớn nhất trong cuộc đời. Nó giống như một "môi trường thời tiết" mà bạn sẽ đi qua, tác động trực tiếp đến cách bạn phát triển sự nghiệp và cuộc sống.
+                        </p>
+                    </div>
+
+                    <!-- Khối con: Các giai đoạn Đại vận của bạn -->
+                    <div class="houses-list">
+                        <div class="house-detail-card">
+                            <div class="house-detail-header header-sub-daivan">
+                                <div class="house-detail-header-main header-main-center">
+                                    <div class="house-detail-icon-wrap">
+                                        <img src="env_header_icon.png" alt="Các giai đoạn Đại vận" class="house-detail-icon" style="filter: hue-rotate(180deg);" />
+                                    </div>
+                                    <div class="house-detail-title-wrap">
+                                        <div class="house-detail-name-row">
+                                            <h4 class="house-detail-name">Các giai đoạn Đại vận của bạn</h4>
+                                        </div>
+                                        <div class="daivan-tap-hint">Chạm vào từng giai đoạn để xem chi tiết</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Timeline: mỗi mốc nằm thẳng hàng ngay trên thẻ tương ứng -->
+                            <div class="daivan-timeline-wrapper">
+                                <div class="daivan-scroll-container" id="daivanScrollContainer">
+                                    <div class="daivan-col" onclick="openDaivan(0)">
+                                        <div class="daivan-node-slot">
+                                            <span class="daivan-node node-past" id="node-0"></span>
+                                        </div>
+                                        <div class="daivan-card-item past" id="card-0">
+                                            <div class="daivan-card-index">Đại vận 1</div>
+                                            <div class="daivan-card-years">1990–1999</div>
+                                            <div class="daivan-card-age-row">
+                                                <span class="daivan-card-age">4–13 tuổi</span>
+                                            </div>
+                                            <div class="daivan-card-score" id="card-score-0">Trung bình</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="daivan-col" onclick="openDaivan(1)">
+                                        <div class="daivan-node-slot">
+                                            <span class="daivan-node node-past" id="node-1"></span>
+                                        </div>
+                                        <div class="daivan-card-item past" id="card-1">
+                                            <div class="daivan-card-index">Đại vận 2</div>
+                                            <div class="daivan-card-years">2000–2009</div>
+                                            <div class="daivan-card-age-row">
+                                                <span class="daivan-card-age">14–23 tuổi</span>
+                                            </div>
+                                            <div class="daivan-card-score" id="card-score-1">Trung bình</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="daivan-col" onclick="openDaivan(2)">
+                                        <div class="daivan-node-slot">
+                                            <span class="daivan-node node-past" id="node-2"></span>
+                                        </div>
+                                        <div class="daivan-card-item past" id="card-2">
+                                            <div class="daivan-card-index">Đại vận 3</div>
+                                            <div class="daivan-card-years">2010–2019</div>
+                                            <div class="daivan-card-age-row">
+                                                <span class="daivan-card-age">24–33 tuổi</span>
+                                            </div>
+                                            <div class="daivan-card-score" id="card-score-2">Khá thuận lợi</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="daivan-col active-col" onclick="openDaivan(3)">
+                                        <div class="daivan-node-slot">
+                                            <span class="daivan-node-label">Hiện tại</span>
+                                            <span class="daivan-node node-current active" id="node-3"></span>
+                                        </div>
+                                        <div class="daivan-card-item current active" id="card-3">
+                                            <div class="daivan-card-index">Đại vận 4</div>
+                                            <div class="daivan-card-years">2020–2029</div>
+                                            <div class="daivan-card-age-row">
+                                                <span class="daivan-card-age">34–43 tuổi</span>
+                                            </div>
+                                            <div class="daivan-card-score active-text" id="card-score-3">Khá thuận lợi</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="daivan-col" onclick="openDaivan(4)">
+                                        <div class="daivan-node-slot">
+                                            <span class="daivan-node node-future" id="node-4"></span>
+                                        </div>
+                                        <div class="daivan-card-item future" id="card-4">
+                                            <div class="daivan-card-index">Đại vận 5</div>
+                                            <div class="daivan-card-years">2030–2039</div>
+                                            <div class="daivan-card-age-row">
+                                                <span class="daivan-card-age">44–53 tuổi</span>
+                                            </div>
+                                            <div class="daivan-card-score" id="card-score-4">Thuận lợi</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="daivan-col" onclick="openDaivan(5)">
+                                        <div class="daivan-node-slot">
+                                            <span class="daivan-node node-future" id="node-5"></span>
+                                        </div>
+                                        <div class="daivan-card-item future" id="card-5">
+                                            <div class="daivan-card-index">Đại vận 6</div>
+                                            <div class="daivan-card-years">2040–2049</div>
+                                            <div class="daivan-card-age-row">
+                                                <span class="daivan-card-age">54–63 tuổi</span>
+                                            </div>
+                                            <div class="daivan-card-score" id="card-score-5">Trung bình</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Khối hiển thị chi tiết Đại vận đang chọn -->
+                            <div class="daivan-detail-card" id="daivanDetailCard">
+                                <div class="daivan-detail-content-left">
+                                    <h4 class="daivan-detail-title" id="detailTitle">Đại vận hiện tại: ĐẠI VẬN 4</h4>
+                                    <div class="daivan-detail-period-wrap">
+                                        <div class="daivan-detail-info-item">
+                                            <div class="daivan-detail-info-label"><span class="daivan-detail-info-icon">📅</span>Giai đoạn từ năm</div>
+                                            <div class="daivan-detail-info-value" id="detailYearsTitle">2020–2029</div>
+                                        </div>
+                                        <div class="daivan-detail-info-item">
+                                            <div class="daivan-detail-info-label"><span class="daivan-detail-info-icon">👤</span>Độ tuổi</div>
+                                            <div class="daivan-detail-info-value" id="detailAgeSubtitle">34–43 tuổi</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="daivan-detail-badges-row">
+                                        <span class="daivan-badge-item badge-score" id="detailScoreBadge">
+                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="#d97706"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                            <span id="detailScoreText">72 điểm</span>
+                                        </span>
+                                        <span class="daivan-badge-item badge-evaluation" id="detailEvalBadge">
+                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                            <span id="detailEvalText">Khá thuận lợi</span>
+                                        </span>
+                                    </div>
+
+                                    <p class="daivan-detail-conclusion" id="detailConclusion">Đại vận này là giai đoạn Thủy sinh Mộc, mang lại nguồn năng lượng thuận lợi rõ rệt cho bạn, dù bản mệnh Vũ Khúc Thất Sát vốn mang tính chất chủ động và đôi khi căng thẳng. Trọng tâm lớn nhất của giai đoạn nằm ở việc mở rộng các mối quan hệ và đầu tư cho thế hệ tương lai, nơi bạn có cơ hội thể hiện sự quan tâm, chia sẻ và tận hưởng niềm vui từ các mối giao hảo. Tuy nhiên, sự hiện diện của Hóa Kỵ nhắc nhở bạn về những mối bận tâm sâu kín, đòi hỏi sự thận trọng trong chi tiêu và quản lý cảm xúc cá nhân. Giai đoạn này giúp bạn học cách cân bằng giữa trách nhiệm và nhu cầu kết nối, tích lũy những bài học quý giá về lòng tin và sự sẻ chia, tạo nền tảng tinh thần vững chắc cho chặng đường phía trước.</p>
+                                </div>
+
+                                <button class="daivan-detail-action-btn" type="button" onclick="openDaivan(currentDaivanIndex)">
+                                    <span>Xem chi tiết Đại vận</span>
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <!-- ============ TỔNG KẾT DÀNH CHO BẠN ============ -->
+                    <div class="tong-ket-section" id="sec-tongket">
+                        <!-- Banner Tổng kết -->
+                        <div class="hieu-ban-than-banner">
+                        <!-- Hoạ tiết 3D kim loại vàng đầu trái biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-left" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                        <!-- Hoạ tiết 3D kim loại vàng đầu phải biển hiệu -->
+                        <svg class="hbt-side-decor hbt-side-right" viewBox="0 0 36 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <path d="M 8 10 C 24 8, 32 22, 30 38 C 28 50, 20 55, 20 55 C 20 55, 28 60, 30 72 C 32 88, 24 102, 8 100 L 5 100 C 20 102, 26 88, 24 72 C 22 60, 14 55, 14 55 C 14 55, 22 50, 24 38 C 26 22, 20 8, 5 10 Z" fill="url(#hbtEndCapGold)" stroke="#FFFBEB" stroke-width="0.5"/>
+                                <path d="M 8 10 C 3 4, 14 0, 20 6 C 24 10, 18 16, 14 14 C 11 12, 12 8, 16 8" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 8 100 C 3 106, 14 110, 20 104 C 24 100, 18 94, 14 96 C 11 98, 12 102, 16 102" fill="url(#hbtEndCapGold)"/>
+                                <path d="M 12 18 C 22 20, 24 32, 19 44 C 17 49, 12 55, 12 55 C 12 55, 17 61, 19 66 C 24 78, 22 90, 12 92" stroke="url(#hbtEndCapLine)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                                <circle cx="16" cy="55" r="4.5" fill="#D97706" stroke="#FFFBEB" stroke-width="1"/>
+                                <circle cx="16" cy="55" r="2.5" fill="#FDE047"/>
+                                <circle cx="10" cy="12" r="2" fill="#D97706"/>
+                                <circle cx="10" cy="98" r="2" fill="#D97706"/>
+                            </g>
+                        </svg>
+
+                            <div class="hbt-content">
+                                <div class="hbt-title-row">
+                                    <svg class="hbt-flourish hbt-flourish-left" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                                    <h3 class="hbt-title">Tổng kết dành cho bạn</h3>
+                                    <svg class="hbt-flourish hbt-flourish-right" viewBox="0 0 64 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M 2 7 L 46 7" stroke="url(#hbtFlrGrad)" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M 24 3 L 42 7 L 24 11" stroke="url(#hbtFlrGrad)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                    <circle cx="52" cy="7" r="2.5" fill="#D97706"/>
+                                    <circle cx="60" cy="7" r="1.5" fill="#F59E0B"/>
+                                </svg>
+                                </div>
+                                <p class="hbt-desc">
+                                    Những điều cần ghi nhớ và hành động để bạn vững vàng hơn trên chặng đường sự nghiệp phía trước
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="tk-blocks">
+                            <!-- 1. Kế hoạch phát triển bản thân -->
+                            <div class="tk-block-item">
+                                <div class="tk-outer-header tk-header-plan has-desc">
+                                    <div class="tk-outer-header-row">
+                                        <img src="plan_header_icon.png" class="tk-header-img-icon" alt="">
+                                        <h4 class="tk-outer-title">Kế hoạch phát triển bản thân</h4>
+                                    </div>
+                                    <p class="tk-outer-desc">Bạn nên tập trung vào những điều dưới đây để phát triển tốt hơn trong công việc và sự nghiệp</p>
+                                </div>
+                                <div class="tk-card">
+                                    <div class="tk-card-body">
+                                        <div class="tk-plan-groups">
+                                            <!-- 1. Chọn người phù hợp để hợp tác -->
+                                            <div class="tk-plan-group">
+                                                <div class="tk-group-header">
+                                                    <div class="tk-sub-icon-badge tk-sub-icon-partner">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                            <circle cx="9" cy="7" r="4"></circle>
+                                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="tk-group-title">Chọn người phù hợp để hợp tác</h5>
+                                                </div>
+                                                <ul class="tk-group-bullets">
+                                                    <li>Chọn cộng sự có khả năng chốt việc, không cần bàn lùi, để bù cho xu hướng tự quyết của bạn.</li>
+                                                    <li>Hợp tác với người giỏi giữ nhịp và nhắc tiến độ, vì bạn dễ bị cuốn vào việc trước mắt mà quên mốc chung.</li>
+                                                    <li>Ưu tiên người thẳng thắn góp ý, không ngại va chạm, để hạn chế việc bạn tự đánh giá quá cao ý mình.</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- 2. Kỹ năng nên rèn luyện -->
+                                            <div class="tk-plan-group">
+                                                <div class="tk-group-header">
+                                                    <div class="tk-sub-icon-badge tk-sub-icon-skill">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <circle cx="12" cy="12" r="10"></circle>
+                                                            <circle cx="12" cy="12" r="6"></circle>
+                                                            <circle cx="12" cy="12" r="2"></circle>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="tk-group-title">Kỹ năng nên rèn luyện</h5>
+                                                </div>
+                                                <ul class="tk-group-bullets">
+                                                    <li>Kỹ năng kiểm tra chéo quyết định trước khi hành động, vì bạn có xu hướng làm nhanh rồi sửa.</li>
+                                                    <li>Kỹ năng đặt giới hạn thời gian cho từng việc, tránh dồn sức vào một đầu mục rồi bỏ dở việc khác.</li>
+                                                    <li>Kỹ năng ghi lại bằng chứng và con số cụ thể khi trình bày, để lập luận của bạn đứng vững trước phản biện.</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- 3. Thói quen nên duy trì -->
+                                            <div class="tk-plan-group">
+                                                <div class="tk-group-header">
+                                                    <div class="tk-sub-icon-badge tk-sub-icon-habit">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="tk-group-title">Thói quen nên duy trì</h5>
+                                                </div>
+                                                <ul class="tk-group-bullets">
+                                                    <li>Mỗi tuần dành thời gian rà lại một việc đang làm dở và quyết định bỏ hoặc hoàn tất, tránh ôm đồm.</li>
+                                                    <li>Giữ một khoản dự phòng cố định trước khi chi cho việc mở rộng, vì bạn dễ hào phóng với cơ hội mới.</li>
+                                                    <li>Chủ động xin phản hồi từ một người ngoài cuộc trước khi công bố kế hoạch lớn.</li>
+                                                </ul>
+                                            </div>
+
+                                            <!-- 4. Điều nên tránh -->
+                                            <div class="tk-plan-group">
+                                                <div class="tk-group-header">
+                                                    <div class="tk-sub-icon-badge tk-sub-icon-avoid">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                                                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="tk-group-title">Điều nên tránh</h5>
+                                                </div>
+                                                <ul class="tk-group-bullets">
+                                                    <li>Tránh nhận thêm việc mới khi việc cũ chưa có mốc kết thúc rõ ràng.</li>
+                                                    <li>Tránh quyết định dựa trên cảm hứng nhất thời mà chưa kiểm tra lại dữ liệu.</li>
+                                                    <li>Tránh tự xử lý phần việc đáng ra nên giao cho người có chuyên môn hơn.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Kết luận -->
+                            <div class="tk-block-item">
+                                <div class="tk-outer-header tk-header-conclusion">
+                                    <div class="tk-icon-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        </svg>
+                                    </div>
+                                    <h4 class="tk-outer-title">Kết luận</h4>
+                                </div>
+                                <div class="tk-card">
+                                    <div class="tk-card-body">
+                                        <p class="tk-paragraph">Bạn là người có nền tảng nội tâm khá đặc biệt, mang trong mình sự quyết đoán và tinh thần cầu tiến, nhưng những phẩm chất này lại không dễ dàng bộc lộ một cách trọn vẹn do ảnh hưởng của các yếu tố gây áp lực và cản trở tiềm ẩn. Điểm mạnh của bạn nằm ở khả năng hành động có mục tiêu, không ngại đối mặt với khó khăn để đạt được thành tựu.</p>
+                                        <p class="tk-paragraph">Tuy nhiên, sự nhạy cảm và dễ bị kích động bởi các tình huống bất lợi có thể khiến bạn đưa ra những quyết định mang tính bộc phát, làm giảm đi hiệu quả của sự nỗ lực. Trong công việc và tài chính, bạn có một chỗ dựa nhất định để phát triển, nhưng con đường phía trước không bằng phẳng, đòi hỏi bạn phải thực sự kiên trì và biết cách kiểm soát cảm xúc, tránh để những va vấp nhỏ làm ảnh hưởng đến mục tiêu lớn.</p>
+                                        <p class="tk-paragraph">Giai đoạn hiện tại mang đến nhiều cơ hội để bạn khẳng định bản thân, nhưng cũng đồng thời là lúc những thử thách về mặt tinh thần và sự ổn định được đẩy lên cao, buộc bạn phải học cách dung hòa giữa sự quyết liệt và sự thận trọng.</p>
+                                        <p class="tk-paragraph">Giá trị lớn nhất của bạn trong thời gian tới không nằm ở việc bứt phá ngoạn mục, mà ở khả năng vượt qua những trở ngại nội tại để xây dựng một sự nghiệp và cuộc sống vững chắc hơn, dựa trên nền tảng của sự thấu hiểu và kỷ luật bản thân.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. Thông điệp dành cho bạn -->
+                            <div class="tk-block-item">
+                                <div class="tk-outer-header tk-header-message">
+                                    <div class="tk-icon-badge">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                        </svg>
+                                    </div>
+                                    <h4 class="tk-outer-title">Thông điệp dành cho bạn</h4>
+                                </div>
+                                <div class="tk-oriental-full-card">
+                                    <!-- Banner Trích dẫn Thủy Mặc -->
+                                    <div class="tk-oriental-hero">
+                                        <div class="tk-oriental-quote-box">
+                                            <h3 class="tk-quote-title-green">“Hiểu mình hôm nay,</h3>
+                                            <h3 class="tk-quote-title-brown">vững vàng ngày mai</h3>
+                                            <p class="tk-quote-subtitle">Mỗi hành trình đều dễ dàng hơn<br>khi bạn hiểu rõ chính mình.</p>
+                                        </div>
+                                        <img src="hieu_minh_hom_nay_bg.png" class="tk-oriental-hero-art" alt="Minh họa Hiểu mình hôm nay vững vàng ngày mai">
+                                    </div>
+
+                                    <!-- Thông điệp: 1 đoạn liền mạch -->
+                                    <div class="tk-oriental-list">
+                                        <p class="tk-oriental-para">
+                                            Bạn có tố chất của người dám nghĩ dám làm, thích tự mình quyết định và không ngại va chạm để mở đường. Nhưng giai đoạn này không thưởng cho sự liều lĩnh đơn thuần, mà buộc bạn phải chậm lại, nhìn rõ điều gì đáng giữ và điều gì chỉ là háo thắng nhất thời. Có lúc bạn sẽ thấy mình bị hiểu sai hoặc mất đi thứ từng là điểm tựa. Thay vì cố chứng minh, hãy chọn sự điềm tĩnh và kiên nhẫn. Chính cách bạn đối diện với khoảng lặng ấy sẽ quyết định bước ngoặt tiếp theo.
+                                        </p>
+                                    </div>
+
+
+                                </div>
+
+                                <!-- Card Lời nhắn từ Lịch Việt -->
+                                <div class="tk-message-footer-card">
+                                    <div class="tk-msg-foot-content">
+                                        <div class="tk-msg-divider-row">
+                                            <span class="tk-msg-line"></span>
+                                            <div class="tk-msg-lotus-icon">
+                                                <img src="pink_lotus_2d_icon.png" class="tk-lotus-img" alt="Bông sen hồng Lịch Việt">
+                                            </div>
+                                            <span class="tk-msg-line"></span>
+                                        </div>
+                                        <h5 class="tk-msg-foot-subtitle">LỜI NHẮN TỪ LỊCH VIỆT</h5>
+                                        <h4 class="tk-msg-foot-title">Hiểu mình · Chọn đúng hướng · Kiến tạo tương lai</h4>
+                                        <div class="tk-msg-foot-pill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khám phá thêm -->
+                    <div class="divider-section">
+                        <div class="section-title" style="font-size:16px;">Khám phá thêm</div>
+                        <div class="explore-grid">
+                            <a href="#" class="explore-item">
+                                <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #2E8AFA, #0050D1);"><span class="explore-icon">🌟</span></div>
+                                <div class="explore-text">Vận hạn<br>năm 2026</div>
+                            </a>
+                            <a href="#" class="explore-item">
+                                <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #FFDF63, #F5A623);"><span class="explore-icon">☯️</span></div>
+                                <div class="explore-text">Tử vi<br>Tổng quan</div>
+                            </a>
+                            <a href="#" class="explore-item">
+                                <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #B270FA, #6118D6);"><span class="explore-icon">💰</span></div>
+                                <div class="explore-text">Tài chính &<br>Đầu tư</div>
+                            </a>
+                            <a href="#" class="explore-item">
+                                <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #FF9EBB, #F54C83);"><span class="explore-icon">💖</span></div>
+                                <div class="explore-text">Tư vấn<br>Tình duyên</div>
+                            </a>
+                            <a href="tuvi_cauhoi.html" class="explore-item">
+                                <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #42C4F7, #0CA1EB);"><span class="explore-icon">❓</span></div>
+                                <div class="explore-text">Câu hỏi<br>Tử vi</div>
+                            </a>
+                            <a href="#" class="explore-item">
+                                <div class="explore-icon-wrapper" style="background: linear-gradient(135deg, #FFDE4B, #FF891C);"><span class="explore-icon">📜</span></div>
+                                <div class="explore-text">Lá số<br>Tử vi</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="height: 40px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function shareResult() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Kết quả tư vấn nghề nghiệp & sự nghiệp - Lịch Việt',
+                    text: 'Xem luận giải tử vi nghề nghiệp và sự nghiệp của tôi!',
+                    url: window.location.href
+                }).catch(function () {});
+            } else {
+                alert('Chia sẻ kết quả tư vấn nghề nghiệp & sự nghiệp');
+            }
+        }
+
+        /* ===== Chip điều hướng nhanh theo khối đang xem ===== */
+        (function () {
+            var content = document.querySelector('.content');
+            var nav = document.getElementById('quickNav');
+            if (!content || !nav) return;
+
+            var inner = nav.querySelector('.quick-nav-inner');
+            var NAV_H = 46;   // chiều cao thanh chip
+            var SHOW_AT = 160; // cuộn qua thẻ thông tin lá số thì hiện chip
+
+            var items = [];
+            [].forEach.call(nav.querySelectorAll('.qn-chip'), function (chip) {
+                var el = document.getElementById(chip.getAttribute('data-target'));
+                if (!el) { chip.style.display = 'none'; return; } // khối chưa có thì ẩn chip
+                items.push({ chip: chip, el: el });
+            });
+            if (!items.length) return;
+
+            function topOf(el) {
+                return el.getBoundingClientRect().top - content.getBoundingClientRect().top + content.scrollTop;
+            }
+
+            /* Đưa chip đang chọn về gần mép trái: lộ các chip kế tiếp, đồng thời
+               chừa một phần chip phía trước để người dùng bấm quay lại được */
+            var PEEK = 44;
+            function keepChipInView(chip) {
+                var maxLeft = inner.scrollWidth - inner.clientWidth;
+                var target = Math.min(Math.max(0, chip.offsetLeft - PEEK), Math.max(0, maxLeft));
+                if (Math.abs(target - inner.scrollLeft) < 2) return;
+                inner.scrollTo({ left: target, behavior: 'smooth' });
+            }
+
+            var activeItem = null;
+            function setActive(item) {
+                if (item === activeItem) return;
+                activeItem = item;
+                items.forEach(function (it) { it.chip.classList.toggle('active', it === item); });
+                if (nav.classList.contains('is-visible')) keepChipInView(item.chip);
+            }
+
+            /* Khối đang xem theo vị trí cuộn */
+            function pickByScroll(y) {
+                if (y + content.clientHeight >= content.scrollHeight - 2) {
+                    return items[items.length - 1];   // chạm đáy thì khối cuối là khối đang xem
+                }
+                var current = items[0];
+                items.forEach(function (it) {
+                    if (topOf(it.el) - NAV_H - 16 <= y) current = it;
+                });
+                return current;
+            }
+
+            /* Khi bấm chip, khoá scroll-spy tới lúc cuộn xong để chip không nhảy qua các khối trung gian */
+            var jumpTarget = null;
+            var jumpDeadline = 0;
+            function releaseJump() { jumpTarget = null; }
+
+            function onScroll() {
+                var y = content.scrollTop;
+                nav.classList.toggle('is-visible', y > SHOW_AT);
+                if (jumpTarget !== null) {
+                    var arrived = Math.abs(y - jumpTarget) <= 2 ||
+                        y + content.clientHeight >= content.scrollHeight - 2 ||
+                        Date.now() > jumpDeadline;
+                    if (!arrived) return;
+                    releaseJump();
+                }
+                setActive(pickByScroll(y));
+            }
+
+            items.forEach(function (it) {
+                it.chip.addEventListener('click', function () {
+                    var maxScroll = Math.max(0, content.scrollHeight - content.clientHeight);
+                    jumpTarget = Math.min(Math.max(0, topOf(it.el) - NAV_H - 10), maxScroll);
+                    jumpDeadline = Date.now() + 1500;
+                    setActive(it);              // đổi chip ngay khi bấm
+                    keepChipInView(it.chip);
+                    content.scrollTo({ top: jumpTarget, behavior: 'smooth' });
+                });
+            });
+
+            // người dùng tự vuốt thì trả quyền lại cho scroll-spy
+            content.addEventListener('touchstart', releaseJump, { passive: true });
+            content.addEventListener('wheel', releaseJump, { passive: true });
+
+            content.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            onScroll();
+        })();
+
+        /* cung: chờ bổ sung dữ liệu cho các Đại vận */
+        var daivanData = [
+            {
+                tag: "Đại vận đã qua",
+                yearsTitle: "1990–1999",
+                ageSubtitle: "4–13 tuổi",
+                cung: "",
+                score: "52 điểm",
+                eval: "Trung bình",
+                headline: "Học hỏi & Đặt nền móng ban đầu",
+                desc: "Giai đoạn thơ ấu tích lũy kiến thức cơ bản, hình thành tính cách và khám phá sở thích cá nhân."
+            },
+            {
+                tag: "Đại vận đã qua",
+                yearsTitle: "2000–2009",
+                ageSubtitle: "14–23 tuổi",
+                cung: "",
+                score: "66 điểm",
+                eval: "Trung bình",
+                headline: "Định hình mục tiêu & Trải nghiệm",
+                desc: "Giai đoạn học tập chuyên sâu, rèn luyện kỹ năng và chuẩn bị bước chân vào con đường sự nghiệp thực tế."
+            },
+            {
+                tag: "Đại vận đã qua",
+                yearsTitle: "2010–2019",
+                ageSubtitle: "24–33 tuổi",
+                cung: "",
+                score: "71 điểm",
+                eval: "Khá thuận lợi",
+                headline: "Vào nghề & tích lũy kinh nghiệm",
+                desc: "Giai đoạn bước vào môi trường làm việc thực tế, mở rộng quan hệ và định hình hướng đi cho sự nghiệp."
+            },
+            {
+                tag: "Đại vận hiện tại",
+                yearsTitle: "2020–2029",
+                ageSubtitle: "34–43 tuổi",
+                cung: "",
+                score: "72 điểm",
+                eval: "Khá thuận lợi",
+                headline: "Củng cố & mở rộng vị trí",
+                desc: "Đại vận này là giai đoạn Thủy sinh Mộc, mang lại nguồn năng lượng thuận lợi rõ rệt cho bạn, dù bản mệnh Vũ Khúc Thất Sát vốn mang tính chất chủ động và đôi khi căng thẳng. Trọng tâm lớn nhất của giai đoạn nằm ở việc mở rộng các mối quan hệ và đầu tư cho thế hệ tương lai, nơi bạn có cơ hội thể hiện sự quan tâm, chia sẻ và tận hưởng niềm vui từ các mối giao hảo. Tuy nhiên, sự hiện diện của Hóa Kỵ nhắc nhở bạn về những mối bận tâm sâu kín, đòi hỏi sự thận trọng trong chi tiêu và quản lý cảm xúc cá nhân. Giai đoạn này giúp bạn học cách cân bằng giữa trách nhiệm và nhu cầu kết nối, tích lũy những bài học quý giá về lòng tin và sự sẻ chia, tạo nền tảng tinh thần vững chắc cho chặng đường phía trước."
+            },
+            {
+                tag: "Đại vận sắp tới",
+                yearsTitle: "2030–2039",
+                ageSubtitle: "44–53 tuổi",
+                cung: "",
+                score: "69 điểm",
+                eval: "Thuận lợi",
+                headline: "Bứt phá tài chính & Khẳng định thế lực",
+                desc: "Giai đoạn thu hoạch thành quả sự nghiệp, mở rộng các kênh đầu tư và củng cố uy tín chuyên môn."
+            },
+            {
+                tag: "Đại vận sắp tới",
+                yearsTitle: "2040–2049",
+                ageSubtitle: "54–63 tuổi",
+                cung: "",
+                score: "58 điểm",
+                eval: "Trung bình",
+                headline: "Giữ nhịp & chăm sóc nền tảng",
+                desc: "Giai đoạn cần chú ý sức khỏe và giữ nhịp công việc ổn định, ưu tiên duy trì thành quả hơn là mở rộng quá nhanh."
+            }
+        ];
+
+        function selectDaivan(idx) {
+            for (var i = 0; i < daivanData.length; i++) {
+                var card = document.getElementById('card-' + i);
+                var node = document.getElementById('node-' + i);
+                var cardScore = document.getElementById('card-score-' + i);
+                var col = card ? card.closest('.daivan-col') : null;
+
+                if (card) {
+                    if (i === idx) {
+                        card.classList.add('active');
+                        if (col) col.classList.add('active-col');
+                        if (cardScore) cardScore.classList.add('active-text');
+                    } else {
+                        card.classList.remove('active');
+                        if (col) col.classList.remove('active-col');
+                        if (cardScore) cardScore.classList.remove('active-text');
+                    }
+                }
+                if (node) {
+                    if (i === idx) {
+                        node.classList.add('active');
+                    } else {
+                        node.classList.remove('active');
+                    }
+                }
+            }
+
+            var d = daivanData[idx];
+            if (!d) return;
+
+            var conclusion = document.getElementById('detailConclusion');
+            if (conclusion) conclusion.textContent = d.desc;
+
+            var detailTitle = document.getElementById('detailTitle');
+            if (detailTitle) detailTitle.textContent = d.tag + ': ĐẠI VẬN ' + (idx + 1);
+            var yt = document.getElementById('detailYearsTitle');
+            var ast = document.getElementById('detailAgeSubtitle');
+            if (yt) yt.textContent = d.yearsTitle;
+            if (ast) ast.textContent = d.ageSubtitle;
+            document.getElementById('detailScoreText').textContent = d.score;
+            document.getElementById('detailEvalText').textContent = d.eval;
+        }
+
+        /* Giai đoạn đang hiển thị ở khối chi tiết dưới timeline */
+        var currentDaivanIndex = 3;
+
+        /* Chạm vào một giai đoạn trên timeline -> sang màn chi tiết Đại vận */
+        function openDaivan(idx) {
+            window.location.href = 'tuvi_daivan_detail.html?dv=' + (idx + 1);
+        }
+
+        /* Màu chữ đánh giá theo 5 mức */
+        var DAIVAN_EVAL_LEVELS = {
+            "rất thuận lợi": "eval-1",
+            "thuận lợi": "eval-2",
+            "khá thuận lợi": "eval-3",
+            "trung bình": "eval-4",
+            "nhiều thử thách": "eval-5"
+        };
+
+        function paintDaivanEvalColors() {
+            [].forEach.call(document.querySelectorAll('.daivan-card-score'), function (el) {
+                var key = el.textContent.trim().toLowerCase();
+                el.classList.remove('eval-1', 'eval-2', 'eval-3', 'eval-4', 'eval-5');
+                if (DAIVAN_EVAL_LEVELS[key]) el.classList.add(DAIVAN_EVAL_LEVELS[key]);
+            });
+        }
+
+        window.addEventListener('load', paintDaivanEvalColors);
+
+        /* Mặc định đưa mốc đang chọn (đại vận hiện tại) ra giữa màn hình */
+        function centerActiveDaivan(smooth) {
+            var cont = document.getElementById('daivanScrollContainer');
+            if (!cont) return;
+            var card = cont.querySelector('.daivan-card-item.active');
+            var col = card && card.closest('.daivan-col');
+            if (!col) return;
+
+            var left = col.getBoundingClientRect().left - cont.getBoundingClientRect().left + cont.scrollLeft;
+            var target = left + col.offsetWidth / 2 - cont.clientWidth / 2;
+            target = Math.max(0, Math.min(target, cont.scrollWidth - cont.clientWidth));
+
+            if (smooth) {
+                cont.scrollTo({ left: target, behavior: 'smooth' });
+            } else {
+                var prev = cont.style.scrollBehavior;
+                cont.style.scrollBehavior = 'auto';   // lần đầu thì nhảy thẳng, không chạy hiệu ứng
+                cont.scrollLeft = target;
+                cont.style.scrollBehavior = prev;
+            }
+        }
+
+        window.addEventListener('load', function () { centerActiveDaivan(false); });
+
+        function viewFullChart() {
+            // TODO: điều hướng sang màn lá số đầy đủ
+            alert('Mở lá số tử vi đầy đủ');
+        }
+    </script>
+</body>
+
+</html>
