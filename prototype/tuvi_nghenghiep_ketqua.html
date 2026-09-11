@@ -4092,14 +4092,29 @@
                 setActive(pickByScroll(y));
             }
 
+            /* Nhảy tới một khối: khoá scroll-spy để chip không chạy lần lượt qua các khối trung gian */
+            function goTo(it) {
+                var maxScroll = Math.max(0, content.scrollHeight - content.clientHeight);
+                jumpTarget = Math.min(Math.max(0, topOf(it.el) - NAV_H - 10), maxScroll);
+                jumpDeadline = Date.now() + 1500;
+                setActive(it);                  // đổi chip ngay khi bấm
+                keepChipInView(it.chip);
+                content.scrollTo({ top: jumpTarget, behavior: 'smooth' });
+            }
+
             items.forEach(function (it) {
-                it.chip.addEventListener('click', function () {
-                    var maxScroll = Math.max(0, content.scrollHeight - content.clientHeight);
-                    jumpTarget = Math.min(Math.max(0, topOf(it.el) - NAV_H - 10), maxScroll);
-                    jumpDeadline = Date.now() + 1500;
-                    setActive(it);              // đổi chip ngay khi bấm
-                    keepChipInView(it.chip);
-                    content.scrollTo({ top: jumpTarget, behavior: 'smooth' });
+                it.chip.addEventListener('click', function () { goTo(it); });
+            });
+
+            /* Item ở khối "Bao gồm 4 phần chính" dùng chung cơ chế nhảy với chip */
+            [].forEach.call(document.querySelectorAll('.lg-summary-item[href^="#"]'), function (link) {
+                var id = link.getAttribute('href').slice(1);
+                var it = null;
+                items.forEach(function (x) { if (x.el.id === id) it = x; });
+                if (!it) return;
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    goTo(it);
                 });
             });
 
@@ -4269,27 +4284,6 @@
         }
 
         window.addEventListener('load', function () { centerActiveDaivan(false); });
-
-        /* ===== Bấm item "Bao gồm 4 phần chính" -> cuộn tới khối lớn, không bị thanh chip che tiêu đề ===== */
-        (function () {
-            var content = document.querySelector('.content');
-            if (!content) return;
-            var OFFSET = 56;   // 46px thanh chip + 10px thở
-
-            [].forEach.call(document.querySelectorAll('.lg-summary-item[href^="#"]'), function (link) {
-                link.addEventListener('click', function (e) {
-                    var el = document.getElementById(link.getAttribute('href').slice(1));
-                    if (!el) return;
-                    e.preventDefault();
-                    var top = el.getBoundingClientRect().top - content.getBoundingClientRect().top + content.scrollTop;
-                    var maxScroll = Math.max(0, content.scrollHeight - content.clientHeight);
-                    content.scrollTo({
-                        top: Math.min(Math.max(0, top - OFFSET), maxScroll),
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        })();
 
         function viewFullChart() {
             // TODO: điều hướng sang màn lá số đầy đủ
