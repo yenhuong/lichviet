@@ -158,9 +158,9 @@
             background: #ffffff;
             border-bottom: 1px solid var(--border-color);
             padding: 12px 0 14px;
-            flex-shrink: 0;
             z-index: 5;
-            position: relative;
+            position: sticky;          /* nằm trong vùng cuộn, dính mép trên khi cuộn qua khối thông tin */
+            top: 0;
         }
 
         .dv-tabs-container::after {
@@ -175,6 +175,13 @@
             z-index: 10;
         }
 
+        .dv-tabs-label {
+            padding: 0 16px 6px 20px;  /* thụt vào thêm 4px so với các thẻ Đại vận */
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+        }
+
         .dv-tabs-scroll {
             display: flex;
             gap: 10px;
@@ -186,14 +193,23 @@
 
         .dv-pill {
             flex: 0 0 auto;
-            min-width: 104px;
+            min-width: 106px;
             padding: 9px 14px;
             border-radius: 14px;
-            border: 1px solid var(--border-color);
-            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            background: #f8fafc;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            user-select: none;
+        }
+
+        .dv-pill:hover:not(.active) {
+            background: #f0fdf4;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(22, 145, 114, 0.15);
+            transform: translateY(-2px);
         }
 
         .dv-pill:active { transform: scale(0.96); }
@@ -204,15 +220,16 @@
             font-weight: 700;
             letter-spacing: 0.4px;
             text-transform: uppercase;
-            color: #94a3b8;
+            color: #475569;
         }
 
         .dv-pill-years {
             display: block;
             margin-top: 3px;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 800;
             color: #0f172a;
+            line-height: 1.25;
         }
 
         .dv-pill-age {
@@ -220,6 +237,7 @@
             margin-top: 2px;
             font-size: 11.5px;
             color: #64748b;
+            font-weight: 500;
         }
 
         .dv-pill.active {
@@ -423,6 +441,420 @@
             opacity: 0.4;
             cursor: default;
         }
+
+        /* ===== Thẻ nhắc bổ sung câu hỏi (lá số chưa trả lời đủ) ===== */
+        .dv-ask {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 16px 12px;
+            padding: 14px 14px 14px 16px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+            border: 1px solid #FDE68A;
+        }
+
+        .dv-ask-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            box-shadow: 0 2px 6px rgba(180, 83, 9, 0.12);
+        }
+
+        .dv-ask-text { flex: 1; min-width: 0; }
+
+        .dv-ask-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #92400E;
+            line-height: 1.35;
+        }
+
+        .dv-ask-sub {
+            margin-top: 3px;
+            font-size: 12.5px;
+            color: #A16207;
+            line-height: 1.4;
+        }
+
+        .dv-ask-btn {
+            flex-shrink: 0;
+            font-family: inherit;
+            border: none;
+            border-radius: 18px;
+            padding: 8px 14px;
+            background: var(--primary-dark);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .dv-ask-btn:active { transform: scale(0.96); }
+
+        /* ===== Thẻ "Thông tin công việc của bạn" (đầu trang, khi đã trả lời câu bắt buộc) ===== */
+        .dv-personal {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 16px 16px 12px;
+            padding: 12px;
+            border-radius: 16px;
+            background: #EAF7F1;
+            border: 1px solid #CDEBDD;
+        }
+
+        /* icon không khung nền, chỉ nét màu xanh */
+        .dv-personal-icon {
+            flex-shrink: 0;
+            display: flex;
+            color: var(--primary);
+            margin-top: -2px;          /* canh giữa theo dòng tiêu đề */
+        }
+
+        .dv-personal-icon svg { width: 22px; height: 22px; }
+
+        .dv-personal-body { flex: 1; min-width: 0; }
+
+        .dv-personal-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #0F172A;
+        }
+
+        /* mỗi câu trả lời 1 dòng, dài thì cắt "…" */
+        .dv-personal-line {
+            margin-top: 2px;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #64748B;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* nhãn đầu dòng: Công việc / Chức vụ / Mục tiêu */
+        .dv-personal-k {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        /* tiêu đề + công việc nằm ngang hàng nút Sửa -> chừa chỗ; các dòng dưới dùng hết chiều ngang */
+        .dv-personal-title,
+        .dv-personal-job { padding-right: 76px; }
+
+        .dv-personal-edit {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid #CDEBDD;
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
+
+        .dv-personal-edit:active { transform: scale(0.96); }
+
+        /* Trạng thái đang cập nhật luận giải sau khi trả lời */
+        .dv-loading {
+            margin: 0 16px 14px;
+            padding: 32px 16px;
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .dv-spinner {
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            border: 3px solid #D1FAE5;
+            border-top-color: var(--primary);
+            animation: dvSpin 0.8s linear infinite;
+        }
+
+        @keyframes dvSpin { to { transform: rotate(360deg); } }
+
+        /* ===== Bottom sheet câu hỏi ===== */
+        .qs-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .qs-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .qs-sheet {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            max-height: 88%;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
+            z-index: 51;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .qs-sheet.show { transform: translateY(0); }
+
+        .qs-handle {
+            width: 40px;
+            height: 4px;
+            margin: 10px auto 0;
+            border-radius: 2px;
+            background: #CBD5E1;
+            flex-shrink: 0;
+        }
+
+        .qs-header {
+            position: relative;
+            flex-shrink: 0;
+            padding: 12px 20px 14px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .qs-title {
+            margin: 0;
+            padding: 0 32px;           /* chừa đều 2 bên cho nút đóng để tiêu đề nằm đúng giữa */
+            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0F172A;
+            line-height: 1.3;
+            letter-spacing: -0.2px;
+            white-space: nowrap;       /* tiêu đề luôn trên 1 dòng */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* màn hẹp: thu nhỏ chữ để tiêu đề vẫn vừa 1 dòng */
+        @media (max-width: 380px) {
+            .qs-title { font-size: 16px; }
+        }
+
+        .qs-desc {
+            margin: 12px 0 0;          /* tách khỏi nút đóng (X) phía trên */
+            font-size: 14.5px;
+            line-height: 1.45;
+            color: var(--text-main);
+            text-align: left;
+        }
+
+        .qs-close {
+            position: absolute;
+            top: 6px;
+            right: 14px;
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 50%;
+            background: #F1F5F9;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .qs-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px 20px 8px;
+        }
+
+        .qs-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 0;
+        }
+
+        .qs-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: #FEF3E2;
+            color: #B45309;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qs-icon svg { width: 16px; height: 16px; }
+
+        .qs-main { flex: 1; min-width: 0; }
+
+        .qs-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            color: #1F2937;
+            line-height: 1.4;
+        }
+
+        .qs-required { color: #EF4444; }
+
+        .qs-sub {
+            margin: 3px 0 0;
+            font-size: 14px;
+            line-height: 1.45;
+            color: #64748B;
+        }
+
+        /* Ô nhập câu trả lời (input 1 dòng / textarea 3 dòng) */
+        .qs-field {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 16px;           /* >= 16px để iOS không tự phóng to khi nhập */
+            line-height: 1.45;
+            color: #0F172A;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .qs-field::placeholder { color: #94A3B8; }
+
+        .qs-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(22, 145, 114, 0.12);
+        }
+
+        /* Bấm CTA khi chưa nhập câu bắt buộc */
+        .qs-field.invalid {
+            border-color: #F87171;
+            background: #FFFBFB;
+        }
+
+        .qs-field.invalid:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12); }
+
+        .qs-error {
+            margin: 6px 0 0;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #DC2626;
+        }
+
+        .qs-textarea {
+            resize: none;
+            padding-bottom: 30px;      /* chừa chỗ cho bộ đếm ký tự */
+        }
+
+        .qs-textarea.no-count { padding-bottom: 12px; }   /* ô không hiện bộ đếm */
+
+        #qsField-duty { line-height: 1.4; }   /* câu 2 */
+
+        .qs-field-wrap { position: relative; }
+
+        .qs-count {
+            position: absolute;
+            right: 12px;
+            bottom: 8px;
+            font-size: 12px;
+            color: #94A3B8;
+            pointer-events: none;
+        }
+
+        .qs-count.full {
+            color: #D97706;
+            font-weight: 600;
+        }
+
+        .qs-footer {
+            flex-shrink: 0;
+            padding: 12px 20px 18px;
+            border-top: 1px solid #F1F5F9;
+            background: #ffffff;
+        }
+
+        .qs-submit {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #1FB08A 0%, #0F6B54 100%);
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 15.5px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(15, 107, 84, 0.24);
+        }
+
+        .qs-submit:active { transform: scale(0.98); }
+
+        /* ===== Toast ===== */
+        .toast {
+            position: absolute;
+            left: 50%;
+            bottom: 34px;
+            width: 86%;
+            transform: translateX(-50%) translateY(110px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            background: rgba(31, 41, 55, 0.95);
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 500;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 60;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            color: #6EE7B7;
+        }
     </style>
 </head>
 
@@ -460,12 +892,46 @@
                 <span class="title">Chi tiết Đại vận</span>
             </div>
 
-            <!-- Dải chọn giai đoạn Đại vận -->
-            <div class="dv-tabs-container">
-                <div class="dv-tabs-scroll" id="dvTabsScroll"></div>
+            <!-- Vùng cuộn: khối thông tin công việc -> dải chọn Đại vận (dính mép trên khi cuộn) -> nội dung -->
+            <div class="content" id="dvScroll">
+                <div id="dvAnswerCard"></div>
+
+                <!-- Dải chọn giai đoạn Đại vận -->
+                <div class="dv-tabs-container">
+                    <div class="dv-tabs-label">Chọn đại vận muốn xem</div>
+                    <div class="dv-tabs-scroll" id="dvTabsScroll"></div>
+                </div>
+
+                <div id="dvContent"></div>
             </div>
 
-            <div class="content" id="dvContent"></div>
+            <!-- Bottom sheet câu hỏi: bung lên khi lá số chưa trả lời đủ câu hỏi -->
+            <div class="qs-backdrop" id="qsBackdrop" onclick="closeSheet()"></div>
+            <div class="qs-sheet" id="qsSheet" role="dialog" aria-modal="true" aria-labelledby="qsTitle">
+                <div class="qs-handle"></div>
+                <div class="qs-header">
+                    <h3 class="qs-title" id="qsTitle">Chia sẻ về công việc của bạn</h3>
+                    <p class="qs-desc">Cho Lịch Việt biết thêm về công việc và mục tiêu để phần luận giải từng Đại vận cụ thể và phù hợp hơn với bạn.</p>
+                    <button class="qs-close" type="button" onclick="closeSheet()" aria-label="Đóng">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="qs-body" id="qsBody"></div>
+                <div class="qs-footer">
+                    <button class="qs-submit" id="qsSubmit" type="button" onclick="submitAnswers()">Xem luận giải Đại vận</button>
+                </div>
+            </div>
+
+            <div class="toast" id="toast">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span id="toastMsg"></span>
+            </div>
         </div>
     </div>
 
@@ -530,6 +996,13 @@
                                     "Môi trường làm việc có sự hỗ trợ tốt từ cấp trên và đồng nghiệp, tạo điều kiện để bạn củng cố chuyên môn và giữ vững vị trí quản lý; tuy nhiên, cơ hội thăng tiến vượt bậc không nổi bật, thiên về giữ vững hiện trạng hơn là mở rộng phạm vi ảnh hưởng.",
                                     "Xu hướng chuyển việc hay đổi nghề gần như không xuất hiện trong giai đoạn này, nhưng bạn có thể cân nhắc điều chỉnh môi trường làm việc để tiến gần hơn đến mục tiêu gần nhà, nếu có cơ hội phù hợp thì nên thực hiện một cách thận trọng, không vội vàng."
                         ],
+                        /* Bản tổng quát: hiển thị khi lá số chưa trả lời đủ câu hỏi */
+                        "workBasic": [
+                                    "Công việc của bạn trong đại vận này nghiêng về trạng thái ổn định và tích lũy, thuận lợi cho việc duy trì vị thế đã xây dựng, không có dấu hiệu đảo lộn hay thay đổi đột ngột.",
+                                    "Áp lực công việc chủ yếu đến từ yêu cầu chuyên môn và sự tỉ mỉ; khối lượng công việc đều đặn, ít biến động nhưng cần sự tập trung bền bỉ.",
+                                    "Môi trường làm việc có sự hỗ trợ tốt từ cấp trên và đồng nghiệp, tạo điều kiện để bạn củng cố chuyên môn; cơ hội thăng tiến vượt bậc không nổi bật, thiên về giữ vững hiện trạng hơn là mở rộng phạm vi ảnh hưởng.",
+                                    "Xu hướng chuyển việc hay đổi nghề gần như không xuất hiện trong giai đoạn này; nếu có cơ hội thay đổi môi trường làm việc, bạn nên cân nhắc thận trọng, không vội vàng."
+                        ],
                         "finance": [
                                     "Xu hướng tài chính tổng thể của bạn trong đại vận này nghiêng về sự ổn định và bảo toàn hơn là bứt phá mạnh mẽ, nhờ nền tảng vững chắc từ công việc hiện tại.",
                                     "Khả năng tạo thu nhập được duy trì ổn định nhờ vai trò chuyên môn của bạn, nhưng việc tích lũy tài sản cần có kế hoạch rõ ràng để tránh tiền đến rồi đi mà không để lại nhiều giá trị lâu dài.",
@@ -539,6 +1012,13 @@
                         "direction": [
                                     "Bạn đang bước vào giai đoạn Đại vận khá thuận lợi, vì vậy hãy đặt trọng tâm vào việc củng cố nền tảng sự nghiệp và tận hưởng cuộc sống gia đình, thay vì mạo hiểm thay đổi lớn.",
                                     "Trong vai trò Lead, bạn nên tập trung phát huy năng lực quản lý và chuyên môn phân tích để ổn định vị thế, hướng tới mục tiêu công việc gần nhà với thu nhập vững chắc.",
+                                    "Về tài chính, giai đoạn này ủng hộ sự ổn định; bạn nên ưu tiên tích lũy và quản lý ngân sách chặt chẽ, tránh các khoản đầu tư rủi ro cao hay chi tiêu thất thường.",
+                                    "Sức khỏe tinh thần cần được chú ý vì áp lực công việc có thể tăng; hãy duy trì các mối quan hệ xã hội lành mạnh và dành thời gian cho gia đình để cân bằng cuộc sống.",
+                                    "Xuyên suốt Đại vận, bạn nên duy trì sự cẩn trọng vốn có, phát huy khả năng phân tích sắc bén, đồng thời tránh ôm đồm quá nhiều việc dẫn đến căng thẳng không đáng có."
+                        ],
+                        "directionBasic": [
+                                    "Bạn đang bước vào giai đoạn Đại vận khá thuận lợi, vì vậy hãy đặt trọng tâm vào việc củng cố nền tảng sự nghiệp và tận hưởng cuộc sống gia đình, thay vì mạo hiểm thay đổi lớn.",
+                                    "Trong công việc, bạn nên tập trung phát huy năng lực chuyên môn và khả năng phân tích để ổn định vị thế, hướng tới nguồn thu nhập vững chắc.",
                                     "Về tài chính, giai đoạn này ủng hộ sự ổn định; bạn nên ưu tiên tích lũy và quản lý ngân sách chặt chẽ, tránh các khoản đầu tư rủi ro cao hay chi tiêu thất thường.",
                                     "Sức khỏe tinh thần cần được chú ý vì áp lực công việc có thể tăng; hãy duy trì các mối quan hệ xã hội lành mạnh và dành thời gian cho gia đình để cân bằng cuộc sống.",
                                     "Xuyên suốt Đại vận, bạn nên duy trì sự cẩn trọng vốn có, phát huy khả năng phân tích sắc bén, đồng thời tránh ôm đồm quá nhiều việc dẫn đến căng thẳng không đáng có."
@@ -581,10 +1061,18 @@
             { key: "direction", icon: "🧭", title: "Định hướng Đại vận" }
         ];
 
+        /* Tạm ẩn các Đại vận đã qua (đổi thành false để hiện lại) */
+        var HIDE_PAST = true;
+        // chỉ số (trong DAIVAN) của các Đại vận được hiển thị
+        var VISIBLE = DAIVAN.map(function (d, i) { return i; }).filter(function (i) {
+            return !(HIDE_PAST && DAIVAN[i].tag === 'Đại vận đã qua');
+        });
+
         function currentIndex() {
             var p = new URLSearchParams(window.location.search);
             var n = parseInt(p.get('dv'), 10);
-            if (isNaN(n) || n < 1 || n > DAIVAN.length) n = 4;   // mặc định: đại vận hiện tại
+            // mặc định, hoặc dv trỏ tới Đại vận đang ẩn -> đại vận hiện tại
+            if (VISIBLE.indexOf(n - 1) === -1) n = 4;
             return n - 1;
         }
 
@@ -593,7 +1081,8 @@
         }
 
         function renderTabs(idx) {
-            var html = DAIVAN.map(function (d, i) {
+            var html = VISIBLE.map(function (i) {
+                var d = DAIVAN[i];
                 return '<div class="dv-pill' + (i === idx ? ' active' : '') + '" onclick="goTo(' + i + ')">' +
                     '<span class="dv-pill-index">Đại vận ' + (i + 1) + '</span>' +
                     '<span class="dv-pill-years">' + esc(d.years) + '</span>' +
@@ -604,7 +1093,7 @@
 
             // đưa giai đoạn đang xem vào giữa dải chọn
             var scroll = document.getElementById('dvTabsScroll');
-            var pill = scroll.children[idx];
+            var pill = scroll.children[VISIBLE.indexOf(idx)];
             if (pill) {
                 var target = pill.offsetLeft + pill.offsetWidth / 2 - scroll.clientWidth / 2;
                 scroll.scrollLeft = Math.max(0, Math.min(target, scroll.scrollWidth - scroll.clientWidth));
@@ -614,8 +1103,11 @@
         function renderContent(idx) {
             var d = DAIVAN[idx];
 
+            var complete = !missingRequired(answers).length;
+
             var sections = DV_SECTIONS.map(function (s) {
-                var rows = d[s.key] || [];
+                // chưa trả lời đủ câu hỏi -> dùng bản luận giải tổng quát (nếu có)
+                var rows = (!complete && d[s.key + 'Basic']) || d[s.key] || [];
                 var body = rows.length
                     ? '<ul class="dv-list">' + rows.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>'
                     : '<p class="dv-placeholder">Nội dung luận giải đang được cập nhật.</p>';
@@ -634,6 +1126,17 @@
                     ? '<p class="dv-paragraph">' + esc(d.conclusion) + '</p>'
                     : '<p class="dv-placeholder">Nội dung luận giải đang được cập nhật.</p>') +
                 '</div></div>';
+
+            // giai đoạn trước/sau trong danh sách đang hiển thị
+            var pos = VISIBLE.indexOf(idx);
+            var prev = VISIBLE[pos - 1], next = VISIBLE[pos + 1];
+
+            var body = isUpdating
+                ? '<div class="dv-loading"><div class="dv-spinner"></div>Đang cập nhật luận giải theo thông tin của bạn…</div>'
+                : sections + conclusion;
+
+            // khối thông tin công việc nằm riêng, phía trên dải chọn Đại vận
+            document.getElementById('dvAnswerCard').innerHTML = renderAnswerCard();
 
             document.getElementById('dvContent').innerHTML =
                 '<div class="dv-hero">' +
@@ -665,17 +1168,16 @@
                         '</span>' +
                     '</div>' +
                 '</div>' +
-                sections +
-                conclusion +
+                body +
                 '<div class="dv-nav">' +
-                    '<button class="dv-nav-btn" type="button" onclick="goTo(' + (idx - 1) + ')"' + (idx === 0 ? ' disabled' : '') + '>‹ Giai đoạn trước</button>' +
-                    '<button class="dv-nav-btn" type="button" onclick="goTo(' + (idx + 1) + ')"' + (idx === DAIVAN.length - 1 ? ' disabled' : '') + '>Giai đoạn sau ›</button>' +
+                    '<button class="dv-nav-btn" type="button" onclick="goTo(' + prev + ')"' + (prev === undefined ? ' disabled' : '') + '>‹ Giai đoạn trước</button>' +
+                    '<button class="dv-nav-btn" type="button" onclick="goTo(' + next + ')"' + (next === undefined ? ' disabled' : '') + '>Giai đoạn sau ›</button>' +
                 '</div>';
-            document.getElementById('dvContent').scrollTop = 0;
+            document.getElementById('dvScroll').scrollTop = 0;
         }
 
         function goTo(i) {
-            if (i < 0 || i >= DAIVAN.length) return;
+            if (VISIBLE.indexOf(i) === -1) return;
             history.replaceState(null, '', 'tuvi_daivan_detail.html?dv=' + (i + 1));
             render(i);
         }
@@ -685,7 +1187,243 @@
             renderContent(idx);
         }
 
+        /* ===== Câu hỏi bổ sung cho lá số: trả lời đủ thì luận giải Đại vận chi tiết, cụ thể hơn ===== */
+        // icon: nét vẽ SVG 24x24 (icon câu 1 dùng lại cho thẻ "Thông tin công việc của bạn" đầu trang)
+        var QUESTIONS = [
+            {
+                key: 'job', label: 'Công việc', title: 'Công việc hiện tại của bạn là gì?', required: true,
+                multiline: true, rows: 2, maxLength: 100, hideCount: true,
+                error: 'Vui lòng nhập công việc hiện tại của bạn.',                placeholder: 'Ví dụ: Kế toán, nhân viên bán hàng, sinh viên...',
+                icon: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/><path d="M12 12v2"/>'
+            },
+            {
+                key: 'duty', label: 'Chức vụ', title: 'Chức vụ hiện tại và công việc chính bạn đang phụ trách là gì?', multiline: true, maxWords: 50, hideCount: true,                placeholder: 'Ví dụ: Tôi là trưởng nhóm kinh doanh, phụ trách 5 nhân viên và theo dõi doanh số của nhóm.',
+                icon: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>'
+            },
+            {
+                key: 'goal', label: 'Mục tiêu', title: 'Mục tiêu công việc của bạn trong thời gian tới là gì?', multiline: true, maxWords: 100,                placeholder: 'Ví dụ: Tăng thu nhập, lên vị trí quản lý, chuyển sang lĩnh vực phù hợp hơn, mở doanh nghiệp...',
+                icon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><path d="M13 11l6-6"/><path d="M17 3h4v4"/>'
+            }
+        ];
+
+        // Câu trả lời gắn với từng lá số (theo ngày + giờ sinh)
+        function answersKey() {
+            var dob = '', tob = '';
+            try {
+                dob = localStorage.getItem('user_career_dob') || '';
+                tob = localStorage.getItem('user_career_tob') || '';
+            } catch (e) {}
+            return 'laso_answers_' + dob + '_' + tob;
+        }
+
+        function loadAnswers() {
+            var a = null;
+            try { a = JSON.parse(localStorage.getItem(answersKey())); } catch (e) {}
+            return a || {};
+        }
+
+        function saveAnswers(a) {
+            try { localStorage.setItem(answersKey(), JSON.stringify(a)); } catch (e) {
+                console.warn('Không ghi được localStorage:', e);
+            }
+        }
+
+        function isAnswered(a, q) {
+            return !!(a[q.key] && String(a[q.key]).trim());
+        }
+
+        function missingQuestions(a) {
+            return QUESTIONS.filter(function (q) { return !isAnswered(a, q); });
+        }
+
+        // chỉ các câu bắt buộc: quyết định có tự bung sheet / hiện luận giải chi tiết hay không
+        function missingRequired(a) {
+            return missingQuestions(a).filter(function (q) { return q.required; });
+        }
+
+        /* Thẻ dưới hero: chưa đủ -> nhắc trả lời; đủ rồi -> tóm tắt thông tin đang dùng để luận giải */
+        function renderAnswerCard() {
+            if (missingRequired(answers).length) {
+                var miss = missingQuestions(answers);
+                return '<div class="dv-ask">' +
+                    '<span class="dv-ask-icon">✍️</span>' +
+                    '<div class="dv-ask-text">' +
+                        '<div class="dv-ask-title">Luận giải đang ở mức tổng quát</div>' +
+                        '<div class="dv-ask-sub">Trả lời thêm ' + miss.length + ' câu hỏi để xem công việc, tài chính sát với bạn hơn</div>' +
+                    '</div>' +
+                    '<button class="dv-ask-btn" type="button" onclick="openSheet(\'missing\')">Trả lời</button>' +
+                    '</div>';
+            }
+
+            // câu không bắt buộc chưa trả lời thì bỏ dòng đó
+            return '<div class="dv-personal">' +
+                '<span class="dv-personal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                    findQuestion('job').icon + '</svg></span>' +
+                '<div class="dv-personal-body">' +
+                    '<div class="dv-personal-title">Thông tin công việc của bạn</div>' +
+                    '<div class="dv-personal-line dv-personal-job"><span class="dv-personal-k">Công việc:</span> ' + esc(answers.job) + '</div>' +
+                    (isAnswered(answers, findQuestion('duty')) ? '<div class="dv-personal-line"><span class="dv-personal-k">Chức vụ:</span> ' + esc(answers.duty) + '</div>' : '') +
+                    (isAnswered(answers, findQuestion('goal')) ? '<div class="dv-personal-line"><span class="dv-personal-k">Mục tiêu:</span> ' + esc(answers.goal) + '</div>' : '') +
+                '</div>' +
+                '<button class="dv-personal-edit" type="button" onclick="openSheet(\'all\')">' +
+                    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>' +
+                    'Sửa</button>' +
+                '</div>';
+        }
+
+        /* ----- Bottom sheet ----- */
+        var sheetQuestions = [];
+        var draft = {};
+        var isUpdating = false;
+
+        // mode 'missing': chỉ hỏi các câu còn thiếu | 'all': sửa lại toàn bộ câu trả lời
+        function openSheet(mode) {
+            sheetQuestions = mode === 'all' ? QUESTIONS : missingQuestions(answers);
+            if (!sheetQuestions.length) return;
+            draft = JSON.parse(JSON.stringify(answers));
+
+            var qsBody = document.getElementById('qsBody');
+            qsBody.innerHTML = sheetQuestions.map(function (q) {
+                var attrs = ' id="qsField-' + q.key + '" placeholder="' + esc(q.placeholder) + '"' +
+                    ' oninput="onAnswerInput(\'' + q.key + '\', this.value)"';
+                var field = q.multiline
+                    ? '<div class="qs-field-wrap">' +
+                          '<textarea class="qs-field qs-textarea' + (q.hideCount ? ' no-count' : '') + '" rows="' + (q.rows || 3) + '"' +
+                              (q.maxWords ? '' : ' maxlength="' + (q.maxLength || 300) + '"') + attrs + '></textarea>' +
+                          (q.hideCount ? '' : '<span class="qs-count" id="qsCount-' + q.key + '"></span>') +
+                      '</div>'
+                    : '<input class="qs-field" type="text" maxlength="100"' + attrs + '>';
+                return '<div class="qs-item">' +
+                    '<span class="qs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                        q.icon + '</svg></span>' +
+                    '<div class="qs-main">' +
+                        '<label class="qs-label" for="qsField-' + q.key + '">' + esc(q.title) + (q.required ? ' <span class="qs-required">*</span>' : '') + '</label>' +
+                        (q.desc ? '<p class="qs-sub">' + esc(q.desc) + '</p>' : '') +
+                        field +
+                        (q.required ? '<p class="qs-error" id="qsError-' + q.key + '" hidden>' + esc(q.error) + '</p>' : '') +
+                    '</div>' +
+                    '</div>';
+            }).join('');
+            // điền câu trả lời cũ qua .value để không phải escape dấu nháy
+            sheetQuestions.forEach(function (q) {
+                document.getElementById('qsField-' + q.key).value = draft[q.key] || '';
+                updateCount(q.key);
+            });
+            qsBody.scrollTop = 0;
+
+            document.getElementById('qsBackdrop').classList.add('show');
+            document.getElementById('qsSheet').classList.add('show');
+        }
+
+        function closeSheet() {
+            document.getElementById('qsBackdrop').classList.remove('show');
+            document.getElementById('qsSheet').classList.remove('show');
+        }
+
+        function findQuestion(key) {
+            return QUESTIONS.filter(function (q) { return q.key === key; })[0];
+        }
+
+        function onAnswerInput(key, value) {
+            var q = findQuestion(key);
+            // câu giới hạn theo số từ: gõ/dán quá thì cắt bỏ phần thừa
+            if (q.maxWords && countWords(value) > q.maxWords) {
+                value = limitWords(value, q.maxWords);
+                document.getElementById('qsField-' + key).value = value;
+            }
+            draft[key] = value;
+            updateCount(key);
+            if (isAnswered(draft, q)) setError(key, false);
+        }
+
+        function countWords(text) {
+            var words = String(text).trim().split(/\s+/);
+            return words[0] ? words.length : 0;
+        }
+
+        // giữ nguyên văn bản tới hết từ thứ `max`
+        function limitWords(text, max) {
+            var m = text.match(new RegExp('^\\s*(\\S+\\s+){' + (max - 1) + '}\\S+'));
+            return m ? m[0] : text;
+        }
+
+        // bộ đếm của ô nhập nhiều dòng: theo số từ (nếu có maxWords) hoặc số ký tự
+        function updateCount(key) {
+            var count = document.getElementById('qsCount-' + key);
+            if (!count) return;
+            var q = findQuestion(key);
+            var field = document.getElementById('qsField-' + key);
+            if (q.maxWords) {
+                var n = countWords(field.value);
+                count.textContent = n + '/' + q.maxWords + ' từ';
+                count.classList.toggle('full', n >= q.maxWords);
+            } else {
+                count.textContent = field.value.length + '/' + field.maxLength;
+            }
+        }
+
+        // bật/tắt trạng thái lỗi của một câu bắt buộc
+        function setError(key, on) {
+            var error = document.getElementById('qsError-' + key);
+            if (!error) return;
+            error.hidden = !on;
+            document.getElementById('qsField-' + key).classList.toggle('invalid', on);
+        }
+
+        function submitAnswers() {
+            // nút luôn bấm được: thiếu câu bắt buộc thì báo lỗi ngay tại ô đó
+            var missing = sheetQuestions.filter(function (q) { return q.required && !isAnswered(draft, q); });
+            if (missing.length) {
+                missing.forEach(function (q) { setError(q.key, true); });
+                var first = document.getElementById('qsField-' + missing[0].key);
+                var qsBody = document.getElementById('qsBody');
+                // chỉ cuộn vùng câu hỏi (scrollIntoView/focus mặc định cuộn cả khung màn hình -> sheet bị đẩy lên)
+                qsBody.scrollTop += first.getBoundingClientRect().top - qsBody.getBoundingClientRect().top - 80;
+                first.focus({ preventScroll: true });
+                return;
+            }
+
+            QUESTIONS.forEach(function (q) {
+                if (draft[q.key]) draft[q.key] = String(draft[q.key]).trim();
+            });
+            answers = draft;
+            saveAnswers(answers);
+            closeSheet();
+
+            // giả lập gọi lại luận giải với thông tin mới
+            isUpdating = true;
+            renderContent(currentIndex());
+            setTimeout(function () {
+                isUpdating = false;
+                renderContent(currentIndex());
+                showToast('Đã cập nhật luận giải theo thông tin của bạn');
+            }, 1200);
+        }
+
+        var toastTimer;
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 3000);
+        }
+
+        /* Tham số demo: ?cauhoi=reset (xoá câu trả lời) | ?cauhoi=partial (đã trả lời một phần) */
+        (function applyDemoParam() {
+            var mode = new URLSearchParams(window.location.search).get('cauhoi');
+            if (mode === 'reset') saveAnswers({});
+            if (mode === 'partial') saveAnswers({ duty: 'Trưởng nhóm, phụ trách phân tích nghiệp vụ phần mềm.' });
+        })();
+
+        var answers = loadAnswers();
+
         render(currentIndex());
+
+        // lá số chưa trả lời câu hỏi bắt buộc -> tự bung bottom sheet sau khi màn hình hiển thị xong
+        if (missingRequired(answers).length) {
+            setTimeout(function () { openSheet('missing'); }, 600);
+        }
 
         // canh lại dải chọn sau khi font/layout ổn định
         window.addEventListener('load', function () { renderTabs(currentIndex()); });

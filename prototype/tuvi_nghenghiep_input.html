@@ -797,11 +797,6 @@
 
         // Check profile state and handle autofill
         function checkAndInitProfile() {
-            // Check if bypass parameter is false
-            const urlParams = new URLSearchParams(window.location.search);
-            const bypass = urlParams.get('bypass');
-            const shouldBypass = (bypass !== 'false');
-
             let dob = null;
             let tob = null;
             let gender = null;
@@ -834,12 +829,6 @@
                     localStorage.setItem('user_career_gender', gender);
                 } catch (e) {
                     console.warn('localStorage write failed:', e);
-                }
-
-                // If we should bypass and have complete info, redirect immediately
-                if (shouldBypass) {
-                    window.location.href = `tuvi_nghenghiep.html?dob=${encodeURIComponent(dob)}&tob=${encodeURIComponent(tob)}&gender=${encodeURIComponent(gender)}`;
-                    return;
                 }
             }
 

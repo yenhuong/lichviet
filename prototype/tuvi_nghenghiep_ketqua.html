@@ -1299,7 +1299,7 @@
             color: #D97706;
         }
 
-        /* Tiêu đề "Các giai đoạn Đại vận của bạn" nhích lên sát phần giải thích phía trên */
+        /* Tiêu đề "Các Đại vận tiếp theo của bạn" nhích lên sát phần giải thích phía trên */
         .house-detail-header.header-daivan-list {
             padding-top: 10px;
             padding-bottom: 0;
@@ -1383,6 +1383,10 @@
 
         .daivan-col:first-child .daivan-node-slot::before { left: 50%; }
         .daivan-col:last-child .daivan-node-slot::before { right: 50%; }
+
+        /* Tạm ẩn các đại vận quá khứ (bỏ rule này để hiện lại) */
+        .daivan-col.is-past { display: none; }
+        .daivan-col.is-past + .daivan-col:not(.is-past) .daivan-node-slot::before { left: 50%; }
 
         .daivan-node {
             width: 12px;
@@ -3611,7 +3615,7 @@
                         </p>
                     </div>
 
-                    <!-- Khối con: Các giai đoạn Đại vận của bạn -->
+                    <!-- Khối con: Các Đại vận tiếp theo của bạn -->
                     <div class="houses-list">
                         <div class="house-detail-card">
                             <div class="house-detail-header header-sub-daivan">
@@ -3621,7 +3625,7 @@
                                     </div>
                                     <div class="house-detail-title-wrap">
                                         <div class="house-detail-name-row">
-                                            <h4 class="house-detail-name">Các giai đoạn Đại vận của bạn</h4>
+                                            <h4 class="house-detail-name">Các Đại vận tiếp theo của bạn</h4>
                                         </div>
                                         <div class="daivan-tap-hint">Chạm vào từng giai đoạn để xem chi tiết</div>
                                     </div>
@@ -3631,7 +3635,7 @@
                             <!-- Timeline: mỗi mốc nằm thẳng hàng ngay trên thẻ tương ứng -->
                             <div class="daivan-timeline-wrapper">
                                 <div class="daivan-scroll-container" id="daivanScrollContainer">
-                                    <div class="daivan-col" onclick="openDaivan(0)">
+                                    <div class="daivan-col is-past" onclick="openDaivan(0)">
                                         <div class="daivan-node-slot">
                                             <span class="daivan-node node-past" id="node-0"></span>
                                         </div>
@@ -3645,7 +3649,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="daivan-col" onclick="openDaivan(1)">
+                                    <div class="daivan-col is-past" onclick="openDaivan(1)">
                                         <div class="daivan-node-slot">
                                             <span class="daivan-node node-past" id="node-1"></span>
                                         </div>
@@ -3659,7 +3663,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="daivan-col" onclick="openDaivan(2)">
+                                    <div class="daivan-col is-past" onclick="openDaivan(2)">
                                         <div class="daivan-node-slot">
                                             <span class="daivan-node node-past" id="node-2"></span>
                                         </div>
