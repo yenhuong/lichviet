@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản tin tuần - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&family=Dancing+Script:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #2F7A55;
+            --green-dark: #1F4D3A;
+            --green-bg: #EEF6EF;
+            --green-pill: #DCEEDF;
+            --red: #D14343;
+            --red-bg: #FCEFEC;
+            --red-pill: #F9DDD7;
+            --amber: #E39A2D;
+            --amber-bg: #FDF3E3;
+            --amber-pill: #FCE3C3;
+            --blue: #2F6FD0;
+            --blue-bg: #EBF2FC;
+            --blue-pill: #D9E6FA;
+            --brown: #A86B32;
+            --bg-page: #F6F1E7;
+            --card-bg: #FFFDF9;
+            --line: #EEE6D8;
+            --title: #233A33;
+            --text-dark: #26302B;
+            --text-body: #414A45;
+            --text-muted: #6B7470;
+            --serif: 'Noto Serif', Georgia, serif;
+            --script: 'Dancing Script', cursive;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            font-variant-numeric: lining-nums proportional-nums;
+            color: var(--text-dark);
+            padding: 20px 0;
+        }
+
+        button {
+            font-family: inherit;
+            color: inherit;
+        }
+
+        /* Phone Mockup Shell */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #090D16;
+            border-radius: 54px;
+            padding: 12px;
+            box-shadow:
+                0 0 0 2px #334155,
+                0 25px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 10px #0F172A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            left: -14px;
+            top: 180px;
+            width: 4px;
+            height: 90px;
+            background: #1E293B;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            right: -14px;
+            top: 200px;
+            width: 4px;
+            height: 70px;
+            background: #1E293B;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .screen-content {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-page);
+            border-radius: 44px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 44px;
+            background-color: #FBF8F2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 0 32px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Top App Bar */
+        .app-bar {
+            height: 52px;
+            background-color: #FBF8F2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 99;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .app-bar .action-btn {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-dark);
+            border: none;
+            background: transparent;
+        }
+
+        .app-bar .action-btn:active {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .app-bar .title {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        /* Main Scrollable Area */
+        .scroll-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .scroll-container > * {
+            flex-shrink: 0;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                background: var(--bg-page);
+                padding: 0;
+            }
+
+            .phone-mockup {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                background: none;
+            }
+
+            .phone-mockup::before,
+            .phone-mockup::after {
+                display: none;
+            }
+
+            .screen-content {
+                border-radius: 0;
+            }
+
+            .status-bar {
+                display: none;
+            }
+        }
+
+        /* Icon dùng chung (sprite <symbol>) */
+        .ic {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .chev {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            color: #8A928D;
+        }
+
+        /* Con dấu logo Lịch Việt */
+        .brand-seal {
+            width: 36px;
+            height: 42px;
+            background: #C8322B;
+            border-radius: 7px;
+            color: #FFFFFF;
+            font-family: var(--serif);
+            font-size: 11.5px;
+            font-weight: 700;
+            line-height: 1.05;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 2px #C8322B, inset 0 0 0 3px rgba(255, 255, 255, 0.75);
+        }
+
+        /* ===== HERO: Bản tin tuần ===== */
+        .hero {
+            position: relative;
+            margin: -12px -12px -34px;
+            height: 196px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 62%;
+        }
+
+        /* Lớp phủ sáng ở giữa cho chữ đọc rõ + mờ dần xuống nền trang */
+        .hero-scrim {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 56% at 50% 44%, rgba(255, 251, 242, 0.94) 0%, rgba(255, 251, 242, 0.78) 50%, rgba(255, 251, 242, 0) 100%),
+                linear-gradient(to bottom, rgba(246, 241, 231, 0) 72%, var(--bg-page) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding-top: 38px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-range {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .hero-week {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-body);
+            margin-top: 3px;
+        }
+
+        .hero-slogan {
+            font-family: var(--script);
+            font-size: 20px;
+            font-weight: 600;
+            color: #3D4A44;
+            line-height: 1.25;
+            margin-top: 8px;
+        }
+
+        /* ===== CARD & TIÊU ĐỀ KHỐI ===== */
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 16px 14px;
+            border: 1px solid var(--line);
+            box-shadow: 0 4px 16px rgba(80, 60, 20, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .sec-head {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .sec-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+        }
+
+        .sec-icon .ic {
+            width: 24px;
+            height: 24px;
+        }
+
+        .sec-icon.green { background: linear-gradient(145deg, #3E8D66, #2A6B4B); }
+        .sec-icon.red { background: linear-gradient(145deg, #E25A55, #C43C3A); }
+        .sec-icon.amber { background: linear-gradient(145deg, #F2B544, #DE8F22); }
+        .sec-icon.brown { background: linear-gradient(145deg, #C1874A, #9A5E2A); }
+
+        .sec-title {
+            font-family: var(--serif);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--title);
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        .sec-sub {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 3px;
+            line-height: 1.4;
+        }
+
+        .body-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .pill.green { background: var(--green-pill); color: #256B45; }
+        .pill.blue { background: var(--blue-pill); color: #2559AB; }
+        .pill.amber { background: var(--amber-pill); color: #B25F17; }
+        .pill.red { background: var(--red-pill); color: #B9332F; }
+
+        .pill.caps {
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-size: 11px;
+        }
+
+        .btn-outline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            margin-top: 12px;
+            padding: 11px;
+            border: 1px solid var(--line);
+            background: #FBF8F2;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-outline:active,
+        .tappable:active {
+            opacity: 0.75;
+        }
+
+        .tappable {
+            cursor: pointer;
+        }
+
+        /* ===== KHỐI 1: Tổng quan tuần (timeline nhịp tuần) ===== */
+        /* Tiêu đề phụ bên trong 1 khối */
+        .block-head {
+            border-left: 3px solid var(--green);
+            padding-left: 10px;
+            margin-bottom: 12px;
+        }
+
+        .block-title {
+            font-family: var(--serif);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--title);
+        }
+
+        .block-head .sec-sub {
+            margin-top: 2px;
+        }
+
+        .rhythm {
+            padding-left: 20px;
+        }
+
+        .rhythm-item {
+            position: relative;
+            display: flex;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        /* Đoạn nối từ chấm này tới chấm của mốc kế tiếp */
+        .rhythm-item:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 34px;
+            bottom: -34px;
+            width: 2px;
+            background: #DDE3DB;
+        }
+
+        .rhythm-dot {
+            position: absolute;
+            left: -20px;
+            top: 28px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--card-bg);
+            z-index: 1;
+        }
+
+        .rhythm-ic {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rhythm-ic .ic {
+            width: 28px;
+            height: 28px;
+        }
+
+        .rhythm-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .rhythm-title span {
+            font-weight: 400;
+            color: var(--text-body);
+        }
+
+        .rhythm-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-body);
+            margin-top: 6px;
+        }
+
+        /* ===== KHỐI 3: Những ngày đáng chú ý ===== */
+        .notable {
+            border-radius: 14px;
+            padding: 12px;
+            background: var(--green-bg);
+            border: 1px solid #DDEBDF;
+            --tone: var(--green);
+            --tone-dark: var(--green-dark);
+        }
+
+        .notable + .notable {
+            margin-top: 10px;
+        }
+
+        .notable.bad {
+            background: var(--red-bg);
+            border-color: #F5DAD4;
+            --tone: var(--red);
+            --tone-dark: #B1302C;
+        }
+
+        .notable-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--tone-dark);
+        }
+
+        .notable-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--tone);
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notable-badge .ic {
+            width: 15px;
+            height: 15px;
+        }
+
+        .notable-body {
+            display: grid;
+            grid-template-columns: 104px 1fr;
+            gap: 14px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .date-box {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 16px 4px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(80, 60, 20, 0.06);
+        }
+
+        .date-dow {
+            font-size: 12.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--tone-dark);
+        }
+
+        .date-num {
+            font-family: var(--serif);
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--tone-dark);
+            margin-top: 2px;
+        }
+
+        .notable-label {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .check-list {
+            list-style: none;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            font-size: 13px;
+            line-height: 1.35;
+            padding: 2.5px 0;
+        }
+
+        .check-list li .ic {
+            width: 15px;
+            height: 15px;
+            margin-top: 1px;
+            color: var(--tone);
+        }
+
+        .notable.bad .check-list li {
+            color: #B9332F;
+        }
+
+        /* ===== KHỐI 4: Sắp việc trong tuần ===== */
+        .plan-list {
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            overflow: hidden;
+            background: #FFFFFF;
+        }
+
+        .plan-row {
+            display: grid;
+            grid-template-columns: 20px 1fr auto 14px;
+            gap: 10px;
+            align-items: center;
+            padding: 11px 12px;
+            font-size: 13.5px;
+        }
+
+        .plan-row + .plan-row {
+            border-top: 1px solid #F1ECE2;
+        }
+
+        .plan-date {
+            font-size: 13px;
+            color: var(--text-body);
+        }
+
+        /* ===== KHỐI 5: Lịch 7 ngày ===== */
+        .week-strip {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .day-col {
+            min-width: 0;
+            border: 1px solid var(--line);
+            background: #FFFFFF;
+            border-radius: 10px;
+            padding: 8px 0 7px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            cursor: pointer;
+        }
+
+        .day-col.active {
+            border: 1.5px solid #5FA67C;
+            background: #F0F7F1;
+        }
+
+        .d-name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .d-date {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .d-ic {
+            width: 22px;
+            height: 22px;
+            margin: 7px 0 6px;
+        }
+
+        .d-score {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .d-label {
+            font-size: 8px;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+            color: var(--text-muted);
+        }
+
+        .lv-good .d-ic,
+        .lv-good .d-score,
+        .lv-good .d-label { color: #3F9660; }
+        .lv-best .d-ic { color: #F2A81D; }
+        .lv-best .d-score,
+        .lv-best .d-label { color: var(--green-dark); font-weight: 700; }
+        .lv-warn .d-ic,
+        .lv-warn .d-score,
+        .lv-warn .d-label { color: var(--red); }
+        .lv-normal .d-ic { color: #5FA67C; }
+
+        /* ===== KHỐI 6: Mốc âm lịch ===== */
+        .event {
+            display: grid;
+            grid-template-columns: 112px 1fr;
+            border-radius: 14px;
+            overflow: hidden;
+            background: linear-gradient(90deg, #FBEBE7, #FDF5F1);
+        }
+
+        .event + .event {
+            margin-top: 10px;
+        }
+
+        .event.blue {
+            background: linear-gradient(90deg, #EAF1FB, #F3F7FC);
+        }
+
+        .event-img {
+            position: relative;
+            min-height: 190px;
+        }
+
+        .event-img img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-body {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .event-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 8px;
+        }
+
+        .event-title {
+            font-family: var(--serif);
+            font-size: 15.5px;
+            font-weight: 700;
+            color: var(--title);
+        }
+
+        .event-desc {
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: var(--text-body);
+            margin: 8px 0 10px;
+        }
+
+        .event-btn {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 10px;
+            border: 1px solid var(--line);
+            background: #FFFFFF;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ===== KHỐI 7: Điều cần chuẩn bị ===== */
+        .prep-row {
+            display: grid;
+            grid-template-columns: 52px 1fr 14px;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: #FFFFFF;
+        }
+
+        .prep-row + .prep-row {
+            margin-top: 10px;
+        }
+
+        .prep-ic {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F6EBDD;
+            color: var(--brown);
+        }
+
+        .prep-ic.green {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .prep-ic .ic {
+            width: 28px;
+            height: 28px;
+        }
+
+        .prep-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .prep-desc {
+            font-size: 12.5px;
+            line-height: 1.45;
+            color: var(--text-body);
+            margin-top: 3px;
+        }
+
+        /* ===== KHỐI 8: Nhìn trước tuần tới ===== */
+        .next-week {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #F8F5EE;
+            border: 1px solid var(--line);
+            padding: 14px 12px;
+            --tone: #3F9660;
+        }
+
+        .next-img {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 52%;
+            height: 100%;
+            object-fit: cover;
+            object-position: right 28%;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 50%);
+            mask-image: linear-gradient(to right, transparent, #000 50%);
+        }
+
+        .next-week .check-list {
+            position: relative;
+            max-width: 82%;
+        }
+
+        .next-week .check-list li {
+            padding: 4px 0;
+            font-size: 12.5px;
+        }
+
+        /* ===== KHỐI 9: Khám phá thêm ===== */
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .explore {
+            border-radius: 14px;
+            padding: 14px 6px 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: var(--amber-bg);
+        }
+
+        .explore.grey { background: #F2F1EC; }
+        .explore.pink { background: #FCEDEA; }
+
+        .explore .ic {
+            width: 36px;
+            height: 36px;
+        }
+
+        .explore-name {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .explore-link {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 1px;
+            white-space: nowrap;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .explore-link .chev {
+            width: 11px;
+            height: 11px;
+        }
+
+        /* ===== FOOTER: Thông điệp tuần ===== */
+        .footer-banner {
+            position: relative;
+            height: 118px;
+            border-radius: 18px;
+            overflow: hidden;
+            background: linear-gradient(120deg, #F4EEDC 0%, #EDE5CC 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-lotus {
+            position: absolute;
+            left: -14px;
+            bottom: -18px;
+            width: 128px;
+            mix-blend-mode: multiply;
+        }
+
+        .footer-quote {
+            position: relative;
+            font-family: var(--script);
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #2F3B35;
+            text-align: center;
+            margin-left: 40px;
+        }
+
+        .footer-banner .brand-seal {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            width: 30px;
+            height: 36px;
+            font-size: 10px;
+        }
+
+        /* Interactive Modal Popup */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 24px 20px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-body {
+            font-size: 13.5px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-close-btn {
+            background: var(--green-dark);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Bộ icon dùng chung -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-chart" viewBox="0 0 24 24"><rect x="4" y="12" width="3.6" height="8" rx="1" fill="currentColor"/><rect x="10.2" y="7.5" width="3.6" height="12.5" rx="1" fill="currentColor"/><rect x="16.4" y="3.5" width="3.6" height="16.5" rx="1" fill="currentColor"/></symbol>
+            <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.3l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z"/></symbol>
+            <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></g><g fill="currentColor"><circle cx="8" cy="13.5" r="1.1"/><circle cx="12" cy="13.5" r="1.1"/><circle cx="16" cy="13.5" r="1.1"/><circle cx="8" cy="17" r="1.1"/><circle cx="12" cy="17" r="1.1"/></g></symbol>
+            <symbol id="i-lantern" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2.5M9.5 4.5h5M7.5 7h9M7.5 17h9"/><path d="M7.5 7C5 9.5 5 14.5 7.5 17M16.5 7c2.5 2.5 2.5 7.5 0 10M12 7c-1.5 2.5-1.5 7.5 0 10"/><path d="M10 17v2.5h4V17M12 19.5V22"/></g></symbol>
+            <symbol id="i-megaphone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 16-5v12L3 14v-3z" fill="currentColor"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/><path d="M21.5 9.5v5"/></g></symbol>
+            <symbol id="i-binoculars" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.85c0-1.39-2-2.96-2-4.83V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2z"/><path d="M22 16H2"/><path d="M4 21a2 2 0 0 1-2-2v-3.85c0-1.39 2-2.96 2-4.83V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/></g></symbol>
+            <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></g></symbol>
+            <symbol id="i-coins" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 8.6c0 1.7 3.6 3 8 3s8-1.3 8-3V12c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/><path d="M4 14.6c0 1.7 3.6 3 8 3s8-1.3 8-3V18c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/></g></symbol>
+            <symbol id="i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3.2 2.8 11a.8.8 0 0 0 .5 1.4H5V20a1 1 0 0 0 1 1h4v-5.5h4V21h4a1 1 0 0 0 1-1v-7.6h1.7a.8.8 0 0 0 .5-1.4z"/></symbol>
+            <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path fill="currentColor" d="M12 13c0-4.4 2.8-8 8.5-8 0 5-3.4 8-8.5 8z"/><path fill="currentColor" d="M12 15.5c0-3.8-2.4-6.8-7.5-6.8 0 4.3 3 6.8 7.5 6.8z"/></symbol>
+            <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.6" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+            <symbol id="i-moon" viewBox="0 0 24 24"><path fill="currentColor" d="M12.5 3a7 7 0 0 0 8.5 8.5A9 9 0 1 1 12.5 3z"/></symbol>
+            <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="currentColor"/><path d="m7.3 12.3 3.1 3.1 6.3-6.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+            <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="currentColor"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></symbol>
+            <symbol id="i-alert" viewBox="0 0 24 24"><path fill="currentColor" d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.2" fill="#fff"/></symbol>
+            <symbol id="i-bang" viewBox="0 0 24 24"><path d="M12 5v9" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="12" cy="19" r="1.8" fill="currentColor"/></symbol>
+            <symbol id="i-users" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="9" cy="8" r="3.6"/><path d="M2.5 19.5c0-3.4 2.9-6 6.5-6s6.5 2.6 6.5 6v.5h-13z"/><circle cx="17" cy="9" r="2.8" opacity=".55"/><path opacity=".55" d="M16.5 13.6c3 .1 5 2.3 5 5.4v1h-4.3c0-2.6-.3-4.6-.7-6.4z"/></g></symbol>
+            <symbol id="i-file" viewBox="0 0 24 24"><path fill="currentColor" d="M6.5 2.5h7.5l5 5V20a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 20V4a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M8.5 12h7M8.5 15.5h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></symbol>
+            <symbol id="i-plane" viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+            <symbol id="i-bag" viewBox="0 0 24 24"><path d="M9 9.5V6.5a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path fill="currentColor" d="M5 8h14l-1 12.2a1.5 1.5 0 0 1-1.5 1.3h-9A1.5 1.5 0 0 1 6 20.2z"/></symbol>
+            <symbol id="i-leaf-fill" viewBox="0 0 24 24"><path fill="currentColor" d="M20 3.5c-9 0-15 4-15 11 0 1.5.4 2.9 1 4 1-3 4-6.5 8-8.5-3 2.7-5.3 5.6-6.6 9.3 1.3.9 2.6 1.2 4.1 1.2C18 20.5 20 13.5 20 3.5z"/></symbol>
+            <symbol id="i-suitcase" viewBox="0 0 24 24"><path d="M9 7V4.8a.8.8 0 0 1 .8-.8h4.4a.8.8 0 0 1 .8.8V7" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="7" width="18" height="14" rx="2.5" fill="currentColor"/><path d="M8 7v14M16 7v14" stroke="#fff" stroke-width="1.6" opacity=".5"/></symbol>
+            <symbol id="i-yinyang" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff" stroke="currentColor" stroke-width="1.6"/><path fill="currentColor" d="M12 2a5 5 0 0 1 0 10 5 5 0 0 0 0 10A10 10 0 0 1 12 2z"/><circle cx="12" cy="7" r="1.6" fill="#fff"/><circle cx="12" cy="17" r="1.6" fill="currentColor"/></symbol>
+            <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M2.5 5h6a3.5 3.5 0 0 1 3.5 3.5V20a2.5 2.5 0 0 0-2.5-2.5h-7z"/><path d="M21.5 5h-6A3.5 3.5 0 0 0 12 8.5V20a2.5 2.5 0 0 1 2.5-2.5h7z"/><path d="M5 9h4M5 12h4M15 9h4M15 12h4" stroke-linecap="round"/></g></symbol>
+            <symbol id="i-chev" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        </defs>
+    </svg>
+
+    <!-- Phone Mockup Frame -->
+    <div class="phone-mockup">
+        <div class="screen-content">
+
+            <!-- Top Status Bar -->
+            <div class="status-bar">
+                <div class="time">9:41</div>
+                <div class="status-icons">
+                    <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+                        <path d="M1 10h1v1H1v-1zm3-2h1v3H4V8zm3-3h1v6H7V5zm3-3h1v9h-1V2zm3-2h1v11h-1V0z"/>
+                    </svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                    <svg width="22" height="11" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="0.5" y="0.5" width="20" height="11" rx="2.5"/>
+                        <path d="M22 4v4" stroke-width="2" stroke-linecap="round"/>
+                        <rect x="2.5" y="2.5" width="14" height="7" rx="1" fill="currentColor"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Top Navigation Bar -->
+            <div class="app-bar">
+                <button class="action-btn" onclick="showToast('Quay lại màn hình trước')">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="title">Bản tin tuần</div>
+                <button class="action-btn" onclick="showToast('Chia sẻ bản tin tuần')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="scroll-container">
+
+                <!-- HERO: Bản tin tuần -->
+                <div class="hero">
+                    <img class="hero-img" src="header_mung_mot.png" alt="Minh hoạ phong cảnh làng quê" />
+                    <div class="hero-scrim"></div>
+                    <div class="hero-content">
+                        <div class="hero-range">14/09 – 20/09/2026</div>
+                        <div class="hero-week">04/08 – 10/08 âm lịch, năm Bính Ngọ</div>
+                        <div class="hero-slogan">Thuận thiên thời<br>Sống an yên mỗi ngày</div>
+                    </div>
+                </div>
+
+                <!-- KHỐI 1: Tổng quan tuần -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon green"><svg class="ic"><use href="#i-chart"/></svg></div>
+                        <div>
+                            <div class="sec-title">Tổng quan tuần</div>
+                            <span class="pill green caps" style="margin-top: 6px;">Tuần khá thuận lợi</span>
+                        </div>
+                    </div>
+                    <div class="block-head">
+                        <div class="block-title">Nhịp tuần của bạn</div>
+                        <div class="sec-sub">Biết lúc tiến, lúc giữ, mọi việc hanh thông hơn.</div>
+                    </div>
+                    <div class="rhythm">
+                        <div class="rhythm-item">
+                            <span class="rhythm-dot" style="background: #3F9660;"></span>
+                            <div class="rhythm-ic" style="background: #E6F2E8; color: #3F9660;"><svg class="ic"><use href="#i-sprout"/></svg></div>
+                            <div>
+                                <div class="rhythm-title">Đầu tuần <span>(T2 – T3)</span></div>
+                                <span class="pill green">Khởi động nhẹ nhàng</span>
+                                <div class="rhythm-desc">Phù hợp xử lý công việc tồn đọng, chuẩn bị cho các kế hoạch mới.</div>
+                            </div>
+                        </div>
+                        <div class="rhythm-item">
+                            <span class="rhythm-dot" style="background: #EDA532;"></span>
+                            <div class="rhythm-ic" style="background: #FDF0DC; color: #F0A020;"><svg class="ic"><use href="#i-sun"/></svg></div>
+                            <div>
+                                <div class="rhythm-title">Giữa tuần <span>(T4 – T5)</span></div>
+                                <span class="pill amber">Thuận lợi nhất</span>
+                                <div class="rhythm-desc">Thời điểm tốt để gặp gỡ, trao đổi, ký kết và thúc đẩy công việc.</div>
+                            </div>
+                        </div>
+                        <div class="rhythm-item">
+                            <span class="rhythm-dot" style="background: #4A86D8;"></span>
+                            <div class="rhythm-ic" style="background: #E6EEFA; color: #3F72C9;"><svg class="ic"><use href="#i-moon"/></svg></div>
+                            <div>
+                                <div class="rhythm-title">Cuối tuần <span>(T6 – CN)</span></div>
+                                <span class="pill blue">Nên chậm lại</span>
+                                <div class="rhythm-desc">Hạn chế quyết định lớn, ưu tiên nghỉ ngơi và chăm sóc gia đình.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI 3: Những ngày đáng chú ý -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon amber"><svg class="ic"><use href="#i-star"/></svg></div>
+                        <div>
+                            <div class="sec-title">Những ngày đáng chú ý</div>
+                            <div class="sec-sub">Nắm bắt thời điểm tốt, tránh điều không thuận.</div>
+                        </div>
+                    </div>
+
+                    <div class="notable tappable" onclick="openDayDetail('Thứ Năm 17/09')">
+                        <div class="notable-head">
+                            <span class="notable-badge"><svg class="ic"><use href="#i-star"/></svg></span>
+                            Ngày thuận lợi nhất tuần
+                        </div>
+                        <div class="notable-body">
+                            <div class="date-box">
+                                <div class="date-dow">Thứ Năm</div>
+                                <div class="date-num">17/09</div>
+                            </div>
+                            <div>
+                                <div class="notable-label">Phù hợp cho:</div>
+                                <ul class="check-list">
+                                    <li><svg class="ic"><use href="#i-check-circle"/></svg>Gặp gỡ, trao đổi</li>
+                                    <li><svg class="ic"><use href="#i-check-circle"/></svg>Ký kết, hợp đồng</li>
+                                    <li><svg class="ic"><use href="#i-check-circle"/></svg>Cầu tài, giao dịch</li>
+                                    <li><svg class="ic"><use href="#i-check-circle"/></svg>Xuất hành, khai trương</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="notable bad tappable" onclick="openDayDetail('Thứ Bảy 19/09')">
+                        <div class="notable-head">
+                            <span class="notable-badge"><svg class="ic"><use href="#i-bang"/></svg></span>
+                            Ngày cần lưu ý
+                        </div>
+                        <div class="notable-body">
+                            <div class="date-box">
+                                <div class="date-dow">Thứ Bảy</div>
+                                <div class="date-num">19/09</div>
+                            </div>
+                            <div>
+                                <div class="notable-label">Nên hạn chế:</div>
+                                <ul class="check-list">
+                                    <li><svg class="ic"><use href="#i-x-circle"/></svg>Việc trọng đại</li>
+                                    <li><svg class="ic"><use href="#i-x-circle"/></svg>Đưa ra quyết định lớn</li>
+                                    <li><svg class="ic"><use href="#i-x-circle"/></svg>Xuất hành xa</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI 4: Sắp việc trong tuần -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon green"><svg class="ic"><use href="#i-calendar"/></svg></div>
+                        <div>
+                            <div class="sec-title">Sắp việc trong tuần</div>
+                            <div class="sec-sub">Gợi ý ngày phù hợp để bạn chủ động sắp xếp.</div>
+                        </div>
+                    </div>
+                    <div class="plan-list">
+                        <div class="plan-row tappable" onclick="openTaskDays('Gặp gỡ, trao đổi')">
+                            <svg class="ic" style="color: #E58A2C;"><use href="#i-users"/></svg>
+                            <span>Gặp gỡ, trao đổi</span>
+                            <span class="plan-date">Thứ Tư (16/09)</span>
+                            <svg class="chev"><use href="#i-chev"/></svg>
+                        </div>
+                        <div class="plan-row tappable" onclick="openTaskDays('Ký kết, hợp đồng')">
+                            <svg class="ic" style="color: #E27A3A;"><use href="#i-file"/></svg>
+                            <span>Ký kết, hợp đồng</span>
+                            <span class="plan-date">Thứ Năm (17/09)</span>
+                            <svg class="chev"><use href="#i-chev"/></svg>
+                        </div>
+                        <div class="plan-row tappable" onclick="openTaskDays('Cầu tài, giao dịch')">
+                            <svg class="ic" style="color: #3F9660;"><use href="#i-coins"/></svg>
+                            <span>Cầu tài, giao dịch</span>
+                            <span class="plan-date">Thứ Năm (17/09)</span>
+                            <svg class="chev"><use href="#i-chev"/></svg>
+                        </div>
+                        <div class="plan-row tappable" onclick="openTaskDays('Xuất hành, đi xa')">
+                            <svg class="ic" style="color: #3B78D4;"><use href="#i-plane"/></svg>
+                            <span>Xuất hành, đi xa</span>
+                            <span class="plan-date">Chủ nhật (20/09)</span>
+                            <svg class="chev"><use href="#i-chev"/></svg>
+                        </div>
+                        <div class="plan-row tappable" onclick="openTaskDays('Mua sắm lớn')">
+                            <svg class="ic" style="color: #EC7F2D;"><use href="#i-bag"/></svg>
+                            <span>Mua sắm lớn</span>
+                            <span class="plan-date">Thứ Sáu (18/09)</span>
+                            <svg class="chev"><use href="#i-chev"/></svg>
+                        </div>
+                        <div class="plan-row tappable" onclick="openTaskDays('Việc gia đình, sửa chữa')">
+                            <svg class="ic" style="color: #3F9660;"><use href="#i-home"/></svg>
+                            <span>Việc gia đình, sửa chữa</span>
+                            <span class="plan-date">Chủ nhật (20/09)</span>
+                            <svg class="chev"><use href="#i-chev"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI 5: Lịch 7 ngày trong tuần -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon green"><svg class="ic"><use href="#i-calendar"/></svg></div>
+                        <div>
+                            <div class="sec-title">Lịch 7 ngày trong tuần</div>
+                            <div class="sec-sub">Xem nhanh vận khí từng ngày.</div>
+                        </div>
+                    </div>
+                    <div class="week-strip">
+                        <button class="day-col lv-normal" onclick="selectDay(this)" data-day="Thứ Hai 14/09">
+                            <span class="d-name">T2</span><span class="d-date">14/09</span>
+                            <svg class="d-ic"><use href="#i-leaf-fill"/></svg>
+                            <span class="d-score">72</span><span class="d-label">Bình thường</span>
+                        </button>
+                        <button class="day-col lv-good" onclick="selectDay(this)" data-day="Thứ Ba 15/09">
+                            <span class="d-name">T3</span><span class="d-date">15/09</span>
+                            <svg class="d-ic"><use href="#i-leaf-fill"/></svg>
+                            <span class="d-score">80</span><span class="d-label">Khá tốt</span>
+                        </button>
+                        <button class="day-col lv-good" onclick="selectDay(this)" data-day="Thứ Tư 16/09">
+                            <span class="d-name">T4</span><span class="d-date">16/09</span>
+                            <svg class="d-ic"><use href="#i-leaf-fill"/></svg>
+                            <span class="d-score">76</span><span class="d-label">Khá tốt</span>
+                        </button>
+                        <button class="day-col lv-best active" onclick="selectDay(this)" data-day="Thứ Năm 17/09">
+                            <span class="d-name">T5</span><span class="d-date">17/09</span>
+                            <svg class="d-ic"><use href="#i-star"/></svg>
+                            <span class="d-score">92</span><span class="d-label">Rất tốt</span>
+                        </button>
+                        <button class="day-col lv-good" onclick="selectDay(this)" data-day="Thứ Sáu 18/09">
+                            <span class="d-name">T6</span><span class="d-date">18/09</span>
+                            <svg class="d-ic"><use href="#i-leaf-fill"/></svg>
+                            <span class="d-score">78</span><span class="d-label">Khá tốt</span>
+                        </button>
+                        <button class="day-col lv-warn" onclick="selectDay(this)" data-day="Thứ Bảy 19/09">
+                            <span class="d-name">T7</span><span class="d-date">19/09</span>
+                            <svg class="d-ic"><use href="#i-alert"/></svg>
+                            <span class="d-score">55</span><span class="d-label">Cần lưu ý</span>
+                        </button>
+                        <button class="day-col lv-good" onclick="selectDay(this)" data-day="Chủ nhật 20/09">
+                            <span class="d-name">CN</span><span class="d-date">20/09</span>
+                            <svg class="d-ic"><use href="#i-sprout"/></svg>
+                            <span class="d-score">84</span><span class="d-label">Tốt</span>
+                        </button>
+                    </div>
+                    <button class="btn-outline" onclick="openModal('Chi tiết từng ngày', 'Nhấn vào đây thì chuyển tới màn hình lịch chi tiết 7 ngày trong tuần (14/09 – 20/09/2026).', '📅')">
+                        Xem chi tiết từng ngày <svg class="chev" style="color: inherit;"><use href="#i-chev"/></svg>
+                    </button>
+                </div>
+
+                <!-- KHỐI 6: Mốc âm lịch đáng chú ý -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon red"><svg class="ic"><use href="#i-lantern"/></svg></div>
+                        <div>
+                            <div class="sec-title">Mốc âm lịch đáng chú ý</div>
+                            <div class="sec-sub">Những sự kiện đặc biệt trong tuần này.</div>
+                        </div>
+                    </div>
+
+                    <div class="event">
+                        <div class="event-img">
+                            <img src="luan_giai_header_bg.png" alt="Trăng rằm trên núi" style="object-position: 50% center;">
+                        </div>
+                        <div class="event-body">
+                            <div class="event-top">
+                                <div class="event-title">Rằm tháng Tám</div>
+                                <span class="pill red">Thứ Bảy · 19/09</span>
+                            </div>
+                            <p class="event-desc">Ngày Rằm là dịp để hướng thiện, tri ân và cầu bình an cho gia đình. Bạn có thể chuẩn bị lễ cúng, sắm sửa và sắp xếp công việc từ trước.</p>
+                            <button class="event-btn" onclick="window.location.href='SuKien_ChiTiet.html'">
+                                Xem hướng dẫn ngày Rằm <svg class="chev"><use href="#i-chev"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="event blue">
+                        <div class="event-img">
+                            <img src="loi_nhan_banner_bg.png" alt="Núi rừng sương sớm" style="object-position: 12% center;">
+                        </div>
+                        <div class="event-body">
+                            <div class="event-top">
+                                <div class="event-title">Tiết khí Bạch Lộ</div>
+                                <span class="pill blue">Chủ nhật · 20/09</span>
+                            </div>
+                            <p class="event-desc">Bước sang tiết Bạch Lộ, thời tiết chuyển mát, năng lượng vũ trụ có sự thay đổi. Bạn nên chú ý giữ ấm và cân bằng sinh hoạt.</p>
+                            <button class="event-btn" onclick="openModal('Tiết khí Bạch Lộ', 'Nhấn vào đây thì chuyển tới màn hình chi tiết tiết khí Bạch Lộ: ý nghĩa, thời tiết và lời khuyên sinh hoạt.', '🌿')">
+                                Tìm hiểu về tiết Bạch Lộ <svg class="chev"><use href="#i-chev"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI 7: Điều cần chuẩn bị trước -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon red"><svg class="ic"><use href="#i-megaphone"/></svg></div>
+                        <div>
+                            <div class="sec-title">Điều cần chuẩn bị trước</div>
+                            <div class="sec-sub">Chủ động chuẩn bị để đón cơ hội.</div>
+                        </div>
+                    </div>
+                    <div class="prep-row tappable" onclick="openDayDetail('Chủ nhật 20/09')">
+                        <div class="prep-ic"><svg class="ic"><use href="#i-suitcase"/></svg></div>
+                        <div>
+                            <div class="prep-title">Cuối tuần có ngày đẹp để xuất hành</div>
+                            <div class="prep-desc">Chủ nhật là thời điểm thuận lợi cho việc đi xa. Bạn nên chuẩn bị kế hoạch từ đầu tuần.</div>
+                        </div>
+                        <svg class="chev"><use href="#i-chev"/></svg>
+                    </div>
+                    <div class="prep-row tappable" onclick="openDayDetail('Thứ Năm 17/09')">
+                        <div class="prep-ic green"><svg class="ic"><use href="#i-sprout"/></svg></div>
+                        <div>
+                            <div class="prep-title">Giữa tuần thuận lợi cho công việc</div>
+                            <div class="prep-desc">Các kế hoạch quan trọng nên được chuẩn bị và triển khai từ đầu tuần để tận dụng thời điểm tốt vào giữa tuần.</div>
+                        </div>
+                        <svg class="chev"><use href="#i-chev"/></svg>
+                    </div>
+                </div>
+
+                <!-- KHỐI 8: Nhìn trước tuần tới -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon brown"><svg class="ic"><use href="#i-binoculars"/></svg></div>
+                        <div>
+                            <div class="sec-title">Nhìn trước tuần tới</div>
+                            <div class="sec-sub">Một vài điểm đáng chú ý để bạn chuẩn bị.</div>
+                        </div>
+                    </div>
+                    <div class="next-week">
+                        <img class="next-img" src="lotus_temple_v2.png" alt="Chùa và hoa sen" />
+                        <ul class="check-list">
+                            <li><svg class="ic"><use href="#i-check-circle"/></svg>Có 2 ngày thuận lợi cho việc trọng đại.</li>
+                            <li><svg class="ic"><use href="#i-check-circle"/></svg>Đầu tuần có tiết khí mới.</li>
+                            <li><svg class="ic"><use href="#i-check-circle"/></svg>Cuối tuần có ngày tốt cho cầu tài.</li>
+                        </ul>
+                    </div>
+                    <button class="btn-outline" onclick="openModal('Dự báo tuần tới', 'Nhấn vào đây thì chuyển tới Bản tin tuần 39 (21/09 – 27/09/2026).', '🔭')">
+                        Xem dự báo tuần tới <svg class="chev" style="color: inherit;"><use href="#i-chev"/></svg>
+                    </button>
+                </div>
+
+                <!-- KHỐI 9: Khám phá thêm -->
+                <div class="card">
+                    <div class="sec-head">
+                        <div class="sec-icon green"><svg class="ic"><use href="#i-leaf"/></svg></div>
+                        <div>
+                            <div class="sec-title">Khám phá thêm</div>
+                            <div class="sec-sub">Khám phá những nội dung hữu ích dành cho bạn.</div>
+                        </div>
+                    </div>
+                    <div class="explore-grid">
+                        <div class="explore tappable" onclick="openModal('Tử vi hôm nay', 'Nhấn vào đây thì chuyển tới màn hình tử vi hôm nay chi tiết.', '🔮')">
+                            <svg class="ic" style="color: #F0A020;"><use href="#i-sun"/></svg>
+                            <div class="explore-name">Tử vi hôm nay</div>
+                            <div class="explore-link">Xem chi tiết <svg class="chev"><use href="#i-chev"/></svg></div>
+                        </div>
+                        <div class="explore grey tappable" onclick="openModal('Chọn ngày tốt theo tuổi', 'Nhấn vào đây thì chuyển tới màn hình chọn ngày tốt theo tuổi.', '☯️')">
+                            <svg class="ic" style="color: #2B2F2D;"><use href="#i-yinyang"/></svg>
+                            <div class="explore-name">Chọn ngày tốt theo tuổi</div>
+                            <div class="explore-link">Tìm ngày phù hợp <svg class="chev"><use href="#i-chev"/></svg></div>
+                        </div>
+                        <div class="explore pink tappable" onclick="openModal('Gieo quẻ hỏi việc', 'Nhấn vào đây thì chuyển tới màn hình gieo quẻ hỏi việc.', '🧭')">
+                            <svg class="ic" style="color: #C8322B;"><use href="#i-book"/></svg>
+                            <div class="explore-name">Gieo quẻ hỏi việc</div>
+                            <div class="explore-link">Nhận lời khuyên <svg class="chev"><use href="#i-chev"/></svg></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FOOTER: Thông điệp tuần -->
+                <div class="footer-banner">
+                    <img class="footer-lotus" src="lotus_transparent.png" alt="Hoa sen" />
+                    <div class="footer-quote">“Sống thuận tự nhiên<br>Đón điều tốt lành”</div>
+                    <div class="brand-seal">Lịch<br>Việt</div>
+                </div>
+
+                <div style="height: 20px;"></div>
+            </div>
+
+            <!-- Interactive Modal Popup -->
+            <div class="modal-overlay" id="infoModal" onclick="if (event.target === this) closeModal()">
+                <div class="modal-card">
+                    <div class="modal-icon" id="modalIcon">✨</div>
+                    <div class="modal-title" id="modalTitle">Thông báo</div>
+                    <div class="modal-body" id="modalBody">Nội dung chi tiết...</div>
+                    <button class="modal-close-btn" onclick="closeModal()">Đã hiểu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Helpers
+        function openModal(title, body, icon = '✨') {
+            document.getElementById('modalIcon').innerText = icon;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('infoModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').classList.remove('active');
+        }
+
+        function showToast(msg) {
+            openModal('Thông báo', msg, '📌');
+        }
+
+        // Mở popup chi tiết của 1 ngày (khối ngày đáng chú ý / lịch 7 ngày / điều cần chuẩn bị)
+        function openDayDetail(dayLabel) {
+            openModal('Chi tiết ' + dayLabel,
+                'Nhấn vào đây thì chuyển tới màn hình chi tiết ngày ' + dayLabel + '/2026.',
+                '📅');
+        }
+
+        // Sắp việc trong tuần: mở danh sách ngày hợp cho việc đã chọn
+        function openTaskDays(task) {
+            openModal(task,
+                'Nhấn vào đây thì chuyển tới màn hình chọn ngày tốt cho việc "' + task + '", mặc định lọc trong tuần 14/09 – 20/09/2026.',
+                '🗓️');
+        }
+
+        // Lịch 7 ngày: đánh dấu ngày được chọn rồi mở chi tiết ngày đó
+        function selectDay(el) {
+            document.querySelectorAll('.day-col').forEach(d => d.classList.toggle('active', d === el));
+            openDayDetail(el.dataset.day);
+        }
+    </script>
+</body>
+
+</html>
