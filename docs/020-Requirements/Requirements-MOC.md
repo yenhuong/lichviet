@@ -9,3 +9,4 @@ Tài liệu này dùng để quản lý mục lục các tài liệu yêu cầu 
 ## 020.2 - Tài liệu yêu cầu nghiệp vụ & sản phẩm (Business & Product Requirements Docs - BPRD)
 
 - [[BPRD-001-KichHoatNangLuong]] - Tính năng Kích Hoạt Năng Lượng Cá Nhân (Bát tự phong thủy)
+- [[BPRD-002-KhaoSatInApp]] - Khảo sát người dùng trong app (nền tảng dùng chung cho mọi tính năng)
