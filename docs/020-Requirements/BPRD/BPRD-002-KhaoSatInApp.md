@@ -7,7 +7,7 @@ owner: "@product-team"
 tags: [khao-sat, in-app-survey, feedback, user-research, platform]
 linked-to: [[Requirements-MOC]]
 created: 2026-09-16
-updated: 2026-09-16
+updated: 2026-09-17
 ---
 # BPRD: Khảo Sát Người Dùng Trong App (In-app Survey)
 
@@ -17,14 +17,16 @@ updated: 2026-09-16
 | ------------------- | -------------------------------------------------- |
 | Tên dự án        | Khảo sát người dùng trong app (In-app Survey) |
 | Người phụ trách | Đỗ Thị Hường                                  |
-| Phiên bản         | v1.0                                               |
+| Phiên bản         | v1.2                                               |
 | Trạng thái        | Đang cập nhật                                   |
 
 ## Nhật ký thay đổi
 
-| Ngày cập nhật | Phiên bản | Người thực hiện | Nội dung thay đổi                                              |
-| ---------------- | ----------- | ------------------- | ----------------------------------------------------------------- |
-| 2026-09-16       | v1.0        | Đỗ Thị Hường   | Khởi tạo tài liệu yêu cầu nghiệp vụ và sản phẩm (BPRD) |
+| Ngày cập nhật | Phiên bản | Người thực hiện | Nội dung thay đổi                                                                                                                                                                               |
+| ---------------- | ----------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-16       | v1.0        | Đỗ Thị Hường   | Khởi tạo tài liệu yêu cầu nghiệp vụ và sản phẩm (BPRD)                                                                                                                                  |
+| 2026-09-18       | v1.2        | Đỗ Thị Hường   | Bổ sung điều kiện 9: khoảng cách tối thiểu giữa 2 khảo sát của cùng một tính năng                                                                                                  |
+| 2026-09-17       | v1.1        | Đỗ Thị Hường   | Bổ sung khảo sát theo tập người dùng (segment) và thứ tự ưu tiên; tách cấu hình từng tính năng ra Kế hoạch khảo sát (SVP) riêng, mục 10 chuyển thành danh mục toàn app |
 
 ---
 
@@ -142,7 +144,7 @@ flowchart TD
 4. Đủ điều kiện ⇒ hiển thị theo `display_type`:
    - **Direct**: bung popup/bottom sheet khảo sát.
    - **Entry**: hiển thị điểm vào khảo sát; chỉ mở khảo sát đầy đủ khi người dùng chủ động nhấn.
-5. Ghi nhận sự kiện hiển thị và cập nhật bộ đếm chống làm phiền toàn app **ngay tại thời điểm hiển thị** (kể cả khi người dùng không trả lời, và kể cả khi điều kiện 6/7 đang tắt — bộ đếm vẫn luôn được cập nhật để các chiến dịch khác dùng).
+5. Ghi nhận sự kiện hiển thị và cập nhật bộ đếm chống làm phiền **toàn app** và bộ đếm **theo tính năng** (điều kiện 9) **ngay tại thời điểm hiển thị** (kể cả khi người dùng không trả lời, và kể cả khi điều kiện 6/7/9 đang tắt — bộ đếm vẫn luôn được cập nhật để các chiến dịch khác dùng).
 6. **Người dùng trả lời xong câu nào thì gửi ngay câu đó về máy chủ**, không chờ hoàn thành toàn bộ khảo sát. Mỗi lần gửi kèm `survey_id`, `version` và số thứ tự câu hỏi để máy chủ ghép vào cùng một bản ghi phản hồi.
 7. Trả lời hết câu cuối → đánh dấu bản ghi là **hoàn thành** → hiển thị màn cảm ơn → đánh dấu đã hoàn thành khảo sát/phiên bản này.
 8. Người dùng đóng/bỏ qua → ghi nhận lượt bỏ qua, bắt đầu tính thời gian chờ trước khi được hiển thị lại. Các câu đã trả lời trước đó **vẫn được giữ**, bản ghi ở trạng thái **trả lời một phần**.
@@ -153,25 +155,28 @@ Mỗi điều kiện có một cờ bật/tắt riêng, cấu hình độc lập
 
 Cột **Mặc định** là trạng thái của điều kiện khi tạo một chiến dịch mới. Nguyên tắc: các điều kiện có tham số dùng chung được cho mọi tính năng thì **mặc định bật** (trạng thái an toàn, tránh làm phiền người dùng vì BA quên bật); các điều kiện có tham số phụ thuộc đặc thù từng tính năng thì **mặc định tắt**, buộc BA phải chủ động cân nhắc con số. Điều kiện không bật sẽ không được kiểm tra.
 
-| **STT** | **Điều kiện**                                                                                                             | **Mã cấu hình** | **Nhóm**              | **Bật/tắt**               | **Mặc định** | **Lý do dùng điều kiện này**                                                                             |
-| :------------ | :--------------------------------------------------------------------------------------------------------------------------------- | :----------------------- | :--------------------------- | :-------------------------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------- |
-| 1             | Đã sử dụng tính năng ≥**X lần hợp lệ** trong **N ngày** gần nhất                                          | `cond_usage_count`     | Đủ trải nghiệm           | Bật/tắt được                 | **Tắt**        | Đảm bảo chỉ hỏi người đã dùng thật, đủ số lần để có ý kiến đáng tin.                           |
-| 2             | Tổng thời gian xem màn kết quả trong**N ngày** gần nhất ≥ **Y phút**                                         | `cond_total_view_time` | Đủ trải nghiệm           | Bật/tắt được                 | **Tắt**        | Lọc tiếp nhóm chỉ mở lướt qua: dùng nhiều lần nhưng không thực sự đọc nội dung.                     |
-| 3             | Phiên hiện tại đã ở màn kết quả ≥**Z giây**                                                                       | `cond_session_dwell`   | Đúng thời điểm          | Bật/tắt được                 | Bật                  | Tránh bung khảo sát ngay khi màn vừa hiển thị, lúc người dùng chưa đọc được gì để đánh giá.   |
-| 4             | Chưa hoàn thành khảo sát/phiên bản khảo sát hiện tại                                                                    | `cond_not_completed`   | Không hỏi lại             | **Luôn bật (bắt buộc)** | Bật                  | Tránh hỏi lại người đã trả lời: một người trả lời nhiều lần làm cỡ mẫu ảo và gây phiền nặng. |
-| 5             | Nếu từng đóng/bỏ qua khảo sát thì đã đủ thời gian cho phép hiển thị lại                                           | `cond_skip_wait`       | Không hỏi lại             | Bật/tắt được                 | Bật                  | Tôn trọng ý muốn từ chối: không hỏi lại ngay ở lần vào màn kết quả kế tiếp.                         |
-| 6             | Trong ngày chưa hiển thị khảo sát nào khác                                                                                 | `cond_daily_cap`       | Chống làm phiền toàn app | Bật/tắt được*(xem lưu ý)*  | Bật                  | Giới hạn số khảo sát người dùng gặp trong một ngày, tính trên toàn app chứ không riêng tính năng. |
-| 7             | Đã đủ khoảng cách tối thiểu**M ngày** kể từ lần gần nhất được hiển thị **bất kỳ** khảo sát nào | `cond_global_gap`      | Chống làm phiền toàn app | Bật/tắt được*(xem lưu ý)*  | Bật                  | Giãn tần suất giữa các đợt khảo sát của mọi tính năng, tránh dồn dập nhiều ngày liên tiếp.       |
-| 8             | Khảo sát đang**active** và user thuộc đúng nhóm đối tượng cấu hình                                             | `cond_audience`        | Vòng đời chiến dịch     | **Luôn bật**              | Bật                  | Cho phép dừng chiến dịch từ xa và khoanh vùng đúng nhóm người dùng cần khảo sát.                     |
+| **STT** | **Điều kiện**                                                                                                                            | **Mã cấu hình** | **Nhóm**                     | **Bật/tắt**               | **Mặc định** | **Lý do dùng điều kiện này**                                                                                                                                                     |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------- | :---------------------------------- | :-------------------------------- | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1             | Đã sử dụng tính năng ≥**X lần hợp lệ** trong **N ngày** gần nhất                                                         | `cond_usage_count`     | Đủ trải nghiệm                  | Bật/tắt được                 | **Tắt**        | Đảm bảo chỉ hỏi người đã dùng thật, đủ số lần để có ý kiến đáng tin.                                                                                                   |
+| 2             | Tổng thời gian xem màn kết quả trong**N ngày** gần nhất ≥ **Y phút**                                                        | `cond_total_view_time` | Đủ trải nghiệm                  | Bật/tắt được                 | **Tắt**        | Lọc tiếp nhóm chỉ mở lướt qua: dùng nhiều lần nhưng không thực sự đọc nội dung.                                                                                             |
+| 3             | Phiên hiện tại đã ở màn kết quả ≥**Z giây**                                                                                      | `cond_session_dwell`   | Đúng thời điểm                 | Bật/tắt được                 | Bật                  | Tránh bung khảo sát ngay khi màn vừa hiển thị, lúc người dùng chưa đọc được gì để đánh giá.                                                                           |
+| 4             | Chưa hoàn thành khảo sát/phiên bản khảo sát hiện tại                                                                                   | `cond_not_completed`   | Không hỏi lại                    | **Luôn bật (bắt buộc)** | Bật                  | Tránh hỏi lại người đã trả lời: một người trả lời nhiều lần làm cỡ mẫu ảo và gây phiền nặng.                                                                         |
+| 5             | Nếu từng đóng/bỏ qua khảo sát thì đã đủ thời gian cho phép hiển thị lại                                                          | `cond_skip_wait`       | Không hỏi lại                    | Bật/tắt được                 | Bật                  | Tôn trọng ý muốn từ chối: không hỏi lại ngay ở lần vào màn kết quả kế tiếp.                                                                                                 |
+| 6             | Trong ngày chưa hiển thị khảo sát nào khác                                                                                                | `cond_daily_cap`       | Chống làm phiền toàn app        | Bật/tắt được*(xem lưu ý)*  | Bật                  | Giới hạn số khảo sát người dùng gặp trong một ngày, tính trên toàn app chứ không riêng tính năng.                                                                         |
+| 7             | Đã đủ khoảng cách tối thiểu**M ngày** kể từ lần gần nhất được hiển thị **bất kỳ** khảo sát nào                | `cond_global_gap`      | Chống làm phiền toàn app        | Bật/tắt được*(xem lưu ý)*  | Bật                  | Giãn tần suất giữa các đợt khảo sát của mọi tính năng, tránh dồn dập nhiều ngày liên tiếp.                                                                               |
+| 8             | Khảo sát đang**active**, user thuộc đúng nhóm đối tượng và **tập người dùng (segment)** cấu hình                    | `cond_audience`        | Vòng đời chiến dịch            | **Luôn bật**              | Bật                  | Cho phép dừng chiến dịch từ xa và khoanh vùng đúng nhóm người dùng cần khảo sát.                                                                                             |
+| 9             | Đã đủ khoảng cách tối thiểu**K ngày** kể từ lần gần nhất được hiển thị khảo sát **của chính tính năng này** | `cond_feature_gap`     | Chống làm phiền theo tính năng | Bật/tắt được*(xem lưu ý)*  | Bật                  | Một tính năng có nhiều chiến dịch theo tập; nếu không giãn, người dùng có thể bị hỏi liên tiếp về cùng một tính năng khi họ chuyển từ tập này sang tập khác. |
 
 **Lưu ý nghiệp vụ quan trọng:**
 
 * **Điều kiện 4 không được phép tắt.** Tắt điều kiện này đồng nghĩa hỏi lại người đã trả lời một cách vô hạn, làm hỏng dữ liệu (một người trả lời nhiều lần) và gây phiền nghiêm trọng. Muốn hỏi lại nhóm đã trả lời thì tăng `version` của khảo sát, không tắt điều kiện 4.
 * **Điều kiện 6 và 7 là luật toàn app**, bộ đếm dùng chung cho tất cả chiến dịch. Về kỹ thuật vẫn tắt được theo từng tính năng, nhưng chỉ nên tắt trong trường hợp đặc biệt (ví dụ khảo sát nội bộ, chiến dịch chạy cho nhóm nhỏ có kiểm soát) và **phải được Product Owner duyệt**, vì tắt ở một tính năng sẽ khiến người dùng có thể nhận nhiều khảo sát trong cùng một ngày.
-* **Bộ đếm hiển thị toàn app luôn được cập nhật** kể cả khi điều kiện 6/7 của chiến dịch đó đang tắt — để các chiến dịch khác vẫn tính đúng khoảng cách.
-* **Bộ điều kiện tối thiểu**: điều kiện 1 và 2 mặc định tắt, nếu BA không bật cái nào thì khảo sát sẽ chạm cả người vừa dùng tính năng lần đầu, trái với mục tiêu "chỉ hỏi người đã có đủ trải nghiệm". Một chiến dịch hợp lệ phải bật tối thiểu: **điều kiện 3, 5, 6, 7 và ít nhất một trong hai điều kiện 1, 2**. Hệ thống cấu hình chặn lưu chiến dịch không đạt mức này, trừ khi có đánh dấu ngoại lệ đã được Product Owner duyệt.
+* **Điều kiện 9 giãn khảo sát trong cùng một tính năng.** Bộ đếm tính theo `feature_key`, dùng chung cho **mọi chiến dịch của tính năng đó** (kể cả khác `survey_id`, khác tập người dùng, khác `version`). Nguyên tắc đặt tham số: **K ≥ M** (điều kiện 7) — khoảng cách trong cùng một tính năng không được ngắn hơn khoảng cách toàn app; nếu đặt K < M thì điều kiện 7 vẫn chặn trước, K không có tác dụng. Chỉ nên tắt điều kiện 9 khi các chiến dịch của tính năng nhắm vào những tập **loại trừ hoàn toàn** nhau và cần thu mẫu nhanh, và **phải được Product Owner duyệt**.
+* **Bộ đếm hiển thị toàn app và bộ đếm theo tính năng luôn được cập nhật** kể cả khi điều kiện 6/7/9 của chiến dịch đó đang tắt — để các chiến dịch khác vẫn tính đúng khoảng cách.
+* **Bộ điều kiện tối thiểu**: điều kiện 1 và 2 mặc định tắt, nếu BA không bật cái nào thì khảo sát sẽ chạm cả người vừa dùng tính năng lần đầu, trái với mục tiêu "chỉ hỏi người đã có đủ trải nghiệm". Một chiến dịch hợp lệ phải bật tối thiểu: **điều kiện 3, 5, 6, 7, 9 và ít nhất một trong hai điều kiện 1, 2**. Hệ thống cấu hình chặn lưu chiến dịch không đạt mức này, trừ khi có đánh dấu ngoại lệ đã được Product Owner duyệt. Trường hợp ngoại lệ điển hình: tập người dùng đã tự bao hàm yêu cầu trải nghiệm (ví dụ "đã mua gói và xem 1–3 lần"), hoặc chủ đích khảo sát chính nhóm chưa có đủ trải nghiệm (ví dụ tập "vào nhanh – thoát nhanh") — lý do phải ghi rõ trong Kế hoạch khảo sát (SVP) của tính năng.
+* **Tập người dùng (segment)**: mỗi chiến dịch có thể nhắm vào một tập hành vi do tính năng định nghĩa trong SVP của mình (ví dụ: chưa mua gói, đã mua và dùng thường xuyên, xem vật phẩm nhưng chưa mua). Điều kiện nhận diện tập được kiểm tra cùng điều kiện 8; tập người dùng được xác định **tại thời điểm kiểm tra**, nên một người có thể chuyển tập theo thời gian.
 * "Lần sử dụng hợp lệ" (điều kiện 1) do từng tính năng định nghĩa trong BRD của mình, nhưng tối thiểu phải là lượt **xem được màn kết quả thành công** — không tính lượt mở rồi thoát ngay.
-* Khi hiển thị dạng **Entry**, lượt hiển thị điểm vào **vẫn tính** là một lượt hiển thị khảo sát cho điều kiện 6 và 7.
+* Khi hiển thị dạng **Entry**, lượt hiển thị điểm vào **vẫn tính** là một lượt hiển thị khảo sát cho điều kiện 6, 7 và 9.
 
 ### 4.4. Bộ tham số mặc định
 
@@ -187,7 +192,9 @@ Mỗi điều kiện gồm một cờ bật/tắt (trạng thái mặc định x
 | 5                      | —                       | `max_skip`       | Số lần bỏ qua tối đa trước khi ngừng hỏi vĩnh viễn                             | 2 lần                 |
 | 6                      | `cond_daily_cap`       | `daily_cap`      | Số khảo sát tối đa hiển thị trong 1 ngày (toàn app)                              | 1                      |
 | 7                      | `cond_global_gap`      | `M`              | Khoảng cách tối thiểu giữa 2 lần hiển thị bất kỳ khảo sát                     | 30 ngày               |
+| 9                      | `cond_feature_gap`     | `K`              | Khoảng cách tối thiểu giữa 2 lần hiển thị khảo sát của cùng một tính năng  | 90 ngày               |
 | 8                      | `cond_audience`        | `audience`       | Nhóm đối tượng: free/premium, nền tảng, phiên bản app, vùng                     | Tất cả người dùng |
+| 8                      | —                       | `segment`        | Tập người dùng theo hành vi, định nghĩa trong SVP của tính năng                | Không giới hạn tập |
 
 ---
 
@@ -230,12 +237,14 @@ Mỗi chiến dịch khảo sát gồm các trường:
 | `placement`             | Vị trí đặt trên màn kết quả (với kiểu`entry`)                                                                 |
 | `conditions`            | Danh sách điều kiện: mỗi điều kiện gồm cờ bật/tắt (`enabled`) và tham số đi kèm — xem mục 4.3 và 4.4 |
 | `audience`              | Nhóm đối tượng: free/premium, nền tảng, phiên bản app, vùng                                                     |
+| `segment`               | Tập người dùng theo hành vi mà chiến dịch nhắm tới (định nghĩa trong SVP)                                    |
+| `priority`              | Thứ tự ưu tiên giữa các chiến dịch cùng tính năng (1 = cao nhất)                                              |
 | `questions`             | Danh sách câu hỏi theo các dạng tại 5.2                                                                             |
 | `start_at` / `end_at` | Thời gian chạy chiến dịch                                                                                             |
 | `sample_target`         | Cỡ mẫu mục tiêu — đạt đủ thì tự động dừng hiển thị                                                        |
 | `status`                | `draft` / `active` / `paused` / `ended`                                                                           |
 
-**Quy tắc vòng đời:** chiến dịch bật/tắt được từ xa mà không cần cập nhật app; khi đạt `sample_target` hoặc quá `end_at` thì tự chuyển `ended` và ngừng hiển thị; tại một thời điểm, **một tính năng chỉ có tối đa 1 chiến dịch active**.
+**Quy tắc vòng đời:** chiến dịch bật/tắt được từ xa mà không cần cập nhật app; khi đạt `sample_target` hoặc quá `end_at` thì tự chuyển `ended` và ngừng hiển thị; một tính năng được có **nhiều chiến dịch active cùng lúc, mỗi chiến dịch nhắm vào một tập người dùng khác nhau**. Khi người dùng thuộc nhiều tập, hệ thống chỉ xét chiến dịch có `priority` cao nhất mà họ đủ điều kiện; mỗi lượt vào màn kết quả hiển thị tối đa 1 khảo sát.
 
 ---
 
@@ -244,7 +253,7 @@ Mỗi chiến dịch khảo sát gồm các trường:
 ### 6.1. Khảo sát dạng Direct (Popup / Bottom Sheet)
 
 - **Link thiết kế**: (sẽ cập nhật)
-- **Yêu cầu**: 
+- **Yêu cầu**:
 
 ### 6.2. Điểm vào khảo sát dạng Entry
 
@@ -275,6 +284,7 @@ Mỗi chiến dịch khảo sát gồm các trường:
 - **Mất mạng khi đang trả lời**: cho phép trả lời tiếp bình thường, các câu chưa gửi được xếp hàng chờ và tự gửi lại khi có mạng; không hiển thị lỗi làm người dùng bỏ dở.
 - **Thoát giữa chừng**: các câu đã trả lời đều đã được gửi lên nên **không mất dữ liệu**; bản ghi ở trạng thái **trả lời một phần** và vẫn được tính vào kết quả phân tích. Lần sau không hỏi lại từ đầu cho tới khi hết thời gian chờ `skip_wait_days`.
 - **Trả lời lại một câu đã gửi**: nếu người dùng quay lại sửa đáp án của câu trước, gửi lại câu đó và máy chủ ghi đè giá trị cũ, không tạo thêm bản ghi.
+- **Một người thuộc nhiều tập của cùng tính năng**: chỉ hiển thị khảo sát có `priority` cao nhất mà người dùng đủ điều kiện; các khảo sát còn lại không tính lượt hiển thị. Sau khi một khảo sát của tính năng đã hiển thị, các khảo sát còn lại của **chính tính năng đó** phải chờ đủ **K ngày** (điều kiện 9) mới được xét tiếp.
 - **Trùng nhiều khảo sát trong một phiên**: khi 2 tính năng cùng đủ điều kiện, ưu tiên khảo sát có `start_at` sớm hơn; khảo sát còn lại lùi theo `daily_cap`.
 - **Xung đột với popup khác**: khảo sát **không được** hiển thị chồng lên paywall, popup nâng cấp, popup đánh giá app (rate app) hoặc thông báo hệ thống; khi có xung đột, khảo sát nhường và không tính là một lượt hiển thị.
 - **Người dùng đã bỏ qua `max_skip` lần**: ngừng hỏi vĩnh viễn với `survey_id` đó, kể cả khi các điều kiện khác đều thỏa mãn.
@@ -285,62 +295,53 @@ Mỗi chiến dịch khảo sát gồm các trường:
 
 ## 9. Kế hoạch ra mắt & Go-to-Market
 
-- **Giai đoạn 1 (Alpha)**: hoàn thiện cơ chế nền tảng, test nội bộ toàn bộ 8 điều kiện hiển thị và luật chống làm phiền bằng cấu hình rút gọn.
-- **Giai đoạn 2 (Pilot)**: chạy chiến dịch đầu tiên trên **1 tính năng duy nhất** với kiểu **Entry**, rollout 10–20% người dùng, theo dõi S01–S06 (đặc biệt S06 — ảnh hưởng tới tính năng gốc).
-- **Giai đoạn 3 (Mở rộng)**: mở cho các tính năng còn lại; mỗi tính năng khai báo cấu hình trong BRD/BPRD của mình theo mẫu tại mục 10.
+- **Giai đoạn 1 (Alpha)**: hoàn thiện cơ chế nền tảng, test nội bộ toàn bộ 9 điều kiện hiển thị và luật chống làm phiền bằng cấu hình rút gọn.
+- **Giai đoạn 2 (Pilot)**: chạy chiến dịch đầu tiên trên **1 tính năng duy nhất** với kiểu **Entry**, rollout 10–20% người dùng, theo dõi S01–S05 (đặc biệt S05 — ảnh hưởng tới tính năng gốc).
+- **Giai đoạn 3 (Mở rộng)**: mở cho các tính năng còn lại; mỗi tính năng lập Kế hoạch khảo sát (SVP) riêng theo [[SVP-Template]] và đăng ký tại mục 10.
 
 ---
 
-## 10. Cấu hình khảo sát theo từng tính năng
+## 10. Danh mục khảo sát (Survey Registry)
 
-Toàn bộ cấu hình khảo sát của mọi tính năng được khai báo tập trung tại mục này. Tài liệu BRD/BPRD của từng tính năng **không chứa cấu hình**, chỉ cần một dòng ánh xạ:
+### 10.1. Cách tổ chức tài liệu
 
-> **Khảo sát trong tính năng**: tính năng này có khảo sát in-app. Cấu hình chi tiết xem [[BPRD-002-KhaoSatInApp#10. Cấu hình khảo sát theo từng tính năng]].
+Tài liệu này chỉ mô tả **cơ chế dùng chung**. Khảo sát của từng tính năng được viết thành một **Kế hoạch khảo sát (Survey Plan – SVP)** riêng, mỗi tính năng một file:
 
-Cách làm này giúp xếp lịch các chiến dịch cạnh nhau để kiểm tra xung đột — điều kiện 6 và 7 là luật toàn app, không thể kiểm tra được nếu cấu hình nằm rải rác ở nhiều tài liệu.
+| **Tài liệu**        | **Chứa gì**                                                                                                                                        | **Vị trí**                         |
+| :-------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------- |
+| BPRD-002 (tài liệu này)  | Cơ chế hiển thị, điều kiện, tham số mặc định, dạng câu hỏi, luật chống làm phiền,**danh mục toàn app**                           | `docs/020-Requirements/BPRD/`            |
+| `SVP-<MÃ>-<TenTinhNang>` | Mục tiêu nghiên cứu, phân tập người dùng, cấu hình chi tiết từng chiến dịch, bộ câu hỏi, ngưỡng đọc kết quả, theo dõi triển khai | `docs/020-Requirements/SVP/`             |
+| [[SVP-Template]]                            | Mẫu để tạo SVP cho tính năng mới                                                                                                                    | `docs/020-Requirements/SVP/`             |
+| BRD/BPRD của tính năng   | Chỉ một mục "Khảo sát in-app" gắn đường dẫn sang SVP,**không chép** nội dung khảo sát                                                 | Mục lớn riêng, ngay sau mục Thiết kế |
 
-### 10.1. Bảng tổng quan các chiến dịch
+**Quy ước:**
 
-| Mã khảo sát | Tính năng               | Kiểu hiển thị | Thời gian chạy | Cỡ mẫu | Trạng thái |
-| :------------- | :------------------------ | :--------------- | :--------------- | :------- | :----------- |
-| `SV-KHNL-01` | Kích Hoạt Năng Lượng | Entry            | 01/10 – 31/10   | 500      | draft        |
+* **Mã khảo sát**: `SV-<MÃ TÍNH NĂNG>-<STT 2 chữ số>`, ví dụ `SV-KHNL-01`. Mã tính năng trùng với mã của file SVP.
+* **Nguồn chuẩn**: nội dung chi tiết của chiến dịch chỉ nằm trong SVP. Bảng 10.3 chỉ giữ các trường cần để kiểm tra xung đột toàn app; khi đổi thời gian chạy hoặc trạng thái phải cập nhật **cả hai** nơi.
+* **Liên kết từ BRD/BPRD của tính năng**: thêm một mục lớn riêng ngay sau mục Thiết kế, chỉ gồm đường dẫn sang SVP:
 
-> Trước khi bật một chiến dịch mới, đối chiếu bảng này để đảm bảo không trùng thời gian chạy với chiến dịch khác của cùng nhóm người dùng.
+> ## x. Khảo sát in-app
+>
+> - **Kế hoạch khảo sát**: [[SVP-<MÃ>-<TenTinhNang>]]
 
-### 10.2. Mẫu khai báo cho một tính năng
+* **Thứ tự đọc**: BPRD-002 (cơ chế) → mục 10 (danh mục) → SVP của tính năng. Tác động tới màn hình, tracking cần bổ sung và lưu ý cho Dev nằm ở mục "Tác động tới tính năng" của SVP.
 
-Mỗi tính năng có khảo sát được khai báo thành một tiểu mục `10.x` theo mẫu dưới đây.
+### 10.2. Danh sách tính năng có khảo sát
 
-**a. Thông tin chiến dịch**
+| **Mã** | **Tính năng**     | **Kế hoạch khảo sát** | **Số chiến dịch** | **Đang active** | **Trạng thái SVP** |
+| :------------ | :------------------------ | :------------------------------ | :------------------------- | :--------------------- | :------------------------- |
+| KHNL          | Kích Hoạt Năng Lượng | [[SVP-KHNL-KichHoatNangLuong]]                                | 5                          | 0                      | Draft                      |
 
-| Trường            | Giá trị                       |
-| :------------------ | :------------------------------ |
-| Mã khảo sát      | `SV-XXX-01`                   |
-| Tính năng         | (tên tính năng)              |
-| Màn áp dụng      | Màn kết quả của tính năng |
-| Kiểu hiển thị    | Entry                           |
-| Vị trí đặt      | Cuối màn kết quả            |
-| Đối tượng       | Free + Premium                  |
-| Thời gian chạy    | 01/10 – 31/10                  |
-| Cỡ mẫu mục tiêu | 500                             |
-| Trạng thái        | draft                           |
+### 10.3. Lịch chạy chiến dịch toàn app
 
-**b. Cấu hình điều kiện hiển thị** (điền theo trạng thái mặc định ở bảng 4.3, đánh dấu ✅ vào điều kiện áp dụng và ghi tham số tương ứng)
+Dùng để kiểm tra xung đột trước khi bật chiến dịch mới — điều kiện 6 và 7 là luật toàn app nên các chiến dịch của mọi tính năng phải được xếp cạnh nhau.
 
-| STT | Điều kiện                                            | Bật?              | Tham số                               |
-| :-- | :------------------------------------------------------ | :----------------- | :------------------------------------- |
-| 1   | Số lần sử dụng hợp lệ trong N ngày               | ✅                 | X = 3, N = 30 ngày                    |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày       | ✅                 | Y = 3 phút                            |
-| 3   | Thời gian ở màn kết quả trong phiên hiện tại    | ✅                 | Z = 20 giây                           |
-| 4   | Chưa hoàn thành khảo sát/phiên bản hiện tại    | ✅*(bắt buộc)* | —                                     |
-| 5   | Thời gian chờ sau khi người dùng bỏ qua           | ✅                 | Chờ 14 ngày, tối đa 2 lần bỏ qua |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác      | ✅                 | 1 khảo sát/ngày                     |
-| 7   | Khoảng cách tối thiểu kể từ khảo sát gần nhất | ✅                 | M = 30 ngày                           |
-| 8   | Đúng nhóm đối tượng cấu hình                   | ✅                 | Free + Premium                         |
+| **Mã khảo sát** | **Tính năng** | **Tập người dùng**           | **Đối tượng** | **Kiểu** | **Thời gian chạy** | **Trạng thái** |
+| :----------------------- | :-------------------- | :------------------------------------- | :---------------------- | :-------------- | :------------------------- | :--------------------- |
+| `SV-KHNL-01`           | KHNL                  | Free tính năng                       | Free                    | Entry           | 01/10 – 31/10             | draft                  |
+| `SV-KHNL-02`           | KHNL                  | Pro – trải nghiệm ban đầu         | Pro                     | Entry           | 01/10 – 31/10             | draft                  |
+| `SV-KHNL-03`           | KHNL                  | Pro – sử dụng thường xuyên       | Pro                     | Entry           | 01/10 – 31/10             | draft                  |
+| `SV-KHNL-04`           | KHNL                  | Quan tâm vật phẩm nhưng chưa mua  | Pro                     | Entry           | 01/10 – 31/10             | draft                  |
+| `SV-KHNL-05`           | KHNL                  | Vào nhanh – thoát nhanh nhiều lần | Free + Pro              | Direct (micro)  | 01/10 – 31/10             | draft                  |
 
-**c. Bộ câu hỏi**
-
-| STT | Câu hỏi                 | Dạng đáp án | Đáp án             | Bắt buộc |
-| :-- | :------------------------ | :-------------- | :-------------------- | :--------- |
-| 1   | (nội dung câu hỏi)     | Chọn 1         | (liệt kê đáp án) | Có        |
-| 2   | (câu hỏi mở, nếu có) | Câu hỏi mở   | —                    | Không     |
+> Trước khi bật một chiến dịch mới, đối chiếu bảng này: nếu trùng thời gian chạy với chiến dịch của tính năng khác trên cùng nhóm đối tượng, cân nhắc lùi lịch để tránh các chiến dịch tranh nhau suất hiển thị do điều kiện 6, 7.

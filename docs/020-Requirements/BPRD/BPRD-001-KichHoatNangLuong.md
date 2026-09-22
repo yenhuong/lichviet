@@ -205,7 +205,13 @@ flowchart TD
 
 ---
 
-## 7. Yêu cầu phi chức năng (Kỹ thuật)
+## 7. Khảo sát in-app
+
+- **Kế hoạch khảo sát**: [[SVP-KHNL-KichHoatNangLuong]]
+
+---
+
+## 8. Yêu cầu phi chức năng (Kỹ thuật)
 
 - **Bảo Mật (Security)**:
   - Giao dịch in-app purchase phải được xác thực (verify receipt) an toàn qua máy chủ (server-side validation) để tránh tình trạng giả lập giao dịch trên các máy đã root/jailbreak.
@@ -216,14 +222,14 @@ flowchart TD
 
 ---
 
-## 8. Trường hợp ngoại lệ (Edge Cases)
+## 9. Trường hợp ngoại lệ (Edge Cases)
 
 - **Mất kết nối mạng khi đang thanh toán**: Nếu giao dịch IAP của Apple/Google báo thành công nhưng kết nối mạng bị mất khiến app không thể verify receipt với máy chủ → App sẽ lưu receipt cục bộ vào Keychain/Secure Storage. Khi có mạng trở lại, app tự động gửi lại receipt để mở khóa lá số (luồng restore purchase).
 - **Mua hàng thành công nhưng không mở khóa**: Cung cấp nút "Khôi phục mua hàng" (Restore Purchase) ở màn hình Kết quả để người dùng có thể tải lại quyền sở hữu nếu đổi thiết bị hoặc cài lại app.
 
 ---
 
-## 9. Kế hoạch ra mắt & Go-to-Market
+## 10. Kế hoạch ra mắt & Go-to-Market
 
 - **Giai đoạn 1 (Alpha - 2 tuần)**: Test nội bộ giữa Dev và QA về luồng tính toán Bát tự và thanh toán IAP sandbox.
 - **Giai đoạn 2 (Beta - 1 tuần)**: Rollout thử nghiệm cho 10% người dùng ngẫu nhiên để đánh giá conversion rate và lỗi crash.
@@ -231,7 +237,7 @@ flowchart TD
 
 ---
 
-## 10. Definition of Done
+## 11. Definition of Done
 
 - [ ] Thiết kế UI/UX đã được duyệt hoàn toàn bởi Product Team và Business Owner.
 - [ ] Code pass tất cả 4 User Stories cùng đầy đủ Acceptance Criteria.
