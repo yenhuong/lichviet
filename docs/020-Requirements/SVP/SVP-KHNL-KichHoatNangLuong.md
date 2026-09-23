@@ -24,7 +24,7 @@ updated: 2026-09-22
 | Cơ chế nền tảng               | [[BPRD-002-KhaoSatInApp]]                                       |
 | Số chiến dịch                  | 5                                      |
 | Người phụ trách               | Đỗ Thị Hường                      |
-| Phiên bản                       | v1.3                                   |
+| Phiên bản                       | v1.0                                   |
 | Trạng thái                      | Draft — chờ PO duyệt                |
 
 ## Nhật ký thay đổi
@@ -32,9 +32,9 @@ updated: 2026-09-22
 | Ngày cập nhật | Phiên bản | Người thực hiện | Nội dung thay đổi                                                                                                                                                                                                                                                                                                                                                       |
 | :--------------- | :---------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-09-17       | v1.0        | Đỗ Thị Hường   | Khởi tạo kế hoạch 5 chiến dịch theo tập người dùng                                                                                                                                                                                                                                                                                                               |
-| 2026-09-18       | v1.1        | Đỗ Thị Hường   | Bổ sung mục 8: số liệu cần phân tích để chốt tham số điều kiện                                                                                                                                                                                                                                                                                               |
-| 2026-09-22       | v1.2        | Đỗ Thị Hường   | Cập nhật bộ câu hỏi mục 5.1 (SV-KHNL-01) thành 2 câu theo prototype demo                                                                                                                                                                                                                                                                                           |
-| 2026-09-22       | v1.3        | Đỗ Thị Hường   | Cập nhật chi tiết 2 luồng điểm kích hoạt mục 5.1 (SV-KHNL-01): Luồng 1 (Micro-survey 1 câu từ nút "Chưa phù hợp" ở thẻ Đánh giá cuối màn) & Luồng 2 (Khảo sát 2 câu từ Entry Teaser / nút "Chia sẻ ý kiến"), cập nhật bộ câu hỏi, đáp án, placeholder, giao diện popup 2/3 chiều cao và Popup cảm ơn tự động đóng sau 4s |
+| 2026-09-18       | v1.0        | Đỗ Thị Hường   | Bổ sung mục 8: số liệu cần phân tích để chốt tham số điều kiện                                                                                                                                                                                                                                                                                               |
+| 2026-09-22       | v1.0        | Đỗ Thị Hường   | Cập nhật bộ câu hỏi mục 5.1 (SV-KHNL-01) thành 2 câu theo prototype demo                                                                                                                                                                                                                                                                                           |
+| 2026-09-22       | v1.0        | Đỗ Thị Hường   | Cập nhật chi tiết 2 luồng điểm kích hoạt mục 5.1 (SV-KHNL-01): Luồng 1 (Micro-survey 1 câu từ nút "Chưa phù hợp" ở thẻ Đánh giá cuối màn) & Luồng 2 (Khảo sát 2 câu từ Entry Teaser / nút "Chia sẻ ý kiến"), cập nhật bộ câu hỏi, đáp án, placeholder, giao diện popup 2/3 chiều cao và Popup cảm ơn tự động đóng sau 4s |
 
 ---
 
