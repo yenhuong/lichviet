@@ -135,8 +135,6 @@ flowchart TD
 
 ## 5. Chi tiết từng chiến dịch
 
-Mỗi chiến dịch gồm 7 phần cố định: **a.** Thông tin · **b.** Tập người dùng · **c.** Điều kiện hiển thị · **d.** Cách hiển thị · **e.** Thiết kế · **f.** Bộ câu hỏi · **g.** Đọc kết quả.
-
 ### 5.1. SV-KHNL-01 — Free tính năng
 
 **a. Thông tin chiến dịch**
@@ -173,34 +171,15 @@ Mỗi chiến dịch gồm 7 phần cố định: **a.** Thông tin · **b.** T�
 
 **d. Cách hiển thị & Luồng kích hoạt (Trigger Flows)**
 
-Chiến dịch hỗ trợ 2 luồng tiếp cận (Point of Entry) giúp tối ưu tỷ lệ phản hồi người dùng:
+| Trường    | Giá trị                                                                                   |
+| :---------- | :------------------------------------------------------------------------------------------ |
+| Kiểu       | Entry                                                                                       |
+| Vị trí    | Cuối màn kết quả                                                                        |
+| Ràng buộc | Không che đè nút CTA mua hàng ghim đáy; Popup cảm ơn tự động đóng sau 4 giây |
 
-1. **Luồng 1 — Thẻ Đánh giá cố định ở cuối màn (Fixed Bottom Feedback Card):**
-
-   - **Vị trí**: Nằm ở cuối màn kết quả
-   - **Giao diện thẻ**: Tiêu đề *"Bạn thấy nội dung vừa xem thế nào?"* kèm 2 nút bấm dạng pill: *"Phù hợp"* 👍 và *"Chưa phù hợp"* 👎.
-   - **Cơ chế hoạt động**:
-     - Nút *"Phù hợp"*: Đổi trạng thái được chọn (selected state), không mở popup khảo sát.
-     - Nút *"Chưa phù hợp"*: Trực tiếp kích hoạt Popup Micro-survey 1 câu (`step-unfit`).
-2. **Luồng 2 — Thẻ Entry Teaser Popup (Popup giới thiệu khảo sát):**
-
-   - **Tự động kích hoạt**: Xuất hiện dạng Popup Teaser sau khi người dùng thỏa mãn điều kiện ở màn kết quả (hoặc bấm vào thẻ điểm vào khảo sát).
-   - **Giao diện Teaser**: Icon hình quả cầu / tài liệu 3D bên trái, tiêu đề *"Bạn còn băn khoăn điều gì về kết quả này?"*, nội dung *"Chia sẻ để Lịch Việt hiểu bạn cần gì và mang đến trải nghiệm tốt hơn."*, nút đóng `x` hình tròn ở góc trên bên phải.
-   - **Cơ chế hoạt động**: Bấm nút CTA *"Chia sẻ ý kiến"* ➔ Mở luồng khảo sát chính 2 câu (`step-1` và `step-2`).
-
-* **Quy cách giao diện Popup Modal (UI Layout Rules):**
-  - **Popup câu hỏi (`step-unfit`, `step-1`, `step-2`)**:
-    - Chiều cao cố định: **2/3 chiều cao màn hình** (`height: 66.67%`), trượt từ dưới lên (Bottom Sheet Modal) trên lớp nền mờ (Dark backdrop).
-    - **Header Modal**: Có nút mũi tên quay lại `<` (hiển thị ở góc trên bên trái từ câu 2), tiêu đề *"Chia sẻ của bạn giúp trải nghiệm tốt hơn"* căn giữa (2 dòng), nút đóng `x` ở góc trên bên phải.
-    - **Thân Modal (Body)**: Vùng cuộn nội dung độc lập (`overflow-y: auto`).
-    - **Chân Modal (Footer)**: Nút bấm CTA full-width (`btn-primary-blue`) ghim cố định ở đáy modal.
-  - **Popup Cảm ơn (`step-thankyou`)**:
-    - **Giao diện**: Modal căn giữa màn hình (Center Dialog Modal) kèm hiệu ứng nảy nhẹ (`bounceIn`) và nền mờ (backdrop filter).
-    - **Icon đóng**: Nút hình tròn chứa icon `x` ở góc trên bên phải
-    - **Hình ảnh minh họa**: Minh họa 3D Hộp quà trái tim (`thank_you_illustration.png`, kích thước `140x140px`).
-    - **Tiêu đề**: *"Cảm ơn bạn đã chia sẻ"*.
-    - **Nội dung**: *"Mỗi góp ý của bạn đều giúp Lịch Việt hiểu bạn hơn và mang đến trải nghiệm tốt hơn mỗi ngày."*.
-    - **Cơ chế tự đóng**: Popup tự động đóng hoàn toàn sau **4 giây** (4000ms), hoặc khi người dùng bấm nút `x` góc trên bên phải / chạm vào lớp nền ngoài backdrop.
+* **Chi tiết 2 điểm kích hoạt khảo sát:**
+  1. **Thẻ Đánh giá cuối màn (Bottom Feedback Card):** Nằm cố định ở cuối nội dung màn kết quả (ngay sau khối mở khóa luận giải). Hiển thị tiêu đề *"Bạn thấy nội dung vừa xem thế nào?"* kèm 2 nút: *"Phù hợp"* 👍 (đổi trạng thái chọn) và *"Chưa phù hợp"* 👎 (mở ngay Popup Micro-survey 1 câu `step-unfit`).
+  2. **Thẻ Entry Teaser Popup:** Hiển thị dạng Popup (Bottom Sheet) trượt từ đáy màn hình lên khi đủ điều kiện ở màn kết quả (hoặc bấm từ thẻ điểm vào khảo sát). Bấm nút CTA *"Chia sẻ ý kiến"* ➔ Mở luồng khảo sát chính 2 câu (`step-1` và `step-2`).
 
 **e. Thiết kế**
 
@@ -287,7 +266,7 @@ Chiến dịch hỗ trợ 2 luồng tiếp cận (Point of Entry) giúp tối ư
 
 **e. Thiết kế**
 
-- **Link thiết kế**: (sẽ cập nhật)
+- **Link thiết kế**: [KichHoatNangLuong_Result_Premium_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_Premium_KhaoSat.html)
 - **Ảnh minh họa**: (sẽ cập nhật)
 - **Yêu cầu riêng**:
   - Giọng điệu cảm ơn đã mở khóa, tránh giọng "khảo sát bắt buộc".
