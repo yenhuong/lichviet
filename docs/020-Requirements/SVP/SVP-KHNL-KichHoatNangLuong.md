@@ -269,29 +269,27 @@ flowchart TD
 - **Link thiết kế**: [KichHoatNangLuong_Result_Premium_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_Premium_KhaoSat.html)
 - **Ảnh minh họa**: (sẽ cập nhật)
 - **Yêu cầu riêng**:
-  - Giọng điệu cảm ơn đã mở khóa, tránh giọng "khảo sát bắt buộc".
-  - 2 câu thang 1–5 đặt trước để người dùng trả lời nhanh, tạo đà.
-  - Có chỉ báo tiến độ (1/5) vì khảo sát dài 5 câu.
-  - Danh sách 6 phần luận giải ở câu 3, 4 dùng đúng tên hiển thị trên màn Kết quả.
+  - Giọng điệu lắng nghe trải nghiệm, tạo cảm giác được tôn trọng góp ý.
+  - Hiển thị dạng Popup Modal (Bottom Sheet) gồm 3 bước (`step-1`, `step-2`, `step-3`).
+  - Danh sách các lựa chọn ở câu 1 và câu 3 đồng bộ theo đúng các phần nội dung của kết quả Pro.
 
 **f. Bộ câu hỏi**
 
-| STT | Câu hỏi                                                          | Dạng                     | Đáp án                                                                                                                                                   | Bắt buộc | Mục đích                      |
-| :-- | :----------------------------------------------------------------- | :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :------------------------------- |
-| 1   | Phần luận giải có dễ hiểu với bạn không?                  | Thang 1–5                | 1 = Rất khó hiểu … 5 = Rất dễ hiểu                                                                                                                   | Có        | Mức độ dễ hiểu tổng thể   |
-| 2   | Nội dung luận giải đúng với bạn tới mức nào?             | Thang 1–5                | 1 = Hoàn toàn không đúng … 5 = Rất đúng                                                                                                            | Có        | Độ chính xác cảm nhận      |
-| 3   | Phần nào bạn thấy có giá trị nhất?                         | Chọn nhiều (tối đa 2) | Chân dung năng lượng · Điểm mạnh nổi bật · Điểm cần cân bằng · Hướng phát triển phù hợp · Màu sắc phù hợp · Linh vật hỗ trợ | Có        | Phần cần giữ và phát triển |
-| 4   | Phần nào khiến bạn thấy khó hiểu hoặc chưa thuyết phục? | Chọn nhiều              | (6 phần như câu 3) · Không có phần nào                                                                                                              | Có        | Phần cần viết lại            |
-| 5   | Bạn muốn góp ý gì để phần luận giải tốt hơn?           | Câu hỏi mở             | —                                                                                                                                                          | Không     | Góp ý chi tiết                |
+| STT | Câu hỏi | Dạng | Đáp án | Bắt buộc | Mục đích |
+| :-- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Phần nào trong kết quả hữu ích với bạn? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào thực sự hữu ích | Có | Xác định phần nội dung có giá trị nhất với Pro |
+| 2 | Nội dung luận giải đúng với bạn ở mức nào? | Chọn 1 | Rất đúng · Khá đúng · Đúng một phần · Chưa đúng | Có | Đánh giá độ chính xác cảm nhận |
+| 3 | Phần nào trong kết quả bạn thấy khó hiểu? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào khó hiểu | Có | Nhận diện các phần khó tiếp thu để tối ưu giải thích |
+| — | *(Chia sẻ thêm)* | Câu hỏi mở | Nhập ý kiến tự do | Không | Thu thập phản hồi chi tiết từ người dùng |
 
 **g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
 
-| Tín hiệu                                      | Ngưỡng | Hành động gợi ý                                                          |
-| :---------------------------------------------- | :------- | :---------------------------------------------------------------------------- |
-| Câu 1 điểm trung bình                       | < 3,5    | Rà soát thuật ngữ, thêm giải thích ngắn cho các khái niệm Bát tự |
-| Câu 2 điểm trung bình                       | < 3,5    | Rà soát logic luận giải cùng chuyên gia nội dung                       |
-| Câu 4 — một phần bị chọn                  | ≥ 25%   | Đưa phần đó vào danh sách viết lại ưu tiên                         |
-| Câu 3 và câu 4 cùng chọn nhiều một phần | —       | Phần có giá trị nhưng khó hiểu ⇒ ưu tiên cao nhất khi cải thiện  |
+| Tín hiệu | Ngưỡng | Hành động gợi ý |
+| :--- | :--- | :--- |
+| Câu 1 — Tỷ lệ chọn các phần | ≥ 50% | Giữ nguyên và phát triển chuyên sâu cho phần đó |
+| Câu 2 — "Chưa đúng" / "Đúng một phần" | ≥ 30% | Rà soát lại thuật ngữ và logic luận giải cùng chuyên gia |
+| Câu 3 — Một phần bị chọn khó hiểu | ≥ 25% | Đưa phần đó vào danh sách viết lại/bổ sung giải thích dễ hiểu hơn |
+| Câu 1 & Câu 3 cùng chọn nhiều ở 1 phần | — | Phần hữu ích nhưng còn khó hiểu ➔ Ưu tiên số 1 để tối ưu diễn đạt |
 
 ---
 
