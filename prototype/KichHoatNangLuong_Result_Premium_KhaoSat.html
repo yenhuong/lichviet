@@ -2122,7 +2122,7 @@
                             </div>
                             
                             <div class="screenshot-option-list">
-                                <div class="screenshot-option-item selected" onclick="toggleMultiSelect(this)">
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
                                     <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Nội dung còn chung chung</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2176,7 +2176,7 @@
                             </div>
                             
                             <div class="screenshot-option-list">
-                                <div class="screenshot-option-item selected" onclick="toggleMultiSelect(this)">
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
                                     <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Điểm mạnh, điểm cần lưu ý</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2231,7 +2231,7 @@
                             </div>
                             
                             <div class="screenshot-option-list">
-                                <div class="screenshot-option-item selected" onclick="toggleSingleSelect(this)">
+                                <div class="screenshot-option-item" onclick="toggleSingleSelect(this)">
                                     <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Rất đúng</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -2473,13 +2473,8 @@
             const textarea2 = document.getElementById('q2-other-text');
             if (textarea2) textarea2.value = '';
 
-            const step1Items = document.querySelectorAll('#step-1 .screenshot-option-item');
-            step1Items.forEach((item, idx) => {
-                if (idx === 0) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
-                }
+            document.querySelectorAll('.screenshot-option-item').forEach(item => {
+                item.classList.remove('selected');
             });
 
             updateStepUI(1);

@@ -1538,7 +1538,7 @@
                             </div>
                             
                             <div class="screenshot-option-list">
-                                <div class="screenshot-option-item selected" onclick="toggleMultiSelect(this)">
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
                                     <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Nội dung còn chung chung</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1599,7 +1599,7 @@
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
-                                <div class="screenshot-option-item selected" onclick="toggleMax2Checkbox(this)">
+                                <div class="screenshot-option-item" onclick="toggleMax2Checkbox(this)">
                                     <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Biểu đồ Ngũ hành & chân dung năng lực</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1636,7 +1636,7 @@
                             </div>
                             
                             <div class="screenshot-option-list">
-                                <div class="screenshot-option-item selected" onclick="toggleSingleSelect(this)">
+                                <div class="screenshot-option-item" onclick="toggleSingleSelect(this)">
                                     <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Chưa rõ phần đầy đủ có thêm gì hữu ích</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1898,13 +1898,8 @@
             if (textarea2) textarea2.value = '';
 
             // Reset option items selection
-            const step1Items = document.querySelectorAll('#step-1 .screenshot-option-item');
-            step1Items.forEach((item, idx) => {
-                if (idx === 1) {
-                    item.classList.add('selected');
-                } else {
-                    item.classList.remove('selected');
-                }
+            document.querySelectorAll('.screenshot-option-item').forEach(item => {
+                item.classList.remove('selected');
             });
 
             // Switch UI to Step 1 Question Form
