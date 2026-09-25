@@ -2172,30 +2172,42 @@
                     <div class="survey-step" id="step-1">
                         <div class="survey-step-content">
                             <div class="question-label" style="font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 16px; line-height: 1.4;">
-                                1. Phần nào bạn thấy có giá trị nhất?<br><span style="font-weight: 500; color: #6B7280; font-size: 14.5px;">(Chọn tối đa 2)</span>
+                                1. Phần nào trong kết quả hữu ích với bạn?
                             </div>
                             
                             <div class="screenshot-option-list">
-                                <div class="screenshot-option-item selected" onclick="toggleMax2Checkbox(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Chân dung năng lực & Phân tích chuyên sâu Ngũ hành</span>
+                                <div class="screenshot-option-item selected" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Điểm mạnh, điểm cần lưu ý</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
-                                <div class="screenshot-option-item" onclick="toggleMax2Checkbox(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Biểu đồ Ngũ hành & Dụng thần bản mệnh</span>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Biểu đồ Ngũ hành &amp; phân tích năng lực của bạn</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
-                                <div class="screenshot-option-item" onclick="toggleMax2Checkbox(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Lời khuyên định hướng (Công việc, Tài chính, Môi trường)</span>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Dụng thần phù hợp</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
-                                <div class="screenshot-option-item" onclick="toggleMax2Checkbox(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Gợi ý linh vật & phương hướng kích hoạt năng lượng</span>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Linh vật &amp; phương hướng kích hoạt</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Chưa có phần nào thực sự hữu ích</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
@@ -2215,30 +2227,30 @@
                     <div class="survey-step" id="step-2">
                         <div class="survey-step-content">
                             <div class="question-label" style="font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 16px; line-height: 1.4;">
-                                2. Điều gì giúp phần luận giải Pro hoàn thiện hơn?
+                                2. Nội dung luận giải đúng với bạn ở mức nào?
                             </div>
                             
                             <div class="screenshot-option-list">
                                 <div class="screenshot-option-item selected" onclick="toggleSingleSelect(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Giải thích chi tiết hơn các thuật ngữ Bát tự</span>
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Rất đúng</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
                                 <div class="screenshot-option-item" onclick="toggleSingleSelect(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Thêm ví dụ ứng dụng thực tế theo thời điểm</span>
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Khá đúng</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
                                 <div class="screenshot-option-item" onclick="toggleSingleSelect(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Gửi thông báo nhắc nhở / cập nhật định kỳ</span>
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Đúng một phần</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
                                 </div>
                                 <div class="screenshot-option-item" onclick="toggleSingleSelect(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Bổ sung tư vấn 1:1 với chuyên gia</span>
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Chưa đúng</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
