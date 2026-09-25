@@ -278,8 +278,8 @@ flowchart TD
 | STT | Câu hỏi | Dạng | Đáp án | Bắt buộc | Mục đích |
 | :-- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Phần nào trong kết quả hữu ích với bạn? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào thực sự hữu ích | Có | Xác định phần nội dung có giá trị nhất với Pro |
-| 2 | Nội dung luận giải đúng với bạn ở mức nào? | Chọn 1 | Rất đúng · Khá đúng · Đúng một phần · Chưa đúng | Có | Đánh giá độ chính xác cảm nhận |
-| 3 | Phần nào trong kết quả bạn thấy khó hiểu? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào khó hiểu | Có | Nhận diện các phần khó tiếp thu để tối ưu giải thích |
+| 2 | Phần nào trong kết quả bạn thấy khó hiểu? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào khó hiểu | Có | Nhận diện các phần khó tiếp thu để tối ưu giải thích |
+| 3 | Nội dung luận giải đúng với bạn ở mức nào? | Chọn 1 | Rất đúng · Khá đúng · Đúng một phần · Chưa đúng | Có | Đánh giá độ chính xác cảm nhận |
 | — | *(Chia sẻ thêm)* | Câu hỏi mở | Nhập ý kiến tự do | Không | Thu thập phản hồi chi tiết từ người dùng |
 
 **g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
@@ -287,9 +287,9 @@ flowchart TD
 | Tín hiệu | Ngưỡng | Hành động gợi ý |
 | :--- | :--- | :--- |
 | Câu 1 — Tỷ lệ chọn các phần | ≥ 50% | Giữ nguyên và phát triển chuyên sâu cho phần đó |
-| Câu 2 — "Chưa đúng" / "Đúng một phần" | ≥ 30% | Rà soát lại thuật ngữ và logic luận giải cùng chuyên gia |
-| Câu 3 — Một phần bị chọn khó hiểu | ≥ 25% | Đưa phần đó vào danh sách viết lại/bổ sung giải thích dễ hiểu hơn |
-| Câu 1 & Câu 3 cùng chọn nhiều ở 1 phần | — | Phần hữu ích nhưng còn khó hiểu ➔ Ưu tiên số 1 để tối ưu diễn đạt |
+| Câu 2 — Một phần bị chọn khó hiểu | ≥ 25% | Đưa phần đó vào danh sách viết lại/bổ sung giải thích dễ hiểu hơn |
+| Câu 3 — "Chưa đúng" / "Đúng một phần" | ≥ 30% | Rà soát lại thuật ngữ và logic luận giải cùng chuyên gia |
+| Câu 1 & Câu 2 cùng chọn nhiều ở 1 phần | — | Phần hữu ích nhưng còn khó hiểu ➔ Ưu tiên số 1 để tối ưu diễn đạt |
 
 ---
 
