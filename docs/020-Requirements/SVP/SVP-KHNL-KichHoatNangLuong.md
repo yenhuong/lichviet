@@ -5,9 +5,9 @@ status: draft
 project: Lich_Viet
 owner: "@product-team"
 tags: [khao-sat, in-app-survey, kich-hoat-nang-luong]
-linked-to: [[BPRD-002-KhaoSatInApp]], [[BPRD-001-KichHoatNangLuong]], [[Requirements-MOC]]
+linked-to: [[BPRD-002-KhaoSatInApp]], [[BPRD-001-KichHoatNangLuong]], [[Story-KhaoSatInline-KichHoatNangLuong]], [[Requirements-MOC]]
 created: 2026-09-17
-updated: 2026-09-22
+updated: 2026-10-02
 ---
 # Kế hoạch khảo sát: Kích Hoạt Năng Lượng (SVP-KHNL)
 
@@ -22,19 +22,22 @@ updated: 2026-09-22
 | Tính năng                       | Kích Hoạt Năng Lượng Cá Nhân —[[BPRD-001-KichHoatNangLuong]] |
 | Mã tính năng (`feature_key`) | `KHNL`                               |
 | Cơ chế nền tảng               | [[BPRD-002-KhaoSatInApp]]                                       |
+| Thiết kế UI (Prototype)      | [KichHoatNangLuong_Result_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_KhaoSat.html) (Free) <br /> [KichHoatNangLuong_Result_Premium_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_Premium_KhaoSat.html) (Pro) |
+| User Story liên quan          | [[Story-KhaoSatInline-KichHoatNangLuong]] |
 | Số chiến dịch                  | 5                                      |
 | Người phụ trách               | Đỗ Thị Hường                      |
-| Phiên bản                       | v1.0                                   |
+| Phiên bản                       | v1.1                                   |
 | Trạng thái                      | Draft — chờ PO duyệt                |
 
 ## Nhật ký thay đổi
 
-| Ngày cập nhật | Phiên bản | Người thực hiện | Nội dung thay đổi                                                                                                                                                                                                                                                                                                                                                       |
-| :--------------- | :---------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-09-17       | v1.0        | Đỗ Thị Hường   | Khởi tạo kế hoạch 5 chiến dịch theo tập người dùng                                                                                                                                                                                                                                                                                                               |
-| 2026-09-18       | v1.0        | Đỗ Thị Hường   | Bổ sung mục 8: số liệu cần phân tích để chốt tham số điều kiện                                                                                                                                                                                                                                                                                               |
-| 2026-09-22       | v1.0        | Đỗ Thị Hường   | Cập nhật bộ câu hỏi mục 5.1 (SV-KHNL-01) thành 2 câu theo prototype demo                                                                                                                                                                                                                                                                                           |
-| 2026-09-22       | v1.0        | Đỗ Thị Hường   | Cập nhật chi tiết 2 luồng điểm kích hoạt mục 5.1 (SV-KHNL-01): Luồng 1 (Micro-survey 1 câu từ nút "Chưa phù hợp" ở thẻ Đánh giá cuối màn) & Luồng 2 (Khảo sát 2 câu từ Entry Teaser / nút "Chia sẻ ý kiến"), cập nhật bộ câu hỏi, đáp án, placeholder, giao diện popup 2/3 chiều cao và Popup cảm ơn tự động đóng sau 4s |
+| Ngày cập nhật | Phiên bản | Người thực hiện | Nội dung thay đổi                                                                                                                                                                                                                                                                                                  |
+| :--------------- | :---------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-17       | v1.0        | Đỗ Thị Hường   | Khởi tạo kế hoạch 5 chiến dịch theo tập người dùng                                                                                                                                                                                                                                                          |
+| 2026-09-18       | v1.0        | Đỗ Thị Hường   | Bổ sung mục 8: số liệu cần phân tích để chốt tham số điều kiện                                                                                                                                                                                                                                          |
+| 2026-09-22       | v1.0        | Đỗ Thị Hường   | Cập nhật bộ câu hỏi mục 5.1 (SV-KHNL-01) thành 2 câu theo prototype demo                                                                                                                                                                                                                                      |
+| 2026-09-22       | v1.0        | Đỗ Thị Hường   | Cập nhật chi tiết 2 luồng điểm kích hoạt mục 5.1 (SV-KHNL-01)                                                                                                                                                                                                                                                |
+| 2026-10-01       | v1.1        | Đỗ Thị Hường   | Bổ sung & ưu tiên triển khai hình thức Khảo sát Inline (Inline Survey Card ở cuối màn kết quả) làm hình thức áp dụng đầu tiên cho tính năng Kích Hoạt Năng Lượng; cập nhật bộ câu hỏi đánh giá Hữu ích / Chưa hữu ích & quy định gửi dữ liệu real-time theo từng câu. |
 
 ---
 
@@ -56,13 +59,22 @@ Mỗi chiến dịch trả lời **một** câu hỏi nghiên cứu (RQ) và ph�
 
 ## 3. Tổng quan chiến dịch
 
-| **Mã khảo sát** | **Tập người dùng**           | **RQ** | **Ưu tiên** | **Kiểu** | **Số câu** | **Cỡ mẫu** | **Thời gian chạy** | **Trạng thái** |
-| :----------------------- | :------------------------------------- | :----------- | :------------------ | :-------------- | :----------------- | :----------------- | :------------------------- | :--------------------- |
-| [[#5.1. SV-KHNL-01 — Free tính năng\|SV-KHNL-01]]                         | Free tính năng                       | RQ1          | 1                   | Entry           | 2                  | 500                | 01/10 – 31/10             | draft                  |
-| [[#5.2. SV-KHNL-02 — Pro trải nghiệm ban đầu\|SV-KHNL-02]]                         | Pro – trải nghiệm ban đầu         | RQ2          | **1**         | Entry           | 3                  | 300                | 01/10 – 31/10             | draft                  |
-| [[#5.3. SV-KHNL-03 — Pro sử dụng thường xuyên\|SV-KHNL-03]]                         | Pro – sử dụng thường xuyên       | RQ3          | 4                   | Entry           | 3                  | 300                | 01/10 – 31/10             | draft                  |
-| [[#5.4. SV-KHNL-04 — Quan tâm vật phẩm nhưng chưa mua\|SV-KHNL-04]]                         | Quan tâm vật phẩm nhưng chưa mua  | RQ4          | 2                   | Entry           | 2                  | 300                | 01/10 – 31/10             | draft                  |
-| [[#5.5. SV-KHNL-05 — Vào nhanh, thoát nhanh\|SV-KHNL-05]]                         | Vào nhanh – thoát nhanh nhiều lần | RQ5          | 3                   | Direct (micro)  | 3                  | 200                | 01/10 – 31/10             | draft                  |
+### Giai đoạn 1: Khảo sát Inline cố định ở cuối màn kết quả (Triển khai trước)
+
+| **Mã khảo sát** | **Tập người dùng** | **RQ** | **Ưu tiên** | **Kiểu**     | **Số câu** | **Cỡ mẫu** | **Thời gian chạy** | **Trạng thái** |
+| :----------------------- | :--------------------------- | :----------- | :------------------ | :------------------ | :----------------- | :----------------- | :------------------------- | :--------------------- |
+| [[#5.A.1. SV-KHNL-01-INLINE — Khảo sát Inline cho Tập Free\|SV-KHNL-01-INLINE]]                         | Người dùng Free           | RQ1          | 1                   | Entry (Inline Card) | 1 câu popup       | 500                | 01/10 – 31/10             | draft                  |
+| [[#5.A.2. SV-KHNL-02-INLINE — Khảo sát Inline cho Tập Pro\|SV-KHNL-02-INLINE]]                         | Người dùng Pro            | RQ2          | 1                   | Entry (Inline Card) | 1 câu popup       | 300                | 01/10 – 31/10             | draft                  |
+
+### Giai đoạn 2: Khảo sát Entry Teaser Card & Direct theo 5 tập người dùng (Triển khai mở rộng)
+
+| **Mã khảo sát** | **Tập người dùng**     | **RQ** | **Ưu tiên** | **Kiểu**      | **Số câu** | **Cỡ mẫu** | **Thời gian chạy** | **Trạng thái** |
+| :----------------------- | :------------------------------- | :----------- | :------------------ | :------------------- | :----------------- | :----------------- | :------------------------- | :--------------------- |
+| [[#5.B.1. SV-KHNL-01 — Free tính năng\|SV-KHNL-01]]                         | Free tính năng                 | RQ1          | 5                   | Entry (Teaser Card)  | 2                  | 500                | 01/10 – 31/10             | draft                  |
+| [[#5.B.2. SV-KHNL-02 — Pro trải nghiệm ban đầu\|SV-KHNL-02]]                         | Pro – trải nghiệm ban đầu   | RQ2          | **1**         | Entry (Teaser Card)  | 3                  | 300                | 01/10 – 31/10             | draft                  |
+| [[#5.B.3. SV-KHNL-03 — Pro sử dụng thường xuyên\|SV-KHNL-03]]                         | Pro – sử dụng thường xuyên | RQ3          | 4                   | Entry (Teaser Card)  | 3                  | 300                | 01/10 – 31/10             | draft                  |
+| [[#5.B.4. SV-KHNL-04 — Quan tâm vật phẩm nhưng chưa mua\|SV-KHNL-04]]                         | Quan tâm vật phẩm chưa mua   | RQ4          | 2                   | Entry (Teaser Card)  | 2                  | 300                | 01/10 – 31/10             | draft                  |
+| [[#5.B.5. SV-KHNL-05 — Vào nhanh, thoát nhanh\|SV-KHNL-05]]                         | Vào nhanh – thoát nhanh       | RQ5          | 3                   | Direct (Micro-sheet) | 2                  | 200                | 01/10 – 31/10             | draft                  |
 
 > Khi thay đổi thời gian chạy hoặc trạng thái, cập nhật đồng thời bảng đăng ký toàn app tại [[BPRD-002-KhaoSatInApp#10. Danh mục khảo sát (Survey Registry)]].
 
@@ -133,388 +145,146 @@ flowchart TD
 
 ---
 
-## 5. Chi tiết từng chiến dịch
-
-### 5.1. SV-KHNL-01 — Free tính năng
-
-**a. Thông tin chiến dịch**
-
-| Trường               | Giá trị                               |
-| :--------------------- | :-------------------------------------- |
-| Mã khảo sát         | `SV-KHNL-01` · version 1             |
-| Loại khảo sát       | Nhu cầu & rào cản nâng cấp         |
-| Câu hỏi nghiên cứu | RQ1                                     |
-| Ưu tiên              | 1                                       |
-| Đối tượng          | Free, gồm cả Guest chưa đăng nhập |
-| Cỡ mẫu mục tiêu    | 500                                     |
-| Thời gian chạy       | 01/10 – 31/10                          |
-| Trạng thái           | Todo                                    |
-
-**b. Tập người dùng**
-
-* **Thuộc tập khi**: là người dùng Free **và** có ≥ 2 lượt xem hợp lệ màn kết quả trong 30 ngày.
-* **Loại trừ**: phiên hiện tại đã mở màn mua hàng (IAP) — không chen khảo sát vào lúc người dùng đang cân nhắc mua.
-
-**c. Điều kiện hiển thị**
-
-| STT | Điều kiện                                               | Bật | Tham số                  | So với mặc định                                           |
-| :-- | :--------------------------------------------------------- | :--- | :------------------------ | :------------------------------------------------------------ |
-| 1   | Số lần sử dụng hợp lệ trong N ngày                  | ✅   | X = 2, N = 30 ngày       | X giảm 3 → 2: người Free ít lý do quay lại nhiều lần |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày          | ⬜   | —                        | Tắt: phần Free ngắn, điều kiện 1 đã đủ lọc         |
-| 3   | Thời gian ở màn kết quả trong phiên                  | ✅   | Z = 30 giây              | Tăng 20 → 30 giây: để người dùng xem hết phần Free  |
-| 4   | Chưa hoàn thành khảo sát/phiên bản                  | ✅   | —                        | Bắt buộc                                                    |
-| 5   | Thời gian chờ sau khi bỏ qua                            | ✅   | 14 ngày, tối đa 2 lần | Như mặc định                                              |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác         | ✅   | 1/ngày                   | Như mặc định                                              |
-| 7   | Khoảng cách tối thiểu từ khảo sát gần nhất        | ✅   | M = 30 ngày              | Như mặc định                                              |
-| 8   | Đối tượng & tập người dùng                         | ✅   | Free · Tập 1            | —                                                            |
-| 9   | Khoảng cách với khảo sát khác của cùng tính năng | ✅   | K = 90 ngày              | Như mặc định                                              |
-
-**d. Cách hiển thị & Luồng kích hoạt (Trigger Flows)**
-
-| Trường    | Giá trị                                                                                   |
-| :---------- | :------------------------------------------------------------------------------------------ |
-| Kiểu       | Entry                                                                                       |
-| Vị trí    | Cuối màn kết quả                                                                        |
-| Ràng buộc | Không che đè nút CTA mua hàng ghim đáy; Popup cảm ơn tự động đóng sau 4 giây |
-
-* **Chi tiết 2 điểm kích hoạt khảo sát:**
-  1. **Thẻ Đánh giá cuối màn (Bottom Feedback Card):** Nằm cố định ở cuối nội dung màn kết quả (ngay sau khối mở khóa luận giải). Hiển thị tiêu đề *"Bạn thấy nội dung vừa xem thế nào?"* kèm 2 nút: *"Phù hợp"* 👍 (đổi trạng thái chọn) và *"Chưa phù hợp"* 👎 (mở ngay Popup Micro-survey 1 câu `step-unfit`).
-  2. **Thẻ Entry Teaser Popup:** Hiển thị dạng Popup (Bottom Sheet) trượt từ đáy màn hình lên khi đủ điều kiện ở màn kết quả (hoặc bấm từ thẻ điểm vào khảo sát). Bấm nút CTA *"Chia sẻ ý kiến"* ➔ Mở luồng khảo sát chính 2 câu (`step-1` và `step-2`).
-
-**e. Thiết kế**
-
-- **Link demo thiết kế**: [KichHoatNangLuong_Result_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_KhaoSat.html)
-- **Ảnh minh họa**: Được tích hợp trong prototype đính kèm.
-
-**f. Bộ câu hỏi**
-
-##### Luồng 1: Micro-survey 1 câu (Kích hoạt khi bấm "Chưa phù hợp" ở thẻ đánh giá cuối màn)
-
-| STT | Câu hỏi                                               | Dạng                       | Đáp án / Giao diện                                                                                                                           | Bắt buộc | Mục đích                                                                  |
-| :-- | :------------------------------------------------------ | :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :--------------------------------------------------------------------------- |
-| 1   | **Điều gì khiến bạn thấy chưa phù hợp?** | Chọn nhiều (Multi-select) | • Nội dung còn chung chung• Có phần chưa đúng với tôi• Có phần khó hiểu• Chưa thấy đủ giá trị để xem phần chuyên sâu | Có        | Tìm nguyên nhân khiến nội dung Free chưa làm hài lòng người dùng |
-| —  | *Chia sẻ thêm của bạn*                            | Nhập văn bản (Textarea)  | Placeholder:`"Ví dụ: phần nào chưa đúng, còn chung chung hoặc bạn muốn biết thêm điều gì..."`                                  | Không     | Thu thập phản hồi chi tiết của người dùng                            |
-
-*Nút CTA*: **"Gửi phản hồi"** ➔ Mở Popup Cảm ơn (`step-thankyou`).
-
-##### Luồng 2: Khảo sát chính 2 câu (Kích hoạt từ thẻ Entry Teaser / Nút "Chia sẻ ý kiến")
-
-| STT | Câu hỏi                                                                      | Dạng                      | Đáp án / Giao diện                                                                                                                                                                                                    | Bắt buộc | Mục đích                                                                                  |
-| :-- | :----------------------------------------------------------------------------- | :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------- | :------------------------------------------------------------------------------------------- |
-| 1   | **1. Bạn quan tâm nhất đến nội dung nào?** *(Chọn tối đa 2)* | Chọn nhiều (Tối đa 2)  | • Điểm mạnh & điểm cần lưu ý trong lá số Bát tự• Biểu đồ Ngũ hành & chân dung năng lực• Dụng thần phù hợp với bạn• Linh vật & cách kích hoạt tài lộc, sự nghiệp, các mối quan hệ | Có        | Kỳ vọng nội dung — xác định chủ đề quan tâm nhất để tối ưu khối xem trước |
-| 2   | **2. Điều gì khiến bạn chưa muốn xem đầy đủ kết quả?**      | Chọn 1 (Single-select)    | • Chưa rõ phần đầy đủ có thêm gì hữu ích• Mức giá chưa phù hợp• Phần miễn phí hiện tại đã đủ với tôi• Tôi muốn xem thêm nhưng chưa phải lúc này                                   | Có        | Rào cản nâng cấp chính — tìm hiểu nguyên nhân chưa mở khóa                      |
-| —  | *Chia sẻ thêm*                                                             | Nhập văn bản (Textarea) | Placeholder:`"Điều gì khiến bạn còn phân vân?"`                                                                                                                                                                 | Không     | Thu thập các băn khoăn khác ngoài lựa chọn có sẵn                                  |
-
-*Nút CTA từng câu*:
-
-- **Câu 1**: *"Tiếp tục"* ➔ Chuyển sang Câu 2 (có icon mũi tên quay lại `<` góc trên bên trái header).
-- **Câu 2**: *"Gửi phản hồi"* ➔ Mở Popup Cảm ơn (`step-thankyou`).
-
-**g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
-
-| Tín hiệu                                                                           | Ngưỡng | Hành động gợi ý                                                                        |
-| :----------------------------------------------------------------------------------- | :------- | :------------------------------------------------------------------------------------------ |
-| Câu 1 Luồng 2 — Phần nội dung được chọn nhiều nhất                        | Top 1–2 | Đưa phần đó làm điểm nhấn nổi bật / trích đoạn xem trước ở khối bị khóa |
-| Luồng 1 chọn "Nội dung còn chung chung" hoặc "Có phần chưa đúng với tôi" | ≥ 30%   | Rà soát và tinh chỉnh nội dung luận giải Free cho sát thực tế lá số             |
-| Luồng 2 chọn "Chưa rõ phần đầy đủ có thêm gì hữu ích"                  | ≥ 30%   | Viết lại / tối ưu thông điệp giới thiệu & trích đoạn xem trước ở khối khóa |
-| Luồng 2 chọn "Mức giá chưa phù hợp"                                           | ≥ 35%   | Thử nghiệm giá hoặc thiết kế gói mua nhỏ/linh hoạt hơn                            |
-| Luồng 2 chọn "Phần miễn phí hiện tại đã đủ với tôi"                     | ≥ 25%   | Bổ sung thêm các giá trị độc quyền chỉ có ở bản mở khóa đầy đủ            |
+## 5. Đặc tả chi tiết các chiến dịch khảo sát
 
 ---
 
-### 5.2. SV-KHNL-02 — Pro trải nghiệm ban đầu
+### 5.A. Giai đoạn 1 — Khảo sát Inline cố định ở cuối màn kết quả (Triển khai trước)
 
-**a. Thông tin chiến dịch**
+#### 5.A.0. Cấu hình Khung Khảo Sát Inline tính năng KHNL
 
-| Trường               | Giá trị                   |
-| :--------------------- | :-------------------------- |
-| Mã khảo sát         | `SV-KHNL-02` · version 1 |
-| Loại khảo sát       | Trải nghiệm ban đầu     |
-| Câu hỏi nghiên cứu | RQ2                         |
-| Ưu tiên              | **1**                 |
-| Đối tượng          | Pro                         |
-| Cỡ mẫu mục tiêu    | 300                         |
-| Thời gian chạy       | 01/10 – 31/10              |
-| Trạng thái           | draft                       |
+Chiến dịch khảo sát Inline của Kích Hoạt Năng Lượng tuân thủ quy chuẩn khung giao diện và luồng nghiệp vụ **Luồng B (Inline Card)** tại [[BPRD-002-KhaoSatInApp#4.2.2. Luồng B: Khảo sát dạng Entry - Inline Card (Khối khảo sát cuối màn kết quả)|BPRD-002 mục 4.2.2]] và [[BPRD-002-KhaoSatInApp#6.2. Điểm vào khảo sát dạng Entry|BPRD-002 mục 6.2]].
 
-**b. Tập người dùng**
-
-* **Thuộc tập khi**: là người dùng Pro, đã mua **trong vòng 14 ngày** và có **1–3** lượt xem hợp lệ nội dung Premium kể từ khi mua.
-* **Ra khỏi tập**: quá 14 ngày kể từ khi mua, hoặc từ lượt xem thứ 4.
-
-**c. Điều kiện hiển thị**
-
-| STT | Điều kiện                                               | Bật | Tham số                 | So với mặc định                                                                        |
-| :-- | :--------------------------------------------------------- | :--- | :----------------------- | :----------------------------------------------------------------------------------------- |
-| 1   | Số lần sử dụng hợp lệ trong N ngày                  | ⬜   | —                       | Tắt: số lượt (1–3) đã nằm trong định nghĩa tập —*ngoại lệ cần PO duyệt* |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày          | ⬜   | —                       | Tắt: thay bằng Z = 90 giây ở điều kiện 3                                            |
-| 3   | Thời gian ở màn kết quả trong phiên                  | ✅   | Z = 90 giây             | Tăng 20 → 90 giây: chỉ hỏi người đã đọc hết lượt đầu                       |
-| 4   | Chưa hoàn thành khảo sát/phiên bản                  | ✅   | —                       | Bắt buộc                                                                                 |
-| 5   | Thời gian chờ sau khi bỏ qua                            | ✅   | 7 ngày, tối đa 1 lần | Rút ngắn vì cửa sổ của tập chỉ 14 ngày                                            |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác         | ✅   | 1/ngày                  | Như mặc định                                                                           |
-| 7   | Khoảng cách tối thiểu từ khảo sát gần nhất        | ✅   | M = 30 ngày             | Như mặc định                                                                           |
-| 8   | Đối tượng & tập người dùng                         | ✅   | Pro · Tập 2            | —                                                                                         |
-| 9   | Khoảng cách với khảo sát khác của cùng tính năng | ✅   | K = 90 ngày             | Như mặc định                                                                           |
-
-**d. Cách hiển thị**
-
-| Trường | Giá trị                                                                                                                           |
-| :------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| Kiểu    | Entry                                                                                                                               |
-| Vị trí | Cuối nội dung Premium (sau khối "Linh vật hỗ trợ")                                                                            |
-| Ghi chú | Được hiển thị ngay trong phiên vừa mua, vì vị trí cuối nội dung + Z = 90 giây đã đảm bảo người dùng đọc xong |
-
-**e. Thiết kế**
-
-- **Link thiết kế**: [KichHoatNangLuong_Result_Premium_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_Premium_KhaoSat.html)
-- **Ảnh minh họa**: (sẽ cập nhật)
-- **Yêu cầu riêng**:
-  - Giọng điệu lắng nghe trải nghiệm, tạo cảm giác được tôn trọng góp ý.
-  - Hiển thị dạng Popup Modal (Bottom Sheet) gồm 3 bước (`step-1`, `step-2`, `step-3`).
-  - Danh sách các lựa chọn ở câu 1 và câu 3 đồng bộ theo đúng các phần nội dung của kết quả Pro.
-
-**f. Bộ câu hỏi**
-
-| STT | Câu hỏi | Dạng | Đáp án | Bắt buộc | Mục đích |
-| :-- | :--- | :--- | :--- | :--- | :--- |
-| 1 | Phần nào trong kết quả hữu ích với bạn? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào thực sự hữu ích | Có | Xác định phần nội dung có giá trị nhất với Pro |
-| 2 | Phần nào trong kết quả bạn thấy khó hiểu? | Chọn nhiều | Điểm mạnh, điểm cần lưu ý · Biểu đồ Ngũ hành & phân tích năng lực của bạn · Dụng thần phù hợp · Linh vật & phương hướng kích hoạt · Các cách cân bằng ngũ hành khác: vòng tay, quả cầu, tháp văn xương, màu sắc hỗ trợ · Chưa có phần nào khó hiểu | Có | Nhận diện các phần khó tiếp thu để tối ưu giải thích |
-| 3 | Nội dung luận giải đúng với bạn ở mức nào? | Chọn 1 | Rất đúng · Khá đúng · Đúng một phần · Chưa đúng | Có | Đánh giá độ chính xác cảm nhận |
-| — | *(Chia sẻ thêm)* | Câu hỏi mở | Nhập ý kiến tự do | Không | Thu thập phản hồi chi tiết từ người dùng |
-
-**g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
-
-| Tín hiệu | Ngưỡng | Hành động gợi ý |
-| :--- | :--- | :--- |
-| Câu 1 — Tỷ lệ chọn các phần | ≥ 50% | Giữ nguyên và phát triển chuyên sâu cho phần đó |
-| Câu 2 — Một phần bị chọn khó hiểu | ≥ 25% | Đưa phần đó vào danh sách viết lại/bổ sung giải thích dễ hiểu hơn |
-| Câu 3 — "Chưa đúng" / "Đúng một phần" | ≥ 30% | Rà soát lại thuật ngữ và logic luận giải cùng chuyên gia |
-| Câu 1 & Câu 2 cùng chọn nhiều ở 1 phần | — | Phần hữu ích nhưng còn khó hiểu ➔ Ưu tiên số 1 để tối ưu diễn đạt |
+- **Tài liệu User Story**: [[Story-KhaoSatInline-KichHoatNangLuong]]
+- **Prototype Thiết kế UI**: 
+  - Màn Free: [KichHoatNangLuong_Result_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_KhaoSat.html)
+  - Màn Pro: [KichHoatNangLuong_Result_Premium_KhaoSat.html](file:///Users/dohuong/Desktop/Lich_Viet/prototype/KichHoatNangLuong_Result_Premium_KhaoSat.html)
+- **Vị trí hiển thị**: Đặt cố định ở cuối nội dung màn kết quả Kích Hoạt Năng Lượng (dưới khối kết quả / xem trước).
+- **Quy tắc hiển thị**: **LUÔN LUÔN HIỂN THỊ** đối với mọi người dùng khi xem màn kết quả.
+- **Ràng buộc tương tác nút đánh giá nhanh**:
+  1. Nhấp *Hữu ích* 👍 hoặc *Chưa hữu ích* 👎 ➔ Highlight nút & ghi nhận ngay phản hồi đánh giá nhanh lên máy chủ.
+  2. **Điều kiện mở Popup khảo sát chi tiết**: Tự động bung Popup khảo sát tương ứng theo cấu hình ở mục `5.A.1` (Tập Free) và `5.A.2` (Tập Pro). Nếu người dùng đã từng hoàn thành Popup khảo sát đó trước đó, hệ thống dừng ở bước ghi nhận đánh giá nhanh và **không hiển thị Popup**.
 
 ---
 
-### 5.3. SV-KHNL-03 — Pro sử dụng thường xuyên
+#### 5.A.1. SV-KHNL-01-INLINE — Khảo sát Inline cho Tập Free
 
-**a. Thông tin chiến dịch**
+- **Đối tượng**: Người dùng Free (chưa mở khóa Premium) khi xem màn kết quả.
+- **Khối Inline**: Dùng Khung Inline chuẩn ở mục `5.A.0`.
+- **Tiêu đề Popup Khảo sát (`popup_title`)**: `"Chia sẻ thêm ý kiến của bạn"`
+- **Cấu hình Popup khảo sát chi tiết**:
 
-| Trường               | Giá trị                   |
-| :--------------------- | :-------------------------- |
-| Mã khảo sát         | `SV-KHNL-03` · version 1 |
-| Loại khảo sát       | Sử dụng tính năng       |
-| Câu hỏi nghiên cứu | RQ3                         |
-| Ưu tiên              | 4                           |
-| Đối tượng          | Pro                         |
-| Cỡ mẫu mục tiêu    | 300                         |
-| Thời gian chạy       | 01/10 – 31/10              |
-| Trạng thái           | draft                       |
+##### Luồng khi chọn "Hữu ích" (Popup `step-useful`)
 
-**b. Tập người dùng**
+| STT | Câu hỏi                                            | Dạng        | Đáp án / Giao diện                                                                                                                                                                                                                                                              | Bắt buộc | Mục đích                                                                                               |
+| :-- | :--------------------------------------------------- | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :-------------------------------------------------------------------------------------------------------- |
+| 1   | **Bạn quan tâm nhất đến nội dung nào?** | Chọn nhiều | • Điểm mạnh & điểm cần lưu ý• Biểu đồ Ngũ hành & phân tích năng lực• Dụng thần phù hợp• Linh vật phù hợp• Ngày giờ & cách kích hoạt• Các cách cân bằng Ngũ hành khác*(Vòng tay, quả cầu, Tháp Văn Xương, màu sắc hỗ trợ...)* | Có        | Tìm hiểu nội dung thu hút nhất với người dùng Free để tối ưu khối trích đoạn xem trước |
 
-* **Thuộc tập khi**: là người dùng Pro, đã mua **≥ 7 ngày**, có **≥ 4** lượt xem hợp lệ nội dung Premium trong 30 ngày và tổng thời gian xem ≥ 5 phút.
+*Nút CTA*: **"Gửi phản hồi"** ➔ Gửi dữ liệu câu trả lời & hiển thị Popup Cảm ơn (`step-thankyou`).
 
-**c. Điều kiện hiển thị**
+##### Luồng khi chọn "Chưa hữu ích" (Popup `step-unfit`)
 
-| STT | Điều kiện                                               | Bật | Tham số                  | So với mặc định                                             |
-| :-- | :--------------------------------------------------------- | :--- | :------------------------ | :-------------------------------------------------------------- |
-| 1   | Số lần sử dụng hợp lệ trong N ngày                  | ✅   | X = 4, N = 30 ngày       | Tăng 3 → 4: phân biệt rõ với tập 2 (1–3 lượt)         |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày          | ✅   | Y = 5 phút               | Tăng 3 → 5 phút: loại người chỉ mở lướt nhiều lần   |
-| 3   | Thời gian ở màn kết quả trong phiên                  | ✅   | Z = 20 giây              | Như mặc định — người quay lại thường chỉ xem 1 phần |
-| 4   | Chưa hoàn thành khảo sát/phiên bản                  | ✅   | —                        | Bắt buộc                                                      |
-| 5   | Thời gian chờ sau khi bỏ qua                            | ✅   | 14 ngày, tối đa 2 lần | Như mặc định                                                |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác         | ✅   | 1/ngày                   | Như mặc định                                                |
-| 7   | Khoảng cách tối thiểu từ khảo sát gần nhất        | ✅   | M = 30 ngày              | Như mặc định                                                |
-| 8   | Đối tượng & tập người dùng                         | ✅   | Pro · Tập 3             | —                                                              |
-| 9   | Khoảng cách với khảo sát khác của cùng tính năng | ✅   | K = 90 ngày              | Như mặc định                                                |
+| STT | Câu hỏi                                               | Dạng              | Đáp án / Giao diện                                                                                                                           | Bắt buộc | Mục đích                                                         |
+| :-- | :------------------------------------------------------ | :----------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :------------------------------------------------------------------ |
+| 1   | **Điều gì khiến bạn thấy chưa hữu ích?** | Chọn nhiều       | • Nội dung còn chung chung• Có phần chưa đúng với tôi• Có phần khó hiểu• Chưa thấy đủ giá trị để xem phần chuyên sâu | Có        | Nhận diện rào cản & điểm chưa hài lòng của nội dung Free |
+| —  | *Chia sẻ thêm ý kiến của bạn*                   | Ô nhập văn bản | Placeholder:`"Ví dụ: phần nào chưa đúng, còn chung chung hoặc bạn muốn biết thêm điều gì..."`                                  | Không     | Thu thập ý kiến đóng góp chi tiết                            |
 
-**d. Cách hiển thị**
-
-| Trường | Giá trị            |
-| :------- | :------------------- |
-| Kiểu    | Entry                |
-| Vị trí | Cuối màn kết quả |
-
-**e. Thiết kế**
-
-- **Link thiết kế**: (sẽ cập nhật)
-- **Ảnh minh họa**: (sẽ cập nhật)
-- **Yêu cầu riêng**:
-  - Thang NPS 0–10 phải đọc được trên màn hẹp (cuộn ngang hoặc xuống 2 hàng), kèm nhãn 2 đầu thang.
-  - Câu 1 chọn tối đa 3 đáp án nên cần hiển thị số lựa chọn còn lại.
-  - Có chỉ báo tiến độ (1/5).
-
-**f. Bộ câu hỏi**
-
-| STT | Câu hỏi                                                                | Dạng                     | Đáp án                                                                                                                                                                                                                                                                               | Bắt buộc | Mục đích                                      |
-| :-- | :----------------------------------------------------------------------- | :------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :----------------------------------------------- |
-| 1   | Bạn thường xem lại luận giải để làm gì?                        | Chọn nhiều (tối đa 3) | Chọn màu sắc/phương hướng trước việc quan trọng · Tra cứu linh vật, vật phẩm phù hợp · Đọc lại điểm mạnh – điểm cần cân bằng để tự điều chỉnh · Tham khảo khi ra quyết định công việc/tài chính · Xem cho người thân · Khác (nhập) | Có        | Mục đích sử dụng                            |
-| 2   | Phần nào bạn xem lại nhiều nhất?                                   | Chọn 1                   | Chân dung năng lượng · Điểm mạnh nổi bật · Điểm cần cân bằng · Hướng phát triển phù hợp · Màu sắc phù hợp · Linh vật hỗ trợ                                                                                                                             | Có        | Phần giữ chân người dùng                   |
-| 3   | Bạn thường quay lại xem vào lúc nào?                              | Chọn 1                   | Hằng ngày, theo thói quen · Trước sự kiện/việc quan trọng · Khi gặp chuyện không thuận · Đầu tháng/đầu năm · Không cố định                                                                                                                                   | Có        | Thời điểm quay lại — cơ sở cho nhắc nhở |
-| 4   | Bạn sẵn sàng giới thiệu tính năng này cho bạn bè ở mức nào? | Thang 0–10 (NPS)         | 0 = Chắc chắn không … 10 = Chắc chắn có                                                                                                                                                                                                                                          | Có        | Mức độ hài lòng (NPS)                       |
-| 5   | Bạn muốn tính năng có thêm gì để dùng thường xuyên hơn?    | Câu hỏi mở             | —                                                                                                                                                                                                                                                                                      | Không     | Nhu cầu cải tiến                              |
-
-**g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
-
-| Tín hiệu                                             | Ngưỡng | Hành động gợi ý                                           |
-| :----------------------------------------------------- | :------- | :------------------------------------------------------------- |
-| Câu 3 "Trước sự kiện" + "Đầu tháng/đầu năm" | ≥ 40%   | Đề xuất tính năng nhắc nhở theo mốc thời gian         |
-| Câu 1 "Xem cho người thân"                         | ≥ 30%   | Cân nhắc gói lá số gia đình                             |
-| Câu 4 NPS                                             | < 20     | Đọc kỹ câu 5 của nhóm chấm 0–6 để tìm nguyên nhân |
+*Nút CTA*: **"Gửi phản hồi"** ➔ Gửi dữ liệu câu trả lời & hiển thị Popup Cảm ơn (`step-thankyou`).
 
 ---
 
-### 5.4. SV-KHNL-04 — Quan tâm vật phẩm nhưng chưa mua
+#### 5.A.2. SV-KHNL-02-INLINE — Khảo sát Inline cho Tập Pro
 
-**a. Thông tin chiến dịch**
+- **Đối tượng**: Người dùng Pro (đã mở khóa đầy đủ) khi xem màn kết quả Premium.
+- **Khối Inline**: Dùng Khung Inline chuẩn ở mục `5.A.0`.
+- **Tiêu đề Popup Khảo sát (`popup_title`)**: `"Chia sẻ thêm ý kiến của bạn"`
+- **Cấu hình Popup khảo sát chi tiết**:
 
-| Trường               | Giá trị                                     |
-| :--------------------- | :-------------------------------------------- |
-| Mã khảo sát         | `SV-KHNL-04` · version 1                   |
-| Loại khảo sát       | Rào cản mua vật phẩm                      |
-| Câu hỏi nghiên cứu | RQ4                                           |
-| Ưu tiên              | 2                                             |
-| Đối tượng          | Pro (vật phẩm nằm trong nội dung Premium) |
-| Cỡ mẫu mục tiêu    | 300                                           |
-| Thời gian chạy       | 01/10 – 31/10                                |
-| Trạng thái           | draft                                         |
+##### Luồng khi chọn "Hữu ích" (Popup gán nút Hữu ích)
 
-**b. Tập người dùng**
+| STT | Câu hỏi                                                 | Dạng        | Đáp án / Giao diện                                                                                                                                                                             | Bắt buộc | Mục đích                                                                    |
+| :-- | :-------------------------------------------------------- | :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :----------------------------------------------------------------------------- |
+| 1   | **Phần nào trong kết quả hữu ích với bạn?** | Chọn nhiều | • Điểm mạnh & điểm cần lưu ý• Biểu đồ Ngũ hành & phân tích năng lực• Dụng thần phù hợp• Linh vật & phương hướng kích hoạt• Các cách cân bằng Ngũ hành khác | Có        | Xác định nội dung đem lại giá trị cao nhất cho khách hàng trả phí |
 
-* **Thuộc tập khi**: đã xem chi tiết ≥ 1 linh vật/vật phẩm trong 14 ngày **và** chưa nhấn mua vật phẩm đó.
-* **Loại trừ**: lần xem chi tiết gần nhất cách chưa tới **24 giờ** — người dùng có thể vẫn đang cân nhắc.
+*Nút CTA*: **"Gửi phản hồi"** ➔ Gửi dữ liệu câu trả lời & hiển thị Popup Cảm ơn (`step-thankyou`).
 
-**c. Điều kiện hiển thị**
+##### Luồng khi chọn "Chưa hữu ích" (Popup gán nút Chưa hữu ích)
 
-| STT | Điều kiện                                               | Bật | Tham số                  | So với mặc định                                                                                    |
-| :-- | :--------------------------------------------------------- | :--- | :------------------------ | :----------------------------------------------------------------------------------------------------- |
-| 1   | Số lần sử dụng hợp lệ trong N ngày                  | ⬜   | —                        | Tắt: hành vi mở chi tiết vật phẩm đã thể hiện đủ quan tâm —*ngoại lệ cần PO duyệt* |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày          | ⬜   | —                        | Tắt: cùng lý do trên                                                                               |
-| 3   | Thời gian ở màn kết quả trong phiên                  | ✅   | Z = 20 giây              | Như mặc định                                                                                       |
-| 4   | Chưa hoàn thành khảo sát/phiên bản                  | ✅   | —                        | Bắt buộc                                                                                             |
-| 5   | Thời gian chờ sau khi bỏ qua                            | ✅   | 14 ngày, tối đa 1 lần | Giảm số lần bỏ qua 2 → 1: chủ đề mua bán dễ gây cảm giác bị chào hàng                  |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác         | ✅   | 1/ngày                   | Như mặc định                                                                                       |
-| 7   | Khoảng cách tối thiểu từ khảo sát gần nhất        | ✅   | M = 30 ngày              | Như mặc định                                                                                       |
-| 8   | Đối tượng & tập người dùng                         | ✅   | Pro · Tập 4             | —                                                                                                     |
-| 9   | Khoảng cách với khảo sát khác của cùng tính năng | ✅   | K = 90 ngày              | Như mặc định                                                                                       |
+| STT | Câu hỏi                                                              | Dạng              | Đáp án / Giao diện                                                                                                                                                                                   | Bắt buộc | Mục đích                                                            |
+| :-- | :--------------------------------------------------------------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :--------------------------------------------------------------------- |
+| 1   | **Phần nào trong kết quả bạn thấy chưa hữu ích?**       | Chọn nhiều       | • Điểm mạnh, điểm cần lưu ý• Biểu đồ Ngũ hành & phân tích năng lực• Dụng thần phù hợp• Linh vật & phương hướng kích hoạt• Các cách cân bằng Ngũ hành khác        | Có        | Nhận diện các phần nội dung Pro cần tối ưu                     |
+| 2   | **Những phần bạn vừa chọn chưa hữu ích ở điểm nào?** | Chọn nhiều       | - Nội dung còn chung chung<br />- Có thông tin chưa đúng với tôi<br />- Có phần dài hoặc khó hiểu<br />- Có chỗ khó xem hoặc khó sử dụng<br />- Chưa có nội dung tôi quan tâm | Có        | Phân tích chi tiết nguyên nhân người dùng Pro chưa hài lòng |
+| —  | Ý kiến thêm                                                          | Ô nhập văn bản | Placeholder:`"Bạn muốn nói rõ hơn hoặc góp ý thêm điều gì?"`                                                                                                                          | Không     | Thu thập góp ý chuyên sâu                                         |
 
-**d. Cách hiển thị**
-
-| Trường | Giá trị                              |
-| :------- | :------------------------------------- |
-| Kiểu    | Entry                                  |
-| Vị trí | Ngay dưới khối "Linh vật hỗ trợ" |
-
-**e. Thiết kế**
-
-- **Link thiết kế**: (sẽ cập nhật)
-- **Ảnh minh họa**: (sẽ cập nhật)
-- **Yêu cầu riêng**:
-  - Thẻ Entry phải khác rõ với thẻ sản phẩm phía trên để không bị hiểu là quảng cáo.
-  - Nếu khả thi, nhắc lại tên/ảnh vật phẩm người dùng đã xem để họ nhớ ngữ cảnh.
-  - Câu hỏi về giá (câu 3) dùng đúng đơn vị và khoảng giá của danh mục vật phẩm hiện tại.
-
-**f. Bộ câu hỏi**
-
-| STT | Câu hỏi                                                           | Dạng                     | Đáp án                                                                                                                                                                                                                           | Bắt buộc | Mục đích                          |
-| :-- | :------------------------------------------------------------------ | :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :----------------------------------- |
-| 1   | Điều gì khiến bạn chưa mua vật phẩm đã xem?               | Chọn nhiều (tối đa 2) | Giá cao · Chưa thấy cần thiết · Chưa tin vào hiệu quả · Chưa tin chất lượng/nơi bán · Chưa rõ cách dùng, cách bài trí · Chưa đúng thời điểm · Muốn mua ở nơi khác · Khác (nhập)            | Có        | Rào cản mua chính                 |
-| 2   | Thông tin nào giúp bạn dễ quyết định hơn?                  | Chọn nhiều (tối đa 2) | Giải thích vì sao vật phẩm hợp với bản mệnh · Hướng dẫn cách dùng, cách đặt · Đánh giá từ người đã mua · Chứng nhận nguồn gốc, chất liệu · Ưu đãi/giá tốt hơn · Mua trực tiếp trong app | Có        | Hướng cải thiện trang vật phẩm |
-| 3   | Bạn sẵn sàng chi bao nhiêu cho một vật phẩm phong thủy?     | Chọn 1                   | Dưới 200.000đ · 200.000 – 500.000đ · 500.000đ – 1 triệu · Trên 1 triệu · Chưa có ý định mua                                                                                                                      | Có        | Khoảng giá chấp nhận được     |
-| 4   | Bạn có góp ý gì thêm về phần gợi ý linh vật, vật phẩm? | Câu hỏi mở             | —                                                                                                                                                                                                                                  | Không     | Góp ý chi tiết                    |
-
-**g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
-
-| Tín hiệu                                                     | Ngưỡng | Hành động gợi ý                                 |
-| :------------------------------------------------------------- | :------- | :--------------------------------------------------- |
-| Câu 1 "Giá cao" và câu 3 phần lớn dưới giá hiện tại | ≥ 40%   | Bổ sung vật phẩm ở khoảng giá thấp hơn       |
-| Câu 1 "Chưa tin chất lượng/nơi bán"                     | ≥ 25%   | Rà soát đối tác, thêm chứng nhận/đánh giá |
-| Câu 2 "Mua trực tiếp trong app"                             | ≥ 30%   | Đưa mua in-app vào cân nhắc roadmap             |
+*Luồng hiển thị*: Popup chia thành 2 bước câu hỏi chuyển trang lần lượt:
+- *Chuyển bước (Bước 1 ➔ Bước 2)*: Nút **"Tiếp tục"** tại Bước 1 (Câu 1).
+- *Hoàn tất*: Nút **"Gửi phản hồi"** tại Bước 2 (Câu 2 & Ý kiến đóng góp) ➔ Gửi dữ liệu câu trả lời & hiển thị Popup Cảm ơn (`step-thankyou`).
 
 ---
 
-### 5.5. SV-KHNL-05 — Vào nhanh, thoát nhanh
+### 5.B. Giai đoạn 2 — Khảo sát Entry Teaser Card & Direct theo 5 tập người dùng (Triển khai mở rộng)
 
-**a. Thông tin chiến dịch**
+#### 5.B.1. SV-KHNL-01 — Free tính năng (Entry Teaser Card)
 
-| Trường               | Giá trị                                  |
-| :--------------------- | :----------------------------------------- |
-| Mã khảo sát         | `SV-KHNL-05` · version 1                |
-| Loại khảo sát       | Lý do thoát / chưa tiếp tục sử dụng |
-| Câu hỏi nghiên cứu | RQ5                                        |
-| Ưu tiên              | 3                                          |
-| Đối tượng          | Free + Pro                                 |
-| Cỡ mẫu mục tiêu    | 200                                        |
-| Thời gian chạy       | 01/10 – 31/10                             |
-| Trạng thái           | draft                                      |
+- **Kiểu hiển thị**: Entry Teaser Card (Popup trượt nhỏ tự mở từ dưới lên sau Z = 30s)
+- **Tập người dùng**: Free tính năng, có ≥ 2 lượt xem hợp lệ trong 30 ngày.
+- **Bộ câu hỏi (2 câu)**:
+  - **Câu 1**: *1. Bạn quan tâm nhất đến nội dung nào? (Chọn tối đa 2)* ➔ [Điểm mạnh/lưu ý, Biểu đồ Ngũ hành, Dụng thần phù hợp, Linh vật & cách kích hoạt]
+  - **Câu 2**: *2. Điều gì khiến bạn chưa muốn xem đầy đủ kết quả?* ➔ [Chưa rõ phần đầy đủ có gì hữu ích, Mức giá chưa phù hợp, Phần miễn phí đã đủ, Muốn xem nhưng chưa phải lúc này] + Ô nhập chia sẻ thêm.
 
-**b. Tập người dùng**
+#### 5.B.2. SV-KHNL-02 — Pro trải nghiệm ban đầu (Entry Teaser Card)
 
-* **Thuộc tập khi**: có ≥ 3 phiên thoát nhanh trong 14 ngày **và** không có lượt xem hợp lệ nào trong 14 ngày đó.
-* **Giới hạn phạm vi**: người thoát ngay ở màn Intro/Nhập liệu chưa tới màn kết quả nên không được khảo sát (màn khác nằm ngoài phạm vi v1.0 của BPRD-002).
+- **Kiểu hiển thị**: Entry Teaser Card (sau Z = 90s khi xem nội dung Premium)
+- **Tập người dùng**: Pro đã mua ≤ 14 ngày và có 1–3 lượt xem hợp lệ.
+- **Bộ câu hỏi (3 câu)**:
+  - **Câu 1**: *Phần nào trong kết quả hữu ích với bạn?*
+  - **Câu 2**: *Phần nào trong kết quả bạn thấy khó hiểu?*
+  - **Câu 3**: *Nội dung luận giải đúng với bạn ở mức nào?* (Rất đúng / Khá đúng / Đúng 1 phần / Chưa đúng) + Ô nhập ý kiến tự do.
 
-**c. Điều kiện hiển thị**
+#### 5.B.3. SV-KHNL-03 — Pro sử dụng thường xuyên (Entry Teaser Card & NPS)
 
-| STT | Điều kiện                                               | Bật | Tham số                  | So với mặc định                                                                       |
-| :-- | :--------------------------------------------------------- | :--- | :------------------------ | :---------------------------------------------------------------------------------------- |
-| 1   | Số lần sử dụng hợp lệ trong N ngày                  | ⬜   | —                        | Tắt: chủ đích hỏi chính nhóm chưa đọc nội dung —*ngoại lệ cần PO duyệt* |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày          | ⬜   | —                        | Tắt: cùng lý do trên                                                                  |
-| 3   | Thời gian ở màn kết quả trong phiên                  | ✅   | Z = 5 giây               | Giảm 20 → 5 giây: phải hiện trước ngưỡng thoát 10 giây của tập               |
-| 4   | Chưa hoàn thành khảo sát/phiên bản                  | ✅   | —                        | Bắt buộc                                                                                |
-| 5   | Thời gian chờ sau khi bỏ qua                            | ✅   | 30 ngày, tối đa 1 lần | Giãn 14 → 30 ngày, giảm 2 → 1 lần: nhóm này dễ bị làm phiền nhất             |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác         | ✅   | 1/ngày                   | Như mặc định                                                                          |
-| 7   | Khoảng cách tối thiểu từ khảo sát gần nhất        | ✅   | M = 30 ngày              | Như mặc định                                                                          |
-| 8   | Đối tượng & tập người dùng                         | ✅   | Free + Pro · Tập 5      | —                                                                                        |
-| 9   | Khoảng cách với khảo sát khác của cùng tính năng | ✅   | K = 90 ngày              | Như mặc định                                                                          |
+- **Kiểu hiển thị**: Entry Teaser Card
+- **Tập người dùng**: Pro đã mua ≥ 7 ngày và có ≥ 4 lượt xem hợp lệ trong 30 ngày (tổng thời gian ≥ 5 phút).
+- **Bộ câu hỏi (5 câu & Thang NPS)**:
+  - **Câu 1**: *Bạn thường xem lại luận giải để làm gì?* (Chọn tối đa 3)
+  - **Câu 2**: *Phần nào bạn xem lại nhiều nhất?*
+  - **Câu 3**: *Bạn thường quay lại xem vào lúc nào?*
+  - **Câu 4**: *Bạn sẵn sàng giới thiệu tính năng này cho bạn bè ở mức nào?* (Thang 0–10 NPS)
+  - **Câu 5**: *Bạn muốn tính năng có thêm gì để dùng thường xuyên hơn?* (Câu hỏi mở).
 
-**d. Cách hiển thị**
+#### 5.B.4. SV-KHNL-04 — Quan tâm vật phẩm nhưng chưa mua (Entry Teaser Card)
 
-| Trường         | Giá trị                                                                                          |
-| :--------------- | :------------------------------------------------------------------------------------------------- |
-| Kiểu            | **Direct** — micro-survey (bottom sheet)                                                    |
-| Thời điểm     | Lượt vào màn kết quả**kế tiếp** sau khi thuộc tập, sau 5 giây                     |
-| Lý do           | Nhóm này không cuộn tới cuối màn nên Entry không tiếp cận được                       |
-| Theo dõi riêng | S04 (tỷ lệ đóng ngay) dự kiến cao hơn các chiến dịch khác, không so chung ngưỡng 30% |
+- **Kiểu hiển thị**: Entry Teaser Card (Ngay dưới khối Linh vật hỗ trợ)
+- **Tập người dùng**: Pro xem chi tiết ≥ 1 vật phẩm trong 14 ngày nhưng chưa mua.
+- **Bộ câu hỏi (4 câu)**:
+  - **Câu 1**: *Điều gì khiến bạn chưa mua vật phẩm đã xem?* (Giá cao, Chưa tin chất lượng, Chưa rõ cách dùng, v.v.)
+  - **Câu 2**: *Thông tin nào giúp bạn dễ quyết định hơn?* (Giải thích vì sao hợp bản mệnh, Đánh giá người đã mua, v.v.)
+  - **Câu 3**: *Bạn sẵn sàng chi bao nhiêu cho một vật phẩm phong thủy?* (Dưới 200k, 200k-500k, 500k-1tr, Trên 1tr)
+  - **Câu 4**: *Góp ý thêm về gợi ý linh vật, vật phẩm.* (Câu hỏi mở).
 
-**e. Thiết kế**
+#### 5.B.5. SV-KHNL-05 — Vào nhanh, thoát nhanh (Direct Bottom Sheet Micro-survey)
 
-- **Link thiết kế**: (sẽ cập nhật)
-- **Ảnh minh họa**: (sẽ cập nhật)
-- **Yêu cầu riêng**:
-  - Bottom sheet chiếm tối đa **1/2 chiều cao màn hình**, không che phần nội dung chính đang đọc.
-  - Nút đóng rõ ràng, vuốt xuống cũng đóng được.
-  - Chỉ 1 câu bắt buộc, hiện toàn bộ đáp án không cần cuộn.
-  - Câu mở (câu 2) chỉ hiện sau khi chọn xong câu 1.
-
-**f. Bộ câu hỏi**
-
-| STT | Câu hỏi                                                  | Dạng         | Đáp án                                                                                                                                                                                                         | Bắt buộc | Mục đích                        |
-| :-- | :--------------------------------------------------------- | :------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------- | :--------------------------------- |
-| 1   | Điều gì khiến bạn thường rời màn này khá nhanh? | Chọn 1       | Tải chậm hoặc bị lỗi · Nội dung khó hiểu · Không đúng điều tôi đang tìm · Tôi chỉ cần xem nhanh một thông tin · Nội dung bị khóa, phải trả phí · Tôi vào nhầm · Khác (nhập) | Có        | Nguyên nhân thoát               |
-| 2   | Bạn mong đợi thấy điều gì khi mở tính năng này? | Câu hỏi mở | —                                                                                                                                                                                                                | Không     | Kỳ vọng chưa được đáp ứng |
-
-**g. Đọc kết quả & ngưỡng hành động** *(đề xuất)*
-
-| Tín hiệu                                 | Ngưỡng | Hành động gợi ý                                                               |
-| :----------------------------------------- | :------- | :--------------------------------------------------------------------------------- |
-| "Tải chậm hoặc bị lỗi"                | ≥ 20%   | Đối chiếu chỉ số kỹ thuật (BPRD-001 mục 2.2.3), ưu tiên tối ưu tải    |
-| "Không đúng điều tôi đang tìm"     | ≥ 30%   | Viết lại thông điệp màn Intro cho khớp nội dung thực tế                  |
-| "Tôi chỉ cần xem nhanh một thông tin" | ≥ 40%   | Hành vi bình thường, không phải vấn đề — cân nhắc tóm tắt đầu màn |
+- **Kiểu hiển thị**: Direct Micro-sheet (Bung tự động sau 5s ở phiên kế tiếp)
+- **Tập người dùng**: Có ≥ 3 phiên thoát nhanh (< 10s) trong 14 ngày.
+- **Bộ câu hỏi (2 câu)**:
+  - **Câu 1**: *Điều gì khiến bạn thường rời màn này khá nhanh?* (Tải chậm, Nội dung khó hiểu, Không đúng điều tìm kiếm, v.v.)
+  - **Câu 2**: *Bạn mong đợi thấy điều gì khi mở tính năng này?* (Câu hỏi mở).
 
 ---
 
 ## 6. Ma trận so sánh điều kiện (tra cứu nhanh)
 
-| STT | Điều kiện                                               | SV-KHNL-01            | SV-KHNL-02           | SV-KHNL-03            | SV-KHNL-04            | SV-KHNL-05            |
-| :-- | :--------------------------------------------------------- | :-------------------- | :------------------- | :-------------------- | :-------------------- | :-------------------- |
-| 1   | Số lần sử dụng hợp lệ trong N ngày                  | ✅ X = 2, N = 30      | ⬜                   | ✅ X = 4, N = 30      | ⬜                    | ⬜                    |
-| 2   | Tổng thời gian xem màn kết quả trong N ngày          | ⬜                    | ⬜                   | ✅ Y = 5 phút        | ⬜                    | ⬜                    |
-| 3   | Thời gian ở màn kết quả trong phiên                  | ✅ 30 giây           | ✅ 90 giây          | ✅ 20 giây           | ✅ 20 giây           | ✅ 5 giây            |
-| 4   | Chưa hoàn thành khảo sát/phiên bản                  | ✅                    | ✅                   | ✅                    | ✅                    | ✅                    |
-| 5   | Thời gian chờ sau khi bỏ qua                            | ✅ 14 ngày · 2 lần | ✅ 7 ngày · 1 lần | ✅ 14 ngày · 2 lần | ✅ 14 ngày · 1 lần | ✅ 30 ngày · 1 lần |
-| 6   | Trong ngày chưa hiển thị khảo sát nào khác         | ✅ 1/ngày            | ✅ 1/ngày           | ✅ 1/ngày            | ✅ 1/ngày            | ✅ 1/ngày            |
-| 7   | Khoảng cách tối thiểu từ khảo sát gần nhất        | ✅ 30 ngày           | ✅ 30 ngày          | ✅ 30 ngày           | ✅ 30 ngày           | ✅ 30 ngày           |
-| 8   | Đối tượng & tập người dùng                         | Free · Tập 1        | Pro · Tập 2        | Pro · Tập 3         | Pro · Tập 4         | Free + Pro · Tập 5  |
-| 9   | Khoảng cách với khảo sát khác của cùng tính năng | ✅ K = 90 ngày       | ✅ K = 90 ngày      | ✅ K = 90 ngày       | ✅ K = 90 ngày       | ✅ K = 90 ngày       |
-| —  | Ngoại lệ bộ điều kiện tối thiểu                    | Không                | **Có**        | Không                | **Có**         | **Có**         |
+| STT | Điều kiện                            | SV-KHNL-01-INLINE / 02-INLINE      | SV-KHNL-01 (Teaser) | SV-KHNL-02 (Teaser)    | SV-KHNL-03 (Teaser) | SV-KHNL-04 (Teaser) | SV-KHNL-05 (Direct)  |
+| :-- | :-------------------------------------- | :--------------------------------- | :------------------ | :--------------------- | :------------------ | :------------------ | :------------------- |
+| 1   | Số lần sử dụng hợp lệ             | Mặc định                        | X = 2 (30 ngày)    | 1–3 lượt (14 ngày) | X = 4 (30 ngày)    | ⬜                  | ⬜                   |
+| 2   | Tổng thời gian xem màn kết quả     | Mặc định                        | ⬜                  | ⬜                     | Y = 5 phút         | ⬜                  | ⬜                   |
+| 3   | Thời gian ở màn kết quả phiên     | 0s (Khối Inline luôn hiển thị) | Z = 30s             | Z = 90s                | Z = 20s             | Z = 20s             | Z = 5s               |
+| 4   | Chưa hoàn thành khảo sát           | ✅ Bắt buộc                      | ✅ Bắt buộc       | ✅ Bắt buộc          | ✅ Bắt buộc       | ✅ Bắt buộc       | ✅ Bắt buộc        |
+| 5   | Thời gian chờ sau bỏ qua             | 14 ngày · 2 lần                 | 14 ngày · 2 lần  | 7 ngày · 1 lần      | 14 ngày · 2 lần  | 14 ngày · 1 lần  | 30 ngày · 1 lần   |
+| 6   | Trong ngày chưa xem survey khác      | ✅ 1/ngày                         | ✅ 1/ngày          | ✅ 1/ngày             | ✅ 1/ngày          | ✅ 1/ngày          | ✅ 1/ngày           |
+| 7   | Khoảng cách survey gần nhất         | ✅ 30 ngày                        | ✅ 30 ngày         | ✅ 30 ngày            | ✅ 30 ngày         | ✅ 30 ngày         | ✅ 30 ngày          |
+| 8   | Đối tượng & tập người dùng      | Free / Pro                         | Free · Tập 1      | Pro · Tập 2          | Pro · Tập 3       | Pro · Tập 4       | Free + Pro · Tập 5 |
+| 9   | Khoảng cách với survey cùng feature | ✅ K = 90 ngày                    | ✅ K = 90 ngày     | ✅ K = 90 ngày        | ✅ K = 90 ngày     | ✅ K = 90 ngày     | ✅ K = 90 ngày      |
 
 ---
 

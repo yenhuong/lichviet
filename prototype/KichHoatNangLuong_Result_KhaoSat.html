@@ -611,20 +611,22 @@
         /* Result Bottom Feedback Options */
         .feedback-option-btn {
             flex: 1;
+            height: 46px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            background: #F9FAFB;
-            border: 1px solid #E5E7EB;
-            color: #374151;
-            font-size: 14px;
+            gap: 8px;
+            background: #FFFFFF;
+            border: 1.5px solid #D1D5DB;
+            color: #1F2937;
+            font-size: 14.5px;
             font-weight: 600;
-            padding: 10px 8px;
+            padding: 0 12px;
             border-radius: 12px;
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
         .feedback-option-btn svg {
             flex-shrink: 0;
@@ -1439,23 +1441,47 @@
                 </div>
 
                 <!-- ===== KHỐI ĐÁNH GIÁ CỐ ĐỊNH Ở CUỐI MÀN HÌNH KẾT QUẢ ===== -->
-                <div class="result-feedback-fixed-card" style="margin: 26px 16px 110px 16px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 16px; padding: 18px 16px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); text-align: center; position: relative; z-index: 1;">
-                    <div style="font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 14px; line-height: 1.4;">
-                        Bạn thấy nội dung vừa xem thế nào?
+                <div class="result-feedback-fixed-card" style="margin: 26px 16px 110px 16px; background: #FAF6EE; border: 1px solid #EBE2D3; border-radius: 20px; padding: 22px 18px 20px 18px; box-shadow: 0 3px 12px rgba(27, 67, 50, 0.05); text-align: center; position: relative; z-index: 1; overflow: hidden;">
+                    <!-- Họa tiết chìm nét mây & chấm sáng nhẹ (opacity 4%, chỉ giới hạn ở vùng trên) -->
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 110px; pointer-events: none; overflow: hidden; opacity: 0.045; z-index: 0;">
+                        <svg width="100%" height="100%" viewBox="0 0 360 110" fill="none" preserveAspectRatio="none">
+                            <path d="M -20 35 C 20 18, 60 45, 90 28 C 120 10, 150 35, 180 22" stroke="#B67F30" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M -10 60 C 30 45, 70 70, 110 50 C 140 35, 170 60, 200 45" stroke="#B67F30" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M 380 30 C 340 12, 300 40, 270 22 C 240 8, 210 30, 180 18" stroke="#B67F30" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M 370 55 C 330 40, 290 65, 250 45 C 220 30, 190 55, 160 40" stroke="#B67F30" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="45" cy="22" r="2" fill="#B67F30"/>
+                            <circle cx="80" cy="65" r="1.5" fill="#B67F30"/>
+                            <circle cx="130" cy="16" r="2.5" fill="#B67F30"/>
+                            <circle cx="230" cy="18" r="2.5" fill="#B67F30"/>
+                            <circle cx="280" cy="60" r="1.5" fill="#B67F30"/>
+                            <circle cx="315" cy="26" r="2" fill="#B67F30"/>
+                            <path d="M 60 14 Q 60 20 66 20 Q 60 20 60 26 Q 60 20 54 20 Q 60 20 60 14 Z" fill="#B67F30"/>
+                            <path d="M 300 16 Q 300 22 306 22 Q 300 22 300 28 Q 300 22 294 22 Q 300 22 300 16 Z" fill="#B67F30"/>
+                        </svg>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+
+                    <div style="position: relative; z-index: 1; display: flex; justify-content: center; margin-bottom: 6px;">
+                        <img src="clipboard_sparkles_transparent.png" alt="Khảo sát ý kiến" style="width: 98px; height: 98px; object-fit: contain; filter: drop-shadow(0 6px 14px rgba(182, 127, 48, 0.16));">
+                    </div>
+                    <div style="font-size: 17px; font-weight: 700; color: #174F38; margin-bottom: 14px; line-height: 1.4;">
+                        Bạn thấy kết quả vừa xem thế nào?
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                         <button class="feedback-option-btn" onclick="selectFeedbackOption(this, 'co')">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
                             </svg>
-                            <span>Phù hợp</span>
+                            <span>Hữu ích</span>
                         </button>
                         <button class="feedback-option-btn" onclick="selectFeedbackOption(this, 'chua-phu-hop')">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/>
                             </svg>
-                            <span>Chưa phù hợp</span>
+                            <span>Chưa hữu ích</span>
                         </button>
+                    </div>
+                    <div style="font-size: 14px; color: #4B5563; margin-top: 14px; line-height: 1.45; font-weight: 600;">
+                        Mỗi chia sẻ giúp Lịch Việt mang đến trải nghiệm tốt hơn.
                     </div>
                 </div>
             </div>
@@ -1483,7 +1509,7 @@
                             </svg>
                         </button>
                         <div style="text-align: center; width: 100%; padding: 0 36px;">
-                            <h3 class="popup-title-line1" id="modal-title-text" style="font-size: 19px; font-weight: 800; color: #111827; margin: 0; line-height: 1.4;">Chia sẻ của bạn<br>giúp trải nghiệm tốt hơn</h3>
+                            <h3 class="popup-title-line1" id="modal-title-text" style="font-size: 19px; font-weight: 800; color: #111827; margin: 0; line-height: 1.4;">Chia sẻ thêm ý kiến của bạn</h3>
                         </div>
                         <button class="survey-close-btn-clean" onclick="closeSurveyPopup()" style="position: absolute; right: 0; top: -4px; background: none; border: none; cursor: pointer; padding: 4px;">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F2937" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1513,10 +1539,10 @@
                             <!-- Content Text -->
                             <div style="flex: 1; min-width: 0; text-align: left; padding-right: 16px;">
                                 <h3 style="font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 19px; font-weight: 800; color: #1E3A8A; line-height: 1.28; margin: 0 0 8px 0; letter-spacing: -0.3px;">
-                                    Bạn còn băn khoăn điều gì<br>về kết quả này?
+                                    Điều gì bạn quan tâm nhất?
                                 </h3>
                                 <p style="font-size: 15px; font-weight: 500; color: #475569; line-height: 1.42; margin: 0;">
-                                    Chia sẻ để Lịch Việt hiểu bạn cần gì và mang đến trải nghiệm tốt hơn.
+                                    Chia sẻ để Lịch Việt hiểu điều bạn cần và mang đến trải nghiệm tốt hơn.
                                 </p>
                             </div>
                         </div>
@@ -1534,7 +1560,7 @@
                     <div class="survey-step" id="step-unfit">
                         <div class="survey-step-content">
                             <div class="question-label" style="font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 16px; line-height: 1.4;">
-                                Điều gì khiến bạn thấy chưa phù hợp?
+                                Điều gì khiến bạn thấy chưa hữu ích?
                             </div>
                             
                             <div class="screenshot-option-list">
@@ -1545,7 +1571,7 @@
                                     </div>
                                 </div>
                                 <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Có phần chưa đúng với tôi</span>
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Có thông tin chưa đúng với tôi</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
@@ -1557,7 +1583,25 @@
                                     </div>
                                 </div>
                                 <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
-                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Chưa thấy đủ giá trị để xem phần chuyên sâu</span>
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Nội dung hơi dài</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Khó tìm thông tin mình cần</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Có chỗ chưa dễ sử dụng</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Chưa có nội dung tôi quan tâm</span>
                                     <div class="checkbox-square">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
                                     </div>
@@ -1566,13 +1610,71 @@
 
                             <!-- Phần Chia sẻ thêm với Icon bút chì -->
                             <div class="other-opinion-section" style="margin-top: 18px;">
-                                <div class="other-opinion-label" style="font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px;">Chia sẻ thêm của bạn</div>
+                                <div class="other-opinion-label" style="font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px;">Ý kiến khác</div>
                                 <div class="other-opinion-input-box" style="display: flex; align-items: flex-start; gap: 10px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px 14px; min-height: 84px;">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
                                         <path d="M12 20h9"/>
                                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                                     </svg>
                                     <textarea class="other-opinion-input" id="q-unfit-other-text" placeholder="Ví dụ: phần nào chưa đúng, còn chung chung hoặc bạn muốn biết thêm điều gì..." style="flex: 1; border: none; background: transparent; font-family: inherit; font-size: 14.5px; color: #111827; outline: none; resize: none; line-height: 1.4; padding: 0; margin: 0;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="survey-step-footer">
+                            <button class="btn-primary-blue" onclick="submitSurvey()" style="width: 100%; height: 50px; margin-top: 0;">
+                                Gửi phản hồi
+                            </button>
+                            <div class="ios-home-bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- STEP USEFUL: KHẢO SÁT KHI BẤM HỮU ÍCH (1 CÂU) -->
+                    <div class="survey-step" id="step-useful">
+                        <div class="survey-step-content">
+                            <div class="question-label" style="font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 16px; line-height: 1.4;">
+                                Bạn quan tâm nhất đến nội dung nào?
+                            </div>
+                            
+                            <div class="screenshot-option-list">
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Điểm mạnh & điểm cần lưu ý</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Biểu đồ Ngũ hành & phân tích năng lực</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Dụng thần phù hợp</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Linh vật phù hợp</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)">
+                                    <span class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Ngày giờ & cách kích hoạt</span>
+                                    <div class="checkbox-square">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
+                                </div>
+                                <div class="screenshot-option-item" onclick="toggleMultiSelect(this)" style="align-items: flex-start; padding: 12px 0;">
+                                    <div style="flex: 1; padding-right: 10px;">
+                                        <div class="option-text-clean" style="font-size: 15px; line-height: 1.35;">Các cách cân bằng Ngũ hành khác</div>
+                                        <div style="font-size: 13px; font-weight: 400; color: #6B7280; margin-top: 3px; line-height: 1.35;">Vòng tay, quả cầu, Tháp Văn Xương, màu sắc hỗ trợ...</div>
+                                    </div>
+                                    <div class="checkbox-square" style="margin-top: 2px;">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1766,6 +1868,8 @@
             
             if (triggerType === 'unfit') {
                 updateStepUI('unfit');
+            } else if (triggerType === 'useful') {
+                updateStepUI('useful');
             } else if (triggerType === 'direct') {
                 startSurveyFresh();
             } else {
@@ -1846,7 +1950,17 @@
                 if (dragHandle) dragHandle.style.display = 'none';
                 if (progressWrapper) progressWrapper.style.display = 'none';
                 if (backBtn) backBtn.style.display = 'none';
-                document.getElementById('modal-title-text').innerHTML = 'Chia sẻ của bạn<br>giúp trải nghiệm tốt hơn';
+                document.getElementById('modal-title-text').innerHTML = 'Chia sẻ thêm ý kiến của bạn';
+                return;
+            }
+
+            if (stepNum === 'useful') {
+                document.getElementById('step-useful').classList.add('active');
+                if (header) header.style.display = 'flex';
+                if (dragHandle) dragHandle.style.display = 'none';
+                if (progressWrapper) progressWrapper.style.display = 'none';
+                if (backBtn) backBtn.style.display = 'none';
+                document.getElementById('modal-title-text').innerHTML = 'Chia sẻ thêm ý kiến của bạn';
                 return;
             }
 
@@ -1855,7 +1969,7 @@
             if (dragHandle) dragHandle.style.display = 'none';
             if (progressWrapper) progressWrapper.style.display = 'none';
             if (backBtn) backBtn.style.display = (stepNum === 2) ? 'flex' : 'none';
-            document.getElementById('modal-title-text').innerHTML = 'Chia sẻ của bạn<br>giúp trải nghiệm tốt hơn';
+            document.getElementById('modal-title-text').innerHTML = 'Chia sẻ thêm ý kiến của bạn';
 
             document.getElementById('step-' + stepNum).classList.add('active');
         }
@@ -1886,6 +2000,10 @@
             if (value === 'chua-phu-hop') {
                 setTimeout(function() {
                     openSurveyPopup('unfit');
+                }, 250);
+            } else if (value === 'co') {
+                setTimeout(function() {
+                    openSurveyPopup('useful');
                 }, 250);
             }
         }

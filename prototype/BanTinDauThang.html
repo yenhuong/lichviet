@@ -1682,16 +1682,199 @@
             margin-bottom: 20px;
         }
 
-        .modal-close-btn {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            padding: 10px 24px;
+        /* KHỐI THỜI ĐIỂM VÀNG KÍCH HOẠT NĂNG LƯỢNG */
+        .card-kich-hoat-nang-luong {
+            background: linear-gradient(145deg, #FFFDF5 0%, #FEF9C3 40%, #FFFBEB 100%);
+            border: 1px solid #F59E0B;
             border-radius: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
+            padding: 18px;
+            box-shadow: 0 8px 26px rgba(217, 119, 6, 0.12);
+            position: relative;
+            overflow: hidden;
             width: 100%;
+        }
+
+        .khnl-header-bg {
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0) 70%);
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .khnl-top-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .khnl-badge-dungthan {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #FEF3C7;
+            color: #92400E;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid #FDE68A;
+        }
+
+        .khnl-desc-text {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .khnl-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .khnl-item {
+            background: #FFFFFF;
+            border: 1px solid #FDE68A;
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.05);
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .khnl-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.12);
+        }
+
+        .khnl-item.highlight-gold {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 100%);
+            border: 1.5px solid #D97706;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.15);
+        }
+
+        .khnl-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .khnl-date-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .khnl-date-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #92400E;
+        }
+
+        .khnl-date-sub {
+            font-size: 12px;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        .khnl-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        .tag-tailoc {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+
+        .tag-quynhan {
+            background: #EDE9FE;
+            color: #6D28D9;
+        }
+
+        .tag-toannang {
+            background: linear-gradient(135deg, #FEF3C7, #F59E0B);
+            color: #78350F;
+            box-shadow: 0 2px 4px rgba(217, 119, 6, 0.2);
+        }
+
+        .khnl-time-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 13px;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        .khnl-time-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #FFFBEB;
+            color: #B45309;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 12.5px;
+            border: 1px solid #FDE68A;
+        }
+
+        .khnl-direction {
+            color: #1E293B;
+            font-size: 12.5px;
+        }
+
+        .khnl-action-text {
+            font-size: 12.5px;
+            color: #64748B;
+            line-height: 1.45;
+            padding-top: 6px;
+            border-top: 1px dashed #E2E8F0;
+        }
+
+        .khnl-banner-btn {
+            background: linear-gradient(135deg, #1B4D3E 0%, #2D6A4F 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 16px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(27, 77, 62, 0.25);
+            transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .khnl-banner-btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .khnl-banner-btn:active {
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -2278,6 +2461,92 @@
                             </svg>
                         </div>
                     </div>
+                </div>
+
+                <!-- KHỐI THỜI ĐIỂM VÀNG KÍCH HOẠT NĂNG LƯỢNG -->
+                <div class="card-kich-hoat-nang-luong">
+                    <div class="khnl-header-bg"></div>
+
+                    <div class="section-header" style="margin-bottom: 8px;">
+                        <div class="header-icon-badge icon-badge-amber">⚡</div>
+                        <div class="section-title-text" style="color: #78350F;">Thời điểm vàng kích hoạt năng lượng</div>
+                    </div>
+
+                    <div class="khnl-top-info">
+                        <div class="khnl-badge-dungthan">
+                            <span>🌱</span>
+                            <span>Dụng thần: <strong>Mộc</strong> · Canh Kim hộ thân</span>
+                        </div>
+                    </div>
+
+                    <div class="khnl-desc-text">
+                        Các khung giờ cát lành hợp mệnh Bát tự trong tháng giúp thắp hương, an vị linh vật và gia tăng vượng khí tối đa.
+                    </div>
+
+                    <div class="khnl-list">
+                        <!-- Slot 1 -->
+                        <div class="khnl-item" onclick="openModal('Thời điểm vàng 05/7 Âm lịch', 'Khung giờ Thìn (07:00 – 09:00) ngày 05/7 Âm lịch vượng khí rất tốt cho tài lộc. Thích hợp thắp hương cầu tài, đặt tượng Trâu/Hổ phong thủy ở hướng Chính Đông.', '⚡')">
+                            <div class="khnl-item-header">
+                                <div class="khnl-date-row">
+                                    <span class="khnl-date-title">05/07 Âm lịch</span>
+                                    <span class="khnl-date-sub">(17/08 DL)</span>
+                                </div>
+                                <span class="khnl-tag tag-tailoc">Kích tài lộc</span>
+                            </div>
+                            <div class="khnl-time-row">
+                                <span class="khnl-time-badge">⏰ 07:00 – 09:00 (Giờ Thìn)</span>
+                                <span class="khnl-direction">🧭 Hướng Chính Đông</span>
+                            </div>
+                            <div class="khnl-action-text">
+                                💡 Thắp hương chiêu tài, an vị linh vật vượng khí tại bàn làm việc hoặc phòng khách.
+                            </div>
+                        </div>
+
+                        <!-- Slot 2 -->
+                        <div class="khnl-item" onclick="openModal('Thời điểm vàng 12/7 Âm lịch', 'Khung giờ Tỵ (09:00 – 11:00) ngày 12/7 Âm lịch là giờ Quý Nhân Đăng Diện. Phù hợp để gặp gỡ đối tác, mang linh vật Hộ thân hoặc khai trương mở rộng công việc.', '🌟')">
+                            <div class="khnl-item-header">
+                                <div class="khnl-date-row">
+                                    <span class="khnl-date-title">12/07 Âm lịch</span>
+                                    <span class="khnl-date-sub">(24/08 DL)</span>
+                                </div>
+                                <span class="khnl-tag tag-quynhan">Kích quý nhân</span>
+                            </div>
+                            <div class="khnl-time-row">
+                                <span class="khnl-time-badge">⏰ 09:00 – 11:00 (Giờ Tỵ)</span>
+                                <span class="khnl-direction">🧭 Hướng Đông Nam</span>
+                            </div>
+                            <div class="khnl-action-text">
+                                💡 Khai trương, gặp đối tác quan trọng hoặc bắt đầu đeo linh vật hộ thân theo Bát tự.
+                            </div>
+                        </div>
+
+                        <!-- Slot 3 (Highlight Best Time) -->
+                        <div class="khnl-item highlight-gold" onclick="openModal('Thời điểm vàng tốt nhất tháng (18/7 Âm lịch)', 'Khung giờ Ngọ (11:00 – 13:00) ngày 18/7 Âm lịch là mốc Hoàng đạo Đẹp nhất tháng. Hội tụ đủ yếu tố Nhất Đăng Quang, cực tốt để an vị Không gian Năng lượng và khai quang linh vật Dụng thần Mộc.', '👑')">
+                            <div class="khnl-item-header">
+                                <div class="khnl-date-row">
+                                    <span style="font-size: 15px;">⭐</span>
+                                    <span class="khnl-date-title" style="color: #B45309;">18/07 Âm lịch</span>
+                                    <span class="khnl-date-sub">(30/08 DL)</span>
+                                </div>
+                                <span class="khnl-tag tag-toannang">🔥 Cát lành nhất</span>
+                            </div>
+                            <div class="khnl-time-row">
+                                <span class="khnl-time-badge" style="background: #FEF3C7; color: #92400E; border-color: #F59E0B;">⏰ 11:00 – 13:00 (Giờ Ngọ)</span>
+                                <span class="khnl-direction">🧭 Hướng Chính Nam</span>
+                            </div>
+                            <div class="khnl-action-text" style="color: #78350F; font-weight: 500;">
+                                👑 <strong>Giờ hoàng đạo đỉnh cao tháng:</strong> An vị Không gian Năng lượng, khai quang linh vật Dụng thần Mộc để thu hút may mắn tối đa.
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="khnl-banner-btn" onclick="window.location.href='KichHoatNangLuong_Intro.html'">
+                        <span>Xem hướng dẫn kích hoạt Bát Tự</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
                 </div>
 
                 <!-- Đường kẻ phân cách xám -->

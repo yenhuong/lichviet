@@ -21,7 +21,7 @@ Tài liệu này chốt lại bộ template để Dev cấu hình FCM và tránh
 
 - **Đối tượng nhận:** Người dùng bật thông báo **và** đã thiết lập ngày sinh **khác ngày sinh mặc định** (`15/05/1950`, `01/01/2000`). Người dùng còn ngày sinh mặc định → dùng bản fallback không cá nhân hóa (mục 6).
 - **Thời điểm:** 06:30 sáng đúng ngày Mùng 1 âm lịch (múi giờ thiết bị, mặc định GMT+7).
-- **Click action:** Mở màn hình **Bản tin đầu tháng** (`prototype/BanTinDauThang.html`) — bản tin theo dịp bao gồm tổng quan tháng, vận trình tháng, tử vi hôm nay, gieo quẻ đầu tháng, thời điểm đáng chú ý, việc hợp tuổi và tâm linh Mùng 1.
+- **Click action:** Mở màn hình **Bản tin đầu tháng** (`prototype/BanTinDauThang.html`) — bản tin theo dịp bao gồm tổng quan tháng, vận trình tháng, tử vi hôm nay, gieo quẻ đầu tháng, thời điểm đáng chú ý, thời điểm vàng kích hoạt năng lượng Bát tự, việc hợp tuổi và tâm linh Mùng 1.
 
 ---
 

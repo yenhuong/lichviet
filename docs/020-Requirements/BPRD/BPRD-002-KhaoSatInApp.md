@@ -7,7 +7,7 @@ owner: "@product-team"
 tags: [khao-sat, in-app-survey, feedback, user-research, platform]
 linked-to: [[Requirements-MOC]]
 created: 2026-09-16
-updated: 2026-09-17
+updated: 2026-10-01
 ---
 # BPRD: Khảo Sát Người Dùng Trong App (In-app Survey)
 
@@ -17,7 +17,7 @@ updated: 2026-09-17
 | ------------------- | -------------------------------------------------- |
 | Tên dự án        | Khảo sát người dùng trong app (In-app Survey) |
 | Người phụ trách | Đỗ Thị Hường                                  |
-| Phiên bản         | v1.2                                               |
+| Phiên bản         | v1.4                                               |
 | Trạng thái        | Đang cập nhật                                   |
 
 ## Nhật ký thay đổi
@@ -25,8 +25,10 @@ updated: 2026-09-17
 | Ngày cập nhật | Phiên bản | Người thực hiện | Nội dung thay đổi                                                                                                                                                                               |
 | ---------------- | ----------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-09-16       | v1.0        | Đỗ Thị Hường   | Khởi tạo tài liệu yêu cầu nghiệp vụ và sản phẩm (BPRD)                                                                                                                                  |
-| 2026-09-18       | v1.2        | Đỗ Thị Hường   | Bổ sung điều kiện 9: khoảng cách tối thiểu giữa 2 khảo sát của cùng một tính năng                                                                                                  |
 | 2026-09-17       | v1.1        | Đỗ Thị Hường   | Bổ sung khảo sát theo tập người dùng (segment) và thứ tự ưu tiên; tách cấu hình từng tính năng ra Kế hoạch khảo sát (SVP) riêng, mục 10 chuyển thành danh mục toàn app |
+| 2026-09-18       | v1.2        | Đỗ Thị Hường   | Bổ sung điều kiện 9: khoảng cách tối thiểu giữa 2 khảo sát của cùng một tính năng                                                                                                  |
+| 2026-10-01       | v1.3        | Đỗ Thị Hường   | Bổ sung hình thức khảo sát Inline ở cuối màn kết quả thuộc dạng Entry (cố định/cuộn cuối màn kết quả kèm nút đánh giá nhanh)                                              |
+| 2026-10-01       | v1.4        | Đỗ Thị Hường   | Quy chuẩn nguyên tắc gửi dữ liệu thời gian thực cho tất cả popup khảo sát: cứ trả lời/chọn xong câu nào là ghi nhận ngay câu đó về hệ thống, không chờ trả lời xong hết mới gửi |
 
 ---
 
@@ -103,51 +105,88 @@ Khi người dùng đang ở **màn kết quả** của tính năng và thỏa m
 
 ### 4.2. Luồng nghiệp vụ (Process Flow)
 
-**Sơ đồ luồng (User Flow):**
+Mô hình khảo sát dạng Entry hỗ trợ **2 luồng độc lập hoàn toàn** về tiếp cận, hiển thị và hành vi tương tác trên màn kết quả:
+
+---
+
+#### 4.2.1. Luồng A: Khảo sát dạng Entry - Teaser Card (Thẻ gợi mở tự bung)
+
+Luồng này dành cho trường hợp dùng thẻ thông báo/popup nhỏ tự mở nhẹ nhàng từ dưới lên
 
 ```mermaid
 %%{init: {"themeVariables": {"fontSize": "12px"}, "flowchart": {"nodeSpacing": 25, "rankSpacing": 30, "padding": 6}}}%%
 flowchart TD
-    A["Người dùng mở màn kết quả<br/>của tính năng"] --> B["Tải cấu hình chiến dịch<br/>đang active (có cache)"]
-    B --> C{"Thỏa mãn tất cả<br/>điều kiện đang bật?"}
-    C -- "Không" --> Z(["Không hiển thị<br/>Kết thúc"])
-    C -- "Có" --> D["Ghi nhận lượt hiển thị<br/>Cập nhật bộ đếm toàn app"]
-    D --> E{"Kiểu hiển thị?"}
-
-    E -- "Direct" --> G["Bung popup/bottom sheet<br/>khảo sát"]
-    E -- "Entry" --> F["Hiện điểm vào khảo sát<br/>ở cuối màn kết quả"]
-    F --> F1{"Người dùng nhấn<br/>điểm vào?"}
-    F1 -- "Không" --> Z2(["Rời màn kết quả<br/>Kết thúc"])
-    F1 -- "Có" --> G
-
-    G --> H["Hiển thị câu hỏi"]
-    H --> I{"Người dùng<br/>trả lời câu này?"}
-    I -- "Đóng / bỏ qua" --> X["Ghi nhận lượt bỏ qua<br/>Bản ghi: trả lời một phần"]
-    X --> X1(["Bắt đầu tính thời gian chờ<br/>trước khi hiển thị lại"])
-
-    I -- "Có" --> J["Gửi ngay câu trả lời<br/>về máy chủ"]
-    J --> J1{"Có mạng?"}
-    J1 -- "Không" --> J2["Lưu tạm cục bộ<br/>Tự gửi lại khi có mạng"]
-    J2 --> K
-    J1 -- "Có" --> K{"Còn câu hỏi<br/>tiếp theo?"}
-    K -- "Có" --> H
-    K -- "Không" --> L["Đánh dấu bản ghi<br/>HOÀN THÀNH"]
-    L --> M["Hiển thị màn cảm ơn"]
-    M --> N(["Đánh dấu đã hoàn thành<br/>khảo sát/phiên bản này"])
+    A1["User mở màn kết quả"] --> B1["Tải cấu hình chiến dịch Active"]
+    B1 --> C1{"Thỏa mãn tất cả<br/>điều kiện đang bật?"}
+    C1 -- "Không" --> Z1(["Không hiển thị"])
+    C1 -- "Có" --> D1["Ghi nhận lượt hiển thị &<br/>cập nhật bộ đếm toàn app"]
+    D1 --> E1["Tự mở thẻ Teaser gợi mở<br/>(vd sau 1.2s delay)"]
+    E1 --> F1{"User nhấp thẻ Teaser?"}
+    F1 -- "Đóng / Bỏ qua" --> X1["Ghi nhận lượt bỏ qua<br/>Tính thời gian chờ hỏi lại"]
+    F1 -- "Nhấp vào" --> G1["Bung Popup khảo sát đầy đủ"]
+    G1 --> H1["Hiển thị danh sách câu hỏi"]
+    H1 --> I1{"User trả lời?"}
+    I1 -- "Bỏ dở" --> X1
+    I1 -- "Gửi câu trả lời" --> J1["Gửi ngay về server<br/>(Idempotent)"]
+    J1 --> K1{"Còn câu tiếp?"}
+    K1 -- "Có" --> H1
+    K1 -- "Không" --> L1["Đánh dấu HOÀN THÀNH<br/>Hiện popup cảm ơn"]
 ```
 
-**Diễn giải chi tiết:**
+**Diễn giải chi tiết Luồng A (Teaser Card):**
 
-1. Người dùng mở màn kết quả của tính năng có gắn khảo sát.
-2. App tải cấu hình chiến dịch đang active của tính năng đó (từ remote config, có cache), bao gồm **danh sách điều kiện đang bật** và tham số đi kèm.
-3. App kiểm tra lần lượt **các điều kiện đang bật** tại mục 4.3; điều kiện đang tắt được bỏ qua hoàn toàn, không kiểm tra. Chỉ cần trượt 1 điều kiện đang bật ⇒ không hiển thị, kết thúc.
-4. Đủ điều kiện ⇒ hiển thị theo `display_type`:
-   - **Direct**: bung popup/bottom sheet khảo sát.
-   - **Entry**: hiển thị điểm vào khảo sát; chỉ mở khảo sát đầy đủ khi người dùng chủ động nhấn.
-5. Ghi nhận sự kiện hiển thị và cập nhật bộ đếm chống làm phiền **toàn app** và bộ đếm **theo tính năng** (điều kiện 9) **ngay tại thời điểm hiển thị** (kể cả khi người dùng không trả lời, và kể cả khi điều kiện 6/7/9 đang tắt — bộ đếm vẫn luôn được cập nhật để các chiến dịch khác dùng).
-6. **Người dùng trả lời xong câu nào thì gửi ngay câu đó về máy chủ**, không chờ hoàn thành toàn bộ khảo sát. Mỗi lần gửi kèm `survey_id`, `version` và số thứ tự câu hỏi để máy chủ ghép vào cùng một bản ghi phản hồi.
-7. Trả lời hết câu cuối → đánh dấu bản ghi là **hoàn thành** → hiển thị màn cảm ơn → đánh dấu đã hoàn thành khảo sát/phiên bản này.
-8. Người dùng đóng/bỏ qua → ghi nhận lượt bỏ qua, bắt đầu tính thời gian chờ trước khi được hiển thị lại. Các câu đã trả lời trước đó **vẫn được giữ**, bản ghi ở trạng thái **trả lời một phần**.
+1. Người dùng mở màn kết quả của tính năng và đủ điều kiện hiển thị.
+2. Hệ thống chờ khoảng delay cấu hình (ví dụ 1.2s) rồi tự mở nhẹ nhàng thẻ Teaser Card ở góc màn hình (*"Bạn còn băn khoăn điều gì về kết quả này?"*).
+3. Nếu người dùng nhấp vào thẻ Teaser ➔ Bung Popup khảo sát đầy đủ.
+4. Người dùng chọn câu trả lời ➔ Gửi ngay dữ liệu về máy chủ.
+5. Hoàn thành toàn bộ câu hỏi ➔ Đánh dấu hoàn thành & mở popup cảm ơn.
+6. Nếu người dùng bấm đóng/bỏ qua ➔ Ghi nhận lượt bỏ qua và tính thời gian chờ trước khi xét hỏi lại (`skip_wait_days`).
+
+---
+
+#### 4.2.2. Luồng B: Khảo sát dạng Entry - Inline Card (Khối khảo sát cuối màn kết quả)
+
+Khối Inline Khảo sát là **thành phần giao diện mặc định luôn hiển thị** ở cuối nội dung màn kết quả của tính năng (không phụ thuộc cờ chặn daily cap hay thời gian giãn cách). Khối này cho phép người dùng đánh giá cảm nhận nhanh (ví dụ *Hữu ích / Chưa hữu ích*) và linh hoạt mở popup khảo sát chi tiết dựa theo cấu hình chiến dịch trong SVP:
+
+```mermaid
+%%{init: {"themeVariables": {"fontSize": "12px"}, "flowchart": {"nodeSpacing": 25, "rankSpacing": 30, "padding": 6}}}%%
+flowchart TD
+    A2["User cuộn xuống cuối màn kết quả"] --> E2["Khối Inline khảo sát LUÔN HIỂN THỊ<br/>tại cuối nội dung màn kết quả"]
+    E2 --> F2{"User nhấp nút đánh giá<br/>Inline (vd Hữu ích / Chưa hữu ích)?"}
+    F2 -- "Không tương tác" --> Z2_EXIT(["Đọc xong rời màn kết quả"])
+  
+    F2 -- "Nhấp nút đánh giá" --> G2_LOG["Highlight nút & ghi nhận ngay<br/>phản hồi đánh giá nhanh lên server"]
+    G2_LOG --> H2{"Chiến dịch có cấu hình Popup<br/>khảo sát cho lựa chọn này?"}
+  
+    H2 -- "Không cấu hình Popup" --> K2_END(["Hoàn tất đánh giá nhanh<br/>Không bung Popup"])
+    H2 -- "Có cấu hình Popup" --> I2{"User đã từng đánh giá/hoàn thành<br/>Popup khảo sát này trước đó?"}
+  
+    I2 -- "Đã từng hoàn thành" --> K2_END
+    I2 -- "Chưa từng thực hiện" --> J2["Bung Popup khảo sát chi tiết<br/>được cấu hình trong SVP"]
+  
+    J2 --> M2["User trả lời từng câu hỏi trong Popup"]
+    M2 --> N2["Gửi NGAY từng câu trả lời<br/>về server (Real-time per question)"]
+    N2 --> O2{"Còn câu hỏi tiếp theo?"}
+    O2 -- "Có / Người dùng đóng giữa chừng" --> P2_PARTIAL(["Đóng Popup<br/>Bản ghi: Ghi nhận trả lời 1 phần"])
+    O2 -- "Trả lời hết / Bấm Hoàn thành" --> P2["Gửi câu cuối & Đánh dấu HOÀN THÀNH<br/>Hiện màn cảm ơn"]
+```
+
+**Diễn giải chi tiết Luồng B (Inline Card):**
+
+1. Người dùng mở và cuộn xuống cuối màn hình kết quả của tính năng.
+2. **Quy tắc hiển thị**: Khối Inline Khảo sát **LUÔN LUÔN HIỂN THỊ** sẵn tại vị trí cuối nội dung màn kết quả (gồm hình minh họa, câu hỏi đánh giá nhanh và các nút lựa chọn như *Hữu ích / Chưa hữu ích*).
+3. Khối inline nằm tĩnh ở cuối màn hình, thẩm mỹ sang trọng, không che chắn nội dung đọc và không làm gián đoạn người dùng.
+4. **Xử lý tương tác đánh giá nhanh & điều kiện bung Popup khảo sát chi tiết:**
+   - Khi người dùng nhấp nút lựa chọn inline (ví dụ *Hữu ích* hoặc *Chưa hữu ích*), hệ thống highlight nút và ghi nhận ngay phản hồi đánh giá nhanh.
+   - **Kiểm tra cấu hình chiến dịch (trong SVP)**: Tùy theo cấu hình tính năng có gắn bộ câu hỏi popup cho nút lựa chọn đó hay không.
+     - **Nếu KHÔNG cấu hình popup**: Hệ thống dừng ở bước ghi nhận đánh giá nhanh, **không bung popup khảo sát**.
+     - **Nếu CÓ cấu hình popup**: Hệ thống kiểm tra tiếp lịch sử người dùng.
+       - **Trường hợp đã từng trả lời/hoàn thành popup khảo sát này trước đó**: Hệ thống **KHÔNG hiển thị lại popup khảo sát** nữa (để tránh làm phiền).
+       - **Trường hợp chưa từng thực hiện**: Hệ thống tự động bung Popup khảo sát chi tiết tương ứng với nội dung cấu hình trong file SVP của tính năng.
+5. **Gửi dữ liệu thời gian thực (Real-time submission per question)**: Mọi Popup khảo sát đều tuân thủ nguyên tắc đồng nhất: **trả lời/chọn xong câu nào là hệ thống tự động ghi nhận ngay câu đó lên máy chủ**, không bắt buộc chờ trả lời hết toàn bộ mới gửi.
+   - Khi hoàn thành câu cuối hoặc nhấn nút gửi ➔ Hệ thống ghi nhận câu cuối, đánh dấu **Hoàn thành**, hiển thị màn cảm ơn (tự đóng sau vài giây).
+   - Nếu người dùng đóng popup hoặc thoát ứng dụng giữa chừng ➔ Các câu đã trả lời trước đó đều đã được hệ thống lưu trữ đầy đủ dưới dạng bản ghi *Trả lời một phần*.
+6. Nếu người dùng không nhấp nút đánh giá ➔ Khối inline vẫn giữ nguyên ở cuối màn kết quả một cách tự nhiên, không phát sinh lỗi hay thông báo phiền hà.
 
 ### 4.3. Điều kiện hiển thị (Business Rules)
 
@@ -202,10 +241,10 @@ Mỗi điều kiện gồm một cờ bật/tắt (trạng thái mặc định x
 
 ### 5.1. Kiểu hiển thị (Display Type)
 
-| **Kiểu**  | **Hành vi**                                                                                               |
-| :--------------- | :--------------------------------------------------------------------------------------------------------------- |
-| **Direct** | Đủ điều kiện thì bung trực tiếp popup/bottom sheet khảo sát.                                           |
-| **Entry**  | Đủ điều kiện thì chỉ hiện điểm vào khảo sát; user chủ động nhấn mới mở khảo sát đầy đủ. |
+| **Kiểu**  | **Hành vi & Hình thức**                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Direct** | Đủ điều kiện thì bung trực tiếp popup/bottom sheet khảo sát.                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Entry**  | Đủ điều kiện thì hiển thị điểm vào khảo sát để người dùng chủ động nhấn mới mở khảo sát đầy đủ. Bao gồm**2 hình thức chính**: <br />1. **Teaser Entry Card**: Thẻ popup nhỏ tự bung từ dưới lên<br />2. **Inline Survey Card**: Khối đánh giá/khảo sát nằm ở cuối màn kết quả, chứa nút đánh giá nhanh (ví dụ *Hữu ích / Chưa hữu ích*). Khi nhấp nút sẽ bung popup khảo sát tương ứng nếu có. |
 
 **Khuyến nghị mặc định:**
 
@@ -222,7 +261,9 @@ Mỗi điều kiện gồm một cờ bật/tắt (trạng thái mặc định x
 | Câu hỏi mở   | Ô nhập văn bản tự do                   | Giới hạn ký tự; luôn để**không bắt buộc** |
 | Nhị phân      | Hữu ích / Không hữu ích (👍 👎)        | Dùng cho micro-survey 1 câu                             |
 
-**Quy tắc chung:** tối đa **5 câu** cho một khảo sát; câu hỏi mở luôn đặt cuối và không bắt buộc; người dùng phải đóng được khảo sát ở mọi bước. **Mỗi câu trả lời được gửi lên máy chủ ngay sau khi người dùng chọn/nhập xong**, nên dữ liệu vẫn thu được kể cả khi người dùng bỏ dở giữa chừng.
+**Quy tắc chung về gửi phản hồi:** Tối đa **5 câu** cho một khảo sát; câu hỏi mở luôn đặt cuối và không bắt buộc; người dùng phải đóng được khảo sát ở mọi bước.
+> **NGUYÊN TẮC GHI NHẬN THỜI GIAN THỰC (Real-time Submission):**
+> Tất cả các popup khảo sát (bất kể kích hoạt từ Luồng A, Luồng B hay Direct) đều có cơ chế ghi nhận như nhau: **Cứ trả lời/chọn xong câu nào là hệ thống lập tức ghi nhận & gửi ngay câu đó lên máy chủ** (hoặc lưu hàng chờ offline khi mất mạng), **tuyệt đối không chờ trả lời hết tất cả câu hỏi mới gửi**. Nhờ đó, ngay cả khi người dùng đóng popup hoặc thoát màn hình ở câu bất kỳ, toàn bộ câu trả lời trước đó đều được hệ thống bảo toàn và ghi nhận đầy đủ.
 
 ### 5.3. Cấu hình chiến dịch
 
@@ -232,6 +273,7 @@ Mỗi chiến dịch khảo sát gồm các trường:
 | :------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
 | `survey_id`             | Mã định danh duy nhất, ví dụ`SV-KHNL-01`                                                                          |
 | `feature_key`           | Tính năng gắn khảo sát                                                                                               |
+| `popup_title`           | Tiêu đề hiển thị trên thanh Header của Popup khảo sát (ví dụ: *"Khảo sát ý kiến"*, *"Đánh giá trải nghiệm"*) |
 | `version`               | Phiên bản khảo sát — đổi version ⇒ được phép hỏi lại người đã trả lời bản cũ                        |
 | `display_type`          | `direct` hoặc `entry`                                                                                                |
 | `placement`             | Vị trí đặt trên màn kết quả (với kiểu`entry`)                                                                 |
@@ -250,6 +292,17 @@ Mỗi chiến dịch khảo sát gồm các trường:
 
 ## 6. Thiết kế
 
+### 6.0. Quy chuẩn cấu trúc Popup Khảo Sát (Standard Popup Layout)
+
+Mọi Popup khảo sát (kích hoạt từ Luồng A, Luồng B hay Direct) đều tuân thủ cấu trúc giao diện chuẩn gồm 3 phần:
+
+1. **Thanh Header Popup (Bắt buộc)**:
+   - **Tiêu đề Popup (`popup_title`)**: Hiển thị cố định ở chính giữa hoặc bên trái thanh Header (ví dụ *"Khảo sát ý kiến"*, *"Đánh giá trải nghiệm"*), font semibold/bold 17-19px.
+   - **Nút Đóng (`X`)**: Nằm cố định ở góc phải thanh Header để người dùng có thể thoát khảo sát bất kỳ lúc nào.
+   - **Nút Quay lại (Back icon)**: Nằm ở góc trái thanh Header (khi popup khảo sát gồm nhiều bước/câu hỏi).
+2. **Thân Popup (Body)**: Chứa danh sách câu hỏi khảo sát, các ô lựa chọn đáp án và ô nhập ý kiến đóng góp.
+3. **Chân Popup (Footer)**: Chứa nút gửi phản hồi CTA (*"Gửi phản hồi"* / *"Hoàn thành"*).
+
 ### 6.1. Khảo sát dạng Direct (Popup / Bottom Sheet)
 
 - **Link thiết kế**: (sẽ cập nhật)
@@ -257,12 +310,24 @@ Mỗi chiến dịch khảo sát gồm các trường:
 
 ### 6.2. Điểm vào khảo sát dạng Entry
 
-- **Link thiết kế**: (sẽ cập nhật)
-- **Yêu cầu**: dạng thẻ/dải đặt cuối nội dung màn kết quả, không che hết nội dung, không nổi đè (floating); có thể ẩn đi khi người dùng đóng.
+- **Link thiết kế**: `prototype/KichHoatNangLuong_Result_KhaoSat.html`
+- **Các hình thức hỗ trợ**:
+  1. **Teaser Entry Card (Thẻ gợi mở)**: Thẻ/popup nhỏ tự mở nhẹ nhàng từ dưới lên.
+  2. **Inline Survey Card (Khối khảo sát cố định ở cuối màn kết quả)**:
+
+     - **Vị trí**: Đặt ở cuối nội dung màn kết quả
+     - **Phong cách visual**: chuẩn thẩm mỹ Lịch Việt, thân thiện và không gây cảm giác quảng cáo.
+     - **Nội dung & Tương tác**:
+
+       - Câu hỏi đánh giá nhanh: *"Bạn thấy kết quả vừa xem thế nào?"*
+       - 2 nút đánh giá: **Hữu ích** (nhấp vào bung popup khảo sát nội dung quan tâm nếu có) và **Chưa hữu ích** (nhấp vào bung popup khảo sát lý do chưa hài lòng nếu có).
+       - Dòng chữ ghi nhận: *"Mỗi chia sẻ giúp Lịch Việt mang đến trải nghiệm tốt hơn."* 
 
 **Ví dụ minh họa:**
 
 ![1789621218775](image/BPRD-002-KhaoSatInApp/1789621218775.png)
+
+[![1790823313398](image/BPRD-002-KhaoSatInApp/1790823313398.png)]()
 
 ### 6.3. Màn cảm ơn (Thank-you State)
 
