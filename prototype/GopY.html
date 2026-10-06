@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Góp ý với Lịch Việt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1e1e24;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+
+        .phone-container {
+            width: 390px;
+            height: 844px;
+            background-color: #F8FAFC;
+            border-radius: 44px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            position: relative;
+            border: 8px solid #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ẩn thanh cuộn */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Glassmorphism Card styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        /* Hero Focus Textarea glow */
+        .textarea-focus-ring:focus-within {
+            border-color: #005CAC;
+            box-shadow: 0 0 0 4px rgba(0, 92, 172, 0.15), 0 10px 25px -5px rgba(0, 92, 172, 0.1);
+        }
+
+        /* Pulsing subtle glow for submit button when active */
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.015); }
+        }
+        .btn-active-glow {
+            box-shadow: 0 8px 20px -4px rgba(0, 92, 172, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="phone-container">
+        
+        <!-- TOP STATUS BAR -->
+        <div class="bg-white shrink-0 relative z-20 pt-3 px-6 pb-2 border-b border-slate-100 flex flex-col gap-2">
+            <div class="flex justify-between items-center text-slate-900 font-semibold text-[15px] tracking-tight">
+                <div>9:41</div>
+                <div class="flex items-center gap-1.5">
+                    <!-- Tín hiệu mạng -->
+                    <div class="flex items-end gap-[2px] h-[12px]">
+                        <div class="w-[3px] h-1.5 bg-slate-900 rounded-[1px]"></div>
+                        <div class="w-[3px] h-2 bg-slate-900 rounded-[1px]"></div>
+                        <div class="w-[3px] h-2.5 bg-slate-900 rounded-[1px]"></div>
+                        <div class="w-[3px] h-3 bg-slate-900 rounded-[1px]"></div>
+                    </div>
+                    <!-- Wifi -->
+                    <svg class="w-4 h-4 text-slate-900" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3C7.05 3 2.45 5.36 0 9.27l12 15.23 12-15.23C21.55 5.36 16.95 3 12 3z" />
+                    </svg>
+                    <!-- Pin -->
+                    <div class="w-6 h-3 rounded-sm border border-slate-900 p-[1px] relative">
+                        <div class="bg-slate-900 w-[80%] h-full rounded-[1px]"></div>
+                        <div class="absolute -right-1 top-1 w-[2px] h-1 bg-slate-900 rounded-r-[1px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HEADER NAVIGATION -->
+            <div class="flex items-center justify-between pt-1 pb-1">
+                <button onclick="window.history.back()" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors active:scale-95">
+                    <svg class="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                
+                <h1 class="text-[17px] font-bold text-slate-900 tracking-tight">Góp ý với Lịch Việt</h1>
+                
+                <div class="w-9 h-9"></div>
+            </div>
+        </div>
+
+        <!-- MAIN SCROLLABLE CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto overflow-x-hidden relative bg-[#F8FAFC] pb-10">
+
+            <!-- INTRO SECTION WITH ILLUSTRATION -->
+            <div class="px-6 pt-2 pb-1 flex flex-col items-center text-center">
+                <!-- Ảnh minh hoạ 3D cao cấp, chuyên nghiệp (nền trong suốt PNG) -->
+                <div class="w-24 h-24 mb-2 shrink-0 flex items-center justify-center">
+                    <img src="assets/pro_feedback_transparent.png" alt="Minh hoạ đóng góp ý kiến" 
+                        class="w-full h-full object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105">
+                </div>
+
+                <!-- Text thông điệp dưới ảnh minh hoạ -->
+                <p class="text-[13.5px] font-medium text-slate-600 leading-relaxed max-w-[310px]">
+                    Mỗi góp ý của bạn đều giúp <span class="text-[#005CAC] font-bold">Lịch Việt</span> cải thiện và mang đến trải nghiệm tốt hơn.
+                </p>
+            </div>
+
+            <!-- FORM START SECTION -->
+            <div class="px-5 pt-3 space-y-6">
+                
+                <!-- FIELD 1: TÍNH NĂNG BẠN MUỐN GÓP Ý -->
+                <div class="space-y-1.5">
+                    <label class="block text-[14px] font-bold text-slate-800 tracking-tight">
+                        Tính năng bạn muốn góp ý
+                    </label>
+
+                    <!-- FEATURE SELECT CONTAINER WITH DROPLIST MENU -->
+                    <div class="relative" id="dropdownContainer">
+                        <button type="button" onclick="toggleDropdown(event)" id="featureSelectTrigger"
+                            class="w-full bg-white border border-slate-200/90 rounded-2xl px-3.5 py-3 flex items-center justify-between shadow-2xs text-left group hover:border-blue-300 transition-all active:scale-[0.99]">
+                            <div class="flex items-center gap-2.5 overflow-hidden">
+                                <!-- Grid 4-square icon -->
+                                <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                </svg>
+                                <span id="selectedFeatureText" class="text-[14px] font-medium text-slate-400 truncate">Chọn tính năng</span>
+                            </div>
+                            <svg id="dropdownArrow" class="w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <!-- FLOATING DROPLIST MENU -->
+                        <div id="featureDropdownMenu" class="hidden absolute top-full left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 max-h-[250px] overflow-y-auto divide-y divide-slate-100 p-1.5 animate-fadeIn">
+                            
+                            <button type="button" onclick="selectDropdownOption('Xem ngày tốt')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Xem ngày tốt</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Tử vi tổng quan')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Tử vi tổng quan</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Tử vi vận hạn')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Tử vi vận hạn</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Tử vi nghề nghiệp')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Tử vi nghề nghiệp</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Tử vi tài chính')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Tử vi tài chính</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Kích hoạt năng lượng cá nhân')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Kích hoạt năng lượng cá nhân</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Xem phong thuỷ')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Xem phong thuỷ</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Gieo quẻ hỏi việc')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Gieo quẻ hỏi việc</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Lịch ngày')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Lịch ngày</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Lịch tháng')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Lịch tháng</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                            <button type="button" onclick="selectDropdownOption('Tính năng khác')" class="dropdown-option w-full py-2.5 px-3 flex items-center justify-between text-left text-[14px] text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 rounded-xl transition-colors">
+                                <span>Tính năng khác</span>
+                                <span class="check-icon hidden text-blue-600 font-bold">✓</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- FIELD 2: BẠN MUỐN CHIA SẺ ĐIỀU GÌ? -->
+                <div class="space-y-1.5">
+                    <label class="block text-[14px] font-bold text-slate-800 tracking-tight">
+                        Bạn muốn chia sẻ điều gì?
+                    </label>
+
+                    <!-- TEXTAREA CONTAINER WITH PENCIL ICON & COUNTER -->
+                    <div class="bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-2xs relative flex flex-col justify-between min-h-[160px]">
+                        <div class="flex items-start gap-2.5">
+                            <!-- Pencil Icon -->
+                            <svg class="w-4 h-4 text-slate-400 shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                            <textarea id="feedbackText" rows="5" oninput="updateCharCount()"
+                                placeholder="Hãy chia sẻ điều bạn muốn Lịch Việt cải thiện, bổ sung hoặc làm tốt hơn..."
+                                class="w-full bg-transparent border-none text-[13.5px] leading-relaxed text-slate-800 placeholder-slate-400 focus:outline-none resize-none p-0 min-h-[110px]"></textarea>
+                        </div>
+
+                        <!-- Character counter (ẩn khi chưa nhập text, chỉ hiện khi có nội dung) -->
+                        <div id="charCounterContainer" class="hidden text-right text-[12px] text-slate-400 font-normal pt-1">
+                            <span id="charCount">0</span>/500
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- FIELD 3: ĐÍNH KÈM HÌNH ẢNH (NẾU CÓ) -->
+                <div class="space-y-2">
+                    <label class="block text-[14px] font-bold text-slate-800 tracking-tight">
+                        Đính kèm hình ảnh (nếu có)
+                    </label>
+
+                    <div class="flex items-center gap-3.5">
+                        <!-- Left Upload Button Card -->
+                        <button type="button" onclick="simulateUpload()" id="uploadBtn"
+                            class="w-[110px] h-[110px] bg-[#F1F5F9] hover:bg-slate-200/80 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-500 transition-all active:scale-95 shrink-0 group">
+                            <svg class="w-7 h-7 text-slate-400 group-hover:text-slate-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-[13px] font-medium text-slate-700">+ Thêm ảnh</span>
+                        </button>
+
+                        <!-- Thumbnail Previews Container -->
+                        <div id="imageGrid" class="flex items-center gap-2"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PINNED FIXED BOTTOM BAR (NÚT GỬI GÓP Ý CỐ ĐỊNH Ở ĐÁY) -->
+        <div class="shrink-0 bg-white border-t border-slate-100 px-5 pt-3 pb-6 relative z-30 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
+            <button type="button" onclick="submitFeedback()" id="submitBtn"
+                class="w-full bg-[#1877F2] hover:bg-[#166FE5] text-white font-bold text-[16px] py-3.5 rounded-2xl shadow-md shadow-blue-500/20 transition-all active:scale-[0.98] text-center">
+                Gửi góp ý
+            </button>
+        </div>
+
+        <!-- SUCCESS CONFIRMATION MODAL TOAST -->
+        <div id="successModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end justify-center p-4 transition-all duration-300">
+            <div class="bg-white rounded-3xl w-full max-w-[350px] p-6 text-center space-y-4 shadow-2xl transform transition-transform animate-bounce-short mb-6 border border-slate-100">
+                <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner">
+                    ✓
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-[18px] font-bold text-slate-900">Cảm ơn bạn đã góp ý!</h3>
+                    <p class="text-[13.5px] text-slate-600 leading-relaxed">
+                        Đội ngũ Lịch Việt đã ghi nhận ý kiến của bạn để hoàn thiện ứng dụng ngày một tốt hơn.
+                    </p>
+                </div>
+                <button type="button" onclick="closeSuccessModal()"
+                    class="w-full bg-[#005CAC] text-white font-bold text-[14.5px] py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-sm">
+                    Hoàn tất
+                </button>
+            </div>
+        </div>
+
+        <!-- IOS HOME INDICATOR BAR -->
+        <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-slate-900 rounded-full z-40"></div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & INTERACTION -->
+    <script>
+        let currentSelectedFeature = "";
+
+        // Floating Droplist Menu handlers
+        function toggleDropdown(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('featureDropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                menu.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+
+        function selectDropdownOption(name) {
+            currentSelectedFeature = name;
+            const textEl = document.getElementById('selectedFeatureText');
+            
+            textEl.innerText = name;
+            textEl.classList.remove('text-slate-400');
+            textEl.classList.add('text-slate-800', 'font-semibold');
+
+            // Update checkmarks
+            document.querySelectorAll('.dropdown-option').forEach(btn => {
+                const label = btn.querySelector('span').innerText.trim();
+                const check = btn.querySelector('.check-icon');
+                if (label === name) {
+                    btn.classList.add('bg-blue-50/70', 'text-blue-600', 'font-semibold');
+                    check.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('bg-blue-50/70', 'text-blue-600', 'font-semibold');
+                    check.classList.add('hidden');
+                }
+            });
+
+            // Close menu
+            document.getElementById('featureDropdownMenu').classList.add('hidden');
+            document.getElementById('dropdownArrow').classList.remove('rotate-180');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const container = document.getElementById('dropdownContainer');
+            const menu = document.getElementById('featureDropdownMenu');
+            const arrow = document.getElementById('dropdownArrow');
+            if (container && !container.contains(e.target)) {
+                if (menu) menu.classList.add('hidden');
+                if (arrow) arrow.classList.remove('rotate-180');
+            }
+        });
+
+        // Character counter logic (chỉ hiện khi người dùng nhập text)
+        function updateCharCount() {
+            const txt = document.getElementById('feedbackText').value;
+            const charCountEl = document.getElementById('charCount');
+            const container = document.getElementById('charCounterContainer');
+            
+            charCountEl.innerText = txt.length;
+
+            if (txt.length > 0) {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+
+            if (txt.length > 500) {
+                charCountEl.classList.add('text-rose-500');
+            } else {
+                charCountEl.classList.remove('text-rose-500');
+            }
+        }
+
+        // Insert suggestion chips into textarea
+        function insertSuggestion(suggestionText) {
+            const textarea = document.getElementById('feedbackText');
+            if (textarea.value.trim() === "") {
+                textarea.value = suggestionText;
+            } else {
+                textarea.value += " " + suggestionText;
+            }
+            updateCharCount();
+            textarea.focus();
+        }
+
+        // Simulated Image Upload Gallery
+        let uploadedImages = [];
+        const sampleImgs = [
+            "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=200&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&auto=format&fit=crop&q=80",
+            "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=200&auto=format&fit=crop&q=80"
+        ];
+
+        function simulateUpload() {
+            if (uploadedImages.length >= 3) {
+                alert("Bạn chỉ có thể đính kèm tối đa 3 ảnh.");
+                return;
+            }
+            uploadedImages.push(sampleImgs[uploadedImages.length]);
+            renderImages();
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            renderImages();
+        }
+
+        function renderImages() {
+            const grid = document.getElementById('imageGrid');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const counter = document.getElementById('imgCounter');
+
+            if (counter) counter.innerText = `${uploadedImages.length}/3 ảnh`;
+
+            // Remove existing thumbnail elements (keep uploadBtn)
+            document.querySelectorAll('.img-thumb').forEach(el => el.remove());
+
+            uploadedImages.forEach((url, i) => {
+                const thumb = document.createElement('div');
+                thumb.className = 'img-thumb h-20 rounded-xl relative overflow-hidden border border-slate-200 shadow-2xs group';
+                thumb.innerHTML = `
+                    <img src="${url}" class="w-full h-full object-cover">
+                    <button type="button" onclick="removeImage(${i})" 
+                        class="absolute top-1 right-1 w-5 h-5 bg-slate-900/70 text-white rounded-full flex items-center justify-center text-[10px] hover:bg-rose-600 transition-colors">
+                        ✕
+                    </button>
+                `;
+                grid.insertBefore(thumb, uploadBtn);
+            });
+
+            if (uploadedImages.length >= 3) {
+                uploadBtn.classList.add('hidden');
+            } else {
+                uploadBtn.classList.remove('hidden');
+            }
+        }
+
+        // Form Submission Logic
+        function submitFeedback() {
+            const text = document.getElementById('feedbackText').value.trim();
+
+            if (!text) {
+                alert("Vui lòng nhập nội dung góp ý của bạn.");
+                document.getElementById('feedbackText').focus();
+                return;
+            }
+
+            // Show Success Modal Popup
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.add('hidden');
+            // Reset form
+            currentSelectedFeature = "";
+            const textEl = document.getElementById('selectedFeatureText');
+            if (textEl) {
+                textEl.innerText = "Chọn tính năng";
+                textEl.classList.add('text-slate-400');
+                textEl.classList.remove('text-slate-800', 'font-semibold');
+            }
+            document.getElementById('feedbackText').value = "";
+            uploadedImages = [];
+            renderImages();
+            updateCharCount();
+        }
+    </script>
+</body>
+
+</html>

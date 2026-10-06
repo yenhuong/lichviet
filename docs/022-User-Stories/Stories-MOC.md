@@ -21,4 +21,6 @@ Tài liệu này dùng để index các tài liệu thuộc thư mục `docs/022
 - [[Story-KichHoatNangLuongResultPremium]] - User stories cho màn Kết quả luận giải lá số Bát tự (người dùng Premium)
 - [[Story-MuaSamDungThanLinhVat]] - User stories cho khối Dụng thần & Linh vật trên màn Mua sắm
 - [[Story-KhaoSatInline-KichHoatNangLuong]] - User story cho Khảo sát Inline tại màn Kết quả Kích Hoạt Năng Lượng (tập Free & Pro)
+- [[Story-OnboardingKichHoatNangLuong]] - User story cho Popup Personalized Insight Onboarding Kích Hoạt Năng Lượng Cá Nhân tại App Open
+
 
