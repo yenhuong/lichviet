@@ -1,0 +1,357 @@
+/*
+ * Lich Viet components for HTML demos — mirrors the Figma component library.
+ * Every component root carries data-component="<Figma component name>" so that,
+ * after importing with html.to.design, layers can be swapped back to the
+ * matching Figma component.
+ *
+ * Rules:
+ *  - Use only tokens from tokens.css (no raw hex / px values for color, spacing, radius, type).
+ *  - Variants use modifier classes named after Figma variant properties.
+ *  - Temporary components not yet in Figma use the "new-" prefix (e.g. .new-rating-card).
+ *
+ * Last sync: 2026-11-05 (home components from Figma "Lich-Viet-App" / TrangChu_2026)
+ */
+
+@import url("tokens.css");
+
+.lv-icon { width: 20px; height: 20px; flex: none; display: block; }
+.lv-icon--32 { width: 32px; height: 32px; }
+
+/* Button — Figma "Button" (Size: Large | Small, State: Default | Pressed | Disabled) */
+.lv-button {
+  display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
+  padding: var(--space-12) var(--space-24); text-decoration: none;
+  border: 0; border-radius: var(--radius-full);
+  background: var(--color-primary); color: var(--color-text-on-primary);
+  font: 700 16px/24px var(--font-family); text-transform: uppercase;
+  cursor: pointer;
+}
+.lv-button--small { padding: var(--space-8) var(--space-16); font: 700 14px/20px var(--font-family); text-transform: none; }
+.lv-button--block { display: flex; width: 100%; }
+.lv-button:active, .lv-button.is-pressed { background: var(--color-primary-dark); }
+.lv-button:disabled, .lv-button.is-disabled { background: var(--color-bg-muted); color: var(--color-text-tertiary); cursor: default; }
+
+/* Checkbox — Figma "Checkbox" (State: Off | On) */
+.lv-checkbox {
+  width: 22px; height: 22px; flex: none; box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--color-border-default); border-radius: var(--radius-xs);
+  background: var(--color-bg-surface); color: var(--color-text-on-primary);
+}
+.lv-checkbox svg { display: none; width: 12px; height: 12px; }
+.lv-checkbox.is-on, :checked + .lv-checkbox { border-color: var(--color-status-success); background: var(--color-status-success); }
+.lv-checkbox.is-on svg, :checked + .lv-checkbox svg { display: block; }
+
+/* Navigation Bar — Figma "Navigation Bar" (Title) */
+.lv-navbar { background: var(--color-primary-dark); color: var(--color-text-on-primary); }
+.lv-navbar__status { height: 44px; }
+.lv-navbar__bar { height: 53px; display: flex; align-items: center; gap: var(--space-16); padding: 0 var(--space-16); }
+.lv-navbar__back { width: 24px; height: 24px; flex: none; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.lv-navbar__title { flex: 1; text-align: center; margin: 0; font: 600 18px/26px var(--font-family); }
+.lv-navbar__spacer { width: 24px; height: 24px; flex: none; }
+
+/* Form/Section Header — Figma "Form/Section Header" (Title, Icon) */
+.lv-section-header { display: flex; align-items: center; gap: var(--space-16); color: var(--color-text-primary); }
+.lv-section-header__title { margin: 0; font: 600 20px/28px var(--font-family); }
+
+/* Form/Select — Figma "Form/Select" (State: Placeholder | Filled) */
+.lv-select {
+  display: flex; align-items: center; gap: var(--space-12); width: 100%; box-sizing: border-box;
+  padding: var(--space-16); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);
+  background: var(--color-bg-subtle); color: var(--color-text-tertiary);
+  font: 500 16px/24px var(--font-family); text-align: left; cursor: pointer;
+}
+.lv-select__value { flex: 1; }
+.lv-select.is-filled { color: var(--color-text-primary); }
+
+/* Form/Textarea — Figma "Form/Textarea" (State: Placeholder | Filled) */
+.lv-textarea {
+  display: block; width: 100%; min-height: 128px; box-sizing: border-box; resize: none;
+  padding: var(--space-16); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);
+  background: var(--color-bg-subtle); color: var(--color-text-primary);
+  font: 500 16px/24px var(--font-family);
+}
+.lv-textarea::placeholder { color: var(--color-text-tertiary); }
+
+/* Form/Image Tile — Figma "Form/Image Tile" (Type: Add | Thumbnail) */
+.lv-image-tile {
+  position: relative; width: 96px; height: 96px; flex: none; box-sizing: border-box;
+  border: 0; border-radius: var(--radius-md); overflow: hidden;
+  background: var(--color-border-default) center / cover no-repeat;
+}
+.lv-image-tile--add {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4);
+  background: var(--color-bg-muted); color: var(--color-text-tertiary);
+  font: 600 14px/20px var(--font-family); cursor: pointer;
+}
+.lv-image-tile__remove {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  width: 20px; height: 20px; padding: 0; border: 0; border-radius: var(--radius-full);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-overlay-scrim); color: var(--color-text-on-primary);
+  font: 600 10px/14px var(--font-family); cursor: pointer;
+}
+
+/* List Item/Selectable — Figma "List Item/Selectable" (Label, Icon, Selected) */
+.lv-list-item {
+  display: flex; align-items: center; gap: var(--space-16); width: 100%; box-sizing: border-box;
+  padding: var(--space-16) var(--space-24);
+  border: 0; border-bottom: 1px solid var(--color-border-divider);
+  background: var(--color-bg-surface); color: var(--color-text-primary);
+  font: 600 16px/24px var(--font-family); text-align: left; cursor: pointer;
+}
+.lv-list-item__icon { width: 32px; height: 32px; flex: none; border-radius: var(--radius-md); background: var(--color-bg-muted); }
+.lv-list-item__label { flex: 1; }
+
+/* Bottom Sheet — Figma "Bottom Sheet" (+ "Bottom Sheet/Header") */
+.lv-scrim { position: fixed; inset: 0; background: var(--color-overlay-scrim); display: flex; align-items: flex-end; justify-content: center; }
+.lv-scrim[hidden] { display: none; }
+.lv-bottom-sheet {
+  display: flex; flex-direction: column; gap: var(--space-24); width: 100%; box-sizing: border-box;
+  padding: var(--space-20) var(--space-16) var(--space-24);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0; background: var(--color-bg-surface);
+}
+.lv-bottom-sheet__header { display: flex; align-items: center; }
+.lv-bottom-sheet__title { flex: 1; margin: 0; text-align: center; color: var(--color-primary); font: 600 20px/28px var(--font-family); }
+.lv-bottom-sheet__spacer, .lv-bottom-sheet__close { width: 28px; height: 28px; flex: none; }
+.lv-bottom-sheet__close {
+  padding: 0; border: 0; border-radius: var(--radius-full); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-bg-muted); color: var(--color-text-secondary);
+}
+.lv-bottom-sheet__content { display: flex; flex-direction: column; gap: var(--space-16); }
+
+/* Bottom Action Bar — Figma "Bottom Action Bar" */
+.lv-action-bar {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-20);
+  padding: var(--space-12) var(--space-16) var(--space-8);
+  background: var(--color-bg-surface);
+}
+.lv-action-bar .lv-button { width: 100%; }
+.lv-action-bar__home-indicator { width: 150px; height: 5px; border-radius: var(--radius-full); background: var(--color-text-primary); }
+
+/* =====================================================================
+ * Home screen components — Figma "Lich-Viet-App" (o0hWmJRQOx48gbUPt8rHmt),
+ * frame TrangChu_2026 (59830:80197). In Figma these are still groups, not
+ * components; data-component uses the proposed "Home/…" component names.
+ * ===================================================================== */
+
+/* Status Bar — Figma "Light Status Bar" */
+.lv-status-bar { position: relative; height: 48px; }
+.lv-status-bar__time { position: absolute; left: 14px; top: 15px; width: 60px; margin: 0; text-align: center; color: var(--color-text-strong); font: 600 14px/17px var(--font-family); letter-spacing: -0.28px; }
+.lv-status-bar__icons { position: absolute; right: 15px; top: 16px; display: flex; align-items: center; gap: 6px; }
+.lv-status-bar__battery { position: relative; width: 24px; height: 12px; display: flex; align-items: center; }
+.lv-status-bar__battery::before { content: ""; width: 22px; height: 11px; box-sizing: border-box; border: 1px solid var(--color-text-strong); border-radius: 3px; opacity: 0.35; }
+.lv-status-bar__battery::after { content: ""; position: absolute; left: 2px; top: 2px; width: 18px; height: 7px; border-radius: 1px; background: var(--color-text-strong); }
+.lv-status-bar__battery img { margin-left: 1px; }
+
+/* Home/Header — avatar, member rank, zodiac year, menu + notifications */
+.lv-home-header { position: relative; z-index: 1; height: 126px; background: var(--gradient-header); box-shadow: var(--shadow-header); }
+.lv-home-header__bar { display: flex; align-items: flex-start; height: 78px; padding: 0 15px 0 var(--space-16); }
+.lv-home-header__icon { width: 24px; height: 24px; flex: none; margin-top: 27px; background: none; border: 0; padding: 0; cursor: pointer; }
+.lv-home-header__icon img { display: block; width: 24px; height: 24px; }
+.lv-home-header__icon--end { margin-left: auto; }
+.lv-home-header__avatar { position: relative; width: 78px; height: 74px; flex: none; margin-left: 5px; }
+.lv-home-header__avatar img { position: absolute; display: block; }
+.lv-home-header__avatar-zodiac { left: 14px; top: 15px; width: 48px; height: 48px; }
+.lv-home-header__avatar-frame { left: 7px; top: 8px; width: 62px; height: 62px; }
+.lv-home-header__avatar-ring { left: 0; top: 0; width: 78px; height: 74px; mix-blend-mode: color-dodge; }
+.lv-home-header__user { display: flex; flex-direction: column; gap: var(--space-4); margin: 11px 0 0 7px; }
+.lv-home-header__name { margin: 0; color: var(--color-text-strong); font: 600 16px/24px var(--font-family); }
+.lv-home-header__meta { display: flex; align-items: center; gap: var(--space-12); }
+.lv-home-header__year { margin: 0; color: var(--color-text-body); font: 600 14px/21px var(--font-family); }
+
+/* Home/Rank Badge — member rank pill (Variant: Bạc; artwork is an image) */
+.lv-rank-badge { width: 76px; height: 24px; flex: none; display: inline-flex; align-items: center; justify-content: center; background: center / 100% 100% no-repeat; color: var(--gray-650); font: 600 14px/16px var(--font-family); }
+
+/* Home/Week Strip — weekday row + 7 day cells (State: Default | Selected; Marker: Flag | Dot) */
+.lv-week-strip { position: relative; margin-top: -2px; background: var(--color-bg-surface); }
+.lv-week-strip__labels, .lv-week-strip__days { display: grid; grid-template-columns: repeat(7, 1fr); }
+.lv-week-strip__labels { height: 25px; border-bottom: 1px solid var(--color-border-divider); background: linear-gradient(to right, var(--color-calendar-weekday-bg) 0 85.6%, var(--color-calendar-sunday-bg) 85.6% 100%); }
+.lv-week-strip__label { display: flex; align-items: center; justify-content: center; color: var(--color-calendar-weekday); font: 600 12px/14px var(--font-family); letter-spacing: -0.29px; }
+.lv-week-strip__label--sunday { color: var(--color-calendar-sunday); }
+.lv-week-strip__day { position: relative; height: 60px; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding-top: 8px; box-sizing: border-box; background: none; border: 0; cursor: pointer; font-family: var(--font-family); }
+.lv-week-strip__day:not(:last-child)::after { content: ""; position: absolute; top: 0; right: 0; width: 1px; height: 60px; background: var(--color-calendar-divider); }
+.lv-week-strip__date { color: var(--color-text-strong); font: 500 19px/23px var(--font-family); }
+.lv-week-strip__lunar { color: var(--color-text-secondary); font: 400 14px/17px var(--font-family); }
+.lv-week-strip__day.is-selected::before { content: ""; position: absolute; z-index: 1; inset: 0 0 0 -1px; border: 2px solid var(--color-calendar-selected); pointer-events: none; }
+.lv-week-strip__flag { position: absolute; top: 0; right: 9px; width: 8px; height: 9px; }
+.lv-week-strip__dot { position: absolute; top: 40px; left: 41px; width: 8px; height: 8px; }
+
+/* Home/Today Hero — big date over day artwork */
+.lv-today-hero { position: relative; height: 300px; padding: var(--space-20) var(--space-16) 0; box-sizing: border-box; overflow: hidden; color: var(--color-text-on-primary); }
+.lv-today-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.lv-today-hero__content { position: relative; display: flex; flex-direction: column; }
+.lv-today-hero__weekday { margin: 0; font: 700 18px/21px var(--font-family); text-transform: uppercase; }
+.lv-today-hero__date-row { display: flex; align-items: flex-start; gap: var(--space-16); margin-top: 3px; }
+.lv-today-hero__date { width: 91px; margin: 0; text-align: center; color: var(--color-calendar-hero-date); font: 700 72px/72px var(--font-family); text-shadow: 0 0 1px rgba(0, 0, 0, 0.79); }
+.lv-today-hero__moon { position: relative; width: 20px; height: 20px; flex: none; }
+.lv-today-hero__moon img { position: absolute; display: block; }
+.lv-today-hero__moon img:first-child { inset: 0; width: 20px; height: 20px; }
+.lv-today-hero__moon img + img { left: 2px; top: 2px; width: 16px; height: 16px; }
+.lv-today-hero__month { margin: var(--space-10) 0 0; font: 700 24px/24px var(--font-family); }
+.lv-today-hero__lunar { margin: var(--space-12) 0 0; font: 600 19px/18px var(--font-family); }
+.lv-today-hero__event { margin: 14px 0 0; color: var(--color-text-on-image-accent); font: 600 16px/18px var(--font-family); }
+.lv-today-hero__score { display: flex; align-items: center; gap: var(--space-4); height: 30px; margin-top: 9px; }
+.lv-today-hero__score-label { margin: 0; font: 600 14px/20px var(--font-family); }
+.lv-today-hero__score-value { margin: 0 0 0 var(--space-4); color: var(--color-text-on-image-accent); font: 700 20px/20px var(--font-family); text-shadow: 0 1px 1px rgba(0, 0, 0, 0.29); }
+.lv-today-hero__todo { margin: 7px 0 0; font: 600 16px/18px var(--font-family); }
+.lv-today-hero__todo span { font-weight: 500; }
+
+/* Home/Ghost Button — outlined button on artwork */
+.lv-ghost-button { height: 30px; margin-left: auto; padding: 0 var(--space-10); border: 1px solid var(--color-border-on-image); border-radius: 18px; background: var(--color-bg-on-image-button); color: var(--color-text-on-primary); font: 600 14px/14px var(--font-family); cursor: pointer; white-space: nowrap; }
+
+/* Home/Carousel — horizontal scroller with snap (used by promo cards and videos) */
+.lv-carousel { display: flex; gap: var(--space-12); padding: 0 var(--space-16); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--space-16); scrollbar-width: none; }
+.lv-carousel::-webkit-scrollbar { display: none; }
+.lv-carousel > * { flex: none; scroll-snap-align: start; }
+
+/* Home/Promo Card — Variant: Gold | Sky */
+.lv-promo-card { position: relative; width: 350px; height: 170px; box-sizing: border-box; display: flex; flex-direction: column; padding: 15px 11px; border: 1px solid var(--color-border-promo-gold); border-radius: var(--radius-lg); background: center / cover no-repeat; overflow: hidden; }
+.lv-promo-card--sky { border-color: var(--color-border-promo-sky); }
+.lv-promo-card__head { display: flex; align-items: center; gap: var(--space-12); height: 32px; }
+.lv-promo-card__icon { width: 32px; height: 32px; flex: none; display: block; }
+.lv-promo-card__title { flex: 1; margin: 0; color: var(--color-text-promo-gold); font: 700 16px/19px var(--font-family); text-transform: uppercase; white-space: nowrap; }
+.lv-promo-card--sky .lv-promo-card__title { color: var(--color-text-promo-sky); font-size: 14px; line-height: 17px; }
+.lv-promo-card__body { height: 54px; margin: var(--space-12) 0 0; overflow: hidden; color: var(--color-text-body); font: 600 18px/27px var(--font-family); }
+.lv-promo-card__body em { font-style: normal; color: var(--color-text-highlight); }
+.lv-promo-card__cta { align-self: flex-end; margin-top: var(--space-10); }
+
+/* Home/Gradient CTA — small blue pill with chevron */
+.lv-gradient-cta { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-10); height: 30px; padding: 0 var(--space-12); border: 0; border-radius: 21px; background: var(--gradient-cta); color: var(--color-text-on-primary); font: 700 16px/18px var(--font-family); text-shadow: var(--shadow-cta-text); text-decoration: none; white-space: nowrap; cursor: pointer; }
+.lv-gradient-cta--small { font-size: 14px; }
+.lv-gradient-cta img { display: block; width: 8px; height: 12px; }
+
+/* Badge — Variant: New | Hot | Ribbon | Count */
+.lv-badge { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; flex: none; color: var(--color-text-on-primary); white-space: nowrap; }
+.lv-badge--new { height: 28px; padding: 0 var(--space-12); border: 1px solid var(--color-badge-new-border); border-radius: var(--radius-lg); background: var(--color-badge-new); font: 700 14px/21px var(--font-family); }
+.lv-badge--hot { width: 38px; height: 24px; border: 1px solid var(--color-border-on-image); border-radius: var(--radius-sm); background: var(--color-badge-hot); box-shadow: var(--shadow-badge); font: 600 14px/10px var(--font-family); }
+.lv-badge--ribbon { width: 42px; height: 30px; border: 1px solid var(--color-border-on-image); border-top: 0; border-radius: 0 0 var(--radius-md) var(--radius-md); background: var(--color-badge-ribbon); box-shadow: var(--shadow-header); font: 800 13px/16px var(--font-family); }
+.lv-badge--count { width: 18px; height: 18px; border: 1px solid var(--color-border-on-image); border-radius: var(--radius-full); background: var(--color-badge-count); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); font: 600 11px/10px var(--font-family); }
+
+/* Chip — Variant: Success */
+.lv-chip { display: inline-flex; align-items: center; height: 28px; box-sizing: border-box; padding: 0 var(--space-12); border: 1px solid var(--color-chip-success-border); border-radius: var(--radius-lg); background: var(--color-chip-success-bg); color: var(--color-chip-success-text); font: 600 14px/21px var(--font-family); white-space: nowrap; flex: none; }
+
+/* Card — white surface with border + soft shadow (Elevation: Default | High) */
+.lv-card { box-sizing: border-box; border: 1px solid var(--color-border-card); border-radius: var(--radius-md); background: var(--color-bg-surface); box-shadow: var(--shadow-card); }
+.lv-card--high { box-shadow: var(--shadow-card-lg); }
+
+/* Home/Feature Tile — icon + 2-line label, optional badge */
+.lv-feature-grid { display: grid; grid-template-columns: repeat(3, 120px); grid-auto-rows: 145px; gap: 11px; }
+.lv-feature-tile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px; padding-top: 18px; text-decoration: none; }
+.lv-feature-tile__icon { display: block; width: 56px; height: 56px; }
+.lv-feature-tile__label { width: 102px; text-align: center; color: var(--color-text-label); font: 600 16px/24px var(--font-family); }
+.lv-feature-tile__badge { position: absolute; top: 7px; left: 66px; }
+
+/* Section Header — title (+ subtitle / accent) and optional "Xem thêm" link */
+.lv-home-section-title { margin: 0; color: var(--color-text-strong); font: 600 24px/24px var(--font-family); }
+.lv-home-section-title--card { font-size: 22px; }
+.lv-home-section-title em { font-style: normal; color: var(--color-text-link); }
+.lv-home-section-subtitle { margin: 14px 0 0; color: var(--color-text-accent); font: 500 16px/18px var(--font-family); }
+.lv-link-more { display: inline-flex; align-items: center; gap: var(--space-4); color: var(--color-text-link); font: 600 16px/24px var(--font-family); text-decoration: none; }
+.lv-link-more img { display: block; width: 12px; height: 12px; }
+
+/* Pill Button — white pill with double-chevron circle ("Xem chi tiết…") */
+.lv-pill-button { display: inline-flex; align-items: center; gap: var(--space-12); height: 34px; box-sizing: border-box; padding: 0 5px 0 var(--space-12); border: 1px solid var(--color-border-button); border-radius: var(--radius-pill); background: var(--color-bg-surface); box-shadow: var(--shadow-button); color: var(--color-text-link); font: 600 16px/21px var(--font-family); text-decoration: none; white-space: nowrap; cursor: pointer; }
+.lv-pill-button img { display: block; width: 22px; height: 22px; flex: none; }
+
+/* Divider */
+.lv-divider { height: 1px; margin: 0 0 0 var(--space-16); border: 0; background: var(--color-border-divider); }
+
+/* Bullet list — blue dot bullets */
+.lv-bullet-list { margin: 0; padding: 0; list-style: none; color: var(--color-text-primary); font: 400 16px/24px var(--font-family); }
+.lv-bullet-list li::before { content: "• "; color: var(--color-bullet); }
+.lv-bullet-list b { font-weight: 600; }
+
+/* Home/Good Hour Card */
+.lv-good-hour { display: flex; flex-direction: column; height: 200px; padding: 15px; }
+.lv-good-hour__top { display: flex; align-items: flex-start; height: 58px; }
+.lv-good-hour__icon { width: 42px; height: 42px; flex: none; margin-top: 8px; display: block; }
+.lv-good-hour__info { display: flex; flex-direction: column; gap: var(--space-10); margin-left: var(--space-16); }
+.lv-good-hour__name { margin: 0; color: var(--color-text-strong); font: 600 22px/24px var(--font-family); }
+.lv-good-hour__time { margin: 0; color: var(--color-text-body); font: 500 16px/18px var(--font-family); }
+.lv-good-hour__stars { display: block; width: 76px; height: 12px; margin: 9px 0 0 auto; }
+.lv-good-hour .lv-bullet-list { margin-top: var(--space-12); }
+.lv-good-hour .lv-pill-button { align-self: flex-end; margin: var(--space-16) -5px 0 0; }
+
+/* Home/Bar Chart — 7-day good-day index (bar height via --h) */
+.lv-bar-chart { position: relative; padding-left: 47px; }
+.lv-bar-chart__plot { position: relative; width: 355px; height: 175px; background-image: repeating-linear-gradient(to bottom, var(--color-chart-grid) 0 1px, transparent 1px 34px), repeating-linear-gradient(to right, var(--color-chart-grid) 0 1px, transparent 1px 50px); background-size: 355px 171px, 351px 175px; background-position: 0 0, 4px 0; background-repeat: no-repeat; }
+.lv-bar-chart__yaxis { position: absolute; left: -31px; top: 0; width: 22px; height: 170px; }
+.lv-bar-chart__ytick { position: absolute; right: 0; color: var(--color-text-strong); font: 400 12px/21px var(--font-family); }
+.lv-bar-chart__bars { position: absolute; left: 4px; top: 0; width: 350px; height: 170px; display: flex; }
+.lv-bar-chart__col { position: relative; flex: 0 0 50px; height: 100%; }
+.lv-bar-chart__bar { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 24px; height: var(--h); background: var(--gradient-chart-bar) bottom / 100% 170px no-repeat; }
+.lv-bar-chart__value { position: absolute; left: 0; right: 0; bottom: calc(var(--h) + 2px); text-align: center; color: var(--color-chart-value); font: 500 12px/21px var(--font-family); }
+.lv-bar-chart__xaxis { display: flex; width: 350px; margin: 3px 0 0 4px; }
+.lv-bar-chart__xtick { flex: 0 0 50px; text-align: center; white-space: nowrap; color: var(--color-text-strong); font: 400 12px/21px var(--font-family); }
+
+/* Home/Solar Term Strip — tiết khí progress (Cell: Earth | Fire | Water | Metal | Wood) */
+.lv-term-strip { position: relative; width: 382px; height: 32px; }
+.lv-term-strip__cells { position: absolute; left: 26px; top: 6px; display: flex; }
+.lv-term-strip__cell { width: 22px; height: 16px; text-align: center; color: var(--color-text-on-primary); font: 600 11px/16px var(--font-family); background: var(--color-term-metal); }
+.lv-term-strip__cell--earth { background: var(--color-term-earth); }
+.lv-term-strip__cell--fire { background: var(--color-term-fire); }
+.lv-term-strip__cell--water { background: var(--color-term-water); }
+.lv-term-strip__cell--wood { background: var(--color-term-wood); }
+.lv-term-strip__node { position: absolute; top: 0; width: 32px; height: 32px; box-sizing: border-box; border: 2px solid var(--color-term-earth); border-radius: var(--radius-full); background: var(--color-bg-surface); }
+.lv-term-strip__node img { position: absolute; display: block; left: 4px; top: 4px; width: 15px; height: 16px; }
+.lv-term-strip__node--end { right: 0; border-color: var(--color-term-wood); }
+.lv-term-strip__node--end img { left: 9px; width: 16px; height: 15px; }
+.lv-term-strip__ends { display: flex; justify-content: space-between; margin-top: var(--space-12); }
+.lv-term-strip__end { margin: 0; display: flex; flex-direction: column; gap: 3px; color: var(--color-text-primary); font: 400 14px/17px var(--font-family); }
+.lv-term-strip__end--right { text-align: right; }
+.lv-term-strip__end b { margin-bottom: 5px; color: var(--color-text-strong); font: 600 16px/19px var(--font-family); }
+
+/* Home/Video Thumb */
+.lv-video-thumb { display: block; width: 180px; height: 242px; border-radius: var(--radius-md); overflow: hidden; }
+.lv-video-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Home/Daily Horoscope Card — mascot overlaps the top edge */
+.lv-horoscope { position: relative; padding-top: 44px; }
+.lv-horoscope__mascot { position: absolute; z-index: 1; top: 0; left: 50%; transform: translateX(-50%); width: 88px; height: 88px; display: block; }
+.lv-horoscope__card { position: relative; padding-top: 56px; border: 1px solid var(--color-border-horoscope); border-radius: var(--radius-md); background: var(--color-bg-horoscope); text-align: center; }
+.lv-horoscope__more { position: absolute; top: 15px; right: 15px; display: block; padding: var(--space-4); }
+.lv-horoscope__more img { display: block; width: 16px; height: 16px; }
+.lv-horoscope__title { margin: 0; color: var(--color-text-horoscope); font: 700 18px/21px var(--font-family); text-transform: uppercase; }
+.lv-horoscope__date { margin: 6px 0 0; color: var(--color-text-horoscope); font: 500 16px/24px var(--font-family); }
+.lv-horoscope__quote { width: 358px; margin: var(--space-10) auto 0; color: var(--color-text-strong); font: 500 16px/24px var(--font-family); }
+.lv-horoscope__foot { position: relative; display: grid; grid-template-columns: 1fr 1fr; align-items: center; height: 55px; margin-top: var(--space-16); border-top: 1px solid var(--color-border-horoscope); }
+.lv-horoscope__foot::before { content: ""; position: absolute; left: 50%; top: 6px; width: 1px; height: 42px; background: var(--color-border-horoscope); }
+.lv-horoscope__stat { display: flex; align-items: center; justify-content: center; gap: var(--space-12); color: var(--color-text-horoscope-label); font: 500 14px/21px var(--font-family); }
+.lv-horoscope__color { width: 24px; height: 24px; border-radius: var(--radius-full); background: var(--color-lucky-dot); }
+.lv-horoscope__number { width: 67px; height: 24px; box-sizing: border-box; border: 1px solid var(--color-border-horoscope); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--color-text-lucky-number); font: 700 14px/22px var(--font-family); }
+
+/* Home/Menu List — icon rows with chevron (used by "Tử vi chuyên sâu") */
+.lv-menu-list { display: flex; flex-direction: column; }
+.lv-menu-row { position: relative; display: flex; align-items: center; padding: var(--space-12) var(--space-16); text-decoration: none; }
+.lv-menu-row + .lv-menu-row { margin-top: 1px; }
+.lv-menu-row + .lv-menu-row::before { content: ""; position: absolute; top: -1px; left: var(--space-16); right: 0; height: 1px; background: var(--color-border-divider); }
+.lv-menu-row__icon { width: 52px; height: 52px; flex: none; display: block; object-fit: cover; }
+.lv-menu-row__text { flex: 1; min-height: 52px; display: flex; flex-direction: column; gap: var(--space-4); margin: 0 15px 0 var(--space-16); }
+.lv-menu-row__title { color: var(--color-text-label); font: 600 16px/24px var(--font-family); }
+.lv-menu-row__desc { color: var(--color-text-strong); font: 400 14px/18px var(--font-family); }
+.lv-menu-row__chevron { width: 12px; height: 12px; flex: none; display: block; }
+.lv-menu-row__badge { position: absolute; top: 0; right: 27px; }
+
+/* Home/Service Grid — round icons (Chọn ngày tốt) */
+.lv-service-grid { display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 29px; padding: var(--space-16) 0; }
+.lv-service-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-10); text-decoration: none; }
+.lv-service-item__icon { position: relative; width: 50px; height: 50px; flex: none; }
+.lv-service-item__icon > img { position: absolute; inset: -1%; width: 102%; height: 102%; display: block; }
+.lv-service-item__label { text-align: center; color: var(--color-text-strong); font: 400 14px/21px var(--font-family); }
+
+/* Tab Bar — Figma "Group 58" (5 tabs, raised center action; State: Active | Inactive) */
+.lv-tab-bar { position: relative; height: 101px; }
+.lv-tab-bar__bg { position: absolute; top: -2px; left: -2px; width: calc(100% + 4px); height: 105px; display: block; pointer-events: none; }
+.lv-tab-bar__tabs { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); height: 101px; }
+.lv-tab-bar__tab { display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding-top: 27px; text-decoration: none; }
+.lv-tab-bar__tab--center { gap: 5px; padding-top: 8px; }
+.lv-tab-bar__icon { position: relative; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+.lv-tab-bar__tab--center .lv-tab-bar__icon { width: 42px; height: 42px; }
+.lv-tab-bar__icon img { display: block; }
+.lv-tab-bar__icon .lv-badge { position: absolute; left: 14px; top: -7px; }
+.lv-tab-bar__label { color: var(--color-tab-inactive); font: 400 10px/12px var(--font-family); letter-spacing: -0.24px; white-space: nowrap; }
+.lv-tab-bar__tab.is-active .lv-tab-bar__label { color: var(--color-tab-active); font-weight: 600; }
+.lv-tab-bar__home-indicator { position: absolute; left: 50%; top: 84px; transform: translateX(-50%); width: 150px; height: 5px; border-radius: var(--radius-full); background: var(--color-home-indicator); }
+.lv-service-item__icon > img.lv-service-item__glyph { inset: auto; left: 50%; top: 50%; width: auto; height: auto; transform: translate(-50%, -50%); }

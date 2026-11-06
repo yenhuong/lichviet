@@ -1,0 +1,39 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="56" height="56" fill="#F2F2F2"/>
+<g id="TrangChu_2026">
+<rect width="414" height="3815" transform="translate(-48 -726)" fill="white"/>
+<g id="i_LichThang Copy">
+<g id="i_GiaPha Copy">
+<g id="bgr_icon copy 32" filter="url(#filter0_d_192_80)">
+<rect id="bgr_icon" x="2.5" y="1.5" width="51" height="51" rx="17.5" fill="#B1EBFF" stroke="url(#paint0_radial_192_80)"/>
+</g>
+</g>
+<g id="i_lich thang">
+<g id="Group 20">
+<g id="Fill 4">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M40.148 16.7303H16.0501C15.1746 16.7303 14.48 17.4663 14.48 18.3961V39.0549C14.48 39.9826 15.1746 40.7186 16.0501 40.7186H40.148C41.0235 40.7186 41.7181 39.9826 41.7181 39.0549V18.3961C41.6811 17.4663 40.9885 16.7303 40.148 16.7303Z" fill="white"/>
+<path d="M40.148 16.7303H16.0501C15.1746 16.7303 14.48 17.4663 14.48 18.3961V39.0549C14.48 39.9826 15.1746 40.7186 16.0501 40.7186H40.148C41.0235 40.7186 41.7181 39.9826 41.7181 39.0549V18.3961C41.6811 17.4663 40.9885 16.7303 40.148 16.7303" stroke="#006FBA"/>
+</g>
+<path id="Fill 6" fill-rule="evenodd" clip-rule="evenodd" d="M41.6992 23.1151V18.3962C41.6992 17.4685 41.0066 16.7305 40.1291 16.7305H16.0681C15.1907 16.7305 14.498 17.4685 14.498 18.3962V23.1151H41.6992Z" fill="#006FBA"/>
+<path id="Combined Shape" d="M20.6229 13.4805C21.1714 13.4805 21.609 13.9462 21.6092 14.5254V18.8984C21.6091 19.4776 21.1715 19.9434 20.6229 19.9434C20.0763 19.9433 19.6366 19.4776 19.6365 18.8984V14.5254C19.6367 13.9463 20.0763 13.4805 20.6229 13.4805ZM35.5926 13.4805C36.1412 13.4805 36.5788 13.9462 36.5789 14.5254V18.8984C36.5788 19.4776 36.1042 19.9434 35.5926 19.9434C35.046 19.9432 34.6083 19.4776 34.6082 18.8984V14.5254C34.6084 13.9463 35.0461 13.4806 35.5926 13.4805Z" fill="#2B97E0"/>
+<path id="Combined Shape_2" d="M20.6221 38.0488H17.8848V35.1484H20.6221V38.0488ZM26.5391 38.0488H23.7998V35.1484H26.5391V38.0488ZM32.418 38.0488H29.6787V35.1484H32.418V38.0488ZM38.333 35.1484V38.0488H35.5938V35.1484H38.333ZM20.6221 33.1719H17.8848V30.2695H20.6221V33.1719ZM26.5391 33.1719H23.7998V30.2695H26.5391V33.1719ZM32.418 33.1719H29.6787V30.2695H32.418V33.1719ZM38.333 33.1719H35.5938V30.2695H38.333V33.1719ZM20.7744 28.2969H18.0361V25.3965H20.7744V28.2969ZM26.5391 28.2969H23.7998V25.3965H26.5391V28.2969ZM32.418 28.2969H29.6787V25.3965H32.418V28.2969ZM38.333 28.2969H35.5938V25.3965H38.333V28.2969Z" fill="#006FBA"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_192_80" x="0" y="0" width="56" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.175543 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_192_80"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_192_80" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial_192_80" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(28 -9.05529) rotate(125.035) scale(80.4185 96.7341)">
+<stop stop-color="#96E6FE"/>
+<stop offset="1" stop-color="#89DDF6"/>
+</radialGradient>
+</defs>
+</svg>

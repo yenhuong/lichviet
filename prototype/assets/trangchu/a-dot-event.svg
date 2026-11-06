@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="8.03019" height="8" viewBox="0 0 8.03019 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Oval Copy 16">
+<path d="M7.03019 4C7.03019 5.65685 5.68029 7 4.0151 7C2.3499 7 1 5.65685 1 4C1 2.34315 2.3499 1 4.0151 1C5.68029 1 7.03019 2.34315 7.03019 4Z" fill="#F5A623"/>
+<mask id="stroke0_0_660" maskUnits="userSpaceOnUse" x="0" y="0" width="9" height="8" fill="black">
+<rect fill="white" width="9" height="8"/>
+<path d="M7.03019 4C7.03019 5.65685 5.68029 7 4.0151 7C2.3499 7 1 5.65685 1 4C1 2.34315 2.3499 1 4.0151 1C5.68029 1 7.03019 2.34315 7.03019 4Z"/>
+</mask>
+<path d="M7.03019 4C7.03019 5.65685 5.68029 7 4.0151 7C2.3499 7 1 5.65685 1 4C1 2.34315 2.3499 1 4.0151 1C5.68029 1 7.03019 2.34315 7.03019 4Z" stroke-width="2" stroke="white" mask="url(#stroke0_0_660)"/>
+</g>
+</svg>

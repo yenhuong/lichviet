@@ -1,0 +1,205 @@
+/*
+ * Lich Viet design tokens — synced from Figma file "Y-Kien" (b6o4GAgCeVxtngbWRzDCGB)
+ * and from the home screen in file "Lich-Viet-App" (o0hWmJRQOx48gbUPt8rHmt, frame TrangChu_2026).
+ * Source of truth: Figma Variables + Text Styles. Do not edit values by hand;
+ * re-sync from Figma instead. "Lich-Viet-App" has no Variables yet: the home tokens
+ * below are named from the raw values used in that frame.
+ *
+ * Naming rule: Figma "color/text/primary" -> CSS "--color-text-primary".
+ * Last sync: 2026-11-05
+ */
+
+:root {
+  /* Primitives */
+  --blue-500: #007aff;
+  --blue-700: #005cac;
+  --gray-950: #111111;
+  --gray-600: #666666;
+  --gray-450: #8f9aa9;
+  --gray-300: #d5d5d5;
+  --gray-200: #ebebeb;
+  --gray-150: #e9ecf1;
+  --gray-50: #fbfbfb;
+  --white: #ffffff;
+  --black: #000000;
+  --green-600: #009e64;
+  --red-500: #ff3333;
+  --orange-400: #f5a623;
+  --black-a65: rgba(0, 0, 0, 0.65);
+
+  /* Color (semantic) */
+  --color-primary: var(--blue-500);
+  --color-primary-dark: var(--blue-700);
+  --color-text-primary: var(--gray-950);
+  --color-text-secondary: var(--gray-600);
+  --color-text-tertiary: var(--gray-450);
+  --color-text-on-primary: var(--white);
+  --color-border-default: var(--gray-300);
+  --color-border-divider: var(--gray-200);
+  --color-bg-surface: var(--white);
+  --color-bg-subtle: var(--gray-50);
+  --color-bg-muted: var(--gray-150);
+  --color-overlay-scrim: var(--black-a65);
+  --color-status-success: var(--green-600);
+  --color-status-danger: var(--red-500);
+  --color-status-warning: var(--orange-400);
+
+  /* Spacing */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-18: 18px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 12px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 28px;
+  --radius-full: 999px;
+
+  /* Primitives — home screen (Lich-Viet-App / TrangChu_2026) */
+  --blue-400: #2473f8;
+  --blue-750: #00549c;
+  --blue-900: #012e80;
+  --blue-steel-500: #4978b0;
+  --indigo-400: #577bf9;
+  --indigo-500: #4d5add;
+  --violet-400: #9182fe;
+  --navy-950: #001a41;
+  --gray-900: #272727;
+  --gray-800: #333333;
+  --gray-700: #555555;
+  --gray-650: #5b5c5c;
+  --gray-550: #717171;
+  --gray-500: #7d7d7d;
+  --gray-475: #949494;
+  --gray-350: #cecece;
+  --gray-325: #d8d8d8;
+  --gray-310: #dddddd;
+  --gray-275: #e3e3e3;
+  --gray-250: #e6e6e6;
+  --cyan-50: #f2fdff;
+  --cyan-25: #f6feff;
+  --cyan-200: #d0e3e6;
+  --red-50: #ffebeb;
+  --red-550: #ff0808;
+  --red-600: #ec260c;
+  --red-650: #e72b3d;
+  --red-675: #e03b3b;
+  --red-700: #d91f39;
+  --red-rose-500: #d14b5b;
+  --red-900: #920202;
+  --green-50: #d7f5ea;
+  --green-100: #c2eadb;
+  --green-500: #02b875;
+  --green-leaf-600: #4b904b;
+  --yellow-400: #fcff00;
+  --amber-200: #f9dc9d;
+  --amber-450: #f8b400;
+  --gold-500: #cfa92b;
+  --black-a30: rgba(0, 0, 0, 0.3);
+  --black-a10: rgba(0, 0, 0, 0.1);
+
+  /* Color (semantic) — home screen */
+  --color-text-strong: var(--black);
+  --color-text-body: var(--gray-800);
+  --color-text-label: var(--gray-900);
+  --color-text-muted: var(--gray-500);
+  --color-text-link: var(--color-primary);
+  --color-text-accent: var(--blue-400);
+  --color-text-highlight: var(--color-status-danger);
+  --color-text-on-image-accent: var(--yellow-400);
+  --color-text-promo-gold: var(--red-900);
+  --color-text-promo-sky: var(--color-primary-dark);
+  --color-text-horoscope: var(--color-status-success);
+  --color-text-horoscope-label: var(--navy-950);
+  --color-text-lucky-number: var(--red-700);
+  --color-border-card: var(--gray-250);
+  --color-border-button: var(--gray-310);
+  --color-border-promo-gold: var(--amber-200);
+  --color-border-promo-sky: var(--cyan-200);
+  --color-border-horoscope: var(--cyan-200);
+  --color-border-on-image: var(--white);
+  --color-bg-horoscope: var(--cyan-25);
+  --color-bg-on-image-button: var(--black-a30);
+  --color-badge-new: var(--color-status-danger);
+  --color-badge-new-border: var(--red-550);
+  --color-badge-hot: var(--red-650);
+  --color-badge-ribbon: var(--red-675);
+  --color-badge-count: var(--indigo-400);
+  --color-chip-success-bg: var(--green-50);
+  --color-chip-success-border: var(--green-100);
+  --color-chip-success-text: var(--color-status-success);
+  --color-calendar-weekday: var(--blue-750);
+  --color-calendar-sunday: var(--red-600);
+  --color-calendar-weekday-bg: var(--cyan-50);
+  --color-calendar-sunday-bg: var(--red-50);
+  --color-calendar-divider: var(--gray-325);
+  --color-calendar-selected: var(--green-500);
+  --color-calendar-hero-date: var(--blue-900);
+  --color-chart-grid: var(--gray-275);
+  --color-chart-value: var(--gray-700);
+  --color-term-earth: var(--gold-500);
+  --color-term-fire: var(--red-rose-500);
+  --color-term-water: var(--blue-steel-500);
+  --color-term-metal: var(--gray-475);
+  --color-term-wood: var(--green-leaf-600);
+  --color-tab-active: var(--indigo-500);
+  --color-tab-inactive: var(--gray-500);
+  --color-home-indicator: var(--gray-350);
+  --color-lucky-dot: var(--amber-450);
+  --color-bullet: var(--color-primary);
+  --color-separator-dot: var(--gray-550);
+
+  /* Gradients — home screen */
+  --gradient-header: linear-gradient(162.88deg, #e9e9e9 1.21%, #ffffff 60.08%, #f2f2f2 80.91%, #f3f4f6 104.04%);
+  --gradient-cta: linear-gradient(172.06deg, #077bf8 3.82%, #2291fb 25.3%, #067af8 87.6%);
+  --gradient-chart-bar: linear-gradient(to bottom, #f56222 0%, #f59222 20.05%, #f5a722 39.65%, #ecd73f 60.31%, #cbc698 80.1%, #bcbec0 100%);
+
+  /* Shadows — home screen */
+  --shadow-header: 0 1px 1px rgba(0, 0, 0, 0.17);
+  --shadow-card: 0 0 6px var(--black-a10);
+  --shadow-card-lg: 0 0 20px var(--black-a10);
+  --shadow-button: 0 1px 4px rgba(0, 0, 0, 0.11);
+  --shadow-badge: 0 1px 2px rgba(0, 0, 0, 0.31);
+  --shadow-cta-text: 0 1px 0 #006de2;
+
+  /* Font */
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Text styles — Figma "title/md" -> class ".text-title-md" */
+.text-display          { font: 700 72px/72px var(--font-family); }
+.text-title-lg         { font: 700 24px/32px var(--font-family); }
+.text-title-md         { font: 600 20px/28px var(--font-family); }
+.text-title-sm         { font: 600 18px/26px var(--font-family); }
+.text-body-md-regular  { font: 400 16px/24px var(--font-family); }
+.text-body-md-medium   { font: 500 16px/24px var(--font-family); }
+.text-body-md-semibold { font: 600 16px/24px var(--font-family); }
+.text-body-sm-regular  { font: 400 14px/20px var(--font-family); }
+.text-body-sm-semibold { font: 600 14px/20px var(--font-family); }
+.text-caption          { font: 600 12px/16px var(--font-family); }
+.text-micro-regular    { font: 400 10px/14px var(--font-family); }
+.text-micro-semibold   { font: 600 10px/14px var(--font-family); }
+.text-button-lg        { font: 700 16px/24px var(--font-family); text-transform: uppercase; }
+.text-button-sm        { font: 700 14px/20px var(--font-family); }
+
+/* Text styles — home screen (Lich-Viet-App / TrangChu_2026) */
+.text-heading-section  { font: 600 24px/24px var(--font-family); }
+.text-heading-card     { font: 600 22px/24px var(--font-family); }
+.text-heading-date     { font: 700 24px/24px var(--font-family); }
+.text-overline-lg      { font: 700 18px/21px var(--font-family); text-transform: uppercase; }
+.text-body-lg-semibold { font: 600 18px/27px var(--font-family); }
+.text-body-md-tight-semibold { font: 600 16px/18px var(--font-family); }
+.text-body-md-tight-medium   { font: 500 16px/18px var(--font-family); }
+.text-body-sm-tight    { font: 400 14px/18px var(--font-family); }
+.text-label-sm         { font: 400 14px/21px var(--font-family); }
+.text-label-sm-medium  { font: 500 14px/21px var(--font-family); }
+.text-button-md        { font: 600 16px/21px var(--font-family); }

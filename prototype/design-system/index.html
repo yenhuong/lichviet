@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danh mục component Lịch Việt</title>
+<link rel="stylesheet" href="components.css">
+<style>
+  /* Catalog page chrome only — not part of the component library */
+  body { margin: 0; background: var(--color-bg-subtle); color: var(--color-text-primary); font-family: var(--font-family); }
+  .cat { max-width: 760px; margin: 0 auto; padding: var(--space-24) var(--space-16) var(--space-32); }
+  .cat h1 { margin: 0 0 var(--space-8); }
+  .cat > p { margin: 0 0 var(--space-24); color: var(--color-text-secondary); }
+  .cat-item { background: var(--color-bg-surface); border: 1px solid var(--color-border-divider); border-radius: var(--radius-md); margin-bottom: var(--space-16); overflow: hidden; }
+  .cat-head { padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--color-border-divider); }
+  .cat-head h2 { margin: 0; }
+  .cat-head small { color: var(--color-text-tertiary); }
+  .cat-demo { padding: var(--space-16); display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; max-width: 414px; }
+  .cat-demo--col { flex-direction: column; align-items: stretch; }
+  .cat-demo--flush { padding: 0; }
+  .cat-code { margin: 0; padding: var(--space-12) var(--space-16); background: var(--color-bg-subtle); border-top: 1px solid var(--color-border-divider); font: 12px/18px ui-monospace, Menlo, monospace; white-space: pre-wrap; word-break: break-word; color: var(--color-text-secondary); }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-8); padding: var(--space-16); }
+  .swatch { display: flex; gap: var(--space-8); align-items: center; }
+  .swatch i { width: 28px; height: 28px; border-radius: var(--radius-xs); border: 1px solid var(--color-border-divider); flex: none; }
+  .swatch span { font-size: 12px; line-height: 16px; word-break: break-all; }
+  .sheet-preview { background: var(--color-overlay-scrim); padding-top: var(--space-32); width: 100%; max-width: 414px; }
+</style>
+</head>
+<body>
+<main class="cat">
+  <h1 class="text-title-lg">Danh mục component</h1>
+  <p class="text-body-sm-regular">Đồng bộ từ Figma "Y-Kien" ngày 02/11/2026 và "Lich-Viet-App" (Trang chủ) ngày 05/11/2026. Dùng <code>components.css</code> khi dựng demo. Thiếu component thì tạo component tạm có tiền tố <code>new-</code>.</p>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Màu</h2><small>tokens.css · --color-*</small></div>
+    <div class="swatches">
+      <div class="swatch"><i style="background:var(--color-primary)"></i><span>color-primary</span></div>
+      <div class="swatch"><i style="background:var(--color-primary-dark)"></i><span>color-primary-dark</span></div>
+      <div class="swatch"><i style="background:var(--color-text-primary)"></i><span>color-text-primary</span></div>
+      <div class="swatch"><i style="background:var(--color-text-secondary)"></i><span>color-text-secondary</span></div>
+      <div class="swatch"><i style="background:var(--color-text-tertiary)"></i><span>color-text-tertiary</span></div>
+      <div class="swatch"><i style="background:var(--color-border-default)"></i><span>color-border-default</span></div>
+      <div class="swatch"><i style="background:var(--color-border-divider)"></i><span>color-border-divider</span></div>
+      <div class="swatch"><i style="background:var(--color-bg-subtle)"></i><span>color-bg-subtle</span></div>
+      <div class="swatch"><i style="background:var(--color-bg-muted)"></i><span>color-bg-muted</span></div>
+      <div class="swatch"><i style="background:var(--color-overlay-scrim)"></i><span>color-overlay-scrim</span></div>
+      <div class="swatch"><i style="background:var(--color-status-success)"></i><span>color-status-success</span></div>
+      <div class="swatch"><i style="background:var(--color-status-danger)"></i><span>color-status-danger</span></div>
+      <div class="swatch"><i style="background:var(--color-status-warning)"></i><span>color-status-warning</span></div>
+    </div>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Kiểu chữ</h2><small>tokens.css · .text-*</small></div>
+    <div class="cat-demo cat-demo--col">
+      <div class="text-title-lg">title-lg · Lịch Việt</div>
+      <div class="text-title-md">title-md · Lịch Việt</div>
+      <div class="text-title-sm">title-sm · Lịch Việt</div>
+      <div class="text-body-md-regular">body-md-regular · Lịch Việt</div>
+      <div class="text-body-md-medium">body-md-medium · Lịch Việt</div>
+      <div class="text-body-md-semibold">body-md-semibold · Lịch Việt</div>
+      <div class="text-body-sm-regular">body-sm-regular · Lịch Việt</div>
+      <div class="text-body-sm-semibold">body-sm-semibold · Lịch Việt</div>
+      <div class="text-caption">caption · Lịch Việt</div>
+      <div class="text-micro-regular">micro-regular · Lịch Việt</div>
+      <div class="text-button-lg">button-lg · Lịch Việt</div>
+    </div>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Nút</h2><small>Figma: Button · Size Large/Small · State Default/Pressed/Disabled</small></div>
+    <div class="cat-demo">
+      <button class="lv-button" data-component="Button">Gửi góp ý</button>
+      <button class="lv-button is-pressed" data-component="Button">Gửi góp ý</button>
+      <button class="lv-button" data-component="Button" disabled>Gửi góp ý</button>
+      <button class="lv-button lv-button--small" data-component="Button">Gửi góp ý</button>
+    </div>
+<pre class="cat-code">&lt;button class="lv-button" data-component="Button"&gt;Gửi góp ý&lt;/button&gt;
+&lt;button class="lv-button lv-button--small" data-component="Button"&gt;…&lt;/button&gt;
+&lt;button class="lv-button" data-component="Button" disabled&gt;…&lt;/button&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Ô chọn</h2><small>Figma: Checkbox · State Off/On</small></div>
+    <div class="cat-demo">
+      <span class="lv-checkbox" data-component="Checkbox"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="lv-checkbox is-on" data-component="Checkbox"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+<pre class="cat-code">&lt;span class="lv-checkbox is-on" data-component="Checkbox"&gt;&lt;svg viewBox="0 0 12 12" fill="none"&gt;&lt;path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2"/&gt;&lt;/svg&gt;&lt;/span&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Thanh điều hướng</h2><small>Figma: Navigation Bar · Title</small></div>
+    <div class="cat-demo cat-demo--flush">
+      <header class="lv-navbar" data-component="Navigation Bar" style="width:100%">
+        <div class="lv-navbar__status"></div>
+        <div class="lv-navbar__bar">
+          <button class="lv-navbar__back" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <h1 class="lv-navbar__title">Góp ý với Lịch Việt</h1>
+          <span class="lv-navbar__spacer"></span>
+        </div>
+      </header>
+    </div>
+<pre class="cat-code">&lt;header class="lv-navbar" data-component="Navigation Bar"&gt;
+  &lt;div class="lv-navbar__status"&gt;&lt;/div&gt;
+  &lt;div class="lv-navbar__bar"&gt;
+    &lt;button class="lv-navbar__back" aria-label="Quay lại"&gt;…svg…&lt;/button&gt;
+    &lt;h1 class="lv-navbar__title"&gt;Tiêu đề&lt;/h1&gt;
+    &lt;span class="lv-navbar__spacer"&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Tiêu đề mục</h2><small>Figma: Form/Section Header · Title, Icon</small></div>
+    <div class="cat-demo">
+      <div class="lv-section-header" data-component="Form/Section Header">
+        <svg class="lv-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="2.5" width="6" height="6" rx="1.5"/><rect x="11.5" y="2.5" width="6" height="6" rx="1.5"/><rect x="2.5" y="11.5" width="6" height="6" rx="1.5"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.5"/></svg>
+        <h2 class="lv-section-header__title">Tính năng bạn muốn góp ý</h2>
+      </div>
+    </div>
+<pre class="cat-code">&lt;div class="lv-section-header" data-component="Form/Section Header"&gt;
+  &lt;svg class="lv-icon"&gt;…&lt;/svg&gt;
+  &lt;h2 class="lv-section-header__title"&gt;Tiêu đề&lt;/h2&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Ô chọn giá trị</h2><small>Figma: Form/Select · State Placeholder/Filled</small></div>
+    <div class="cat-demo cat-demo--col">
+      <button class="lv-select" data-component="Form/Select"><span class="lv-select__value">Chọn tính năng</span><svg class="lv-icon" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="lv-select is-filled" data-component="Form/Select"><span class="lv-select__value">Tử vi nghề nghiệp</span><svg class="lv-icon" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+<pre class="cat-code">&lt;button class="lv-select" data-component="Form/Select"&gt;&lt;span class="lv-select__value"&gt;Chọn tính năng&lt;/span&gt;…chevron…&lt;/button&gt;
+&lt;!-- đã chọn: thêm class is-filled --&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Ô nhập nhiều dòng</h2><small>Figma: Form/Textarea · State Placeholder/Filled</small></div>
+    <div class="cat-demo cat-demo--col">
+      <textarea class="lv-textarea" data-component="Form/Textarea" placeholder="Hãy chia sẻ điều bạn muốn Lịch Việt cải thiện, bổ sung hoặc làm tốt hơn..."></textarea>
+    </div>
+<pre class="cat-code">&lt;textarea class="lv-textarea" data-component="Form/Textarea" placeholder="…"&gt;&lt;/textarea&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Ô ảnh</h2><small>Figma: Form/Image Tile · Type Add/Thumbnail</small></div>
+    <div class="cat-demo">
+      <button class="lv-image-tile lv-image-tile--add" data-component="Form/Image Tile"><svg class="lv-icon lv-icon--32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="7" width="20" height="18" rx="3"/><path d="M4 21l6-6 5 5 3-3 6 6"/><path d="M26 4v8M22 8h8" stroke-linecap="round"/></svg>Thêm ảnh</button>
+      <div class="lv-image-tile" data-component="Form/Image Tile"><button class="lv-image-tile__remove" aria-label="Xóa ảnh">✕</button></div>
+    </div>
+<pre class="cat-code">&lt;button class="lv-image-tile lv-image-tile--add" data-component="Form/Image Tile"&gt;…icon… Thêm ảnh&lt;/button&gt;
+&lt;div class="lv-image-tile" data-component="Form/Image Tile" style="background-image:url(…)"&gt;
+  &lt;button class="lv-image-tile__remove" aria-label="Xóa ảnh"&gt;✕&lt;/button&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Dòng chọn trong danh sách</h2><small>Figma: List Item/Selectable · Label, Icon, Selected</small></div>
+    <div class="cat-demo cat-demo--col cat-demo--flush">
+      <button class="lv-list-item" data-component="List Item/Selectable"><span class="lv-list-item__icon"></span><span class="lv-list-item__label">Xem ngày tốt</span><span class="lv-checkbox"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      <button class="lv-list-item" data-component="List Item/Selectable"><span class="lv-list-item__icon"></span><span class="lv-list-item__label">Tử vi nghề nghiệp</span><span class="lv-checkbox is-on"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    </div>
+<pre class="cat-code">&lt;button class="lv-list-item" data-component="List Item/Selectable"&gt;
+  &lt;span class="lv-list-item__icon"&gt;&lt;/span&gt;
+  &lt;span class="lv-list-item__label"&gt;Tên mục&lt;/span&gt;
+  &lt;span class="lv-checkbox"&gt;…svg…&lt;/span&gt;  &lt;!-- đã chọn: lv-checkbox is-on --&gt;
+&lt;/button&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Bottom sheet</h2><small>Figma: Bottom Sheet + Bottom Sheet/Header · Title</small></div>
+    <div class="cat-demo cat-demo--flush">
+      <div class="sheet-preview">
+        <div class="lv-bottom-sheet" data-component="Bottom Sheet">
+          <div class="lv-bottom-sheet__header" data-component="Bottom Sheet/Header">
+            <span class="lv-bottom-sheet__spacer"></span>
+            <h2 class="lv-bottom-sheet__title">Chọn tính năng</h2>
+            <button class="lv-bottom-sheet__close" aria-label="Đóng"><svg class="lv-icon" viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="lv-bottom-sheet__content">
+            <p class="text-body-md-regular" style="margin:0">Nội dung của sheet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+<pre class="cat-code">&lt;div class="lv-scrim"&gt;  &lt;!-- lớp nền tối, bấm để đóng --&gt;
+  &lt;div class="lv-bottom-sheet" data-component="Bottom Sheet"&gt;
+    &lt;div class="lv-bottom-sheet__header" data-component="Bottom Sheet/Header"&gt;
+      &lt;span class="lv-bottom-sheet__spacer"&gt;&lt;/span&gt;
+      &lt;h2 class="lv-bottom-sheet__title"&gt;Tiêu đề&lt;/h2&gt;
+      &lt;button class="lv-bottom-sheet__close" aria-label="Đóng"&gt;…&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="lv-bottom-sheet__content"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Thanh nút cuối màn</h2><small>Figma: Bottom Action Bar</small></div>
+    <div class="cat-demo cat-demo--flush">
+      <div class="lv-action-bar" data-component="Bottom Action Bar" style="width:100%">
+        <button class="lv-button" data-component="Button">Gửi góp ý</button>
+        <span class="lv-action-bar__home-indicator"></span>
+      </div>
+    </div>
+<pre class="cat-code">&lt;div class="lv-action-bar" data-component="Bottom Action Bar"&gt;
+  &lt;button class="lv-button" data-component="Button"&gt;Gửi góp ý&lt;/button&gt;
+  &lt;span class="lv-action-bar__home-indicator"&gt;&lt;/span&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <h1 class="text-title-lg" style="margin-top:var(--space-32)">Trang chủ</h1>
+  <p class="text-body-sm-regular">Đồng bộ từ Figma "Lich-Viet-App", khung TrangChu_2026, ngày 05/11/2026. Trên Figma các khối này còn là group, chưa là component. Tên <code>Home/…</code> là tên đề xuất. Màn đầy đủ: <a href="../TrangChu_2026.html">TrangChu_2026.html</a>.</p>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Màu Trang chủ</h2><small>tokens.css · --color-*</small></div>
+    <div class="swatches"><div class="swatch"><i style="background:var(--color-text-strong)"></i><span>color-text-strong</span></div><div class="swatch"><i style="background:var(--color-text-body)"></i><span>color-text-body</span></div><div class="swatch"><i style="background:var(--color-text-label)"></i><span>color-text-label</span></div><div class="swatch"><i style="background:var(--color-text-muted)"></i><span>color-text-muted</span></div><div class="swatch"><i style="background:var(--color-text-accent)"></i><span>color-text-accent</span></div><div class="swatch"><i style="background:var(--color-text-on-image-accent)"></i><span>color-text-on-image-accent</span></div><div class="swatch"><i style="background:var(--color-text-promo-gold)"></i><span>color-text-promo-gold</span></div><div class="swatch"><i style="background:var(--color-text-horoscope)"></i><span>color-text-horoscope</span></div><div class="swatch"><i style="background:var(--color-text-lucky-number)"></i><span>color-text-lucky-number</span></div><div class="swatch"><i style="background:var(--color-border-card)"></i><span>color-border-card</span></div><div class="swatch"><i style="background:var(--color-border-button)"></i><span>color-border-button</span></div><div class="swatch"><i style="background:var(--color-border-promo-gold)"></i><span>color-border-promo-gold</span></div><div class="swatch"><i style="background:var(--color-border-horoscope)"></i><span>color-border-horoscope</span></div><div class="swatch"><i style="background:var(--color-bg-horoscope)"></i><span>color-bg-horoscope</span></div><div class="swatch"><i style="background:var(--color-badge-new)"></i><span>color-badge-new</span></div><div class="swatch"><i style="background:var(--color-badge-hot)"></i><span>color-badge-hot</span></div><div class="swatch"><i style="background:var(--color-badge-ribbon)"></i><span>color-badge-ribbon</span></div><div class="swatch"><i style="background:var(--color-badge-count)"></i><span>color-badge-count</span></div><div class="swatch"><i style="background:var(--color-chip-success-bg)"></i><span>color-chip-success-bg</span></div><div class="swatch"><i style="background:var(--color-calendar-weekday)"></i><span>color-calendar-weekday</span></div><div class="swatch"><i style="background:var(--color-calendar-sunday)"></i><span>color-calendar-sunday</span></div><div class="swatch"><i style="background:var(--color-calendar-weekday-bg)"></i><span>color-calendar-weekday-bg</span></div><div class="swatch"><i style="background:var(--color-calendar-sunday-bg)"></i><span>color-calendar-sunday-bg</span></div><div class="swatch"><i style="background:var(--color-calendar-selected)"></i><span>color-calendar-selected</span></div><div class="swatch"><i style="background:var(--color-calendar-hero-date)"></i><span>color-calendar-hero-date</span></div><div class="swatch"><i style="background:var(--color-chart-grid)"></i><span>color-chart-grid</span></div><div class="swatch"><i style="background:var(--color-term-earth)"></i><span>color-term-earth</span></div><div class="swatch"><i style="background:var(--color-term-fire)"></i><span>color-term-fire</span></div><div class="swatch"><i style="background:var(--color-term-water)"></i><span>color-term-water</span></div><div class="swatch"><i style="background:var(--color-term-metal)"></i><span>color-term-metal</span></div><div class="swatch"><i style="background:var(--color-term-wood)"></i><span>color-term-wood</span></div><div class="swatch"><i style="background:var(--color-tab-active)"></i><span>color-tab-active</span></div><div class="swatch"><i style="background:var(--color-tab-inactive)"></i><span>color-tab-inactive</span></div></div>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Kiểu chữ Trang chủ</h2><small>tokens.css · .text-*</small></div>
+    <div class="cat-demo cat-demo--col">
+      <div class="text-heading-section">heading-section · Tiết khí</div>
+      <div class="text-heading-card">heading-card · Giờ Giáp Dần</div>
+      <div class="text-heading-date">heading-date · Tháng 8, 2026</div>
+      <div class="text-overline-lg">overline-lg · Tử vi tuổi Đinh Dậu</div>
+      <div class="text-body-lg-semibold">body-lg-semibold · Đừng bỏ lỡ ngày đẹp</div>
+      <div class="text-body-md-tight-semibold">body-md-tight-semibold · Lễ Vu Lan</div>
+      <div class="text-body-md-tight-medium">body-md-tight-medium · 3h - 5h</div>
+      <div class="text-body-sm-tight">body-sm-tight · Phù hợp phát triển dài hạn</div>
+      <div class="text-label-sm">label-sm · Cưới hỏi</div>
+      <div class="text-label-sm-medium">label-sm-medium · Màu hợp tuổi</div>
+      <div class="text-button-md">button-md · Xem chi tiết</div>
+    </div>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Nhãn</h2><small>Badge · Variant New/Hot/Ribbon/Count</small></div>
+    <div class="cat-demo">
+      <span class="lv-badge lv-badge--new" data-component="Badge">MỚI</span>
+      <span class="lv-badge lv-badge--hot" data-component="Badge">Hot</span>
+      <span class="lv-badge lv-badge--ribbon" data-component="Badge">HOT</span>
+      <span class="lv-badge lv-badge--count" data-component="Badge">3</span>
+      <span class="lv-chip" data-component="Chip">Công danh, sự nghiệp</span>
+    </div>
+<pre class="cat-code">&lt;span class="lv-badge lv-badge--new" data-component="Badge"&gt;MỚI&lt;/span&gt;
+&lt;!-- --hot · --ribbon · --count --&gt;
+&lt;span class="lv-chip" data-component="Chip"&gt;Công danh, sự nghiệp&lt;/span&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Nút Trang chủ</h2><small>Home/Pill Button · Home/Gradient CTA · Home/Ghost Button · Link "Xem thêm"</small></div>
+    <div class="cat-demo">
+      <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem chi tiết<img src="../assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+      <a class="lv-gradient-cta" href="#" data-component="Home/Gradient CTA">Xem có gì đặc biệt<img src="../assets/trangchu/b-chevron-right-1.svg" alt=""></a>
+      <span style="background:var(--color-calendar-hero-date);padding:var(--space-8);border-radius:var(--radius-md);display:flex"><button class="lv-ghost-button" data-component="Home/Ghost Button">Xem thêm</button></span>
+      <a class="lv-link-more" href="#">Xem thêm<img src="../assets/trangchu/c-icon-chevron-right-blue.svg" alt=""></a>
+    </div>
+<pre class="cat-code">&lt;a class="lv-pill-button" data-component="Home/Pill Button"&gt;Xem chi tiết&lt;img src="…double-chevron.svg"&gt;&lt;/a&gt;
+&lt;a class="lv-gradient-cta" data-component="Home/Gradient CTA"&gt;Xem có gì đặc biệt&lt;img src="…chevron.svg"&gt;&lt;/a&gt;
+&lt;button class="lv-ghost-button" data-component="Home/Ghost Button"&gt;Xem thêm&lt;/button&gt;
+&lt;a class="lv-link-more"&gt;Xem thêm&lt;img src="…"&gt;&lt;/a&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Thẻ và ô tính năng</h2><small>Card (Elevation Default/High) · Home/Feature Tile</small></div>
+    <div class="cat-demo">
+      <a class="lv-card lv-feature-tile" style="width:120px;height:145px" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="../assets/trangchu/b-icon-chon-ngay-tot.svg" alt=""><span class="lv-feature-tile__label">Chọn<br>Ngày Tốt</span><span class="lv-badge lv-badge--hot lv-feature-tile__badge" data-component="Badge">Hot</span></a>
+      <a class="lv-card lv-feature-tile" style="width:120px;height:145px" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="../assets/trangchu/b-icon-lich-thang.svg" alt=""><span class="lv-feature-tile__label">Lịch Tháng</span></a>
+    </div>
+<pre class="cat-code">&lt;nav class="lv-feature-grid"&gt;
+  &lt;a class="lv-card lv-feature-tile" data-component="Home/Feature Tile"&gt;
+    &lt;img class="lv-feature-tile__icon" src="…"&gt;&lt;span class="lv-feature-tile__label"&gt;Chọn&lt;br&gt;Ngày Tốt&lt;/span&gt;
+    &lt;span class="lv-badge lv-badge--hot lv-feature-tile__badge"&gt;Hot&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/nav&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Dòng menu</h2><small>Home/Menu List · Home/Menu Row</small></div>
+    <div class="cat-demo cat-demo--col">
+      <div class="lv-card lv-menu-list" style="width:100%" data-component="Home/Menu List">
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="../assets/trangchu/d-icon-tron-bo-tu-vi.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Trọn Bộ Tử Vi</span><span class="lv-menu-row__desc">Xem vận hạn &amp; dự báo từng tháng</span></span><img class="lv-menu-row__chevron" src="../assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="../assets/trangchu/d-icon-tu-vi-tong-quan.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Tử Vi Tổng Quan</span><span class="lv-menu-row__desc">Chủ động quyết định – tránh rủi ro</span></span><img class="lv-menu-row__chevron" src="../assets/trangchu/d-icon-chevron-more.svg" alt=""><span class="lv-badge lv-badge--ribbon lv-menu-row__badge">HOT</span></a>
+      </div>
+    </div>
+<pre class="cat-code">&lt;div class="lv-card lv-menu-list" data-component="Home/Menu List"&gt;
+  &lt;a class="lv-menu-row" data-component="Home/Menu Row"&gt;
+    &lt;img class="lv-menu-row__icon" src="…"&gt;
+    &lt;span class="lv-menu-row__text"&gt;&lt;span class="lv-menu-row__title"&gt;…&lt;/span&gt;&lt;span class="lv-menu-row__desc"&gt;…&lt;/span&gt;&lt;/span&gt;
+    &lt;img class="lv-menu-row__chevron" src="…"&gt;
+  &lt;/a&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Dải tuần</h2><small>Home/Week Strip · Day State Default/Selected · Marker Flag/Dot</small></div>
+    <div class="cat-demo cat-demo--flush">
+      <section class="lv-week-strip" style="width:100%;margin:0" data-component="Home/Week Strip">
+        <div class="lv-week-strip__labels"><span class="lv-week-strip__label">HAI</span><span class="lv-week-strip__label">BA</span><span class="lv-week-strip__label">TƯ</span><span class="lv-week-strip__label">NĂM</span><span class="lv-week-strip__label">SÁU</span><span class="lv-week-strip__label">BẢY</span><span class="lv-week-strip__label lv-week-strip__label--sunday">CN</span></div>
+        <div class="lv-week-strip__days"><button class="lv-week-strip__day"><span class="lv-week-strip__date">24</span><span class="lv-week-strip__lunar">14</span></button><button class="lv-week-strip__day is-selected"><span class="lv-week-strip__date">25</span><span class="lv-week-strip__lunar">15</span><img class="lv-week-strip__flag" src="../assets/trangchu/a-icon-event-flag-personal.svg" alt=""><img class="lv-week-strip__dot" src="../assets/trangchu/a-dot-event.svg" alt=""></button><button class="lv-week-strip__day"><span class="lv-week-strip__date">26</span><span class="lv-week-strip__lunar">16</span></button><button class="lv-week-strip__day"><span class="lv-week-strip__date">27</span><span class="lv-week-strip__lunar">17</span></button><button class="lv-week-strip__day"><span class="lv-week-strip__date">28</span><span class="lv-week-strip__lunar">18</span><img class="lv-week-strip__dot" src="../assets/trangchu/a-dot-event.svg" alt=""></button><button class="lv-week-strip__day"><span class="lv-week-strip__date">29</span><span class="lv-week-strip__lunar">19</span></button><button class="lv-week-strip__day"><span class="lv-week-strip__date">30</span><span class="lv-week-strip__lunar">20</span></button></div>
+      </section>
+    </div>
+<pre class="cat-code">&lt;section class="lv-week-strip" data-component="Home/Week Strip"&gt;
+  &lt;div class="lv-week-strip__labels"&gt;&lt;span class="lv-week-strip__label"&gt;HAI&lt;/span&gt;… &lt;span class="lv-week-strip__label lv-week-strip__label--sunday"&gt;CN&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="lv-week-strip__days"&gt;
+    &lt;button class="lv-week-strip__day is-selected"&gt;&lt;span class="lv-week-strip__date"&gt;25&lt;/span&gt;&lt;span class="lv-week-strip__lunar"&gt;15&lt;/span&gt;
+      &lt;img class="lv-week-strip__flag" src="…"&gt;&lt;img class="lv-week-strip__dot" src="…"&gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Thanh tab</h2><small>Tab Bar · Tab State Active/Inactive · tab giữa nổi</small></div>
+    <div class="cat-demo cat-demo--flush">
+      <nav class="lv-tab-bar" style="width:100%" data-component="Tab Bar">
+        <img class="lv-tab-bar__bg" src="../assets/trangchu/d-tabbar-bg.svg" alt="">
+        <div class="lv-tab-bar__tabs">
+          <a class="lv-tab-bar__tab is-active" href="#"><span class="lv-tab-bar__icon"><img src="../assets/trangchu/d-tab-icon-trang-chu.svg" width="24" height="23" alt=""></span><span class="lv-tab-bar__label">Trang</span></a>
+          <a class="lv-tab-bar__tab" href="#"><span class="lv-tab-bar__icon"><img src="../assets/trangchu/d-tab-icon-su-kien.svg" width="24" height="24" alt=""><span class="lv-badge lv-badge--count">3</span></span><span class="lv-tab-bar__label">Sự kiện</span></a>
+          <a class="lv-tab-bar__tab lv-tab-bar__tab--center is-active" href="#"><span class="lv-tab-bar__icon"><img src="../assets/trangchu/d-tab-icon-dich-vu.svg" width="42" height="42" alt=""></span><span class="lv-tab-bar__label">Dịch vụ</span></a>
+          <a class="lv-tab-bar__tab" href="#"><span class="lv-tab-bar__icon"><img src="../assets/trangchu/d-tab-icon-video.svg" width="22" height="22" alt=""></span><span class="lv-tab-bar__label">Video</span></a>
+          <a class="lv-tab-bar__tab" href="#"><span class="lv-tab-bar__icon"><img src="../assets/trangchu/d-tab-icon-mua-sam.svg" width="24" height="24" alt=""></span><span class="lv-tab-bar__label">Mua sắm</span></a>
+        </div>
+        <span class="lv-tab-bar__home-indicator"></span>
+      </nav>
+    </div>
+<pre class="cat-code">&lt;nav class="lv-tab-bar" data-component="Tab Bar"&gt;
+  &lt;img class="lv-tab-bar__bg" src="…tabbar-bg.svg"&gt;
+  &lt;div class="lv-tab-bar__tabs"&gt;
+    &lt;a class="lv-tab-bar__tab is-active"&gt;&lt;span class="lv-tab-bar__icon"&gt;&lt;img …&gt;&lt;/span&gt;&lt;span class="lv-tab-bar__label"&gt;Trang&lt;/span&gt;&lt;/a&gt;
+    &lt;a class="lv-tab-bar__tab lv-tab-bar__tab--center"&gt;…&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;span class="lv-tab-bar__home-indicator"&gt;&lt;/span&gt;
+&lt;/nav&gt;</pre>
+  </section>
+
+  <section class="cat-item">
+    <div class="cat-head"><h2 class="text-title-sm">Khối lớn của Trang chủ</h2><small>Xem trực tiếp trên TrangChu_2026.html</small></div>
+    <pre class="cat-code">lv-status-bar      Light Status Bar
+lv-home-header     Home/Header (avatar, lv-rank-badge, tên, năm sinh, menu, chuông)
+lv-today-hero      Home/Today Hero (ngày lớn trên ảnh nền, điểm ngày, việc nên làm)
+lv-carousel        Home/Carousel (cuộn ngang, dùng cho lv-promo-card và lv-video-thumb)
+lv-promo-card      Home/Promo Card · Variant Gold / Sky (--sky)
+lv-good-hour       Home/Good Hour Card (dùng với lv-card, lv-bullet-list, lv-pill-button)
+lv-bar-chart       Home/Bar Chart (chiều cao cột: style="--h:69%")
+lv-term-strip      Home/Solar Term Strip · Cell Earth/Fire/Water/Metal/Wood
+lv-horoscope       Home/Daily Horoscope Card
+lv-service-grid    Home/Service Grid + lv-service-item (Chọn ngày tốt)
+lv-divider · lv-bullet-list · lv-home-section-title · lv-home-section-subtitle</pre>
+  </section>
+</main>
+</body>
+</html>

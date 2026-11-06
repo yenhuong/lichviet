@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trang chủ 2026</title>
+<link rel="stylesheet" href="design-system/components.css?v=20261105-4">
+<style>
+  /* Screen-specific layout — tokens only. Figma: Lich-Viet-App / TrangChu_2026 (59830:80197) */
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; gap: var(--space-16); padding: var(--space-24) var(--space-16); box-sizing: border-box; background: var(--color-bg-muted); font-family: var(--font-family); }
+  body:is(:has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target), :has(#s-phat-giao-full:checked), :has(#s-init:checked):has([id="state=phat-giao-full"]:target)) { padding: 0; gap: 0; align-items: flex-start; }
+  .phone { position: relative; width: 414px; height: 896px; max-width: 100%; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--color-bg-surface); }
+  body:is(:has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target), :has(#s-phat-giao-full:checked), :has(#s-init:checked):has([id="state=phat-giao-full"]:target)) .phone { height: auto; border-radius: 0; }
+  .screen-body { flex: 1; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; padding-bottom: var(--space-16); }
+  .screen-body::-webkit-scrollbar { display: none; }
+  body:is(:has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target), :has(#s-phat-giao-full:checked), :has(#s-init:checked):has([id="state=phat-giao-full"]:target)) .screen-body { overflow: visible; }
+  .phone > .lv-tab-bar { flex: none; }
+  .gutter { padding: 0 var(--space-16); }
+
+  .banner { margin-top: var(--space-16); }
+  .features { margin-top: var(--space-12); }
+  .good-hour { margin-top: var(--space-20); }
+  .good-hour .lv-home-section-title { margin: 0 0 var(--space-18) var(--space-4); }
+  .chart { margin-top: calc(var(--space-24) + var(--space-2)); }
+  .chart .lv-bar-chart { margin-top: calc(var(--space-24) + var(--space-18)); }
+  .chart__action, .term__action { display: flex; justify-content: flex-end; margin-top: calc(var(--space-12) + var(--space-2)); padding-right: var(--space-12); }
+  .section-divider { margin-top: var(--space-20); }
+  .term { margin-top: var(--space-20); }
+  .term__sub { margin: var(--space-16) 0 0; color: var(--color-text-strong); }
+  .term__sub span { color: var(--color-separator-dot); padding: 0 var(--space-8); }
+  .term__sub em { font-style: normal; font-weight: 500; }
+  .term__name { display: flex; align-items: center; gap: var(--space-12); margin: var(--space-16) 0 0; color: var(--color-text-strong); text-transform: uppercase; }
+  .term__name img { display: block; width: 24px; height: 24px; }
+  .term .lv-bullet-list { margin-top: var(--space-2); }
+  .term .lv-term-strip { margin-top: var(--space-16); }
+  .term__action { margin-top: var(--space-16); padding-right: 0; }
+  .video { margin-top: var(--space-20); }
+  .video__head { display: flex; justify-content: flex-end; }
+  .video .lv-carousel { margin-top: var(--space-20); }
+  .horoscope { margin-top: var(--space-12); }
+  .tuvi { margin-top: var(--space-24); }
+  .tuvi .lv-card { margin-top: var(--space-18); }
+  .ngaytot { margin-top: var(--space-24); overflow: hidden; }
+  .ngaytot__banner { display: block; width: 100%; height: 114px; object-fit: cover; }
+
+  /* Mode: Lịch âm (default) | Lịch âm + Phật giáo. Same screen, content swapped and reordered. */
+  .screen-body { display: flex; flex-direction: column; }
+  .screen-body > * { flex: none; }
+  body:is(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .only-pg { display: none; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .only-default { display: none; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-header { order: 1; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-week { order: 2; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-hero { order: 4; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 8; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-banner { order: 5; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-features { order: 6; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-term { order: 12; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-good-hour { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-chart { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-horoscope { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-ngaytot { order: 11; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-video { order: 13; }
+  .upcoming { margin-top: var(--space-24); }
+  .upcoming .lv-card { margin-top: var(--space-18); }
+  .upcoming__action { display: flex; justify-content: flex-end; padding: var(--space-4) var(--space-16) var(--space-16); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .term { margin-top: var(--space-32); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .good-hour { margin-top: var(--space-24); }
+  .phone .lv-scrim { position: absolute; z-index: 20; }
+
+  /* new/Day Mark — Buddhist markers on Home/Week Strip (Type: Chay | Vía) — temporary, not in Figma yet */
+  .new-day-mark__lotus { position: absolute; top: var(--space-2); left: var(--space-2); width: 15px; height: 15px; }
+  .new-day-mark__moon { position: absolute; top: 40px; left: 41px; width: 8px; height: 8px; }
+
+  /* Home/Today Hero in Phật giáo mode: 20% taller (300 → 360), light pagoda artwork, dark text — temporary variant */
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero { height: auto; padding-bottom: var(--space-24); color: var(--color-text-on-primary); text-shadow: var(--new-shadow-text-on-image); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__score-value { color: var(--new-color-text-score); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__bg { object-position: right top; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__lunar { margin-top: var(--space-12); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__date { width: auto; text-align: left; color: var(--color-text-on-primary); text-shadow: var(--new-shadow-text-on-image); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .video__head { justify-content: space-between; align-items: center; margin-bottom: var(--space-16); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__date-row { gap: var(--space-4); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__moon { width: 12px; height: 12px; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__moon img:first-child { width: 12px; height: 12px; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__moon img + img { left: 1px; top: 1px; width: 10px; height: 10px; }
+
+
+  /* Temporary tokens for Phật giáo hero: observance name color, soft text shadow */
+  :root { --new-color-text-observance: #ffc6d6; --new-shadow-text-observance: 0 1px 2px rgba(110, 0, 40, 0.75), 0 0 6px rgba(110, 0, 40, 0.35); --new-color-text-score: #f5e100; --new-shadow-text-on-image: 0 1px 2px rgba(0, 0, 0, 0.45); --new-color-goal-active: #6b57e6; --new-color-goal-active-track: #e4defa; --new-color-merit-text: #9a5b13; --new-color-merit-bg: #fff6e6; --new-color-merit-border: #fbe3b8; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .only-default { display: none; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-header { order: 1; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-week { order: 2; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-hero { order: 4; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 8; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-banner { order: 5; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-features { order: 6; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-term { order: 12; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-good-hour { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-chart { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-horoscope { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-ngaytot { order: 11; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-video { order: 13; }
+  .upcoming { margin-top: var(--space-24); }
+  .upcoming .lv-card { margin-top: var(--space-18); }
+  .upcoming__action { display: flex; justify-content: flex-end; padding: var(--space-4) var(--space-16) var(--space-16); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .term { margin-top: var(--space-32); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .good-hour { margin-top: var(--space-24); }
+  .phone .lv-scrim { position: absolute; z-index: 20; }
+
+  /* new/Day Mark — Buddhist markers on Home/Week Strip (Type: Chay | Vía) — temporary, not in Figma yet */
+  .new-day-mark__lotus { position: absolute; top: var(--space-2); left: var(--space-2); width: 15px; height: 15px; }
+  .new-day-mark__moon { position: absolute; top: 40px; left: 41px; width: 8px; height: 8px; }
+
+  /* Home/Today Hero in Phật giáo mode: 20% taller (300 → 360), light pagoda artwork, dark text — temporary variant */
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .only-default { display: none; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-header { order: 1; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-week { order: 2; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-hero { order: 4; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 8; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-banner { order: 5; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-features { order: 6; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-term { order: 12; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-good-hour { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-chart { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-horoscope { order: 10; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-ngaytot { order: 11; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-video { order: 13; }
+  .upcoming { margin-top: var(--space-24); }
+  .upcoming .lv-card { margin-top: var(--space-18); }
+  .upcoming__action { display: flex; justify-content: flex-end; padding: var(--space-4) var(--space-16) var(--space-16); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .term { margin-top: var(--space-32); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .good-hour { margin-top: var(--space-24); }
+  .phone .lv-scrim { position: absolute; z-index: 20; }
+
+  /* new/Day Mark — Buddhist markers on Home/Week Strip (Type: Chay | Vía) — temporary, not in Figma yet */
+  .new-day-mark__lotus { position: absolute; top: var(--space-2); left: var(--space-2); width: 15px; height: 15px; }
+  .new-day-mark__moon { position: absolute; top: 40px; left: 41px; width: 8px; height: 8px; }
+
+  /* Home/Today Hero in Phật giáo mode: 20% taller (300 → 360), light pagoda artwork, dark text — temporary variant */
+  /* new/Hero Observance — next ngày vía on Home/Today Hero (Phật giáo mode) — temporary */
+  .new-hero-observance { display: flex; align-items: flex-start; gap: var(--space-4); margin-top: var(--space-16); }
+  .new-hero-observance img { display: block; flex: none; }
+  .new-hero-event { margin-top: var(--space-8); }
+  .new-hero-observance p { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; }
+  .new-hero-observance b { color: var(--new-color-text-observance); font: 600 16px/18px var(--font-family); text-shadow: var(--new-shadow-text-observance); }
+  /* new/Hero Quote — Buddhist teaching for today's observance on Home/Today Hero — temporary */
+  .new-hero-quote { display: flex; flex-direction: column; gap: var(--space-2); max-width: 290px; margin: var(--space-8) 0 0; }
+  .new-hero-quote q { color: var(--color-text-on-primary); font: italic 500 16px/24px var(--font-family); }
+  .new-hero-quote cite { color: var(--color-text-on-primary); font: 400 14px/18px var(--font-family); font-style: normal; opacity: 0.85; }
+
+  /* new/Practice Journey — today's practice goals + accumulated merit points (Goal: Đang làm | Hoàn thành) — temporary */
+  .journey { margin-top: var(--space-24); }
+  .journey .lv-card { margin-top: var(--space-18); }
+  .journey__action { display: flex; justify-content: flex-end; }
+  .new-journey { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-16); }
+  .new-journey__summary { position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: var(--space-16); grid-template-rows: auto auto auto; row-gap: var(--space-4); margin: calc(var(--space-16) * -1) calc(var(--space-16) * -1) 0; padding: var(--space-16); border-radius: var(--radius-md) var(--radius-md) 0 0; background: linear-gradient(90deg, var(--color-chip-success-bg), var(--new-color-merit-bg)); overflow: hidden; }
+  .new-journey__summary-art { position: absolute; right: -14px; bottom: -22px; width: 92px; height: 92px; opacity: 0.55; pointer-events: none; }
+  .new-journey-stat { position: relative; z-index: 1; display: grid; grid-row: span 3; grid-template-rows: subgrid; margin: 0; }
+  .new-journey-stat--seed { padding-left: var(--space-16); border-left: 1px solid var(--color-chip-success-border); }
+  .new-journey-stat__label { white-space: nowrap; color: var(--color-text-body); font: 500 16px/22px var(--font-family); }
+  .new-journey-stat__value { display: flex; align-items: baseline; gap: var(--space-4); white-space: nowrap; color: var(--color-text-secondary); font: 500 16px/22px var(--font-family); }
+  .new-journey-stat__value b { color: var(--color-chip-success-text); font: 700 32px/36px var(--font-family); }
+  .new-journey-stat--seed .new-journey-stat__value { color: var(--new-color-merit-text); }
+  .new-journey-stat--seed .new-journey-stat__value b { color: var(--new-color-merit-text); }
+  .new-journey-stat .new-journey-progress { margin-top: var(--space-4); }
+  .new-journey-progress { display: block; height: 6px; border-radius: var(--radius-full); background: var(--color-bg-surface); overflow: hidden; }
+  .new-journey-progress i { display: block; height: 100%; border-radius: inherit; background: var(--color-chip-success-text); }
+  .new-journey-goal .new-journey-progress { background: var(--new-color-goal-active-track); }
+  .new-journey-goal .new-journey-progress i { background: var(--new-color-goal-active); }
+  .new-journey__subhead { display: flex; align-items: center; justify-content: space-between; }
+  .new-journey__subhead h3 { margin: 0; color: var(--color-text-strong); font: 600 20px/26px var(--font-family); }
+  .new-journey__subhead span { color: var(--color-chip-success-text); font: 600 16px/22px var(--font-family); }
+  .new-journey__goals { display: flex; flex-direction: column; margin: calc(var(--space-12) * -1) 0 0; padding: 0; list-style: none; }
+  .new-journey-goal { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--color-border-divider); }
+  .new-journey-goal:last-child { border-bottom: 0; padding-bottom: 0; }
+  .new-journey-goal__icon { width: 48px; height: 48px; flex: none; }
+  .new-journey-goal__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+  .new-journey-goal__title { color: var(--color-text-strong); font: 600 18px/24px var(--font-family); }
+  .new-journey-goal__desc { color: var(--color-text-secondary); font: 400 16px/22px var(--font-family); }
+  .new-journey-goal .new-journey-progress { margin-top: var(--space-4); }
+  .new-journey-goal__done { width: 28px; height: 28px; flex: none; }
+  .new-journey-goal__cta { display: inline-flex; align-items: center; gap: var(--space-4); flex: none; padding: var(--space-8) var(--space-12); border: 1px solid var(--new-color-goal-active); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--new-color-goal-active); font: 700 16px/22px var(--font-family); text-decoration: none; }
+
+  /* new/Date Badge — lunar date in Home/Menu Row (Type: Chay | Vía) — temporary */
+  .new-date-badge { width: 52px; height: 52px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--color-chip-success-border); border-radius: var(--radius-md); background: var(--color-chip-success-bg); color: var(--color-chip-success-text); }
+  .new-date-badge--via { border-color: var(--color-border-promo-gold); background: var(--color-calendar-sunday-bg); color: var(--color-text-promo-gold); }
+  .new-date-badge b { font: 700 20px/22px var(--font-family); }
+
+
+  /* new/Choice Chip — single-select chip in the mode sheet (State: Default | Selected) — temporary */
+  .new-choice-group { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+  .new-choice-chip { height: 36px; padding: 0 var(--space-16); border: 1px solid var(--color-border-default); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--color-text-primary); font: inherit; cursor: pointer; }
+  .sheet-label { margin: 0; color: var(--color-text-secondary); }
+
+  /* Demo-only state switcher, outside the phone frame */
+  .states { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-8); }
+  body:is(:has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target), :has(#s-phat-giao-full:checked), :has(#s-init:checked):has([id="state=phat-giao-full"]:target)) .states { display: none; }
+  .states label { cursor: pointer; padding: var(--space-4) var(--space-12); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--color-text-secondary); text-decoration: none; }
+  /* Active state chip: no hash and no click = state 1 */
+  body:has(#s-init:checked):not(:has(.state-anchor:target)) .states label[for="s-phat-giao"],
+  body:has(#s-phat-giao:checked) .states label[for="s-phat-giao"],
+  body:has(#s-init:checked):has([id="state=phat-giao"]:target) .states label[for="s-phat-giao"],
+  body:has(#s-phat-giao-full:checked) .states label[for="s-phat-giao-full"],
+  body:has(#s-init:checked):has([id="state=phat-giao-full"]:target) .states label[for="s-phat-giao-full"],
+  body:has(#s-che-do:checked) .states label[for="s-che-do"],
+  body:has(#s-init:checked):has([id="state=che-do"]:target) .states label[for="s-che-do"],
+  body:has(#s-screen:checked) .states label[for="s-screen"],
+  body:has(#s-init:checked):has([id="state=screen"]:target) .states label[for="s-screen"],
+  body:has(#s-full:checked) .states label[for="s-full"],
+  body:has(#s-init:checked):has([id="state=full"]:target) .states label[for="s-full"] { background: var(--color-primary); color: var(--color-text-on-primary); }
+
+  /* States work without JavaScript (IDE previews): hash targets an empty anchor, CSS :has() reacts */
+  .state-anchor { position: fixed; top: 0; left: 0; }
+  .state-radio { display: none; }
+  #mode-sheet { display: none; }
+  body:is(:has(#s-che-do:checked), :has(#s-init:checked):has([id="state=che-do"]:target)) #mode-sheet { display: flex; }
+  .sheet-backdrop { position: absolute; inset: 0; }
+  #mode-sheet .lv-bottom-sheet { position: relative; }
+  #mode-sheet .lv-list-item { cursor: pointer; }
+  #mode-sheet:has(input[value="default"]:checked) .chay-options,
+  #mode-sheet:has(input[value="default"]:checked) .save-pg,
+  #mode-sheet:has(input[value="pg"]:checked) .save-default { display: none; }
+  .new-choice-chip { display: inline-flex; align-items: center; }
+  .new-choice-chip:has(input:checked) { border-color: var(--color-primary); background: var(--color-calendar-weekday-bg); color: var(--color-primary); }
+</style>
+</head>
+<body>
+<i class="state-anchor" id="state=phat-giao"></i><i class="state-anchor" id="state=phat-giao-full"></i><i class="state-anchor" id="state=che-do"></i><i class="state-anchor" id="state=screen"></i><i class="state-anchor" id="state=full"></i>
+<input class="state-radio" type="radio" name="state" id="s-init" checked><input class="state-radio" type="radio" name="state" id="s-phat-giao"><input class="state-radio" type="radio" name="state" id="s-phat-giao-full"><input class="state-radio" type="radio" name="state" id="s-che-do"><input class="state-radio" type="radio" name="state" id="s-screen"><input class="state-radio" type="radio" name="state" id="s-full">
+
+<nav class="states text-caption" aria-label="Trạng thái demo">
+  <label for="s-phat-giao">1. Phật giáo (mặc định)</label>
+  <label for="s-phat-giao-full">2. Phật giáo · toàn trang</label>
+  <label for="s-che-do">3. Chọn chế độ lịch</label>
+  <label for="s-screen">4. Lịch âm</label>
+  <label for="s-full">5. Lịch âm · toàn trang</label>
+</nav>
+
+<div class="phone">
+  <main class="screen-body">
+
+    <!-- Header -->
+    <header class="lv-home-header o-header" data-component="Home/Header">
+      <div class="lv-status-bar" data-component="Light Status Bar">
+        <p class="lv-status-bar__time">9:41</p>
+        <div class="lv-status-bar__icons">
+          <img src="assets/trangchu/a-status-cellular.svg" width="19" height="12" alt="">
+          <img src="assets/trangchu/a-status-wifi.svg" width="17" height="12" alt="">
+          <span class="lv-status-bar__battery"><img src="assets/trangchu/a-status-battery-cap.svg" width="1" height="4" alt=""></span>
+        </div>
+      </div>
+      <div class="lv-home-header__bar">
+        <label class="lv-home-header__icon" for="s-che-do" aria-label="Menu" data-component="i_menu"><img src="assets/trangchu/a-icon-menu.svg" alt=""></label>
+        <div class="lv-home-header__avatar" data-component="Avt_Bac">
+          <img class="lv-home-header__avatar-zodiac" src="assets/trangchu/a-avatar-zodiac.svg" alt="">
+          <img class="lv-home-header__avatar-frame" src="assets/trangchu/a-avatar-bac.png" alt="">
+          <img class="lv-home-header__avatar-ring" src="assets/trangchu/a-avatar-ring.svg" alt="">
+        </div>
+        <div class="lv-home-header__user">
+          <p class="lv-home-header__name">Hoang Quoc Hoan</p>
+          <div class="lv-home-header__meta">
+            <span class="lv-rank-badge" data-component="Home/Rank Badge" style="background-image:url(assets/trangchu/a-badge-bac.png)">Bạc</span>
+            <p class="lv-home-header__year">Tân Dậu</p>
+          </div>
+        </div>
+        <button class="lv-home-header__icon lv-home-header__icon--end" aria-label="Thông báo" data-component="i_thongbao"><img src="assets/trangchu/a-icon-bell.svg" alt=""></button>
+      </div>
+    </header>
+
+    <!-- Week strip -->
+    <section class="lv-week-strip o-week" data-component="Home/Week Strip">
+      <div class="lv-week-strip__labels">
+        <span class="lv-week-strip__label">HAI</span>
+        <span class="lv-week-strip__label">BA</span>
+        <span class="lv-week-strip__label">TƯ</span>
+        <span class="lv-week-strip__label">NĂM</span>
+        <span class="lv-week-strip__label">SÁU</span>
+        <span class="lv-week-strip__label">BẢY</span>
+        <span class="lv-week-strip__label lv-week-strip__label--sunday">CN</span>
+      </div>
+      <div class="lv-week-strip__days only-default">
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">24</span><span class="lv-week-strip__lunar">14</span></button>
+        <button class="lv-week-strip__day is-selected" data-component="lich thang"><span class="lv-week-strip__date">25</span><span class="lv-week-strip__lunar">15</span><img class="lv-week-strip__flag" src="assets/trangchu/a-icon-event-flag-personal.svg" alt=""><img class="lv-week-strip__dot" src="assets/trangchu/a-dot-event.svg" alt=""></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">26</span><span class="lv-week-strip__lunar">16</span></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">27</span><span class="lv-week-strip__lunar">17</span></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">28</span><span class="lv-week-strip__lunar">18</span><img class="lv-week-strip__dot" src="assets/trangchu/a-dot-event.svg" alt=""></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">29</span><span class="lv-week-strip__lunar">19</span></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">30</span><span class="lv-week-strip__lunar">20</span><img class="lv-week-strip__flag" src="assets/trangchu/a-icon-event-flag-green.svg" alt=""></button>
+      </div>
+      <div class="lv-week-strip__days only-pg">
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">02</span><span class="lv-week-strip__lunar">24</span></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">03</span><span class="lv-week-strip__lunar">25</span><img class="lv-week-strip__dot" src="assets/trangchu/pg-dot-event.svg" alt=""></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">04</span><span class="lv-week-strip__lunar">26</span></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">05</span><span class="lv-week-strip__lunar">27</span></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">06</span><span class="lv-week-strip__lunar">28</span><img class="lv-week-strip__dot" src="assets/trangchu/pg-dot-event.svg" alt=""></button>
+        <button class="lv-week-strip__day" data-component="lich thang"><span class="lv-week-strip__date">07</span><span class="lv-week-strip__lunar">29</span></button>
+        <button class="lv-week-strip__day is-selected" data-component="lich thang"><span class="lv-week-strip__date">08</span><span class="lv-week-strip__lunar">30</span><img class="new-day-mark__lotus" src="assets/trangchu/pg-icon-via.svg" width="15" height="15" alt="Ngày vía, lễ Phật giáo" data-component="new/Day Mark"><img class="lv-week-strip__flag" src="assets/trangchu/a-icon-event-flag-green.svg" alt=""><img class="new-day-mark__moon" src="assets/trangchu/a-moon-phase.svg" width="8" height="8" alt="Tuần trăng"></button>
+      </div>
+    </section>
+
+    <!-- Phật giáo: upcoming observances -->
+    <section class="gutter upcoming only-pg o-upcoming">
+      <h2 class="lv-home-section-title">Ngày lễ &amp; vía Phật giáo sắp tới</h2>
+      <div class="lv-card lv-menu-list" data-component="Home/Menu List">
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">5</b>Th 10</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Tổ Bồ Đề Đạt Ma</span><span class="lv-menu-row__desc">Thứ Sáu, 13/11 · còn 5 ngày</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">15</b>Th 10</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Rằm tháng Mười · Lễ Hạ nguyên</span><span class="lv-menu-row__desc">Thứ Hai, 23/11 · còn 15 ngày</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">17</b>Th 11</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Phật A Di Đà</span><span class="lv-menu-row__desc">Thứ Sáu, 25/12 · còn 47 ngày</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <div class="upcoming__action">
+          <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem tất cả ngày lễ &amp; vía<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Today hero -->
+    <section class="lv-today-hero o-hero" data-component="Home/Today Hero">
+      <img class="lv-today-hero__bg only-default" src="assets/trangchu/a-hero-day-bg.png" alt="">
+      <img class="lv-today-hero__bg only-pg" src="assets/trangchu/pg-hero-bg-4.jpg" alt="">
+      <div class="lv-today-hero__content">
+        <p class="lv-today-hero__weekday"><span class="only-default">Thứ Ba</span><span class="only-pg">Chủ Nhật</span></p>
+        <div class="lv-today-hero__date-row">
+          <p class="lv-today-hero__date"><span class="only-default">25</span><span class="only-pg">8</span></p>
+          <span class="lv-today-hero__moon"><img src="assets/trangchu/a-moon-oval.svg" alt=""><img src="assets/trangchu/a-moon-phase.svg" alt=""></span>
+        </div>
+        <p class="lv-today-hero__month"><span class="only-default">Tháng 8, 2026</span><span class="only-pg">Tháng 11, 2026</span></p>
+        <p class="lv-today-hero__lunar"><span class="only-default">15 Tháng 7, Bính Ngọ</span><span class="only-pg">30 Tháng 9, Bính Ngọ</span></p>
+        <p class="lv-today-hero__event only-default">Lễ Vu Lan Báo Hiếu</p>
+        <div class="new-hero-observance only-pg" data-component="new/Hero Observance"><img src="assets/trangchu/pg-icon-via-on-image.svg" width="18" height="18" alt=""><p><b>Vía Phật Dược Sư</b></p></div>
+        <p class="lv-today-hero__event new-hero-event only-pg">Lễ Vu Lan Báo Hiếu</p>
+        <div class="lv-today-hero__score">
+          <p class="lv-today-hero__score-label">NGÀY KHÁ TỐT:</p>
+          <p class="lv-today-hero__score-value">68%</p>
+          <button class="lv-ghost-button only-default" data-component="Home/Ghost Button">Xem thêm</button>
+        </div>
+        <p class="new-hero-quote only-pg" data-component="new/Hero Quote"><q>Nghe danh hiệu Ta, mọi bệnh khổ tiêu trừ, thân tâm an lạc.</q><cite>Kinh Dược Sư · Đại nguyện thứ 7</cite></p>
+        <p class="lv-today-hero__todo only-default">Nên làm: <span>Mua sắm, Cầu an, Xuất hành</span></p>
+      </div>
+    </section>
+
+    <!-- Promo carousel -->
+    <div class="lv-carousel banner only-default" data-component="Home/Carousel">
+      <article class="lv-promo-card" data-component="Home/Promo Card" style="background-image:url(assets/trangchu/b-banner-bg-ban-tin.png)">
+        <div class="lv-promo-card__head">
+          <img class="lv-promo-card__icon" src="assets/trangchu/b-icon-news.png" alt="">
+          <h3 class="lv-promo-card__title">Bản tin tháng 9 âm lịch</h3>
+          <span class="lv-badge lv-badge--new" data-component="Badge">MỚI</span>
+        </div>
+        <p class="lv-promo-card__body">Đừng bỏ lỡ ngày đẹp kích hoạt <em>Quý Nhân</em> của bạn!</p>
+        <a class="lv-gradient-cta lv-promo-card__cta" href="#" data-component="Home/Gradient CTA">Xem có gì đặc biệt<img src="assets/trangchu/b-chevron-right-1.svg" alt=""></a>
+      </article>
+      <article class="lv-promo-card lv-promo-card--sky" data-component="Home/Promo Card" style="background-image:url(assets/trangchu/b-banner-bg-tu-vi.png)">
+        <div class="lv-promo-card__head">
+          <img class="lv-promo-card__icon" src="assets/trangchu/b-icon-tuvi.png" alt="">
+          <h3 class="lv-promo-card__title">Hỏi đáp tử vi</h3>
+          <span class="lv-chip" data-component="Chip">Công danh, sự nghiệp</span>
+        </div>
+        <p class="lv-promo-card__body">Lá số của tôi có thể du học, xuất ngoại, định cư ở nước ngoài được không?</p>
+        <a class="lv-gradient-cta lv-gradient-cta--small lv-promo-card__cta" href="#" data-component="Home/Gradient CTA">Xem lá số nói gì<img src="assets/trangchu/b-chevron-right-2.svg" alt=""></a>
+      </article>
+    </div>
+
+    <!-- Feature grid -->
+    <nav class="lv-feature-grid gutter features o-features" data-component="Home/Feature Grid">
+      <a class="lv-card lv-feature-tile" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-lich-thang.svg" alt=""><span class="lv-feature-tile__label">Lịch Tháng</span></a>
+      <a class="lv-card lv-feature-tile only-default" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-chon-ngay-tot.svg" alt=""><span class="lv-feature-tile__label">Chọn<br>Ngày Tốt</span><span class="lv-badge lv-badge--hot lv-feature-tile__badge" data-component="Badge">Hot</span></a>
+      <a class="lv-card lv-feature-tile only-default" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-hieu-van-menh.svg" alt=""><span class="lv-feature-tile__label">Hiểu<br>Vận Mệnh</span></a>
+      <a class="lv-card lv-feature-tile only-default" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-tien-bac.svg" alt=""><span class="lv-feature-tile__label">Tiền Bạc<br>&amp; Đầu Tư</span></a>
+      <a class="lv-card lv-feature-tile only-default" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-tinh-duyen.svg" alt=""><span class="lv-feature-tile__label">Xem<br>Tình Duyên</span></a>
+      <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-tu-tap.svg" alt=""><span class="lv-feature-tile__label">Tu Tập</span></a>
+      <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-kinh-sach.svg" alt=""><span class="lv-feature-tile__label">Kinh Sách</span></a>
+      <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-chon-ngay-tot.svg" alt=""><span class="lv-feature-tile__label">Xem<br>Ngày Tốt</span></a>
+      <a class="lv-card lv-feature-tile only-pg" href="KichHoatNangLuong_Intro.html" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-kich-hoat-nang-luong.svg" alt=""><span class="lv-feature-tile__label">Kích Hoạt<br>Năng Lượng</span></a>
+      <a class="lv-card lv-feature-tile" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-xem-tat-ca.svg" alt=""><span class="lv-feature-tile__label">Xem<br>Tất Cả</span></a>
+    </nav>
+
+    <!-- Good hour -->
+    <section class="gutter good-hour o-good-hour">
+      <h2 class="lv-home-section-title lv-home-section-title--card">Còn <em>1 giờ 45 phút</em> tới Giờ Tốt của bạn</h2>
+      <div class="lv-card lv-good-hour" data-component="Home/Good Hour Card">
+        <div class="lv-good-hour__top">
+          <img class="lv-good-hour__icon" src="assets/trangchu/b-icon-gio-dan.svg" alt="">
+          <div class="lv-good-hour__info">
+            <p class="lv-good-hour__name">Giờ Giáp Dần</p>
+            <p class="lv-good-hour__time">3h - 5h</p>
+          </div>
+          <img class="lv-good-hour__stars" src="assets/trangchu/b-stars-4of5.svg" alt="4/5 sao">
+        </div>
+        <ul class="lv-bullet-list">
+          <li>Hợp bàn: <b>Giao dịch</b></li>
+          <li>Xuất hành: <b>Hướng Nam</b></li>
+        </ul>
+        <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem đầy đủ giờ tốt<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+      </div>
+    </section>
+
+    <!-- 7-day chart -->
+    <section class="chart o-chart">
+      <h2 class="lv-home-section-title lv-home-section-title--card gutter">Chỉ số ngày tốt trong 7 ngày tới</h2>
+      <div class="lv-bar-chart" data-component="Home/Bar Chart">
+        <div class="lv-bar-chart__plot">
+          <div class="lv-bar-chart__yaxis">
+            <span class="lv-bar-chart__ytick" style="top:-10px">100</span>
+            <span class="lv-bar-chart__ytick" style="top:24px">80</span>
+            <span class="lv-bar-chart__ytick" style="top:58px">60</span>
+            <span class="lv-bar-chart__ytick" style="top:92px">40</span>
+            <span class="lv-bar-chart__ytick" style="top:126px">20</span>
+            <span class="lv-bar-chart__ytick" style="top:160px">0</span>
+          </div>
+          <div class="lv-bar-chart__bars">
+            <div class="lv-bar-chart__col" style="--h:69%"><span class="lv-bar-chart__value">70%</span><div class="lv-bar-chart__bar"></div></div>
+            <div class="lv-bar-chart__col" style="--h:60%"><span class="lv-bar-chart__value">60%</span><div class="lv-bar-chart__bar"></div></div>
+            <div class="lv-bar-chart__col" style="--h:100%"><span class="lv-bar-chart__value">100%</span><div class="lv-bar-chart__bar"></div></div>
+            <div class="lv-bar-chart__col" style="--h:52.3%"><span class="lv-bar-chart__value">52%</span><div class="lv-bar-chart__bar"></div></div>
+            <div class="lv-bar-chart__col" style="--h:77%"><span class="lv-bar-chart__value">78%</span><div class="lv-bar-chart__bar"></div></div>
+            <div class="lv-bar-chart__col" style="--h:58.2%"><span class="lv-bar-chart__value">58%</span><div class="lv-bar-chart__bar"></div></div>
+            <div class="lv-bar-chart__col" style="--h:64%"><span class="lv-bar-chart__value">64%</span><div class="lv-bar-chart__bar"></div></div>
+          </div>
+        </div>
+        <div class="lv-bar-chart__xaxis only-default">
+          <span class="lv-bar-chart__xtick">Hôm nay</span><span class="lv-bar-chart__xtick">30/11</span><span class="lv-bar-chart__xtick">1/12</span><span class="lv-bar-chart__xtick">2/12</span><span class="lv-bar-chart__xtick">3/12</span><span class="lv-bar-chart__xtick">4/12</span><span class="lv-bar-chart__xtick">5/12</span>
+        </div>
+        <div class="lv-bar-chart__xaxis only-pg">
+          <span class="lv-bar-chart__xtick">Hôm nay</span><span class="lv-bar-chart__xtick">9/11</span><span class="lv-bar-chart__xtick">10/11</span><span class="lv-bar-chart__xtick">11/11</span><span class="lv-bar-chart__xtick">12/11</span><span class="lv-bar-chart__xtick">13/11</span><span class="lv-bar-chart__xtick">14/11</span>
+        </div>
+      </div>
+      <div class="chart__action">
+        <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem phân tích chi tiết<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+      </div>
+    </section>
+    <hr class="lv-divider section-divider only-default" data-component="Divider">
+
+    <!-- Tiết khí -->
+    <section class="gutter term o-term">
+      <h2 class="lv-home-section-title">Tiết khí</h2>
+      <p class="term__sub text-body-md-semibold">Ngày 18<span>•</span><em>Tháng tiết khí Kỷ Sửu (Tháng 12)</em></p>
+      <p class="term__name text-body-sm-semibold"><img src="assets/trangchu/c-icon-lap-xuan.svg" alt="">Tiết khí: Lập Xuân</p>
+      <ul class="lv-bullet-list">
+        <li>Khởi đầu mùa xuân – dương khí sinh sôi.</li>
+        <li>Thích hợp bắt đầu việc mới, gieo mầm kế hoạch, nuôi dưỡng thân – tâm từ gốc</li>
+      </ul>
+      <div class="lv-term-strip" data-component="Home/Solar Term Strip">
+        <div class="lv-term-strip__cells">
+          <span class="lv-term-strip__cell lv-term-strip__cell--earth">4</span><span class="lv-term-strip__cell lv-term-strip__cell--earth">5</span><span class="lv-term-strip__cell lv-term-strip__cell--earth">6</span>
+          <span class="lv-term-strip__cell lv-term-strip__cell--fire">7</span><span class="lv-term-strip__cell lv-term-strip__cell--fire">8</span><span class="lv-term-strip__cell lv-term-strip__cell--fire">9</span>
+          <span class="lv-term-strip__cell lv-term-strip__cell--water">10</span><span class="lv-term-strip__cell lv-term-strip__cell--water">11</span><span class="lv-term-strip__cell lv-term-strip__cell--water">12</span>
+          <span class="lv-term-strip__cell">13</span><span class="lv-term-strip__cell">14</span><span class="lv-term-strip__cell">15</span>
+          <span class="lv-term-strip__cell lv-term-strip__cell--wood">16</span><span class="lv-term-strip__cell lv-term-strip__cell--wood">17</span><span class="lv-term-strip__cell lv-term-strip__cell--wood">18</span>
+        </div>
+        <span class="lv-term-strip__node"><img src="assets/trangchu/c-icon-tiet-khi-vu-thuy.svg" alt=""></span>
+        <span class="lv-term-strip__node lv-term-strip__node--end"><img src="assets/trangchu/c-icon-tiet-khi-kinh-trap.svg" alt=""></span>
+      </div>
+      <div class="lv-term-strip__ends">
+        <p class="lv-term-strip__end"><b>Vũ Thủy</b><span>10:00 sáng • 269°.70551</span><span>18 tháng 2</span></p>
+        <p class="lv-term-strip__end lv-term-strip__end--right"><b>Kinh trập</b><span>2:00 sáng • 269°.1963</span><span>5 tháng 3</span></p>
+      </div>
+      <div class="term__action">
+        <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem chi tiết<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+      </div>
+    </section>
+    <hr class="lv-divider section-divider only-default" data-component="Divider">
+
+    <!-- Video -->
+    <section class="video o-video">
+      <div class="video__head gutter"><h2 class="lv-home-section-title only-pg">Video</h2><a class="lv-link-more" href="#">Xem thêm<img src="assets/trangchu/c-icon-chevron-right-blue.svg" alt=""></a></div>
+      <div class="lv-carousel" data-component="Home/Carousel">
+        <a class="lv-video-thumb" href="#" data-component="Home/Video Thumb"><img src="assets/trangchu/c-video-1.png" alt="Ngày 23/8 DL là 1/7 âm lịch"></a>
+        <a class="lv-video-thumb" href="#" data-component="Home/Video Thumb"><img src="assets/trangchu/c-video-2.png" alt="Thiếu sót khi chọn ngày tốt"></a>
+        <a class="lv-video-thumb" href="#" data-component="Home/Video Thumb"><img src="assets/trangchu/c-video-1.png" alt=""></a>
+      </div>
+    </section>
+
+    <!-- Daily horoscope -->
+    <section class="gutter horoscope o-horoscope">
+      <div class="lv-horoscope" data-component="Home/Daily Horoscope Card">
+        <img class="lv-horoscope__mascot" src="assets/trangchu/c-tuvi-dau.png" alt="">
+        <div class="lv-horoscope__card">
+          <a class="lv-horoscope__more" href="#" aria-label="Xem thêm" data-component="btn_more"><img src="assets/trangchu/c-icon-chevron-double-blue.svg" alt=""></a>
+          <p class="lv-horoscope__title">Tử vi tuổi Đinh Dậu</p>
+          <p class="lv-horoscope__date only-default">Thứ Năm, 12/03/2026 (DL)</p>
+          <p class="lv-horoscope__date only-pg">Chủ Nhật, 08/11/2026 (DL)</p>
+          <p class="lv-horoscope__quote">“Giữ sự tỉnh táo và quyết đoán trong từng hành động giúp bạn duy trì sự ổn định, kiểm soát tiến độ và đạt hiệu quả cao trong ngày hôm nay”</p>
+          <div class="lv-horoscope__foot">
+            <span class="lv-horoscope__stat">Màu hợp tuổi:<span class="lv-horoscope__color"></span></span>
+            <span class="lv-horoscope__stat">Số may mắn:<span class="lv-horoscope__number">13, 68</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tử vi chuyên sâu -->
+    <section class="gutter tuvi only-default">
+      <h2 class="lv-home-section-title">Tử vi chuyên sâu 2026 của bạn</h2>
+      <p class="lv-home-section-subtitle">Hiểu rõ vận mệnh, chủ động tương lai</p>
+      <div class="lv-card lv-menu-list" data-component="Home/Menu List">
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/d-icon-tron-bo-tu-vi.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Trọn Bộ Tử Vi</span><span class="lv-menu-row__desc">Xem vận hạn &amp; dự báo từng tháng</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/d-icon-van-han-nam.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vận Hạn Năm 2026</span><span class="lv-menu-row__desc">Một bước xem trước tương lai</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/d-icon-tu-vi-tong-quan.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Tử Vi Tổng Quan</span><span class="lv-menu-row__desc">Chủ động quyết định – tránh rủi ro</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""><span class="lv-badge lv-badge--ribbon lv-menu-row__badge" data-component="Badge">HOT</span></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/d-icon-tu-van-nghe-nghiep.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Tư Vấn Nghề Nghiệp</span><span class="lv-menu-row__desc">Có cơ hội thăng tiến nếu kiên trì</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/d-icon-tu-van-tai-chinh.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Tư Vấn Tài Chính</span><span class="lv-menu-row__desc">Phù hợp phát triển dài hạn</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/d-icon-tu-van-tinh-duyen.png" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Tư Vấn Tình Duyên</span><span class="lv-menu-row__desc">Có chuyển biến tích cực nửa cuối năm</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+      </div>
+    </section>
+    </section>
+
+    <!-- Phật giáo: user's practice journey -->
+    <section class="gutter journey only-pg o-journey">
+      <h2 class="lv-home-section-title">Hành trình tu tập của bạn</h2>
+      <div class="lv-card new-journey" data-component="new/Practice Journey">
+        <div class="new-journey__summary">
+          <p class="new-journey-stat">
+            <span class="new-journey-stat__label">Mục tiêu hôm nay</span>
+            <span class="new-journey-stat__value"><b>3/5</b>hoàn thành</span>
+            <span class="new-journey-progress"><i style="width: 60%"></i></span>
+          </p>
+          <p class="new-journey-stat new-journey-stat--seed">
+            <span class="new-journey-stat__label">Hạt thiện lành đã gieo</span>
+            <span class="new-journey-stat__value"><b>1.280</b>hạt</span>
+          </p>
+          <img class="new-journey__summary-art" src="assets/trangchu/pg-sen.png" alt="">
+        </div>
+        <div class="new-journey__subhead"><h3>Mục tiêu hôm nay</h3><span>Còn 2 mục tiêu</span></div>
+        <ul class="new-journey__goals">
+          <li class="new-journey-goal">
+            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-doc-kinh.svg" alt="">
+            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Đọc kinh 15 phút</span><span class="new-journey-goal__desc">Đã thực hiện 5/15 phút</span><span class="new-journey-progress"><i style="width: 33%"></i></span></span>
+            <a class="new-journey-goal__cta" href="#"><img src="assets/trangchu/pg-icon-play.svg" width="12" height="12" alt="">Tiếp tục</a>
+          </li>
+          <li class="new-journey-goal">
+            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-tri-chu.svg" alt="">
+            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Trì chú Đại Bi 7 biến</span><span class="new-journey-goal__desc">Chưa thực hiện</span></span>
+            <a class="new-journey-goal__cta" href="#"><img src="assets/trangchu/pg-icon-play.svg" width="12" height="12" alt="">Bắt đầu</a>
+          </li>
+          <li class="new-journey-goal">
+            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-niem-phat.svg" alt="">
+            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Niệm Phật 1.000 câu</span><span class="new-journey-goal__desc">Đã hoàn thành</span></span>
+            <img class="new-journey-goal__done" src="assets/trangchu/pg-icon-check-done.svg" alt="Đã hoàn thành">
+          </li>
+          <li class="new-journey-goal">
+            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-trang-hat.svg" alt="">
+            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Đếm tràng hạt 108 lượt</span><span class="new-journey-goal__desc">Đã hoàn thành</span></span>
+            <img class="new-journey-goal__done" src="assets/trangchu/pg-icon-check-done.svg" alt="Đã hoàn thành">
+          </li>
+          <li class="new-journey-goal">
+            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-an-chay.svg" alt="">
+            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Ăn chay</span><span class="new-journey-goal__desc">Đã hoàn thành</span></span>
+            <img class="new-journey-goal__done" src="assets/trangchu/pg-icon-check-done.svg" alt="Đã hoàn thành">
+          </li>
+        </ul>
+        <div class="journey__action">
+          <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem hành trình tu tập<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chọn ngày tốt -->
+    <section class="gutter o-ngaytot">
+      <div class="lv-card lv-card--high ngaytot" data-component="Home/Service Card">
+        <img class="ngaytot__banner" src="assets/trangchu/d-banner-chon-ngay-tot.png" alt="Sắp có việc quan trọng? Chọn ngày chuẩn THIÊN-ĐỊA-NHÂN cho bạn">
+        <div class="lv-service-grid" data-component="Home/Service Grid">
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-cuoi-hoi.svg" alt=""></span><span class="lv-service-item__label">Cưới hỏi</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-mua-xe.svg" alt=""></span><span class="lv-service-item__label">Mua xe</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-mua-nha.svg" alt=""></span><span class="lv-service-item__label">Mua nhà</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-khai-truong.svg" alt=""></span><span class="lv-service-item__label">Khai trương</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-khoi-cong.svg" alt=""></span><span class="lv-service-item__label">Khởi công</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-nhap-trach.svg" alt=""></span><span class="lv-service-item__label">Nhập trạch</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-ky-hop-dong.svg" alt=""></span><span class="lv-service-item__label">Ký hợp đồng</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-mua-tai-san-bg.svg" alt=""><img class="lv-service-item__glyph" src="assets/trangchu/d-icon-mua-tai-san-glyph.svg" width="26" height="19" alt=""></span><span class="lv-service-item__label">Mua tài sản<br>có giá trị</span></a>
+          <a class="lv-service-item" href="#" data-component="Home/Service Item"><span class="lv-service-item__icon"><img src="assets/trangchu/d-icon-phau-thuat-bg.svg" alt=""><img class="lv-service-item__glyph" src="assets/trangchu/d-icon-phau-thuat-glyph.svg" width="32" height="29" alt=""></span><span class="lv-service-item__label">Phẫu thuật<br>thẩm mỹ</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Tab bar -->
+  <nav class="lv-tab-bar" data-component="Tab Bar">
+    <img class="lv-tab-bar__bg" src="assets/trangchu/d-tabbar-bg.svg" alt="">
+    <div class="lv-tab-bar__tabs">
+      <a class="lv-tab-bar__tab is-active" href="#"><span class="lv-tab-bar__icon"><img src="assets/trangchu/d-tab-icon-trang-chu.svg" width="24" height="23" alt=""></span><span class="lv-tab-bar__label">Trang</span></a>
+      <a class="lv-tab-bar__tab" href="#"><span class="lv-tab-bar__icon"><img src="assets/trangchu/d-tab-icon-su-kien.svg" width="24" height="24" alt=""><span class="lv-badge lv-badge--count" data-component="Badge">3</span></span><span class="lv-tab-bar__label">Sự kiện</span></a>
+      <a class="lv-tab-bar__tab lv-tab-bar__tab--center is-active" href="#"><span class="lv-tab-bar__icon"><img src="assets/trangchu/d-tab-icon-dich-vu.svg" width="42" height="42" alt=""></span><span class="lv-tab-bar__label">Dịch vụ</span></a>
+      <a class="lv-tab-bar__tab" href="#"><span class="lv-tab-bar__icon"><img src="assets/trangchu/d-tab-icon-video.svg" width="22" height="22" alt=""></span><span class="lv-tab-bar__label">Video</span></a>
+      <a class="lv-tab-bar__tab" href="#"><span class="lv-tab-bar__icon"><img src="assets/trangchu/d-tab-icon-mua-sam.svg" width="24" height="24" alt=""></span><span class="lv-tab-bar__label">Mua sắm</span></a>
+    </div>
+    <span class="lv-tab-bar__home-indicator"></span>
+  </nav>
+
+  <!-- Mode sheet: opened from the menu icon -->
+  <div class="lv-scrim" id="mode-sheet">
+    <label class="sheet-backdrop" for="s-phat-giao" aria-label="Đóng"></label>
+    <div class="lv-bottom-sheet" data-component="Bottom Sheet">
+      <div class="lv-bottom-sheet__header" data-component="Bottom Sheet/Header">
+        <span class="lv-bottom-sheet__spacer"></span>
+        <h2 class="lv-bottom-sheet__title">Chế độ lịch</h2>
+        <label class="lv-bottom-sheet__close" for="s-phat-giao" aria-label="Đóng"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></label>
+      </div>
+      <div class="lv-bottom-sheet__content">
+        <div>
+          <label class="lv-list-item" data-component="List Item/Selectable"><span class="lv-list-item__label">Lịch âm</span><input type="radio" name="mode" value="default" hidden><span class="lv-checkbox" data-component="Checkbox"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label>
+          <label class="lv-list-item" data-component="List Item/Selectable"><span class="lv-list-item__label">Lịch âm và Lịch Phật giáo</span><input type="radio" name="mode" value="pg" hidden checked><span class="lv-checkbox" data-component="Checkbox"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.5l2.5 2.5L10 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label>
+        </div>
+        <div class="chay-options lv-bottom-sheet__content">
+          <p class="sheet-label text-body-sm-semibold">Số ngày ăn chay mỗi tháng</p>
+          <div class="new-choice-group text-body-sm-semibold" data-component="new/Choice Chip">
+            <label class="new-choice-chip"><input type="radio" name="chay" hidden>2 ngày</label>
+            <label class="new-choice-chip"><input type="radio" name="chay" hidden>4 ngày</label>
+            <label class="new-choice-chip"><input type="radio" name="chay" hidden>6 ngày</label>
+            <label class="new-choice-chip"><input type="radio" name="chay" hidden checked>10 ngày</label>
+            <label class="new-choice-chip"><input type="radio" name="chay" hidden>Tự chọn</label>
+          </div>
+        </div>
+        <label class="lv-button lv-button--block save-pg" for="s-phat-giao" data-component="Button">Lưu</label>
+        <label class="lv-button lv-button--block save-default" for="s-screen" data-component="Button">Lưu</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

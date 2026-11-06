@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="i_su kien copy 3">
+<mask id="stroke0_0_643" fill="white">
+<path d="M4 4C4 2.89543 4.89543 2 6 2H18C19.1046 2 20 2.89543 20 4V19.6779C20 21.467 17.8307 22.356 16.5752 21.0815L12 16.4371L7.42478 21.0815C6.16925 22.356 4 21.467 4 19.6779V4Z" fill-rule="evenodd" clip-rule="evenodd"/>
+</mask>
+<path id="Rectangle Copy 4" d="M12 16.4371L16.5752 21.0815C17.8307 22.356 20 21.467 20 19.6779V4C20 2.89543 19.1046 2 18 2H6C4.89543 2 4 2.89543 4 4V19.6779C4 21.467 6.16925 22.356 7.42478 21.0815L12 16.4371Z" stroke-width="2.4" stroke="#848484" mask="url(#stroke0_0_643)"/>
+<g id="Rectangle Copy 3">
+</g>
+</g>
+</svg>
