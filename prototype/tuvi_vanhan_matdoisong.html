@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Các mặt trong đời sống - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tokens: values from docs/040-Design/Design-System/Design-System.md.
+           Feature exceptions (Tử vi vận hạn tone): --green-dark, --orange*, tinted bg/lines. */
+        :root {
+            /* Design System */
+            --green: #009E64;          /* color/status/success */
+            --blue: #007AFF;           /* color/primary */
+            --danger: #FF3333;         /* color/status/danger */
+            --text: #111111;           /* color/text/primary */
+            --text-body: #333333;      /* color/text/body */
+            --text-2: #666666;         /* color/text/secondary */
+            --text-3: #8F9AA9;         /* color/text/tertiary */
+            --border: #E6E6E6;         /* color/border/card */
+            --divider: #EBEBEB;        /* color/border/divider */
+            --bg-subtle: #FBFBFB;      /* color/bg/subtle */
+            --bg-muted: #E9ECF1;       /* color/bg/muted */
+            --green-chip: #D7F5EA;     /* color/chip/success-bg */
+            --green-line: #C2EADB;     /* color/chip/success-border */
+            --danger-bg: #FFEBEB;      /* color/calendar/sunday-bg */
+            --tint-bg: #F6FEFF;        /* color/bg/horoscope */
+            --tint-line: #D0E3E6;      /* color/border/horoscope */
+            /* Feature exceptions (propose to designer) */
+            --green-dark: #00804F;
+            --green-bg: #EEF9F3;
+            --orange: #D9822B;
+            --orange-bg: #FFF6EC;
+            --orange-line: #F3DDB5;
+            --danger-line: #F6CFCF;
+            --blue-bg: #E3EFFF;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: -apple-system, "SF Pro Display", "SF UI Display", "Inter", sans-serif;
+            color: var(--text);
+        }
+
+        /* Phone mockup (same frame as tuvi_vanhan_ketqua.html) */
+        .phone-mockup {
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px #111;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 44px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scroll { flex: 1; overflow-y: auto; scrollbar-width: none; }
+        .scroll::-webkit-scrollbar { display: none; }
+
+        /* Top bar (feature gradient) */
+        .topbar {
+            height: 97px;
+            flex-shrink: 0;
+            position: relative;
+            background: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
+            color: #fff;
+        }
+
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px 0 32px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-icons { display: flex; gap: 4px; align-items: center; }
+
+        /* title/sm 18/26 Semibold */
+        .topbar-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 58px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 26px;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: 20px;
+            top: 58px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Aspect tabs */
+        .tabs {
+            flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: var(--tint-bg);
+            border-bottom: 1px solid var(--tint-line);
+        }
+
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 56px;
+            padding: 0 16px 0 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+        }
+
+        .tab.active { background: var(--green-bg); border-color: var(--green); }
+
+        .tab-ic { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+        .tab-ic img { max-width: 26px; max-height: 26px; }
+        .tab-txt { display: flex; flex-direction: column; }
+        .tab-name { font-size: 16px; font-weight: 600; line-height: 20px; color: var(--text); white-space: nowrap; }  /* body/md-semibold, tight */
+        .tab.active .tab-name { color: var(--green); }
+        .tab-sub { font-size: 14px; line-height: 18px; color: var(--text-2); white-space: nowrap; }  /* body/sm-tight */
+
+        .lv-good { color: var(--green); }
+        .lv-mid { color: var(--blue); }
+        .lv-warn, .lv-bad { color: var(--danger); }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            margin: 16px 12px 0;
+            padding: 18px 16px;
+            background: linear-gradient(135deg, var(--green-bg) 0%, var(--green-chip) 100%);
+            border: 1px solid var(--green-line);
+            border-radius: 16px;
+        }
+
+        .hero-art { position: absolute; right: 0; bottom: 0; width: 96px; height: 70px; pointer-events: none; }
+        .hero > *:not(.hero-art) { position: relative; z-index: 1; }
+        .hero-label { font-size: 16px; font-weight: 600; line-height: 24px; color: var(--green-dark); }  /* body/md-semibold */
+        .hero-title { margin-top: 8px; padding-right: 48px; font-size: 20px; font-weight: 700; line-height: 28px; color: var(--green-dark); text-transform: uppercase; }  /* title/md-bold */
+        .hero-rating { margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+        .lv-pill { height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; line-height: 20px; }  /* body/sm-semibold */
+        .lv-pill.lv-good { background: var(--green-chip); }
+        .lv-pill.lv-mid { background: var(--blue-bg); }
+        .lv-pill.lv-warn, .lv-pill.lv-bad { background: var(--danger-bg); }
+        .stars { display: inline-flex; gap: 4px; align-items: center; }
+
+        /* Sections */
+        .sec { padding: 20px 16px 0; }
+        .sec + .sec { margin-top: 20px; border-top: 1px solid var(--divider); }
+        .sec-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; line-height: 28px; color: var(--text); margin-bottom: 12px; }  /* title/md */
+        .sec-ic { width: 32px; height: 32px; border-radius: 999px; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .p { font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }  /* body/md-regular */
+
+        /* 3-year trend: read-only strip, current year tinted */
+        .trend { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-bottom: 12px; padding: 4px; background: var(--bg-subtle); border: 1px solid var(--divider); border-radius: 16px; }
+        .tr-col { padding: 10px 8px; text-align: center; border-radius: 12px; }
+        .tr-col.now { background: var(--green-bg); }
+        .tr-cap { font-size: 14px; line-height: 20px; color: var(--text-3); margin-bottom: 2px; }  /* body/sm-regular */
+        .tr-col.now .tr-cap { color: var(--green); font-weight: 600; }
+        .tr-year { font-size: 16px; font-weight: 600; line-height: 24px; color: #555555; }  /* body/md-semibold */
+        .tr-col.now .tr-year { color: var(--green); }
+        .tr-col .stars { margin-top: 4px; }
+        .tr-lbl { margin-top: 4px; font-size: 14px; font-weight: 600; line-height: 20px; }  /* body/sm-semibold */
+        .tr-verdict { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px 0 12px; margin: 0 0 12px; border-radius: 999px; font-size: 16px; font-weight: 600; line-height: 24px; }
+        .tr-verdict svg { flex-shrink: 0; }
+        .tr-verdict.up { background: var(--green-chip); color: var(--green); }
+        .tr-verdict.same { background: var(--blue-bg); color: var(--blue); }
+        .tr-verdict.down { background: var(--danger-bg); color: var(--danger); }
+        .next-yr { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--divider); }
+        .next-yr-t { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; line-height: 24px; color: var(--text); margin-bottom: 4px; }
+        .next-yr-t svg { width: 16px; height: 16px; color: var(--green); }
+
+        /* Good / caution lists */
+        .h3 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; line-height: 24px; margin: 16px 0 8px; }  /* body/md-semibold */
+        .h3.good { color: var(--green); }
+        .h3.warn { color: var(--orange); }
+        .list { margin: 0; padding-left: 20px; }
+        .list li { font-size: 16px; line-height: 24px; color: var(--text-body); }
+        .list li + li { margin-top: 4px; }
+        .list li::marker { color: var(--green); }
+
+        /* Advice card */
+        .sub-h { font-size: 16px; font-weight: 600; line-height: 24px; color: var(--text); margin-bottom: 8px; }  /* body/md-semibold */
+        .sub-h ~ .sub-h { margin-top: 16px; }
+        .adv { background: var(--green-bg); border: 1px solid var(--green-line); border-radius: 12px; padding: 12px 16px; }
+        .adv-t { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--text); }  /* title/sm */
+        .adv-d { font-size: 16px; line-height: 24px; color: var(--text); }
+        .adv-t + .adv-d { margin-top: 8px; }
+
+        /* Timing tile */
+        .when { display: flex; flex-direction: column; gap: 8px; }
+        /* Same surface for every month; month type shown only by the tag */
+        .wt { padding: 12px 16px; border-radius: 12px; border: 1px solid var(--green-line); background: var(--green-bg); }
+        .wt-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .wt-m { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--orange); }  /* title/sm */
+        .wt-tag { flex-shrink: 0; height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; line-height: 20px; }  /* body/sm-semibold */
+        .wt-tag.good { background: var(--green-chip); color: var(--green); }
+        .wt-tag.normal { background: var(--orange-bg); color: var(--orange); }
+        .wt-tag.bad { background: var(--danger-bg); color: var(--danger); }
+        .wt-s { margin-top: 2px; font-size: 16px; line-height: 24px; color: var(--text-2); }
+        .wt-n { margin-top: 8px; font-size: 16px; line-height: 24px; color: var(--text-body); }
+        .wt-link { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; font-size: 16px; font-weight: 600; line-height: 24px; color: var(--green-dark); text-decoration: none; cursor: pointer; }
+
+        /* Q&A accordion */
+        .qa { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .qa-item + .qa-item { border-top: 1px solid var(--border); }
+        .qa-q { display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 16px; font-weight: 600; line-height: 24px; cursor: pointer; }
+        .qa-q span { flex: 1; }
+        .qa-q svg { transition: transform .2s; flex-shrink: 0; }
+        .qa-item.open .qa-q svg { transform: rotate(180deg); }
+        .qa-a { display: none; padding: 0 16px 12px; font-size: 16px; line-height: 24px; color: var(--text-body); }
+        .qa-item.open .qa-a { display: block; }
+
+        /* "Other" tab */
+        .notice { display: flex; gap: 10px; align-items: flex-start; background: var(--green-bg); border: 1px solid var(--green-line); border-radius: 12px; padding: 12px 16px; font-size: 16px; line-height: 24px; }
+        .palace { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+        .palace + .palace { margin-top: 12px; }
+        .palace-name { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--text); }  /* title/sm */
+        .palace-sub { font-size: 16px; line-height: 24px; color: var(--text-2); margin-top: 2px; }
+        .palace .p { margin-top: 10px; }
+        .palace .h3 { margin-top: 12px; }
+
+        /* Explore more (same as result screen) */
+        .kp-band { margin-top: 32px; height: 8px; background: var(--bg-muted); }
+        .kp-title { font-size: 24px; font-weight: 600; line-height: 24px; margin: 20px 12px 18px; }  /* heading/section */
+        .kp-card { margin: 0 12px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 16px; padding: 16px 0; }
+        .kp-item { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; font-size: 14px; font-weight: 500; line-height: 21px; color: #272727; cursor: pointer; }  /* label/sm-medium */
+        .kp-item img { width: 52px; height: 52px; display: block; }
+
+        .bottom-space { height: 32px; }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="screen">
+            <div class="topbar">
+                <div class="status-bar">
+                    <span>9:41</span>
+                    <span class="status-icons">
+                        <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+                        <svg width="15" height="11" viewBox="0 0 15 11" fill="#fff"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="#fff" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="#fff"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="#fff" fill-opacity=".4"/></svg>
+                    </span>
+                </div>
+                <div class="btn-back" onclick="history.back()"><img src="assets/vanhan_v3/btn_back.svg" width="12.5" height="21" alt="Quay lại"></div>
+                <div class="topbar-title">Các mặt trong đời sống</div>
+            </div>
+
+            <div class="tabs" id="tabs"></div>
+
+            <div class="scroll" id="scroll">
+                <div id="content"></div>
+
+                <!-- Explore more: same block as tuvi_vanhan_ketqua.html -->
+                <div class="kp-band"></div>
+                <div class="kp-title">Khám phá thêm</div>
+                <div class="kp-card">
+                    <div class="kp-item" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
+                    <div class="kp-item" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
+                    <div class="kp-item" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
+                    <div class="kp-item" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
+                    <div class="kp-item" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
+                    <div class="kp-item"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                </div>
+                <div class="bottom-space"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Level label + class per star count (same scale as the result screen)
+        const LEVEL = {
+            1: { t: 'Xấu', c: 'lv-bad' },
+            2: { t: 'Không thuận lợi', c: 'lv-warn' },
+            3: { t: 'Trung bình', c: 'lv-mid' },
+            4: { t: 'Tốt', c: 'lv-good' },
+            5: { t: 'Rất tốt', c: 'lv-good' }
+        };
+
+        // Content condensed from vanhan_KhachHang_2027.pdf (section 4, 6, 7)
+        const ASPECTS = [
+            {
+                key: 'congviec', name: 'Công việc', icon: 'i_congviec.svg', stars: 3,
+                title: 'Giữ nhịp, chờ thời cơ',
+                trend: [1, 3, 3],
+                compare: 'Từ năm 2026 sang 2027, công việc của chị có bước chuyển rõ rệt, từ mức “Xấu” lên “Trung bình”. Những nỗ lực âm thầm năm trước nay đã bắt đầu đơm hoa, thời điểm đẹp để chị mạnh dạn bước tới.',
+                summary: 'Năm 2027, công việc của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
+                good: [
+                    'Môi trường năm nay mang lại cho công việc những điểm thuận lợi: năng lực được ghi nhận, thuận thi cử, bằng cấp, hồ sơ, được giới thiệu cơ hội việc làm, dự án qua quan hệ, nhiều dịp đi công tác, có thể đổi vị trí hoặc nơi làm.',
+                    'Xét riêng cung Quan Lộc, Liêm Trinh (miếu) và Thiên Phủ (vượng) cùng ĐV. Hóa Lộc từ cung Tài Bạch (tam hợp) chiếu về, L. Lộc Tồn nhập cung kết hợp với ĐV. Lộc Tồn từ tam hợp chiếu về, là dấu hiệu thuận lợi: công việc mang lại lợi ích rõ, dễ có thêm việc, thêm thu nhập từ nghề, công việc ổn định, làm chắc, ít thay đổi.'
+                ],
+                warn: [
+                    'Năm nay công việc dễ gặp trở ngại. Kế hoạch dễ hụt, việc hứa hẹn không thành, dễ có việc gấp phải xử lý ngay, dễ bất đồng, công việc dễ vướng: thủ tục chậm, hiểu lầm với cấp trên hoặc đồng nghiệp.',
+                    'Xét riêng cung Quan Lộc, Tử Vi (miếu) và Thiên Khôi trong cung gặp ĐV. Thái Tuế nhập cung, khiến công việc dễ phát sinh chuyện không như ý: dễ có tranh luận, thị phi nơi làm việc. May mắn là cung Quan Lộc có Tử Vi (miếu) sáng, phần nào giúp giảm bớt mức độ bất lợi.'
+                ],
+                adviceTitle: 'Giữ nhịp ổn định, chưa vội thay đổi lớn',
+                advice: 'Tiếp tục làm việc đều đặn, củng cố chuyên môn và chỉ cân nhắc thay đổi khi có cơ hội chắc chắn.',
+                when: [{ m: 'Tháng 10', solar: '29/10 – 27/11', type: 'good', note: 'Tháng tốt cho công việc. Nên làm chắc những việc được giao và giữ quan hệ tốt với cấp trên, đồng nghiệp.' }],
+                next: 'Công việc vẫn ở mức tương đương (“Trung bình”), nhịp độ hiện nay là nền tảng tốt cho năm tới.'
+            },
+            {
+                key: 'taichinh', name: 'Tài chính', icon: 'i_tailoc.svg', stars: 3,
+                title: 'Thu chi cân bằng',
+                trend: [2, 3, 4],
+                compare: 'Từ năm 2026 sang 2027, tài chính của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”. Đà thuận đang đến, chị nên chủ động tận dụng để tiến thêm một bước.',
+                summary: 'Năm 2027, tài chính của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định. Nguồn tiền chính vẫn là các khoản thu cố định hằng tháng, ngoài ra chị có thể có thêm các khoản thưởng, lợi nhuận hoặc khoản lợi bất ngờ.',
+                good: [
+                    'Môi trường năm nay mang lại cho tài chính những điểm thuận lợi: uy tín tài chính tốt, giấy tờ tiền bạc rõ ràng, dễ được hỗ trợ vốn, được giới thiệu mối làm ăn, tiền đến nhờ các mối quan hệ, tiền đến từ việc đi lại, làm ăn xa hoặc nguồn thu thay đổi.',
+                    'Xét riêng cung Tài Bạch, Liêm Trinh (miếu) và Thiên Phủ (vượng) trong cung gặp ĐV. Hóa Lộc nhập cung, L. Lộc Tồn từ cung Quan Lộc (tam hợp) chiếu về kết hợp với ĐV. Lộc Tồn từ tam hợp chiếu về, là dấu hiệu thuận lợi: tiền vào thuận, có thêm nguồn thu hoặc khoản lợi bất ngờ, tiền giữ được, tích lũy dần, chi tiêu chắc chắn.'
+                ],
+                warn: [
+                    'Năm nay tài chính dễ gặp trở ngại. Dễ hao hụt, tiền ra không rõ khoản, dễ có khoản chi gấp, bất ngờ, dòng tiền dễ vướng mắc: chậm thu, nợ đọng hoặc hiểu lầm về tiền bạc.',
+                    'Xét riêng cung Tài Bạch, Tử Vi (miếu) và Thiên Khôi cùng ĐV. Thái Tuế từ cung Quan Lộc (tam hợp) chiếu về, khiến tài chính dễ phát sinh chuyện không như ý: dễ có tranh luận, thị phi quanh chuyện tiền bạc. May mắn là Tử Vi (miếu) ở cung Quan Lộc hội chiếu về cung Tài Bạch, phần nào giúp giảm bớt mức độ bất lợi.'
+                ],
+                adviceTitle: 'Chi tiêu có kế hoạch, ưu tiên quỹ dự phòng',
+                advice: 'Chi tiêu theo kế hoạch, ưu tiên để dành quỹ dự phòng và bớt những khoản chi lớn không thật cần thiết.',
+                when: [{ m: 'Tháng 2', solar: '8/3 – 6/4', type: 'good', note: 'Tháng tốt cho tài chính. Nên kiểm soát chi tiêu, thận trọng với khoản chi lớn và các thỏa thuận tiền bạc.' }],
+                extra: {
+                    title: 'Góc nhìn về đầu tư',
+                    qa: [
+                        ['Năm nay có nên đầu tư không?', 'Năm nay chưa có tín hiệu thuận rõ cho việc đầu tư thêm. Chị nên ưu tiên giữ ổn định các khoản đang có và củng cố nguồn thu chính, mọi quyết định cần dựa vào khả năng tài chính và thông tin thực tế.'],
+                        ['Kênh nào hợp: tích lũy an toàn hay mạo hiểm?', 'Năm nay hợp hướng tích lũy an toàn như gửi tiết kiệm. Các kênh mạo hiểm cần cân nhắc kỹ trước khi tham gia.'],
+                        ['Cần tránh điều gì?', 'Nên thận trọng với việc vay để đầu tư và cảnh giác với các lời mời lợi nhuận cao. Giữ vững những gì đang có là ưu tiên của năm.'],
+                        ['Hợp tác, góp vốn có thuận không?', 'Năm nay chưa có tín hiệu thuận rõ cho việc góp vốn mới. Nếu có lời mời, nên kiểm tra kỹ đối tác, điều khoản và nghĩa vụ, không cần vội quyết.'],
+                        ['Thời điểm nào thuận, thời điểm nào nên tránh?', 'Tháng 2 âm lịch (Quý Mão) là thời điểm thuận lợi hơn để triển khai các kế hoạch tài chính đã chuẩn bị.']
+                    ]
+                },
+                next: 'Sắp tới tài chính có xu hướng sáng hơn (“Tốt”), từ bây giờ hãy tiếp tục vun đắp.'
+            },
+            {
+                key: 'tinhcam', name: 'Tình cảm', icon: 'i_tinhduyen.svg', stars: 3,
+                title: 'Êm đềm, có lúc gợn sóng',
+                trend: [2, 3, 3],
+                compare: 'Từ năm 2026 sang 2027, chuyện tình cảm của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
+                summary: 'Năm 2027, chuyện tình cảm của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
+                good: [
+                    'Môi trường năm nay mang lại cho chuyện tình cảm những điểm thuận lợi: hai người tôn trọng, nể và hiểu nhau hơn, người lớn tán thành, có người đứng ra vun đắp.',
+                    'Xét riêng cung Phu Thê, L. Lộc Tồn từ cung Quan Lộc xung chiếu về kết hợp với ĐV. Lộc Tồn ở cung Mệnh, là dấu hiệu thuận lợi: quan hệ bền, êm, có phần trầm lặng.'
+                ],
+                warn: [
+                    'Năm nay một bên có tiếng nói lớn hơn trong quan hệ, dễ áp đặt nhau, dễ xa cách vì đi lại, hoặc có thay đổi trong quan hệ.',
+                    'Năm nay chuyện tình cảm dễ gặp trở ngại: dễ thấy trống trải, lời hứa khó giữ, dễ nóng giận, to tiếng với nhau vì những chuyện nhỏ, dễ hiểu lầm, giận hờn, ghen tuông.',
+                    'Xét riêng cung Phu Thê, Tham Lang (hãm) trong cung gặp ĐV. Thiên Khốc nhập cung, khiến chuyện tình cảm dễ phát sinh chuyện không như ý: dễ tủi thân, nhạy cảm. Thêm vào đó, Tử Vi (miếu) và Thiên Khôi cùng ĐV. Thái Tuế từ cung Quan Lộc xung chiếu về, khiến dễ tranh luận chuyện đúng sai với nhau. May mắn là Tử Vi (miếu) ở cung Quan Lộc hội chiếu về cung Phu Thê, phần nào giúp giảm bớt mức độ bất lợi. Cung Phu Thê gặp Tuần, phần nào kìm bớt mặt xấu của các chính tinh hãm, nên những trở ngại thường không bộc phát mạnh.'
+                ],
+                adviceTitle: 'Quan tâm đều đặn, lắng nghe nhiều hơn',
+                advice: 'Duy trì sự quan tâm đều đặn và lắng nghe nhiều hơn, việc lớn thì hai người nên bàn kỹ với nhau.',
+                when: [{ m: 'Tháng 4', solar: '6/5 – 4/6', type: 'bad', note: 'Tháng không tốt cho chuyện tình cảm, cần thận trọng. Nên dành thời gian cho người bạn đời, nói chuyện nhẹ nhàng khi có bất đồng.' }],
+                next: 'Tình cảm giữ mức tương đương (“Trung bình”).'
+            },
+            {
+                key: 'giadao', name: 'Gia đạo', icon: 'i_giadao.svg', stars: 3,
+                title: 'Bình yên, giản dị',
+                trend: [2, 3, 4],
+                compare: 'Từ năm 2026 sang 2027, gia đạo của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
+                summary: 'Năm 2027, gia đạo của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định. Chuyện anh chị em năm nay là điểm động, vừa có cơ hội vừa có việc phải lo.',
+                good: [
+                    'Môi trường năm nay mang lại cho gia đạo những điểm thuận lợi: gia đình êm ấm, được nể trọng, có người ngoài giúp việc nhà, người nhà đi xa hoặc có thay đổi nơi ở.',
+                    'Xét riêng cung Tử Tức, Thái Âm (miếu) và Thiên Mã trong cung gặp L. Thiên Khôi và L. Hóa Lộc nhập cung, là dấu hiệu thuận lợi: con gặp thầy giỏi, người tốt nâng đỡ, con cái có tin vui, thành quả tốt.'
+                ],
+                warn: [
+                    'Năm nay gia đạo dễ gặp trở ngại: dễ hao tốn cho việc nhà, dễ có việc bất ngờ trong nhà, trong nhà dễ hiểu lầm, có việc phải lo.',
+                    'Xét riêng cung Huynh Đệ, L. Đà La từ tam hợp chiếu về kết hợp với ĐV. Đà La nhập cung, khiến anh chị em, người ngang hàng dễ phát sinh chuyện không như ý: việc chung với anh chị em chậm, kéo dài. Cung Huynh Đệ gặp Tuần, phần nào kìm bớt mặt xấu của các chính tinh hãm, nên những trở ngại thường không bộc phát mạnh.'
+                ],
+                adviceTitle: 'Gắn kết người thân, chia sẻ việc nhà',
+                advice: 'Giữ liên lạc, thăm hỏi người thân đều đặn và chia sẻ việc nhà để không dồn áp lực cho một người.',
+                when: [
+                    { m: 'Tháng 3', solar: '7/4 – 5/5', type: 'good', note: 'Tháng tốt cho con cái. Nên dành thời gian cho con cái, lắng nghe và đồng hành cùng con.' },
+                    { m: 'Tháng 5', solar: '5/6 – 3/7', type: 'bad', note: 'Tháng không tốt cho anh chị em, cần thận trọng. Nên giữ hòa khí với anh chị em, rõ ràng khi có việc chung.' },
+                    { m: 'Tháng 7', solar: '2/8 – 31/8', type: 'good', note: 'Tháng khá tốt cho cha mẹ. Nên dành thời gian hỏi han, chăm lo cha mẹ, việc giấy tờ nên chuẩn bị sớm.' }
+                ],
+                extra: {
+                    title: 'Cha mẹ già',
+                    qa: [
+                        ['Sức khỏe, tinh thần của cha mẹ năm nay?', 'Cha mẹ năm nay có thể mệt mỏi hoặc nhiều lo nghĩ. Những cuộc gọi hỏi thăm, những bữa cơm cùng nhau sẽ có ý nghĩa hơn thường lệ.'],
+                        ['Có việc gì cần lo cho cha mẹ?', 'Năm nay cần lo cho cha mẹ vì sức khỏe cha mẹ cần được quan tâm hơn. Nên dành thời gian chăm lo sức khỏe và các việc giấy tờ, nhà cửa của cha mẹ.'],
+                        ['Thời điểm nào nên dành thời gian cho cha mẹ?', 'Không có tháng nào nổi bật riêng. Chị nên giữ lịch thăm hỏi cha mẹ đều đặn quanh năm.'],
+                        ['Hiếu thuận thế nào cho hợp?', 'Hiếu thuận không chỉ là lo vật chất. Hãy hỏi chuyện xưa của cha mẹ, ghi lại những lời dặn, đó cũng là cách hiểu thêm về gốc rễ của chính mình.']
+                    ]
+                },
+                next: 'Gia đạo có xu hướng sáng hơn (“Tốt”).'
+            },
+            {
+                key: 'suckhoe', name: 'Sức khỏe', icon: 'i_suckhoe.svg', stars: 2,
+                title: 'Dành thời gian cho bản thân',
+                trend: [3, 2, 1],
+                compare: 'Từ năm 2026 sang 2027, sức khỏe của chị chậm lại đôi chút, từ mức “Trung bình” xuống “Không thuận lợi”. Đây là lúc đi chậm mà chắc, giữ thành quả đã có thay vì dàn trải.',
+                summary: 'Năm 2027, sức khỏe của chị có cả thuận lợi và trở ngại, nhưng khó khăn có phần nổi bật hơn. Thể trạng nền ở mức trung bình, điều cần đề phòng chủ yếu đến từ trạng thái cá nhân, nên giữ sức, tránh làm quá sức và cẩn thận khi đi lại.',
+                good: [
+                    'Xét riêng cung Tật Ách, Thiên Cơ (vượng) cùng L. Hóa Khoa từ cung Điền Trạch (tam hợp) chiếu về, là dấu hiệu thuận lợi: thuận gặp thầy giỏi thuốc hay, bệnh nhẹ dễ chóng khỏi. Bên cạnh đó, Lộc Tồn trong cung gặp L. Thiên Việt nhập cung, cho thấy được người chăm sóc kịp thời.'
+                ],
+                warn: [
+                    'Xét riêng cung Tật Ách, Lộc Tồn trong cung gặp L. Tang Môn nhập cung, khiến sức khỏe dễ phát sinh chuyện không như ý: tâm trạng dễ nặng nề.',
+                    'Ngoài thể trạng nền, trạng thái cá nhân năm nay gặp nhiều sao lưu xấu (L. Thiên Hư, L. Hóa Kỵ và ĐV. Đà La), nên cần để ý: dễ thiếu sức, hay mệt, dễ căng thẳng, ngủ không sâu giấc và dễ mỏi mệt kéo dài.'
+                ],
+                adviceTitle: 'Giữ sức, đừng xem nhẹ dấu hiệu bất thường',
+                advice: 'Đi khám sớm khi thấy cơ thể bất thường, nghỉ ngơi điều độ, cẩn trọng khi di chuyển và khi làm việc nặng.',
+                when: [{ m: 'Tháng 1', solar: '6/2 – 7/3', type: 'good', note: 'Tháng tốt cho sức khỏe. Nên ngủ đủ, ăn uống điều độ, thấy cơ thể có dấu hiệu bất thường thì nên đi khám sớm.' }],
+                extra: {
+                    title: 'An toàn và sức khỏe cần chú ý',
+                    qa: [
+                        ['Năm nay cần đề phòng va chạm, tai nạn không?', 'Năm nay cần đề phòng va chạm, tai nạn. Nên cẩn thận khi đi lại, lái xe và khi làm việc với máy móc, vật sắc nhọn.'],
+                        ['Những vấn đề sức khỏe nào cần để ý?', 'Năm nay cần để ý dễ căng thẳng và tâm trạng dễ nặng nề. Nên khám định kỳ và đi khám sớm khi có dấu hiệu bất thường.'],
+                        ['Thời điểm nào cần cẩn thận hơn?', 'Tháng 1 âm lịch (Nhâm Dần) là thời điểm sức khỏe và việc đi lại thuận hơn. Ngược lại, vào tháng 12 âm lịch (Quý Sửu) nên cẩn thận hơn khi đi lại và giữ sức.'],
+                        ['Nên làm gì để phòng ngừa?', 'Hãy khám sức khỏe định kỳ, ngủ đủ, vận động đều và đi đường cẩn thận. Đây là lời nhắc để phòng ngừa, không phải chẩn đoán, khi có dấu hiệu bất thường, nên đi khám bác sĩ.']
+                    ]
+                },
+                next: 'Sức khỏe cần giữ nhịp hơn (“Xấu”), nên tranh thủ năm nay để chuẩn bị nền vững.'
+            },
+            {
+                key: 'quanhe', name: 'Quan hệ xã hội', icon: 'i_nguoithan.svg', stars: 2,
+                title: 'Chọn bạn mà chơi',
+                trend: [3, 2, 4],
+                compare: 'Từ năm 2026 sang 2027, quan hệ xã hội của chị chậm lại đôi chút, từ mức “Trung bình” xuống “Không thuận lợi”.',
+                summary: 'Năm 2027, các mối quan hệ của chị vẫn có điểm tựa, song dễ gặp trở ngại. Chị nên ưu tiên giữ ổn định, những thay đổi lớn hãy cân nhắc kỹ hoặc để sang thời điểm thuận lợi hơn.',
+                good: [
+                    'Môi trường năm nay mang lại cho các mối quan hệ những điểm thuận lợi: được bạn bè, đồng nghiệp tin tưởng, được bạn bè giới thiệu cơ hội, quen thêm người mới ở nơi khác.',
+                    'Xét riêng cung Nô Bộc, Thái Âm (miếu) và Thiên Mã cùng L. Hóa Lộc từ cung Tử Tức (tam hợp) chiếu về, là dấu hiệu thuận lợi: quan hệ mang lại lợi ích, có đối tác tốt.'
+                ],
+                warn: [
+                    'Năm nay các mối quan hệ dễ gặp trở ngại: dễ bị hứa suông, hợp tác không thành, dễ bất đồng, to tiếng với người ngoài, đối tác khi quyền lợi chạm nhau, dễ hiểu lầm, bị nói ra nói vào.',
+                    'Xét riêng cung Nô Bộc, Thái Âm (miếu) và Thiên Mã cùng L. Thiên Khốc từ cung Tử Tức (tam hợp) chiếu về, khiến các mối quan hệ dễ phát sinh chuyện không như ý: dễ thất vọng về bạn bè. Thêm vào đó, Hóa Khoa, Tả Phù và Hữu Bật trong cung gặp L. Thái Tuế nhập cung, khiến dễ có thị phi trong các mối quan hệ. May mắn là Thái Âm (miếu) ở cung Tử Tức hội chiếu về cung Nô Bộc, phần nào giúp giảm bớt mức độ bất lợi.'
+                ],
+                adviceTitle: 'Chọn lọc quan hệ, cẩn trọng khi hợp tác',
+                advice: 'Hợp tác, góp vốn hay nghe lời hứa đều cần cẩn trọng, người hay gây thị phi thì nên tránh xa.',
+                when: [{ m: 'Tháng 11', solar: '28/11 – 27/12', type: 'good', note: 'Tháng khá tốt cho các mối quan hệ. Nên chọn lọc các mối quan hệ, rõ ràng trong hợp tác và chuyện tiền bạc với người ngoài.' }],
+                next: 'Quan hệ xã hội hứa hẹn bước lên rõ rệt (“Tốt”): những gì chị gieo hôm nay sẽ có mùa gặt đẹp.'
+            },
+            {
+                key: 'nhacua', name: 'Nhà cửa, tài sản', icon: 'i_nhacua.svg', stars: 3,
+                title: 'Ổn định, chưa biến động',
+                trend: [3, 3, 4],
+                compare: 'Từ năm 2026 sang 2027, nhà cửa, tài sản của chị vẫn ổn định ở mức “Trung bình”. Những điều đã làm tốt năm trước tiếp tục là chỗ dựa, năm nay thích hợp để đào sâu và làm cho vững.',
+                summary: 'Năm 2027, nhà cửa, tài sản của chị tốt xấu đan xen, không nghiêng hẳn về bên nào. Năm nay có biến động về nhà cửa, nơi ở, chị nên giữ nhịp đều, phát huy điểm thuận lợi và gỡ sớm những chỗ vướng.',
+                good: [
+                    'Môi trường năm nay mang lại cho nhà cửa, tài sản những điểm thuận lợi: giấy tờ nhà đất thuận lợi, có người mách mối mua bán nhà đất, chủ đề thay đổi nơi ở, sửa chữa hoặc giao dịch tài sản có thể đáng chú ý hơn trong năm.',
+                    'Xét riêng cung Điền Trạch, Thái Âm (miếu) và Thiên Mã cùng L. Hóa Lộc từ cung Tử Tức xung chiếu về, là dấu hiệu thuận lợi: nhà đất có lộc, thuận mua sắm, tích lũy tài sản.'
+                ],
+                warn: [
+                    'Năm nay nhà cửa, tài sản dễ gặp trở ngại: dễ hao tốn sửa chữa nhà cửa, nhà cửa dễ hư hỏng bất ngờ, giấy tờ nhà đất dễ vướng, giao dịch trục trặc.',
+                    'Xét riêng cung Điền Trạch, Thái Âm (miếu) và Thiên Mã cùng L. Thiên Khốc từ cung Tử Tức xung chiếu về, khiến nhà cửa, tài sản dễ phát sinh chuyện không như ý: dễ buồn phiền chuyện nhà. May mắn là Thái Âm (miếu) ở cung Tử Tức hội chiếu về cung Điền Trạch, phần nào giúp giảm bớt mức độ bất lợi. Cung Điền Trạch gặp Triệt, khiến các chính tinh sáng tại đây khó phát huy trọn vẹn: điều thuận thường đến chậm hoặc phải qua trắc trở ban đầu.'
+                ],
+                adviceTitle: 'Bảo dưỡng tài sản, chưa vội giao dịch lớn',
+                advice: 'Nên bảo dưỡng nhà cửa và tài sản, chưa xem xét kỹ thì chưa vội làm giao dịch lớn.',
+                when: [{ m: 'Tháng 9', solar: '30/9 – 28/10', type: 'good', note: 'Tháng khá tốt cho nhà cửa, tài sản. Nên kiểm tra kỹ giấy tờ và tính toán chi phí trước khi quyết.' }],
+                extra: {
+                    title: 'Góc nhìn về nhà cửa, tài sản',
+                    qa: [
+                        ['Sửa chữa, cải tạo nhà cửa?', 'Năm nay có thể sửa chữa nhưng nên làm từng phần, dự trù chi phí phát sinh và theo sát quá trình thi công.'],
+                        ['Mua bán, chuyển đổi bất động sản?', 'Có tín hiệu dịch chuyển liên quan đến nhà đất, chị có thể nảy sinh ý định thay đổi hoặc chuyển đổi tài sản. Nếu thực hiện, nên tính toán kỹ và đi từng bước, không vội vàng.'],
+                        ['Tích lũy tài sản hay ưu tiên giữ tiền?', 'Năm nay nên cân đối giữa tích lũy tài sản và giữ tiền, luôn để một phần dự phòng.'],
+                        ['Cần kiểm tra kỹ điều gì trước khi giao dịch?', 'Giấy tờ, thủ tục năm nay nhìn chung thuận lợi. Dù vậy, chị vẫn nên đọc kỹ điều khoản và giữ đầy đủ chứng từ trước khi ký.']
+                    ]
+                },
+                next: 'Nhà cửa, tài sản có xu hướng sáng hơn (“Tốt”).'
+            },
+            {
+                key: 'dilai', name: 'Đi lại, xuất hành', icon: 'i_dilai.svg', stars: 3,
+                title: 'Đi lại bình thường',
+                trend: [2, 3, 4],
+                compare: 'Từ năm 2026 sang 2027, chuyện đi lại của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
+                summary: 'Năm 2027, chuyện đi lại của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
+                good: [
+                    'Môi trường năm nay mang lại cho chuyện đi lại những điểm thuận lợi: đi xa được tiếp đón, giấy tờ đi lại thuận, đi xa có người dẫn đường, giới thiệu, có nhiều chuyến đi, di chuyển nhiều.'
+                ],
+                warn: [
+                    'Năm nay chuyện đi lại dễ gặp trở ngại: chuyến đi dễ hao tốn, không như ý, cần cẩn thận tai nạn khi di chuyển, đi lại dễ trục trặc, lỡ chuyến, thất lạc giấy tờ.',
+                    'Xét riêng cung Thiên Di, đáng chú ý là L. Lộc Tồn ở cung Quan Lộc kết hợp với ĐV. Lộc Tồn từ cung Mệnh xung chiếu về, cho thấy ít đi xa, đi thì chắc chắn. Tham Lang (hãm) cùng ĐV. Thiên Khốc từ cung Phu Thê (tam hợp) chiếu về, khiến chuyện đi lại dễ phát sinh chuyện không như ý: đi xa dễ buồn, nhớ nhà.'
+                ],
+                adviceTitle: 'Đi lại bình thường, chỉ cần lên lịch kỹ',
+                advice: 'Đi lại không có gì đáng ngại, lên lịch trình kỹ càng là đủ.',
+                when: [{ m: 'Tháng 12', solar: '28/12 – 25/1', type: 'bad', note: 'Tháng không tốt cho chuyện đi lại, cần thận trọng. Nên chuẩn bị kỹ trước khi đi xa, giữ chừng mực trong giao tiếp bên ngoài.' }],
+                next: 'Đi lại, xuất hành có xu hướng sáng hơn (“Tốt”).'
+            },
+            {
+                key: 'khac', name: 'Các vận hạn khác', icon: 'i_vanhankhac.svg', other: true,
+                notice: 'Năm 2027 không có cung động nào khác ngoài các mặt đời sống đã luận. Dưới đây là diễn biến của các cung còn lại.',
+                palaces: [
+                    {
+                        name: 'Cung Mệnh', sub: 'Bản thân, trạng thái, năng lực',
+                        base: 'Chị là người cương nghị, thực tế, chính trực, trọng nghĩa; đôi lúc thích ăn thua, hành động theo cảm hứng.',
+                        good: ['Cẩn trọng, giữ được sự ổn định, biết tích lũy cho mình.', 'Được ghi nhận, giữ được tiếng tốt, ham học hỏi.'],
+                        warn: ['Dễ gặp việc gấp, áp lực, cần cẩn thận va chạm.'],
+                        sum: 'Có nhiều điều kiện thuận lợi, song cần để ý những điểm vướng để không mất đi sự chủ động.'
+                    },
+                    {
+                        name: 'Cung Phụ Mẫu', sub: 'Cha mẹ, người lớn, cấp trên',
+                        base: 'Nền tảng khá vững, thể hiện ở danh tiếng, nhiệt huyết, phúc thọ tăng tiến.',
+                        good: [],
+                        warn: ['Sức khỏe cha mẹ cần được quan tâm hơn.', 'Cha mẹ dễ va chạm nhẹ khi vận động, đi lại.'],
+                        sum: 'Cần thận trọng hơn, nên chủ động phòng trước và xử lý sớm khi có vướng mắc.'
+                    }
+                ]
+            }
+        ];
+
+        const IC = 'assets/vanhan_v3/';
+        const ICON_GOOD = `<img src="${IC}i_thuanloi.svg" width="16" height="16" alt="">`;
+        const ICON_WARN = `<img src="${IC}i_batloi_cam.svg" width="16" height="14.6" alt="">`;
+        const CHEVRON ='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D6E6F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+        const SEC_IC = {
+            compare: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M7 16v-3"/><path d="M12 16V9"/><path d="M17 16V5"/></svg>',
+            how: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2.5" width="6" height="3" rx="1"/><path d="M9 11h6"/><path d="M9 15h6"/></svg>',
+            advice: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 11.5A8.6 8.6 0 1 1 12.5 4.5"/><path d="M15 13a4 4 0 1 1-4-4"/><path d="M11 13l9-9"/><path d="M17 4v3h3"/></svg>',
+            when: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg>',
+            extra: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+            next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>'
+        };
+
+        // Soft misty mountains with a path to a flag on the peak (decorative)
+        const HERO_ART = `<svg class="hero-art" viewBox="0 0 150 110" aria-hidden="true">
+            <path d="M0 110 L0 92 C18 86 30 80 44 84 C58 88 70 78 84 80 L150 76 L150 110 Z" fill="#C9EBD8" opacity=".6"/>
+            <path d="M22 110 C40 96 56 84 70 70 C82 58 92 44 104 30 C108 26 112 26 116 30 C126 44 136 58 150 66 L150 110 Z" fill="#A9DEC1" opacity=".75"/>
+            <path d="M104 30 C108 26 112 26 116 30 C120 36 124 42 128 47 C122 44 118 46 114 44 C110 42 106 44 101 41 Z" fill="#fff" opacity=".7"/>
+            <path d="M58 110 C70 100 82 96 90 88 C98 80 96 70 102 60 C106 52 108 44 110 36" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="3 4" opacity=".9"/>
+            <path d="M0 110 C24 100 44 96 66 98 C90 100 116 94 150 90 L150 110 Z" fill="#BFE6D0" opacity=".8"/>
+            <line x1="110" y1="30" x2="110" y2="10" stroke="#3A8F68" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M110.8 10.5 L123 14 L110.8 18 Z" fill="#3A8F68"/>
+        </svg>`;
+
+        function starsHTML(count, size) {
+            const h = size, w = size * 8.52 / 8;
+            let s = '';
+            for (let i = 1; i <= 5; i++) {
+                s += `<img src="${IC}${i <= count ? 'star_on' : 'star_off'}.svg" width="${w.toFixed(1)}" height="${h}" alt="">`;
+            }
+            return `<span class="stars">${s}</span>`;
+        }
+
+        const secTitle = (ic, t) => `<div class="sec-title"><span class="sec-ic">${SEC_IC[ic]}</span>${t}</div>`;
+        const list = items => `<ul class="list">${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+
+        function renderTabs(active) {
+            document.getElementById('tabs').innerHTML = ASPECTS.map(a => {
+                const sub = a.other ? 'Các cung còn lại' : `<span class="${LEVEL[a.stars].c}">${LEVEL[a.stars].t}</span>`;
+                return `<div class="tab ${a.key === active ? 'active' : ''}" data-key="${a.key}" onclick="selectTab('${a.key}')">
+                    <span class="tab-ic"><img src="${IC}${a.icon}" alt=""></span>
+                    <span class="tab-txt"><span class="tab-name">${a.name}</span><span class="tab-sub">${sub}</span></span>
+                </div>`;
+            }).join('');
+        }
+
+        // Short conclusion under the year boxes, derived from 2026 -> 2027 change
+        function trendVerdict(a) {
+            const d = a.trend[1] - a.trend[0];
+            const [txt, cls] = d >= 2 ? ['Cải thiện rõ', 'up']
+                : d === 1 ? ['Cải thiện', 'up']
+                : d === 0 ? ['Giữ ổn định', 'same']
+                : d === -1 ? ['Giảm nhẹ', 'down']
+                : ['Giảm rõ', 'down'];
+            const arrow = { up: 'M12 19V5M6 11l6-6 6 6', same: 'M5 12h14M13 6l6 6-6 6', down: 'M12 5v14M6 13l6 6 6-6' }[cls];
+            const svg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="${arrow}"/></svg>`;
+            return `<div class="tr-verdict ${cls}">${svg}${txt} so với năm 2026</div>`;
+        }
+
+        function renderAspect(a) {
+            const lv = LEVEL[a.stars];
+            const years = [2026, 2027, 2028];
+            let h = `
+                <div class="hero">
+                    ${HERO_ART}
+                    <div class="hero-label">${a.name} năm 2027 của chị</div>
+                    <div class="hero-title">${a.title}</div>
+                    <div class="hero-rating">${starsHTML(a.stars, 18)}<span class="lv-pill ${lv.c}">${lv.t}</span></div>
+                </div>
+
+                <div class="sec">
+                    ${secTitle('compare', `Diễn biến ${a.name.toLowerCase()} qua 3 năm`)}
+                    <div class="trend">${a.trend.map((s, i) => `
+                        <div class="tr-col ${i === 1 ? 'now' : ''}">
+                            <div class="tr-cap">${['Năm trước', 'Năm nay', 'Năm sau'][i]}</div>
+                            <div class="tr-year">Năm ${years[i]}</div>
+                            ${starsHTML(s, 12)}
+                            <div class="tr-lbl ${LEVEL[s].c}">${LEVEL[s].t}</div>
+                        </div>`).join('')}
+                    </div>
+                    ${trendVerdict(a)}
+                    <p class="p">${a.compare}</p>
+                    <div class="next-yr">
+                        <div class="next-yr-t">${SEC_IC.next}Nhìn sang năm 2028</div>
+                        <p class="p">${a.next}</p>
+                    </div>
+                </div>
+
+                <div class="sec">
+                    ${secTitle('how', `${a.name} năm nay thế nào?`)}
+                    <p class="p">${a.summary}</p>
+                    <div class="h3 good">${ICON_GOOD}Điểm thuận lợi</div>
+                    ${list(a.good)}
+                    <div class="h3 warn">${ICON_WARN}Điều cần lưu ý</div>
+                    ${list(a.warn)}
+                </div>
+
+                <div class="sec">
+                    ${secTitle('advice', 'Chị nên làm gì trong năm nay?')}
+                    <div class="sub-h">Lời khuyên dành cho chị</div>
+                    <div class="adv">
+                        ${a.adviceTitle ? `<div class="adv-t">${a.adviceTitle}</div>` : ''}
+                        <div class="adv-d">${a.advice}</div>
+                    </div>
+                    <div class="sub-h">Thời điểm đáng chú ý</div>
+                    <div class="when">${a.when.map(w => `
+                        <div class="wt">
+                            <div class="wt-body">
+                                <div class="wt-head">
+                                    <span class="wt-m">${w.m} âm lịch</span>
+                                    <span class="wt-tag ${w.type}">${{ good: 'Tháng tốt', normal: 'Tháng bình thường', bad: 'Tháng cần thận trọng' }[w.type]}</span>
+                                </div>
+                                ${w.solar ? `<div class="wt-s">${w.solar} dương lịch</div>` : ''}
+                                <div class="wt-n">${w.note}</div>
+                                <a class="wt-link" href="#" onclick="return false">Xem vận hạn ${w.m.toLowerCase()}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+                            </div>
+                        </div>`).join('')}
+                    </div>
+                </div>`;
+
+            if (a.extra) {
+                h += `
+                <div class="sec">
+                    ${secTitle('extra', a.extra.title)}
+                    <div class="qa">${a.extra.qa.map(([q, ans], i) => `
+                        <div class="qa-item ${i === 0 ? 'open' : ''}">
+                            <div class="qa-q" onclick="this.parentElement.classList.toggle('open')"><span>${q}</span>${CHEVRON}</div>
+                            <div class="qa-a">${ans}</div>
+                        </div>`).join('')}
+                    </div>
+                </div>`;
+            }
+
+            return h;
+        }
+
+        function renderOther(a) {
+            return `
+                <div class="sec">
+                    <div class="notice">${ICON_GOOD}<span>${a.notice}</span></div>
+                </div>
+                <div class="sec" style="border-top:none;margin-top:0">
+                    ${secTitle('extra', 'Diễn biến các cung còn lại')}
+                    ${a.palaces.map(p => `
+                        <div class="palace">
+                            <div class="palace-name">${p.name}</div>
+                            <div class="palace-sub">${p.sub}</div>
+                            <p class="p">${p.base}</p>
+                            ${p.good.length ? `<div class="h3 good">${ICON_GOOD}Điểm thuận lợi</div>${list(p.good)}` : ''}
+                            ${p.warn.length ? `<div class="h3 warn">${ICON_WARN}Điều cần lưu ý</div>${list(p.warn)}` : ''}
+                            <p class="p"><b>Nhìn chung:</b> ${p.sum}</p>
+                        </div>`).join('')}
+                </div>`;
+        }
+
+        function selectTab(key) {
+            const a = ASPECTS.find(x => x.key === key) || ASPECTS[0];
+            renderTabs(a.key);
+            document.getElementById('content').innerHTML = a.other ? renderOther(a) : renderAspect(a);
+            document.getElementById('scroll').scrollTop = 0;
+            const wrap = document.getElementById('tabs');
+            const el = wrap.querySelector('.tab.active');
+            wrap.scrollLeft = el.offsetLeft - wrap.offsetLeft - (wrap.clientWidth - el.offsetWidth) / 2;
+            history.replaceState(null, '', `?tab=${a.key}`);
+        }
+
+        selectTab(new URLSearchParams(location.search).get('tab') || 'congviec');
+    </script>
+</body>
+
+</html>

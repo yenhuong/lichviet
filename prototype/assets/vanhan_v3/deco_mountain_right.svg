@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="38" viewBox="0 0 96 38" fill="none">
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9E2CE"/><stop offset="1" stop-color="#E3F5EC" stop-opacity="0"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9DD6BB"/><stop offset="1" stop-color="#E3F5EC" stop-opacity="0"/></linearGradient>
+  </defs>
+  <!-- back range: one broad peak rising to the right edge -->
+  <path d="M0 38C14 35 30 30 44 24C52 20 58 12 66 10C72 9 76 14 80 18C86 16 92 17 96 19V38Z" fill="url(#a)"/>
+  <!-- front range: low rounded hill -->
+  <path d="M10 38C24 35 36 30 48 28C56 26.5 60 30 66 31C74 28 84 28 96 30V38Z" fill="url(#b)"/>
+</svg>

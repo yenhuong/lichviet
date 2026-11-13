@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="46" viewBox="0 0 120 46" fill="none">
+  <defs>
+    <linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9E2CE"/><stop offset="1" stop-color="#E3F5EC" stop-opacity="0"/></linearGradient>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9DD6BB"/><stop offset="1" stop-color="#E3F5EC" stop-opacity="0"/></linearGradient>
+  </defs>
+  <!-- back range -->
+  <path d="M0 46V20C6 16 10 8 16 6C21 4.5 24 10 28 14C32 11 36 12 40 16C46 22 54 26 62 30C74 35 92 38 120 40V46Z" fill="url(#a)"/>
+  <!-- front range -->
+  <path d="M0 46V32C8 30 14 22 22 20C28 18.5 32 24 38 28C44 25 50 26 56 30C66 36 84 40 104 44L110 46Z" fill="url(#b)"/>
+  <!-- contour lines (van nui) -->
+</svg>

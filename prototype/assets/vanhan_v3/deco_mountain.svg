@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="60" viewBox="0 0 400 60" preserveAspectRatio="none" fill="none">
+  <!-- Misty mountain peaks: back layer lighter, front layer slightly darker -->
+  <path d="M0 46 L28 34 Q40 28 52 34 L70 42 L104 18 Q114 11 124 18 L160 40 L196 28 Q206 23 216 28 L250 44 L292 14 Q302 8 312 14 L352 38 L376 30 Q388 26 400 32 V60 H0Z" fill="#DCF2E7"/>
+  <path d="M0 52 L40 42 Q52 38 64 42 L96 52 L140 34 Q150 30 160 34 L204 52 L246 40 Q256 36 266 40 L300 52 L338 38 Q348 34 358 38 L400 50 V60 H0Z" fill="#C8EAD8"/>
+</svg>
