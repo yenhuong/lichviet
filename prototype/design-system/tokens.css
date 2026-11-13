@@ -171,6 +171,16 @@
   --shadow-badge: 0 1px 2px rgba(0, 0, 0, 0.31);
   --shadow-cta-text: 0 1px 0 #006de2;
 
+  /* Feature colors — Tử vi vận hạn (added from prototype, pending Figma) */
+  --color-vanhan-accent: #00804F;
+  --color-vanhan-bg: #EEF9F3;
+  --color-vanhan-caution: #D9822B;
+  --color-vanhan-caution-bg: #FFF6EC;
+  --color-vanhan-caution-border: #F3DDB5;
+  --color-vanhan-danger-border: #F6CFCF;
+  --color-vanhan-info-bg: #E3EFFF;
+  --gradient-vanhan-navbar: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
+
   /* Font */
   --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -203,3 +213,6 @@
 .text-label-sm         { font: 400 14px/21px var(--font-family); }
 .text-label-sm-medium  { font: 500 14px/21px var(--font-family); }
 .text-button-md        { font: 600 16px/21px var(--font-family); }
+
+/* Text styles — added from prototype, pending Figma */
+.text-title-md-bold    { font: 700 20px/28px var(--font-family); }
