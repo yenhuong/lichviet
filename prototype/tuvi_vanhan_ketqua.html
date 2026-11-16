@@ -6,33 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kết quả tử vi vận hạn - Lịch Việt</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="design-system/components.css">
     <style>
-        :root {
-            --green: #009E64;
-            --green-good: #00BD1D;
-            --blue: #1587FF;
-            --amber: #FFB115;
-            --red: #FF2D3E;
-            --bullet: #3F85FB;
-            --text: #272727;
-            --text-2: #333333;
-            --border: #E6E6E6;
-        }
+        /* Screen CSS: tokens only (design-system/tokens.css). Raw values left on purpose:
+           phone mockup chrome, sizes (width/height), absolute positions and inline artwork. */
 
         * { box-sizing: border-box; }
 
         body {
+            /* Page backdrop outside the phone (mockup chrome) */
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: -apple-system, "SF Pro Display", "SF UI Display", "Inter", sans-serif;
-            color: #000;
+            font-family: var(--font-family);
+            color: var(--color-text-strong);
         }
 
-        /* Phone mockup */
+        /* Phone mockup (chrome) */
         .phone-mockup {
             width: 414px;
             height: 896px;
@@ -45,8 +38,8 @@
         .screen {
             width: 100%;
             height: 100%;
-            background: #fff;
-            border-radius: 44px;
+            background: var(--color-bg-surface);
+            border-radius: 44px; /* phone chrome */
             overflow: hidden;
             position: relative;
             display: flex;
@@ -61,13 +54,13 @@
 
         .scroll::-webkit-scrollbar { display: none; }
 
-        /* Top bar */
-        .topbar {
+        /* new/VanHanNavBar */
+        .new-vanhan-navbar {
             height: 97px;
             flex-shrink: 0;
             position: relative;
-            background: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
-            color: #fff;
+            background: var(--gradient-vanhan-navbar);
+            color: var(--color-text-on-primary);
         }
 
         .status-bar {
@@ -75,12 +68,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 22px 0 32px;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 0 var(--space-22) 0 var(--space-32);
         }
 
-        .status-icons { display: flex; gap: 5px; align-items: center; }
+        .status-icons { display: flex; gap: var(--space-5); align-items: center; }
 
         .topbar-title {
             position: absolute;
@@ -88,9 +79,6 @@
             right: 0;
             top: 60px;
             text-align: center;
-            font-size: 17px;
-            font-weight: 600;
-            line-height: 21px;
         }
 
         .btn-back {
@@ -105,98 +93,84 @@
             cursor: pointer;
         }
 
-        /* Year tabs: folder style, active tab merges into the year panel below */
-        .year-tabs {
+        /* new/VanHanYearTabs: folder style, active tab merges into the year panel below */
+        .new-vanhan-year-tabs {
             position: sticky;
             top: 0;
             z-index: 5;
             display: flex;
             align-items: flex-end;
-            gap: 6px;
-            padding: 12px 12px 0;
-            background: #fff;
-            border-bottom: 1px solid #BFE3D1;
+            gap: var(--space-6);
+            padding: var(--space-12) var(--space-12) 0;
+            background: var(--color-bg-surface);
+            border-bottom: 1px solid var(--color-vanhan-border);
         }
 
-        .year-tab {
+        .new-vanhan-year-tab {
             flex: 1;
             height: 52px;
-            border: 1px solid #E3E8E6;
+            border: 1px solid var(--color-vanhan-tab-border);
             border-bottom: none;
-            border-radius: 12px 12px 0 0;
-            background: #F7F8F8;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            background: var(--color-vanhan-tab-bg);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--text);
+            color: var(--color-text-label);
             cursor: pointer;
         }
 
-        .year-tab .yt-year { font-size: 16px; font-weight: 700; line-height: 22px; }
-        .year-tab .yt-sub { font-size: 13px; line-height: 18px; }
-
-        .year-tab.active {
+        .new-vanhan-year-tab.active {
             height: 60px;
-            background: var(--green);
-            border-color: var(--green);
-            color: #fff;
+            background: var(--color-vanhan-primary);
+            border-color: var(--color-vanhan-primary);
+            color: var(--color-text-on-primary);
         }
 
-        .year-tab.active .yt-sub { color: rgba(255, 255, 255, 0.9); }
+        .new-vanhan-year-tab.active .yt-sub { color: var(--color-vanhan-text-on-primary-muted); }
 
-        .section-band {
-            margin-top: 24px;
+        /* new/VanHanSectionBand */
+        .new-vanhan-section-band {
+            margin-top: var(--space-24);
             height: 8px;
-            background: #EEF2F1;
+            background: var(--color-vanhan-band-bg);
         }
 
-        /* Screen blocks: thick full-width separator + full-width title band */
-        .blk-sep { margin-top: 28px; }
-        .blk-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; margin-bottom: 16px; background: #F3FCF8; border-top: 1px solid #DDF0E6; }
-        .blk-ic { width: 36px; height: 36px; border-radius: 50%; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .blk-title { font-size: 20px; font-weight: 700; line-height: 26px; color: #00804F; }
-        .blk-sub { margin-top: 2px; font-size: 16px; line-height: 22px; color: #4A6B5C; }
-
-        .year-divider {
-            margin: 36px 12px 0;
-            height: 1px;
-            background: #BFE3D1;
-        }
+        /* new/VanHanBlockHeader: thick full-width separator + full-width title band */
+        /* Thin full-width gray line between blocks */
+        .blk-sep { margin-top: var(--space-24); height: 2px; background: var(--color-vanhan-band-bg); }
+        .new-vanhan-block-header { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-14) var(--space-16); margin-bottom: var(--space-16); background: var(--color-vanhan-surface-tint); }
+        .blk-ic { width: 36px; height: 36px; border-radius: var(--radius-full); background: var(--color-vanhan-primary); color: var(--color-text-on-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .blk-title { color: var(--color-vanhan-accent); }
 
         /* Everything that belongs to the selected year */
         .year-panel {
-            background: #fff;
-            padding: 4px 0 20px;
+            background: var(--color-bg-surface);
+            padding: var(--space-4) 0 var(--space-20);
         }
 
-        /* Profile */
-        .profile {
-            background: #F6FEFF;
-            border-bottom: 1px solid #D0E3E6;
-            padding: 18px 16px 16px;
+        /* new/VanHanProfileHeader */
+        .new-vanhan-profile {
+            background: var(--color-vanhan-profile-bg);
+            border-bottom: 1px solid var(--color-vanhan-profile-border);
+            padding: var(--space-18) var(--space-16) var(--space-16);
             position: relative;
         }
 
         .profile-name {
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 24px;
-            color: var(--text-2);
+            color: var(--color-text-body);
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: var(--space-14);
             padding-right: 100px; /* keep clear of the zodiac image */
         }
 
         .profile-row {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 24px;
-            color: var(--text-2);
-            margin-bottom: 10px;
+            gap: var(--space-12);
+            color: var(--color-text-body);
+            margin-bottom: var(--space-10);
             padding-right: 100px; /* keep clear of the zodiac image */
         }
 
@@ -209,27 +183,25 @@
             justify-content: center;
         }
 
-
-        .btn-relative {
+        /* new/VanHanPillButton */
+        .new-vanhan-pill-button {
             display: inline-flex;
             align-items: center;
-            gap: 11px;
+            gap: var(--space-11);
             height: 35px;
-            padding: 0 22px 0 16px;
-            background: #fff;
-            border: 1px solid #D0E3E6;
-            border-radius: 28px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.11);
-            color: var(--green);
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 4px;
+            padding: 0 var(--space-22) 0 var(--space-16);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-vanhan-profile-border);
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-button);
+            color: var(--color-vanhan-primary);
+            margin-top: var(--space-4);
             cursor: pointer;
         }
 
         .zodiac {
             position: absolute;
-            right: 16px;
+            right: var(--space-16);
             top: 50%;
             transform: translateY(-50%);
             width: 92px;
@@ -237,68 +209,45 @@
             object-fit: contain;
         }
 
-        /* Sections */
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 24px;
-            margin: 20px 12px 18px;
-        }
+        /* Section Header (lv-home-section-title) spacing on this screen */
+        .section-title { margin: var(--space-20) var(--space-12) var(--space-18); }
 
-        .card {
-            margin: 0 12px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-        }
+        /* Card (lv-card) inset on this screen */
+        .card-inset { margin: 0 var(--space-12); }
 
-        /* Factors behind the year: Dai van / Tieu van / Luu nien + proactive actions */
-        .fc-row { display: flex; align-items: center; gap: 12px; padding: 14px 12px 14px 16px; position: relative; cursor: pointer; }
-        .fc-row + .fc-row::before { content: ''; position: absolute; top: 0; left: 16px; right: 0; height: 1px; background: #EBEBEB; }
-        .fc-body { flex: 1; min-width: 0; }
-        .fc-name { font-size: 17px; font-weight: 600; line-height: 24px; color: var(--text); }
-        .fc-sub { font-size: 16px; line-height: 22px; color: #6D6E6F; margin-top: 2px; }
-        /* Frameless factor list: small label + rating on top, the question is the headline */
-        .fx-grid { display: flex; flex-direction: column; gap: 10px; padding: 0 12px; }
-        .fx-tile { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 0 6px rgba(0, 0, 0, 0.08); padding: 14px 12px 14px 14px; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+        /* new/VanHanFactorTile: factors behind the year */
+        .fx-grid { display: flex; flex-direction: column; gap: var(--space-10); padding: 0 var(--space-12); }
+        .new-vanhan-factor-tile { background: var(--color-bg-surface); border: 1px solid var(--color-border-card); border-radius: var(--radius-md); box-shadow: var(--shadow-vanhan-tile); padding: var(--space-14) var(--space-12) var(--space-14) var(--space-14); cursor: pointer; display: flex; align-items: center; gap: var(--space-12); }
         .fx-body { flex: 1; min-width: 0; }
-        .fx-tile:active { background: #F3FCF8; }
-        .fx-name { font-size: 18px; font-weight: 700; line-height: 24px; color: var(--green); }
-        .fx-desc { margin-top: 2px; font-size: 16px; line-height: 24px; color: var(--text); }
-        .fx-rate { margin-top: auto; padding-top: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; font-size: 15px; font-weight: 600; line-height: 20px; }
-        .fx-card { padding: 4px 12px 12px; overflow: hidden; }
-        .fx-list { margin: 0; }
-        .fx-row { display: flex; align-items: center; gap: 12px; padding: 14px 4px; cursor: pointer; }
-        .fx-row + .fx-row { border-top: 1px solid #EDF1EF; }
-        .fx-main { flex: 1; min-width: 0; }
-        .fx-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; }
-        .fx-lbl { font-size: 13px; font-weight: 700; line-height: 18px; letter-spacing: 0.4px; text-transform: uppercase; color: #6D6E6F; }
-        .fx-chev { color: var(--green); display: flex; flex-shrink: 0; }
-        .fx-sub { font-size: 13px; line-height: 18px; color: #6D6E6F; }
-        .fx-lv { font-size: 13px; font-weight: 600; line-height: 18px; }
-        .fx-q { margin-top: 6px; font-size: 18px; font-weight: 600; line-height: 26px; color: var(--text); }
-        .fx-row:hover .fx-q { color: var(--green); }
-        .fc-rate { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: 15px; font-weight: 600; line-height: 20px; white-space: nowrap; }
-        .fc-action { margin: 4px 0 0; background: #F3FCF8; border-radius: 12px; overflow: hidden; cursor: pointer; }
-        .fc-ic { width: 32px; height: 32px; border-radius: 50%; background: #E8F7EF; color: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .new-vanhan-factor-tile:active { background: var(--color-vanhan-surface-tint); }
+        .fx-name { color: var(--color-vanhan-primary); }
+        .fx-desc { margin-top: var(--space-2); color: var(--color-text-label); }
+        /* new/VanHanAdviceCard: action advice for the year (separate block, not a scored factor) */
+        .intro-title.advice-sub { margin: var(--space-28) var(--space-16) var(--space-12); }
+        .advice-sub .advice-ic { display: inline-flex; flex-shrink: 0; color: var(--color-vanhan-primary); }
+        .new-vanhan-advice-card { margin: 0 var(--space-12); padding: var(--space-16); background: var(--color-vanhan-surface-tint); border: 1px solid var(--color-vanhan-border); border-radius: var(--radius-md); box-shadow: var(--shadow-vanhan-tile); cursor: pointer; }
+        .new-vanhan-advice-card:active { background: var(--color-vanhan-hero-bg); }
+        .new-vanhan-advice-card .ac-desc { color: var(--color-text-strong); }
+        .new-vanhan-advice-card .ac-more { margin-top: var(--space-12); padding-top: var(--space-12); border-top: 1px solid var(--color-vanhan-border); display: flex; align-items: center; justify-content: flex-end; gap: var(--space-6); color: var(--color-vanhan-primary); }
 
-        /* Year overview card: rating + summary + key aspects in one block */
-        .year-card {
+        .fx-rate { margin-top: auto; padding-top: var(--space-10); display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4) var(--space-6); }
+
+        /* new/VanHanYearCard: rating + summary + key aspects in one block */
+        .new-vanhan-year-card {
             position: relative;
-            margin: 16px 12px 0;
-            background: #fff;
-            border: 1px solid #BFE3D1;
-            border-radius: 16px;
-            box-shadow: 0 4px 14px rgba(0, 110, 70, 0.12);
+            margin: var(--space-16) var(--space-12) 0;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-vanhan-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-vanhan-card);
         }
 
         /* AI-generated ruyi clouds, small and faded, inside the top corners (right one mirrored) */
-        .year-card::before,
-        .year-card::after {
+        .new-vanhan-year-card::before,
+        .new-vanhan-year-card::after {
             content: '';
             position: absolute;
-            top: 8px;
+            top: var(--space-8);
             width: 64px;
             height: 24px;
             opacity: 0.45;
@@ -307,22 +256,20 @@
             pointer-events: none;
         }
 
-        .year-card::before { left: 8px; }
-        .year-card::after { right: 8px; transform: scaleX(-1); }
-
+        .new-vanhan-year-card::before { left: var(--space-8); }
+        .new-vanhan-year-card::after { right: var(--space-8); transform: scaleX(-1); }
 
         .yc-head {
             position: relative;
             text-align: center;
-            padding: 20px 16px 20px;
-            border-radius: 15px 15px 0 0;
+            padding: var(--space-20) var(--space-16) var(--space-20);
+            border-radius: var(--radius-15) var(--radius-15) 0 0;
             overflow: hidden;
-            background: #E3F5EC;
-            border-bottom: 1px solid #CDEBDC;
+            background: var(--color-vanhan-hero-bg);
+            border-bottom: 1px solid var(--color-vanhan-hero-border);
         }
 
-
-        /* Misty mountains in the bottom corners - different shapes left/right for a natural look */
+        /* Misty mountains in the bottom corners (inline artwork) - different shapes left/right */
         .yc-head::before,
         .yc-head::after {
             content: '';
@@ -347,66 +294,49 @@
 
         .yc-head > * { position: relative; z-index: 1; }
 
-        /* Block heading: plain centered text */
-        .kw-label {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 24px;
-            color: #2F6B52;
-        }
-
+        .kw-label { color: var(--color-vanhan-text-kicker); }
 
         .kw-title {
-            font-size: 26px;
-            font-weight: 800;
-            line-height: 32px;
-            color: #00804F;
+            color: var(--color-vanhan-accent);
             text-transform: uppercase;
             letter-spacing: -0.3px;
-            margin-top: 16px;
+            margin-top: var(--space-16);
         }
 
         .kw-rating {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 8px;
+            gap: var(--space-10);
+            margin-top: var(--space-8);
         }
 
-        .stars.kw-stars { gap: 6px; }
+        .new-vanhan-stars.kw-stars { gap: var(--space-6); }
 
         /* Tagline: plain centered quote, no box, softer than the conclusion */
         .kw-tagline {
-            margin-top: 16px;
-            font-size: 16px;
-            font-weight: 400;
+            margin-top: var(--space-16);
             font-style: italic;
-            line-height: 24px;
-            color: #33453D;
+            color: var(--color-vanhan-text-quote);
         }
 
         /* Green quote marks around the tagline */
         .kw-tagline .q-ic {
             display: inline-block;
-            color: var(--green);
+            color: var(--color-vanhan-primary);
             vertical-align: top;
-            margin: 3px 6px 0 0;
+            margin: var(--space-3) var(--space-6) 0 0;
         }
 
-
-        .yc-body { padding: 20px 16px; }
+        .yc-body { padding: var(--space-20) var(--space-16); }
 
         /* Body heading: comparison with the previous year */
         .intro-title {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 24px;
-            color: var(--text);
-            margin-bottom: 10px;
+            gap: var(--space-10);
+            color: var(--color-text-label);
+            margin-bottom: var(--space-10);
         }
 
         /* Section badge icon: filled green circle with white glyph */
@@ -414,315 +344,104 @@
             width: 32px;
             height: 32px;
             flex-shrink: 0;
-            border-radius: 50%;
-            background: var(--green);
-            color: #fff;
+            border-radius: var(--radius-full);
+            background: var(--color-vanhan-primary);
+            color: var(--color-text-on-primary);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 6px rgba(0, 158, 100, 0.25);
+            box-shadow: var(--shadow-vanhan-icon-badge);
         }
 
         .year-intro {
-            font-size: 16px;
-            line-height: 26px;
-            color: #000;
+            color: var(--color-text-strong);
             margin: 0;
         }
 
         /* Each sub-section in the overview body is separated by a thin line */
         .intro-title.yc-sub {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #EDF1EF;
-            gap: 10px;
+            margin-top: var(--space-16);
+            padding-top: var(--space-16);
+            border-top: 1px solid var(--color-vanhan-divider);
+            gap: var(--space-10);
         }
 
         /* Opportunities / cautions nested under the year comparison */
         .yc-subgroup {
-            margin-top: 14px;
-            padding-left: 12px;
+            margin-top: var(--space-14);
+            padding-left: var(--space-12);
         }
 
         .yc-h3 {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 22px;
-            margin-bottom: 6px;
+            gap: var(--space-6);
+            margin-bottom: var(--space-6);
         }
 
-        .yc-h3.good { color: var(--green); }
-        .yc-h3.warn { color: #E54F48; }
-        .yc-sum { margin: 0; font-size: 16px; line-height: 24px; color: #000; }
-        .yc-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .yc-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; border-radius: 20px; font-size: 15px; font-weight: 600; line-height: 20px; text-decoration: none; border: 1px solid; }
-        .yc-chip img { width: 20px; height: 20px; object-fit: contain; }
-        .yc-chip.good { background: #E8F7EF; border-color: #BFE3D1; color: #00804F; }
-        .yc-chip.warn { background: #FFF0EF; border-color: #F7C9C6; color: #D2403A; }
-        .yc-chip-chev { font-size: 18px; line-height: 1; margin-left: 2px; }
-        .yc-chips + .yc-h3 { margin-top: 18px; }
-        .yc-list + .yc-h3 { margin-top: 14px; }
+        .yc-h3.good { color: var(--color-vanhan-primary); }
+        .yc-h3.warn { color: var(--color-vanhan-negative); }
+        .yc-sum { margin: 0; color: var(--color-text-strong); }
+        .yc-chips { display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-10); }
 
-        .yc-list { margin: 0; padding-left: 20px; }
-        .yc-list li { font-size: 16px; line-height: 24px; color: #000; }
-        .yc-list li + li { margin-top: 6px; }
-        .yc-list li::marker { color: var(--green); }
+        /* new/VanHanAspectChip (good | warn) */
+        .new-vanhan-aspect-chip { display: inline-flex; align-items: center; gap: var(--space-6); padding: var(--space-8) var(--space-10); border-radius: var(--radius-20); text-decoration: none; border: 1px solid; }
+        .new-vanhan-aspect-chip img { width: 20px; height: 20px; object-fit: contain; }
+        .new-vanhan-aspect-chip.good { background: var(--color-vanhan-positive-bg); border-color: var(--color-vanhan-border); color: var(--color-vanhan-accent); }
+        .new-vanhan-aspect-chip.warn { background: var(--color-vanhan-negative-bg); border-color: var(--color-vanhan-negative-border); color: var(--color-vanhan-negative-strong); }
+        .yc-chip-chev { margin-left: var(--space-2); }
+        .yc-chips + .yc-h3 { margin-top: var(--space-18); }
 
-        /* Notable months: two columns */
-        .yc-months { display: grid; grid-template-columns: 1fr 1.25fr; gap: 10px; }
-        .ym { border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
-        .ym.good { background: #EAF8F0; }
-        .ym.bad { background: #FDEFEF; }
-        .ym-lbl { font-size: 15px; line-height: 20px; color: #555; }
-        .ym-val { font-size: 18px; font-weight: 700; line-height: 24px; }
-        .ym.good .ym-val { color: var(--green); }
-        .ym.bad .ym-val { color: var(--red); }
+        /* new/VanHanMonthHighlight: notable months, two columns */
+        .yc-months { display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-10); }
+        .new-vanhan-month-highlight { border-radius: var(--radius-10); padding: var(--space-10) var(--space-12); display: flex; flex-direction: column; gap: var(--space-2); cursor: pointer; }
+        .new-vanhan-month-highlight.good { background: var(--color-vanhan-positive-bg); }
+        .new-vanhan-month-highlight.bad { background: var(--color-vanhan-negative-bg); }
+        .ym-lbl { color: var(--color-vanhan-text-muted); }
+        .new-vanhan-month-highlight.good .ym-val { color: var(--color-vanhan-primary); }
+        .new-vanhan-month-highlight.bad .ym-val { color: var(--color-vanhan-level-bad); }
 
-        .lv-good { color: var(--green-good); }
-        .lv-mid { color: var(--blue); }
-        .lv-warn { color: var(--red); }
+        /* Rating level text colors */
+        .level-good { color: var(--color-vanhan-level-good); }
+        .level-mid { color: var(--color-vanhan-level-mid); }
+        .level-warn { color: var(--color-vanhan-level-bad); }
 
-        .ov-rating { display: inline-flex; align-items: center; gap: 6px; }
-
-        /* Year highlights: opportunities / cautions / direction */
-        .hl-card { padding: 4px 16px 16px; }
-
-        .hl-group { padding-top: 14px; }
-        .hl-group + .hl-group { border-top: 1px solid #F0F0F0; margin-top: 14px; }
-
-        .hl-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 24px;
-            margin-bottom: 8px;
-        }
-
-        .hl-group.good .hl-title { color: var(--green); }
-        .hl-group.warn .hl-title { color: #E54F48; }
-        .hl-group.dir .hl-title { color: #D98A00; }
-
-        .hl-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            font-size: 16px;
-            line-height: 24px;
-            padding: 5px 0;
-        }
-
-        .hl-item .dot { color: var(--bullet); }
-        .hl-item .txt { flex: 1; }
-
-        .hl-tag {
-            flex-shrink: 0;
-            height: 24px;
-            padding: 0 8px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 24px;
-        }
-
-        .hl-group.good .hl-tag { background: #E8F7EF; color: var(--green); }
-        .hl-group.warn .hl-tag { background: #FDECEB; color: #E54F48; }
-
-        .hl-direction {
-            font-size: 16px;
-            line-height: 24px;
-            padding: 12px;
-            border-radius: 8px;
-            background: #FFF8E8;
-        }
-
-        /* 8 aspects list */
+        /* new/VanHanAspectItem: 8 aspects list */
         .asp-meta {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 4px;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 20px;
+            gap: var(--space-8);
+            margin-top: var(--space-4);
         }
 
-        .asp-trend { font-size: 13px; font-weight: 500; color: #6D6E6F; margin-left: auto; white-space: nowrap; }
-        .asp-trend b { font-weight: 700; }
-        .asp-trend .up { color: var(--green-good); }
-        .asp-trend .down { color: var(--red); }
-
-        .badge-keep {
-            margin-left: 8px;
+        /* new/VanHanTag */
+        .new-vanhan-tag {
+            margin-left: var(--space-8);
             height: 20px;
-            padding: 0 6px;
-            border-radius: 4px;
-            background: #FFF3D6;
-            color: #B7791F;
-            font-size: 11px;
-            font-weight: 700;
+            padding: 0 var(--space-6);
+            border-radius: var(--radius-xs);
+            background: var(--color-vanhan-tag-bg);
+            color: var(--color-vanhan-tag-text);
             letter-spacing: 0.4px;
-            line-height: 20px;
             vertical-align: middle;
         }
 
-        /* Notable months (inside 12-month section) */
-        /* 12-month card: summary + bar chart (month picker) + selected month detail */
-        .mcard { margin: 0 12px; }
-        .rhythm-head { display: flex; align-items: center; }
-        .rhythm-legend { display: flex; gap: 8px; font-size: 12px; color: #6D6E6F; white-space: nowrap; }
-        .rhythm-legend span { display: inline-flex; align-items: center; gap: 4px; }
-        .rhythm-legend .lg { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
-        .lg.good, .r-bar.good { background: var(--green); }
-        .lg.normal, .r-bar.normal { background: var(--amber); }
-        .lg.bad, .r-bar.bad { background: var(--red); }
-
-        .rhythm {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 4px;
-            align-items: end;
-            margin-top: 10px;
-        }
-
-        .r-col { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
-        .r-track { height: 64px; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
-        .r-bar { width: 100%; max-width: 18px; border-radius: 4px 4px 2px 2px; }
-        .r-num { font-size: 13px; font-weight: 600; color: #6D6E6F; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 12px; }
-
-        .mcard .months { margin: 8px -12px 0; padding: 6px 12px 14px; }
-
-        /* Pointer from the selected month pill down to its detail */
-        .m-pill { position: relative; }
-        .m-pill.active::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid rgba(0, 158, 100, 0.9);
-        }
-
-        /* Full frame around the selected month detail */
-        /* Full rounded frame around the selected month detail */
-        .month-detail {
-            margin-top: 6px;
-            padding: 16px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Highlight indices */
-        .stats {
-            padding: 20px 16px 14px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            row-gap: 20px;
-            column-gap: 8px;
-            padding: 0 0 0 4px;
-        }
-
-        .stat {
+        .new-vanhan-aspect-item {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-
-        .ring {
-            width: 60px;
-            height: 60px;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .ring img { width: 60px; height: 60px; display: block; }
-
-        .ring span {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 600;
-            color: #000;
-        }
-
-        .ring span small { font-size: 14px; }
-
-        .stat-label { font-size: 16px; font-weight: 600; line-height: 24px; }
-        .stat-value { font-size: 14px; font-weight: 600; line-height: 24px; margin-top: 3px; }
-
-        .c-kha { color: var(--blue); }
-        .c-tot { color: var(--green-good); }
-        .c-ondinh { color: var(--amber); }
-        .c-canluuy { color: var(--red); }
-
-        .stats-summary {
-            font-size: 16px;
-            line-height: 24px;
-            margin: 16px 0 16px;
-            padding: 0 0 16px;
-            border-bottom: 1px solid #EBEBEB;
-        }
-
-        .notable-title {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 24px;
-            margin-bottom: 8px;
-        }
-
-        .notable-list p {
-            margin: 0;
-            font-size: 16px;
-            line-height: 30px;
-            display: flex;
-            align-items: center;
-        }
-
-        .notable-list .dot { color: var(--bullet); margin-right: 5px; }
-        .notable-list b { font-weight: 600; margin-left: 4px; }
-
-        .notable-rating {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
-
-        .stars { display: inline-flex; gap: 3px; align-items: center; }
-        .stars img { display: block; }
-
-        /* Overview list */
-        .ov-item {
-            display: flex;
-            gap: 16px;
-            padding: 12px 12px 12px 16px;
+            gap: var(--space-16);
+            padding: var(--space-12) var(--space-12) var(--space-12) var(--space-16);
             position: relative;
             cursor: pointer;
         }
 
-        .ov-item + .ov-item::before {
+        .new-vanhan-aspect-item + .new-vanhan-aspect-item::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 16px;
+            left: var(--space-16);
             right: 0;
             height: 1px;
-            background: #EBEBEB;
+            background: var(--color-border-divider);
         }
 
         .ov-icon {
@@ -735,18 +454,10 @@
             justify-content: center;
         }
 
-        .ov-body { flex: 1; min-width: 0; padding-right: 8px; }
+        .ov-body { flex: 1; min-width: 0; padding-right: var(--space-8); }
 
-        .ov-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .ov-title { font-size: 16px; font-weight: 600; line-height: 24px; color: var(--text); }
-        .ov-status { font-size: 14px; font-weight: 600; line-height: 24px; white-space: nowrap; }
-        .ov-desc { font-size: 16px; line-height: 24px; margin-top: 2px; color: var(--text-2); }
+        .ov-title { color: var(--color-text-label); }
+        .ov-desc { margin-top: var(--space-2); color: var(--color-text-body); }
 
         .chev {
             width: 12px;
@@ -758,12 +469,42 @@
 
         .chev img { display: block; }
 
+        /* new/VanHanStarRating */
+        .new-vanhan-stars { display: inline-flex; gap: var(--space-3); align-items: center; }
+        .new-vanhan-stars img { display: block; }
+
+        /* 12-month card: legend + bar chart (month picker) + month carousel + selected month detail */
+        .mcard { margin: 0 var(--space-12); }
+        .rhythm-head { display: flex; align-items: center; }
+
+        /* new/VanHanChartLegend */
+        .new-vanhan-chart-legend { display: flex; gap: var(--space-8); color: var(--color-vanhan-text-caption); white-space: nowrap; }
+        .new-vanhan-chart-legend span { display: inline-flex; align-items: center; gap: var(--space-4); }
+        .new-vanhan-chart-legend .lg { width: 8px; height: 8px; border-radius: var(--radius-2); display: inline-block; }
+        .lg.good, .r-bar.good { background: var(--color-vanhan-primary); }
+        .lg.normal, .r-bar.normal { background: var(--color-vanhan-level-normal); }
+        .lg.bad, .r-bar.bad { background: var(--color-vanhan-level-bad); }
+
+        /* new/VanHanMonthChart */
+        .new-vanhan-month-chart {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--space-4);
+            align-items: end;
+            margin-top: var(--space-10);
+        }
+
+        .r-col { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); cursor: pointer; }
+        .r-track { height: 64px; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
+        .r-bar { width: 100%; max-width: 18px; border-radius: var(--radius-xs) var(--radius-xs) var(--radius-2) var(--radius-2); }
+        .r-num { color: var(--color-vanhan-text-caption); width: 24px; height: 24px; text-align: center; border-radius: var(--radius-sm); }
+
         /* Month carousel */
         .months {
             display: flex;
-            gap: 16px;
+            gap: var(--space-16);
             overflow-x: auto;
-            padding: 6px 12px 12px;
+            padding: var(--space-6) var(--space-12) var(--space-12);
             align-items: center;
             scrollbar-width: none;
             scroll-behavior: smooth;
@@ -771,36 +512,57 @@
 
         .months::-webkit-scrollbar { display: none; }
 
-        .m-pill {
+        .mcard .months { margin: var(--space-8) calc(-1 * var(--space-12)) 0; padding: var(--space-6) var(--space-12) var(--space-14); }
+
+        /* new/VanHanMonthPill (Default | Active) */
+        .new-vanhan-month-pill {
+            position: relative;
             flex-shrink: 0;
             width: 76px;
             height: 76px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 7px;
+            padding-top: var(--space-7);
             cursor: pointer;
         }
 
-        .m-pill .lbl { font-size: 14px; font-weight: 600; line-height: 21px; color: #666; }
-        .m-pill .num { font-size: 24px; font-weight: 600; line-height: 24px; color: var(--text); margin: 2px 0 6px; }
-
-        .m-pill.active {
-            width: 86px;
-            height: 86px;
-            background: rgba(0, 158, 100, 0.9);
-            border: none;
-            box-shadow: 0 1px 2px rgba(186, 186, 186, 0.5);
-            padding-top: 8px;
+        /* Pointer from the selected month pill down to its detail */
+        .new-vanhan-month-pill.active::after {
+            content: '';
+            position: absolute;
+            bottom: calc(-1 * var(--space-8));
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--color-vanhan-primary-a90);
         }
 
-        .m-pill.active .lbl { color: #fff; font-size: 16px; }
-        .m-pill.active .num { color: #fff; font-size: 26px; margin: 4px 0 8px; }
+        .new-vanhan-month-pill .lbl { color: var(--color-text-secondary); }
+        .new-vanhan-month-pill .num { color: var(--color-text-label); margin: var(--space-2) 0 var(--space-6); }
 
+        .new-vanhan-month-pill.active {
+            width: 86px;
+            height: 86px;
+            background: var(--color-vanhan-primary-a90);
+            border: none;
+            box-shadow: var(--shadow-vanhan-raised);
+            padding-top: var(--space-8);
+        }
+
+        .new-vanhan-month-pill.active .lbl { color: var(--color-text-on-primary); }
+        .new-vanhan-month-pill.active .num { color: var(--color-text-on-primary); margin: var(--space-4) 0 var(--space-8); }
+
+        /* Selected month detail (Card) */
+        .month-detail {
+            margin-top: var(--space-6);
+            padding: var(--space-16);
+        }
 
         .month-head {
             display: flex;
@@ -808,110 +570,106 @@
             align-items: center;
         }
 
-        .month-name { font-size: 20px; font-weight: 600; line-height: 24px; color: var(--text); }
+        .month-name { color: var(--color-text-label); }
 
-        .badge {
+        /* new/VanHanStatusBadge (good | normal | bad) */
+        .new-vanhan-status-badge {
             height: 24px;
-            padding: 0 9px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 24px;
+            padding: 0 var(--space-9);
+            border-radius: var(--radius-20);
         }
 
-        .badge.good { background: #E8FCDB; color: var(--green-good); }
-        .badge.normal { background: #FFF5DE; color: var(--amber); }
-        .badge.bad { background: #FFE8EA; color: var(--red); }
+        .new-vanhan-status-badge.good { background: var(--color-vanhan-level-good-bg); color: var(--color-vanhan-level-good); }
+        .new-vanhan-status-badge.normal { background: var(--color-vanhan-level-normal-bg); color: var(--color-vanhan-level-normal); }
+        .new-vanhan-status-badge.bad { background: var(--color-vanhan-level-bad-bg); color: var(--color-vanhan-level-bad); }
 
-        .month-date { font-size: 16px; line-height: 24px; color: var(--text-2); margin-top: 10px; }
-        .month-desc { font-size: 16px; font-weight: 500; line-height: 24px; margin-top: 6px; }
+        .month-date { color: var(--color-text-body); margin-top: var(--space-10); }
+        .month-desc { margin-top: var(--space-6); }
 
-        .btn-detail {
-            margin: 16px auto 0;
+        /* new/VanHanDetailButton */
+        .new-vanhan-detail-button {
+            margin: var(--space-16) auto 0;
             width: 298px;
             height: 42px;
-            background: rgba(223, 255, 238, 0.9);
-            border: 1px solid #02B875;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px rgba(186, 186, 186, 0.5);
+            background: var(--color-vanhan-button-bg);
+            border: 1px solid var(--color-vanhan-button-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-vanhan-raised);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            color: var(--green);
-            font-size: 17px;
-            font-weight: 700;
+            gap: var(--space-20);
+            color: var(--color-vanhan-primary);
             cursor: pointer;
         }
 
-        /* Banner */
-        .banner {
-            margin: 14px 13px 0 13px;
-            border: 1px solid #CFE5FD;
-            border-radius: 8px;
+        /* new/VanHanBanner */
+        .new-vanhan-banner {
+            margin: var(--space-14) var(--space-13) 0 var(--space-13);
+            border: 1px solid var(--color-vanhan-banner-border);
+            border-radius: var(--radius-md);
             overflow: hidden;
             height: 186px;
             cursor: pointer;
         }
 
-        .banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .new-vanhan-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Explore */
-        .explore {
+        /* Explore: Card wrapping new/VanHanExploreGrid */
+        .explore-card { margin: 0 var(--space-12) var(--space-28); }
+
+        .new-vanhan-explore-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            row-gap: 14px;
-            padding: 16px 0 14px;
-            margin-bottom: 28px;
+            row-gap: var(--space-14);
+            padding: var(--space-16) 0 var(--space-14);
         }
 
-        .exp-item {
+        .new-vanhan-explore-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: var(--space-12);
             text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 21px;
-            color: var(--text);
+            color: var(--color-text-label);
             cursor: pointer;
         }
 
-        .exp-item img { width: 52px; height: 52px; display: block; }
+        .new-vanhan-explore-item img { width: 52px; height: 52px; display: block; }
     </style>
 </head>
+
 
 <body>
     <div class="phone-mockup">
         <div class="screen">
             <!-- Top bar -->
-            <div class="topbar">
-                <div class="status-bar">
+            <div class="new-vanhan-navbar" data-component="new/VanHanNavBar">
+                <div class="status-bar text-status-time">
                     <span>9:41</span>
                     <span class="status-icons">
-                        <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
-                        <svg width="15" height="11" viewBox="0 0 15 11" fill="#fff"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
-                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="#fff" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="#fff"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="#fff" fill-opacity=".4"/></svg>
+                        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+                        <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="currentColor"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="currentColor" fill-opacity=".4"/></svg>
                     </span>
                 </div>
                 <div class="btn-back" onclick="history.back()"><img src="assets/vanhan_v3/btn_back.svg" width="12.5" height="21" alt="Quay lại"></div>
-                <div class="topbar-title">Kết quả tử vi vận hạn</div>
+                <div class="topbar-title text-navbar-title">Kết quả tử vi vận hạn</div>
             </div>
 
             <div class="scroll">
                 <!-- Profile (original Figma layout, zodiac on the right) -->
-                <div class="profile">
-                    <div class="profile-name">Trần Nguyễn Hoàng Anh</div>
-                    <div class="profile-row">
+                <div class="new-vanhan-profile" data-component="new/VanHanProfileHeader">
+                    <div class="profile-name text-body-lg-bold">Trần Nguyễn Hoàng Anh</div>
+                    <div class="profile-row text-body-md-medium">
                         <span class="ic"><img src="assets/vanhan_v3/i_ngaysinh.svg" width="18" height="18" alt=""></span>
                         20/05/1981 • Giờ Mão (5h - 7h)
                     </div>
-                    <div class="profile-row">
+                    <div class="profile-row text-body-md-medium">
                         <span class="ic"><img src="assets/vanhan_v3/i_gioitinh.svg" width="19" height="16.5" alt=""></span>
                         Nữ • Tuổi Tân Dậu • 47 tuổi
                     </div>
-                    <div class="btn-relative" onclick="window.location.href='tuvi_vanhan.html'">
+                    <div class="new-vanhan-pill-button text-button-sm-semibold" data-component="new/VanHanPillButton" onclick="window.location.href='tuvi_vanhan.html'">
                         <img src="assets/vanhan_v3/i_nguoithan.svg" width="24" height="15.4" alt="">
                         Xem cho người thân
                     </div>
@@ -919,101 +677,108 @@
                 </div>
 
                 <!-- Year tabs (below profile, sticky while scrolling) -->
-                <div class="year-tabs">
-                    <div class="year-tab" data-year="2026" onclick="selectYear(2026)"><span class="yt-year">Năm 2026</span><span class="yt-sub">Bính Ngọ</span></div>
-                    <div class="year-tab active" data-year="2027" onclick="selectYear(2027)"><span class="yt-year">Năm 2027</span><span class="yt-sub">Đinh Mùi</span></div>
+                <div class="new-vanhan-year-tabs" data-component="new/VanHanYearTabs">
+                    <div class="new-vanhan-year-tab" data-component="new/VanHanYearTab" data-year="2026" onclick="selectYear(2026)"><span class="yt-year text-label-md-bold">Năm 2026</span><span class="yt-sub text-footnote">Bính Ngọ</span></div>
+                    <div class="new-vanhan-year-tab active" data-component="new/VanHanYearTab" data-year="2027" onclick="selectYear(2027)"><span class="yt-year text-label-md-bold">Năm 2027</span><span class="yt-sub text-footnote">Đinh Mùi</span></div>
                 </div>
 
                 <div class="year-panel">
 
                 <!-- Year overview: rating + summary + key aspects (single star scale) -->
-                <div class="year-card">
+                <div class="new-vanhan-year-card" data-component="new/VanHanYearCard">
                     <div class="yc-head">
-                        <div class="kw-label">Tổng quan năm 2027 của chị</div>
-                        <div class="kw-title">Tương đối thuận lợi</div>
-                        <div class="kw-rating"><span class="stars kw-stars" data-stars="3" data-size="20"></span></div>
-                        <div class="kw-tagline"><svg class="q-ic" width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><g fill="currentColor"><circle cx="4.4" cy="9.6" r="3.4"/><circle cx="13.4" cy="9.6" r="3.4"/></g><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M1.2 9.4C1 5.4 3 2.4 6.8 1.2"/><path d="M10.2 9.4C10 5.4 12 2.4 15.8 1.2"/></g></svg>Nghiêng nhẹ về phía thuận, giữ nhịp đều là có thêm kết quả.</div>
+                        <div class="kw-label text-label-lg-semibold">Tổng quan năm 2027 của chị</div>
+                        <div class="kw-title text-title-xl-extrabold">Tương đối thuận lợi</div>
+                        <div class="kw-rating"><span class="new-vanhan-stars kw-stars" data-component="new/VanHanStarRating" data-stars="3" data-size="20"></span></div>
+                        <div class="kw-tagline text-body-md-regular"><svg class="q-ic" width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><g fill="currentColor"><circle cx="4.4" cy="9.6" r="3.4"/><circle cx="13.4" cy="9.6" r="3.4"/></g><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M1.2 9.4C1 5.4 3 2.4 6.8 1.2"/><path d="M10.2 9.4C10 5.4 12 2.4 15.8 1.2"/></g></svg>Nghiêng nhẹ về phía thuận, giữ nhịp đều là có thêm kết quả.</div>
                     </div>
                     <div class="yc-body">
-                        <div class="intro-title"><span class="trend-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>Nhỉnh hơn năm 2026</div>
-                        <p class="year-intro">Bước vào năm 2027 Đinh Mùi, chị 47 tuổi âm lịch, đang ở năm thứ năm của đại vận 43–52 tuổi. So với năm 2026, vận trình năm nay nhỉnh hơn một chút, nhịp sống dễ chịu hơn. Tuy vậy, vẫn có những mặt thuận lợi và những điều chị cần lưu ý.</p>
+                        <div class="intro-title text-body-lg-bold"><span class="trend-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>Nhỉnh hơn năm 2026</div>
+                        <p class="year-intro text-body-md-relaxed">Bước vào năm 2027 Đinh Mùi, chị 47 tuổi âm lịch, đang ở năm thứ năm của đại vận 43–52 tuổi. So với năm 2026, vận trình năm nay nhỉnh hơn một chút, nhịp sống dễ chịu hơn. Tuy vậy, vẫn có những mặt thuận lợi và những điều chị cần lưu ý.</p>
                         <!-- Sub-content of the year comparison -->
                         <div class="yc-subgroup">
-                            <div class="yc-h3 good"><img src="assets/vanhan_v3/i_thuanloi.svg" width="16" height="16" alt="">Điểm thuận lợi</div>
-                            <p class="yc-sum">Công việc được ghi nhận, có thêm trách nhiệm; tài chính có cơ hội tăng thu và tích lũy.</p>
-                            <div class="yc-chips"><a class="yc-chip good" href="tuvi_vanhan_matdoisong.html?tab=congviec"><img src="assets/vanhan_v3/i_congviec.svg" width="20" height="20" alt="">Công việc<span class="yc-chip-chev">›</span></a><a class="yc-chip good" href="tuvi_vanhan_matdoisong.html?tab=taichinh"><img src="assets/vanhan_v3/i_tailoc.svg" width="20" height="20" alt="">Tài chính<span class="yc-chip-chev">›</span></a></div>
-                            <div class="yc-h3 warn"><img src="assets/vanhan_v3/i_batloi_soft.svg?v=3" width="16" height="14.6" alt="">Điều cần lưu ý</div>
-                            <p class="yc-sum">Sức khỏe dễ mệt mỏi, căng thẳng; quan hệ dễ phát sinh hiểu lầm, thị phi.</p>
-                            <div class="yc-chips"><a class="yc-chip warn" href="tuvi_vanhan_matdoisong.html?tab=suckhoe"><img src="assets/vanhan_v3/i_suckhoe.svg" width="20" height="20" alt="">Sức khỏe<span class="yc-chip-chev">›</span></a><a class="yc-chip warn" href="tuvi_vanhan_matdoisong.html?tab=quanhe"><img src="assets/vanhan_v3/i_nguoithan.svg" width="20" height="20" alt="">Quan hệ xã hội<span class="yc-chip-chev">›</span></a></div>
+                            <div class="yc-h3 good text-label-md-bold"><img src="assets/vanhan_v3/i_thuanloi.svg" width="16" height="16" alt="">Điểm thuận lợi</div>
+                            <p class="yc-sum text-body-md-regular">Công việc được ghi nhận, có thêm trách nhiệm; tài chính có cơ hội tăng thu và tích lũy.</p>
+                            <div class="yc-chips"><a class="new-vanhan-aspect-chip good text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=congviec"><img src="assets/vanhan_v3/i_congviec.svg" width="20" height="20" alt="">Công việc<span class="yc-chip-chev text-icon-chevron">›</span></a><a class="new-vanhan-aspect-chip good text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=taichinh"><img src="assets/vanhan_v3/i_tailoc.svg" width="20" height="20" alt="">Tài chính<span class="yc-chip-chev text-icon-chevron">›</span></a></div>
+                            <div class="yc-h3 warn text-label-md-bold"><img src="assets/vanhan_v3/i_batloi_soft.svg?v=3" width="16" height="14.6" alt="">Điều cần lưu ý</div>
+                            <p class="yc-sum text-body-md-regular">Sức khỏe dễ mệt mỏi, căng thẳng; quan hệ dễ phát sinh hiểu lầm, thị phi.</p>
+                            <div class="yc-chips"><a class="new-vanhan-aspect-chip warn text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=suckhoe"><img src="assets/vanhan_v3/i_suckhoe.svg" width="20" height="20" alt="">Sức khỏe<span class="yc-chip-chev text-icon-chevron">›</span></a><a class="new-vanhan-aspect-chip warn text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=quanhe"><img src="assets/vanhan_v3/i_nguoithan.svg" width="20" height="20" alt="">Quan hệ xã hội<span class="yc-chip-chev text-icon-chevron">›</span></a></div>
                         </div>
-                        <div class="intro-title yc-sub"><span class="trend-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="3" stroke="#fff" stroke-width="2"/><path d="M3 9.5h18" stroke="#fff" stroke-width="2"/><path d="M8 2.5v4M16 2.5v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M12 11.4l1.3 2.6 2.8.4-2 2 .5 2.8L12 17.9l-2.6 1.3.5-2.8-2-2 2.8-.4z" fill="#FFD25E"/></svg></span>Tháng âm lịch đáng chú ý</div>
+                        <div class="intro-title yc-sub text-body-lg-bold"><span class="trend-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="2"/><path d="M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 11.4l1.3 2.6 2.8.4-2 2 .5 2.8L12 17.9l-2.6 1.3.5-2.8-2-2 2.8-.4z" fill="#FFD25E"/></svg></span>Tháng âm lịch đáng chú ý</div>
                         <div class="yc-months">
-                            <div class="ym good" onclick="goNotableMonth([3])"><span class="ym-lbl">Tháng tốt nhất</span><span class="ym-val">Tháng 3</span></div>
-                            <div class="ym bad" onclick="goNotableMonth([4, 5, 8, 12])"><span class="ym-lbl">Tháng cần thận trọng</span><span class="ym-val">Tháng 4, 5, 8, 12</span></div>
+                            <div class="new-vanhan-month-highlight good" data-component="new/VanHanMonthHighlight" onclick="goNotableMonth([3])"><span class="ym-lbl text-subhead-regular">Tháng tốt nhất</span><span class="ym-val text-body-lg-bold">Tháng 3</span></div>
+                            <div class="new-vanhan-month-highlight bad" data-component="new/VanHanMonthHighlight" onclick="goNotableMonth([4, 5, 8, 12])"><span class="ym-lbl text-subhead-regular">Tháng cần thận trọng</span><span class="ym-val text-body-lg-bold">Tháng 4, 5, 8, 12</span></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Factors behind this year's fortune (PDF sections 2-5) -->
                 <div class="blk-sep"></div>
-                <div class="blk-head"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M11 7.2L6.2 15.8"/><path d="M13 7.2l4.8 8.6"/><path d="M7.5 18h9"/></svg></span><div class="blk-title">Điều gì ảnh hưởng đến vận hạn của chị?</div></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M11 7.2L6.2 15.8"/><path d="M13 7.2l4.8 8.6"/><path d="M7.5 18h9"/></svg></span><div class="blk-title text-heading-block">Điều gì ảnh hưởng đến vận hạn của chị?</div></div>
                 <div class="fx-grid">
-                    <div class="fx-tile" onclick="window.location.href='tuvi_daivan_detail.html'">
+                    <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="window.location.href='tuvi_daivan_detail.html'">
                         <div class="fx-body">
-                            <div class="fx-name">Đại vận 43–52 tuổi</div>
-                            <div class="fx-desc">Đại vận này tác động đến vận hạn năm 2027 của chị ra sao?</div>
-                            <div class="fx-rate"><span class="stars" data-stars="3" data-size="14"></span><span class="lv-mid">Trung bình</span></div>
+                            <div class="fx-name text-body-lg-bold">Đại vận 43–52 tuổi</div>
+                            <div class="fx-desc text-body-md-regular">Giai đoạn 10 năm này ảnh hưởng thế nào đến năm 2027 của chị</div>
+                            <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="3" data-size="14"></span><span class="level-mid">Trung bình</span></div>
                         </div>
                         <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                     </div>
-                    <div class="fx-tile" onclick="comingSoon()">
+                    <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="comingSoon()">
                         <div class="fx-body">
-                            <div class="fx-name">Chị trong năm 2027</div>
-                            <div class="fx-desc">Suy nghĩ và cách ứng xử của chị có gì thay đổi?</div>
-                            <div class="fx-rate"><span class="stars" data-stars="2" data-size="14"></span><span class="lv-warn">Không thuận lợi</span></div>
+                            <div class="fx-name text-body-lg-bold">Chị trong năm 2027</div>
+                            <div class="fx-desc text-body-md-regular">Những thay đổi trong suy nghĩ và cách ứng xử của chị</div>
+                            <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="2" data-size="14"></span><span class="level-warn">Không thuận lợi</span></div>
                         </div>
                         <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                     </div>
-                    <div class="fx-tile" onclick="comingSoon()">
+                    <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="comingSoon()">
                         <div class="fx-body">
-                            <div class="fx-name">Hoàn cảnh bên ngoài</div>
-                            <div class="fx-desc">Năm 2027, hoàn cảnh tác động đến chị như thế nào?</div>
-                            <div class="fx-rate"><span class="stars" data-stars="2" data-size="14"></span><span class="lv-warn">Không thuận lợi</span></div>
+                            <div class="fx-name text-body-lg-bold">Hoàn cảnh bên ngoài</div>
+                            <div class="fx-desc text-body-md-regular">Những tác động từ bên ngoài đến chị trong năm 2027</div>
+                            <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="2" data-size="14"></span><span class="level-warn">Không thuận lợi</span></div>
                         </div>
                         <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                     </div>
                 </div>
 
+                <!-- Advice: sub-heading + card (separate from the 3 scored factors) -->
+                <div class="intro-title advice-sub text-body-lg-bold"><span class="advice-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z" fill="#FFD25E" stroke="#FFD25E"/></svg></span>Chị nên chủ động làm gì?</div>
+                <div class="new-vanhan-advice-card" data-component="new/VanHanAdviceCard" onclick="comingSoon()">
+                    <div class="ac-desc text-body-md-regular">Tận dụng cơ hội học tập, mở rộng quan hệ và chủ động phòng tránh rủi ro.</div>
+                    <div class="ac-more text-label-md-semibold">Xem lời khuyên dành cho chị<span class="text-icon-chevron">›</span></div>
+                </div>
+
                 <!-- Aspect details: 8 aspects, data from engine (same star scale as overview card) -->
                 <div class="blk-sep"></div>
-                <div class="blk-head" id="aspects"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div class="blk-title">Năm 2027, từng mặt cuộc sống của chị ra sao?</div></div>
-                <div class="card" id="aspectList"></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader" id="aspects"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div class="blk-title text-heading-block">Năm 2027, từng mặt cuộc sống của chị ra sao?</div></div>
+                <div class="lv-card card-inset" data-component="Card" id="aspectList"></div>
 
                 <!-- 12 lunar months -->
                 <!-- Divider: whole-year content above, month-by-month below -->
                 <div class="blk-sep"></div>
-                <div class="blk-head"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span><div class="blk-title">Khám phá vận hạn của chị qua 12 tháng âm lịch năm 2027</div></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span><div class="blk-title text-heading-block">Khám phá vận hạn của chị qua 12 tháng âm lịch năm 2027</div></div>
                 <div class="mcard">
                     <div class="rhythm-head">
-                        <span class="rhythm-legend">
+                        <span class="new-vanhan-chart-legend text-caption-regular" data-component="new/VanHanChartLegend">
                             <span><i class="lg good"></i>Thuận lợi</span>
                             <span><i class="lg normal"></i>Ổn định</span>
                             <span><i class="lg bad"></i>Thận trọng</span>
                         </span>
                     </div>
                     <!-- Bar chart doubles as the month picker -->
-                    <div class="rhythm" id="rhythm"></div>
+                    <div class="new-vanhan-month-chart" data-component="new/VanHanMonthChart" id="rhythm"></div>
                     <!-- Swipeable month list -->
                     <div class="months" id="months"></div>
 
-                    <div class="month-detail">
+                    <div class="lv-card month-detail" data-component="Card">
                         <div class="month-head">
-                            <span class="month-name" id="mName">Tháng 4 âm lịch</span>
-                            <span class="badge bad" id="mBadge">Cần thận trọng</span>
+                            <span class="month-name text-heading-sm" id="mName">Tháng 4 âm lịch</span>
+                            <span class="new-vanhan-status-badge bad text-badge" data-component="new/VanHanStatusBadge" id="mBadge">Cần thận trọng</span>
                         </div>
-                        <div class="month-date" id="mDate">06/05 – 04/06/2027 dương lịch</div>
-                        <div class="month-desc" id="mDesc">Nhịp chậm lại, tránh quyết định lớn và giữ gìn sức khỏe.</div>
-                        <div class="btn-detail" id="mBtn" onclick="goMonth()">
+                        <div class="month-date text-body-md-regular" id="mDate">06/05 – 04/06/2027 dương lịch</div>
+                        <div class="month-desc text-body-md-medium" id="mDesc">Nhịp chậm lại, tránh quyết định lớn và giữ gìn sức khỏe.</div>
+                        <div class="new-vanhan-detail-button text-button-cta" data-component="new/VanHanDetailButton" id="mBtn" onclick="goMonth()">
                             Xem vận hạn tháng này
                             <img src="assets/vanhan_v3/i_tieptuc.svg" width="18.4" height="18" alt="">
                         </div>
@@ -1023,20 +788,22 @@
                 </div><!-- /year-panel -->
 
                 <!-- Unlock banner -->
-                <div class="banner" onclick="alert('Mở màn mua gói Tử vi chuyên sâu')">
+                <div class="new-vanhan-banner" data-component="new/VanHanBanner" onclick="alert('Mở màn mua gói Tử vi chuyên sâu')">
                     <img src="assets/vanhan_v3/banner_unlock.png" alt="Mở khóa toàn bộ tử vi chuyên sâu">
                 </div>
 
                 <!-- Explore more (separated by a thick full-width band) -->
-                <div class="section-band"></div>
-                <div class="section-title" style="margin-top:20px">Khám phá thêm</div>
-                <div class="card explore">
-                    <div class="exp-item" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
-                    <div class="exp-item"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                <div class="new-vanhan-section-band" data-component="new/VanHanSectionBand"></div>
+                <div class="lv-home-section-title section-title" data-component="Section Header">Khám phá thêm</div>
+                <div class="lv-card explore-card" data-component="Card">
+                    <div class="new-vanhan-explore-grid" data-component="new/VanHanExploreGrid">
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1074,7 +841,7 @@
         }
 
         function renderStars() {
-            document.querySelectorAll('.stars[data-stars]').forEach(el => {
+            document.querySelectorAll('.new-vanhan-stars[data-stars]').forEach(el => {
                 el.innerHTML = starsHTML(+el.dataset.stars, +el.dataset.size);
             });
         }
@@ -1083,14 +850,14 @@
             document.getElementById('rhythm').innerHTML = MONTHS.map(m => `
                 <div class="r-col ${m.n === selected ? 'active' : ''}" onclick="goMonth(${m.n})">
                     <div class="r-track"><div class="r-bar ${m.type}" style="height:${m.stars * 20}%"></div></div>
-                    <span class="r-num">${m.n}</span>
+                    <span class="r-num text-chart-label">${m.n}</span>
                 </div>`).join('');
             const wrap = document.getElementById('months');
             wrap.innerHTML = MONTHS.map(m => `
-                <div class="m-pill ${m.n === selected ? 'active' : ''}" onclick="goMonth(${m.n})">
-                    <span class="lbl">Tháng</span>
-                    <span class="num">${m.n}</span>
-                    <span class="stars">${starsHTML(m.stars, m.n === selected ? 9 : 8)}</span>
+                <div class="new-vanhan-month-pill ${m.n === selected ? 'active' : ''}" data-component="new/VanHanMonthPill" onclick="goMonth(${m.n})">
+                    <span class="lbl ${m.n === selected ? 'text-button-md' : 'text-label-sm-semibold'}">Tháng</span>
+                    <span class="num ${m.n === selected ? 'text-heading-section-lg' : 'text-heading-section'}">${m.n}</span>
+                    <span class="new-vanhan-stars" data-component="new/VanHanStarRating">${starsHTML(m.stars, m.n === selected ? 9 : 8)}</span>
                 </div>`).join('');
             const active = wrap.querySelector('.active');
             wrap.scrollLeft = active.offsetLeft - wrap.offsetLeft - (wrap.clientWidth - active.offsetWidth) / 2;
@@ -1098,7 +865,7 @@
 
         // Prototype only has 2027 sample data; 2026 tab just switches the highlight
         function selectYear(y) {
-            document.querySelectorAll('.year-tab').forEach(t =>
+            document.querySelectorAll('.new-vanhan-year-tab').forEach(t =>
                 t.classList.toggle('active', +t.dataset.year === y));
             if (y !== 2027) alert('Prototype: chưa có dữ liệu mẫu năm ' + y);
         }
@@ -1116,7 +883,7 @@
         ];
         // 2027 has no extra active palace (PDF section 6); list the remaining observed palaces (section 7)
         const OTHER_PALACES = ['Mệnh', 'Phụ Mẫu'];
-        const LEVEL_CLASS = { 1: 'lv-warn', 2: 'lv-warn', 3: 'lv-mid', 4: 'lv-good', 5: 'lv-good' };
+        const LEVEL_CLASS = { 1: 'level-warn', 2: 'level-warn', 3: 'level-mid', 4: 'level-good', 5: 'level-good' };
         const TREND = {
             up: '<b class="up">↑</b> so với 2026',
             down: '<b class="down">↓</b> so với 2026',
@@ -1125,23 +892,23 @@
 
         function renderAspects() {
             document.getElementById('aspectList').innerHTML = ASPECTS.map(a => `
-                <div class="ov-item" onclick="goYear('${a.tab}')">
+                <div class="new-vanhan-aspect-item" data-component="new/VanHanAspectItem" onclick="goYear('${a.tab}')">
                     <div class="ov-icon"><img src="assets/vanhan_v3/${a.icon}" width="${a.w}" height="${a.h}" alt=""></div>
                     <div class="ov-body">
-                        <div class="ov-title">${a.name}${a.keep ? '<span class="badge-keep">CẦN GIỮ</span>' : ''}</div>
-                        <div class="asp-meta">
-                            <span class="stars">${starsHTML(a.stars, 12)}</span>
+                        <div class="ov-title text-body-md-semibold">${a.name}${a.keep ? '<span class="new-vanhan-tag text-tag" data-component="new/VanHanTag">CẦN GIỮ</span>' : ''}</div>
+                        <div class="asp-meta text-body-sm-semibold">
+                            <span class="new-vanhan-stars" data-component="new/VanHanStarRating">${starsHTML(a.stars, 12)}</span>
                             <span class="${LEVEL_CLASS[a.stars]}">${a.label}</span>
                         </div>
-                        <div class="ov-desc">${a.desc}</div>
+                        <div class="ov-desc text-body-md-regular">${a.desc}</div>
                     </div>
                     <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                 </div>`).join('') + `
-                <div class="ov-item" onclick="goYear('khac')">
+                <div class="new-vanhan-aspect-item" data-component="new/VanHanAspectItem" onclick="goYear('khac')">
                     <div class="ov-icon"><img src="assets/vanhan_v3/i_vanhankhac.svg" width="24.5" height="28" alt=""></div>
                     <div class="ov-body">
-                        <div class="ov-title">Các vận hạn khác</div>
-                        <div class="ov-desc">${OTHER_PALACES.join(', ')}</div>
+                        <div class="ov-title text-body-md-semibold">Các vận hạn khác</div>
+                        <div class="ov-desc text-body-md-regular">${OTHER_PALACES.join(', ')}</div>
                     </div>
                     <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                 </div>`;
