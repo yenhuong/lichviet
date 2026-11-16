@@ -180,15 +180,80 @@
   --color-vanhan-danger-border: #F6CFCF;
   --color-vanhan-info-bg: #E3EFFF;
   --gradient-vanhan-navbar: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
+  --color-vanhan-primary: var(--green-600);
+  --color-vanhan-primary-a90: rgba(0, 158, 100, 0.9);
+  --color-vanhan-level-good: #00BD1D;
+  --color-vanhan-level-mid: #1587FF;
+  --color-vanhan-level-normal: #FFB115;
+  --color-vanhan-level-bad: #FF2D3E;
+  --color-vanhan-level-good-bg: #E8FCDB;
+  --color-vanhan-level-normal-bg: #FFF5DE;
+  --color-vanhan-level-bad-bg: #FFE8EA;
+  --color-vanhan-border: #BFE3D1;
+  --color-vanhan-divider: #EDF1EF;
+  --color-vanhan-surface-tint: #F3FCF8;
+  --color-vanhan-header-border: #DDF0E6;
+  --color-vanhan-hero-bg: #E3F5EC;
+  --color-vanhan-hero-border: #CDEBDC;
+  --color-vanhan-band-bg: #EEF2F1;
+  --color-vanhan-tab-bg: #F7F8F8;
+  --color-vanhan-tab-border: #E3E8E6;
+  --color-vanhan-text-on-primary-muted: rgba(255, 255, 255, 0.9);
+  --color-vanhan-text-kicker: #2F6B52;
+  --color-vanhan-text-quote: #33453D;
+  --color-vanhan-text-caption: #6D6E6F;
+  --color-vanhan-text-muted: var(--gray-700);
+  --color-vanhan-profile-bg: var(--cyan-25);
+  --color-vanhan-profile-border: var(--cyan-200);
+  --color-vanhan-positive-bg: #E8F7EF;
+  --color-vanhan-negative: #E54F48;
+  --color-vanhan-negative-strong: #D2403A;
+  --color-vanhan-negative-bg: #FFF0EF;
+  --color-vanhan-negative-border: #F7C9C6;
+  --color-vanhan-button-bg: rgba(223, 255, 238, 0.9);
+  --color-vanhan-button-border: var(--green-500);
+  --color-vanhan-banner-border: #CFE5FD;
+  --color-vanhan-tag-bg: #FFF3D6;
+  --color-vanhan-tag-text: #B7791F;
+  --shadow-vanhan-tile: 0 0 6px rgba(0, 0, 0, 0.08);
+  --shadow-vanhan-card: 0 4px 14px rgba(0, 110, 70, 0.12);
+  --shadow-vanhan-icon-badge: 0 2px 6px rgba(0, 158, 100, 0.25);
+  --shadow-vanhan-raised: 0 1px 2px rgba(186, 186, 186, 0.5);
+  /* tuvi_vanhan_matdoisong.html + tuvi_vanhan_thang.html */
+  --color-vanhan-danger-bg: var(--red-50);
+  --color-vanhan-level-normal-text: #D98A00;
+  --color-vanhan-note-bg: #FFF8E8;
+  --color-vanhan-note-text: #4A3B1A;
+  --gradient-vanhan-hero: linear-gradient(135deg, var(--color-vanhan-bg) 0%, var(--color-chip-success-bg) 100%);
+  --shadow-vanhan-tab: 0 1px 4px rgba(0, 0, 0, 0.06);
+
+  /* Spacing + radius — added from prototype (Tử vi vận hạn), pending Figma */
+  --space-3: 3px;
+  --space-5: 5px;
+  --space-6: 6px;
+  --space-7: 7px;
+  --space-9: 9px;
+  --space-11: 11px;
+  --space-13: 13px;
+  --space-14: 14px;
+  --space-22: 22px;
+  --space-28: 28px;
+  --radius-2: 2px;
+  --radius-9: 9px;
+  --radius-10: 10px;
+  --radius-14: 14px;
+  --radius-15: 15px;
+  --radius-20: 20px;
 
   /* Font */
-  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family: "SF UI Text", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-display: "SF UI Display", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Text styles — Figma "title/md" -> class ".text-title-md" */
-.text-display          { font: 700 72px/72px var(--font-family); }
-.text-title-lg         { font: 700 24px/32px var(--font-family); }
-.text-title-md         { font: 600 20px/28px var(--font-family); }
+.text-display          { font: 700 72px/72px var(--font-family-display); }
+.text-title-lg         { font: 700 24px/32px var(--font-family-display); }
+.text-title-md         { font: 600 20px/28px var(--font-family-display); }
 .text-title-sm         { font: 600 18px/26px var(--font-family); }
 .text-body-md-regular  { font: 400 16px/24px var(--font-family); }
 .text-body-md-medium   { font: 500 16px/24px var(--font-family); }
@@ -202,9 +267,9 @@
 .text-button-sm        { font: 700 14px/20px var(--font-family); }
 
 /* Text styles — home screen (Lich-Viet-App / TrangChu_2026) */
-.text-heading-section  { font: 600 24px/24px var(--font-family); }
-.text-heading-card     { font: 600 22px/24px var(--font-family); }
-.text-heading-date     { font: 700 24px/24px var(--font-family); }
+.text-heading-section  { font: 600 24px/24px var(--font-family-display); }
+.text-heading-card     { font: 600 22px/24px var(--font-family-display); }
+.text-heading-date     { font: 700 24px/24px var(--font-family-display); }
 .text-overline-lg      { font: 700 18px/21px var(--font-family); text-transform: uppercase; }
 .text-body-lg-semibold { font: 600 18px/27px var(--font-family); }
 .text-body-md-tight-semibold { font: 600 16px/18px var(--font-family); }
@@ -215,4 +280,37 @@
 .text-button-md        { font: 600 16px/21px var(--font-family); }
 
 /* Text styles — added from prototype, pending Figma */
-.text-title-md-bold    { font: 700 20px/28px var(--font-family); }
+.text-title-md-bold    { font: 700 20px/28px var(--font-family-display); }
+/* Tử vi vận hạn (tuvi_vanhan_ketqua.html). "normal" line-height = Figma "Auto". */
+.text-title-xl-extrabold { font: 800 26px/32px var(--font-family-display); }
+.text-heading-section-lg { font: 600 26px/24px var(--font-family-display); }
+.text-heading-block    { font: 700 20px/26px var(--font-family-display); }
+.text-heading-sm       { font: 600 20px/24px var(--font-family-display); }
+.text-body-lg-bold     { font: 700 18px/24px var(--font-family); }
+.text-label-lg-semibold { font: 600 18px/24px var(--font-family); }
+.text-icon-chevron     { font: 600 18px/18px var(--font-family); }
+.text-navbar-title     { font: 600 17px/21px var(--font-family); }
+.text-button-cta       { font: 700 17px/normal var(--font-family); }
+.text-body-md-relaxed  { font: 400 16px/26px var(--font-family); }
+.text-label-md-bold    { font: 700 16px/22px var(--font-family); }
+.text-subhead-regular  { font: 400 15px/20px var(--font-family); }
+.text-subhead-semibold { font: 600 15px/20px var(--font-family); }
+.text-label-sm-semibold { font: 600 14px/21px var(--font-family); }
+.text-badge            { font: 600 14px/24px var(--font-family); }
+.text-button-sm-semibold { font: 600 14px/normal var(--font-family); }
+.text-status-time      { font: 500 14px/normal var(--font-family); }
+.text-footnote         { font: 400 13px/18px var(--font-family); }
+.text-chart-label      { font: 600 13px/24px var(--font-family); }
+.text-caption-regular  { font: 400 12px/normal var(--font-family); }
+.text-tag              { font: 700 11px/20px var(--font-family); }
+/* Tử vi vận hạn (tuvi_vanhan_matdoisong.html, tuvi_vanhan_thang.html) */
+.text-heading-card-bold { font: 700 22px/28px var(--font-family-display); }
+.text-heading-card-relaxed { font: 600 22px/26px var(--font-family-display); }
+.text-label-md-semibold { font: 600 16px/22px var(--font-family); }
+.text-label-md-regular { font: 400 16px/22px var(--font-family); }
+.text-tab-label        { font: 600 16px/20px var(--font-family); }
+.text-rating-label     { font: 700 16px/normal var(--font-family); }
+.text-body-sm-tight-semibold { font: 600 14px/18px var(--font-family); }
+.text-footnote-semibold { font: 600 13px/18px var(--font-family); }
+.text-overline-sm      { font: 700 13px/18px var(--font-family); text-transform: uppercase; }
+.text-micro-badge      { font: 700 10px/18px var(--font-family); }

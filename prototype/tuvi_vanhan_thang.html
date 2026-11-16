@@ -6,31 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vận hạn tháng - Lịch Việt</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="design-system/components.css">
     <style>
-        :root {
-            --green: #009E64;
-            --green-good: #00BD1D;
-            --amber: #FFB115;
-            --red: #FF2D3E;
-            --text: #272727;
-            --text-2: #333333;
-            --border: #E6E6E6;
-        }
+        /* Screen CSS: tokens only (design-system/tokens.css). Raw values left on purpose:
+           phone mockup chrome, sizes (width/height), absolute positions and inline artwork. */
 
         * { box-sizing: border-box; }
 
         body {
+            /* Page backdrop outside the phone (mockup chrome) */
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: -apple-system, "SF Pro Display", "SF UI Display", "Inter", sans-serif;
-            color: #000;
+            font-family: var(--font-family);
+            color: var(--color-text-strong);
         }
 
-        /* Phone mockup (same as tuvi_vanhan_ketqua.html) */
+        /* Phone mockup (chrome, same as tuvi_vanhan_ketqua.html) */
         .phone-mockup {
             width: 414px;
             height: 896px;
@@ -43,8 +38,8 @@
         .screen {
             width: 100%;
             height: 100%;
-            background: #fff;
-            border-radius: 44px;
+            background: var(--color-bg-surface);
+            border-radius: 44px; /* phone chrome */
             overflow: hidden;
             position: relative;
             display: flex;
@@ -54,13 +49,13 @@
         .scroll { flex: 1; overflow-y: auto; scrollbar-width: none; }
         .scroll::-webkit-scrollbar { display: none; }
 
-        /* Top bar */
-        .topbar {
+        /* new/VanHanNavBar */
+        .new-vanhan-navbar {
             height: 97px;
             flex-shrink: 0;
             position: relative;
-            background: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
-            color: #fff;
+            background: var(--gradient-vanhan-navbar);
+            color: var(--color-text-on-primary);
         }
 
         .status-bar {
@@ -68,12 +63,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 22px 0 32px;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 0 var(--space-22) 0 var(--space-32);
         }
 
-        .status-icons { display: flex; gap: 5px; align-items: center; }
+        .status-icons { display: flex; gap: var(--space-5); align-items: center; }
 
         .topbar-title {
             position: absolute;
@@ -81,9 +74,6 @@
             right: 50px;
             top: 60px;
             text-align: center;
-            font-size: 17px;
-            font-weight: 600;
-            line-height: 21px;
         }
 
         .btn-back {
@@ -98,20 +88,20 @@
             cursor: pointer;
         }
 
-        /* Month picker: sticky under the top bar */
-        .month-bar {
+        /* new/VanHanMonthPicker: sticky under the top bar, scroller of new/VanHanMonthPill */
+        .new-vanhan-month-picker {
             position: sticky;
             top: 0;
             z-index: 5;
-            background: #fff;
-            border-bottom: 1px solid #BFE3D1;
+            background: var(--color-bg-surface);
+            border-bottom: 1px solid var(--color-vanhan-border);
         }
 
         .months {
             display: flex;
-            gap: 12px;
+            gap: var(--space-12);
             overflow-x: auto;
-            padding: 12px;
+            padding: var(--space-12);
             align-items: center;
             scrollbar-width: none;
             scroll-behavior: smooth;
@@ -119,314 +109,291 @@
 
         .months::-webkit-scrollbar { display: none; }
 
-        .m-pill {
+        /* new/VanHanMonthPill (Default | Active; Current shows the "Hiện tại" marker) */
+        .new-vanhan-month-pill {
             flex-shrink: 0;
             width: 68px;
             height: 70px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-card);
+            border-radius: var(--radius-14);
+            box-shadow: var(--shadow-card);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 6px;
+            padding-top: var(--space-6);
             cursor: pointer;
             position: relative;
         }
 
-        .m-pill .lbl { font-size: 13px; font-weight: 600; line-height: 18px; color: #666; }
-        .m-pill .num { font-size: 22px; font-weight: 600; line-height: 24px; color: var(--text); margin: 2px 0 6px; }
+        .new-vanhan-month-pill .lbl { color: var(--color-text-secondary); }
+        .new-vanhan-month-pill .num { color: var(--color-text-label); margin: var(--space-2) 0 var(--space-6); }
 
-        .m-pill.active {
+        .new-vanhan-month-pill.active {
             width: 78px;
             height: 80px;
-            background: rgba(0, 158, 100, 0.9);
+            background: var(--color-vanhan-primary-a90);
             border: none;
-            box-shadow: 0 1px 2px rgba(186, 186, 186, 0.5);
-            padding-top: 8px;
+            box-shadow: var(--shadow-vanhan-raised);
+            padding-top: var(--space-8);
         }
 
-        .m-pill.active .lbl { color: #fff; font-size: 14px; }
-        .m-pill.active .num { color: #fff; font-size: 24px; margin: 3px 0 7px; }
+        .new-vanhan-month-pill.active .lbl { color: var(--color-text-on-primary); }
+        .new-vanhan-month-pill.active .num { color: var(--color-text-on-primary); margin: var(--space-3) 0 var(--space-7); }
 
         /* Marks the current lunar month */
-        .m-pill .now-dot {
+        .new-vanhan-month-pill .now-dot {
             position: absolute;
             top: -9px;
             left: 50%;
             transform: translateX(-50%);
             white-space: nowrap;
             height: 18px;
-            padding: 0 6px;
-            border-radius: 9px;
-            background: var(--amber);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            line-height: 18px;
+            padding: 0 var(--space-6);
+            border-radius: var(--radius-9);
+            background: var(--color-vanhan-level-normal);
+            color: var(--color-text-on-primary);
         }
 
-        .stars { display: inline-flex; gap: 3px; align-items: center; }
-        .stars img { display: block; }
+        /* new/VanHanStarRating */
+        .new-vanhan-stars { display: inline-flex; gap: var(--space-3); align-items: center; }
+        .new-vanhan-stars img { display: block; }
 
-        /* Hero: month heading (PDF section 8 header + "Tháng này rơi vào cung") */
-        .hero {
-            margin: 16px 12px 0;
-            background: #fff;
-            border: 1px solid #BFE3D1;
-            border-radius: 16px;
-            box-shadow: 0 4px 14px rgba(0, 110, 70, 0.12);
+        /* new/VanHanMonthCard: month heading + palace of the month (PDF section 8 header) */
+        .new-vanhan-month-card {
+            margin: var(--space-16) var(--space-12) 0;
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-vanhan-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-vanhan-card);
             overflow: hidden;
         }
 
         .hero-head {
             text-align: center;
-            padding: 18px 16px 18px;
-            background: #E3F5EC;
-            border-bottom: 1px solid #CDEBDC;
+            padding: var(--space-18) var(--space-16) var(--space-18);
+            background: var(--color-vanhan-hero-bg);
+            border-bottom: 1px solid var(--color-vanhan-hero-border);
         }
 
-        .hero-badges { display: flex; justify-content: center; gap: 8px; }
+        .hero-badges { display: flex; justify-content: center; gap: var(--space-8); }
 
-        .badge {
+        /* new/VanHanStatusBadge (now) */
+        .new-vanhan-status-badge {
             height: 24px;
-            padding: 0 10px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 24px;
+            padding: 0 var(--space-10);
+            border-radius: var(--radius-20);
         }
 
-        .badge.now { background: var(--green); color: #fff; }
+        .new-vanhan-status-badge.now { background: var(--color-vanhan-primary); color: var(--color-text-on-primary); }
 
         .hero-title {
-            margin-top: 12px;
-            font-size: 26px;
-            font-weight: 800;
-            line-height: 32px;
-            color: #00804F;
+            margin-top: var(--space-12);
+            color: var(--color-vanhan-accent);
             text-transform: uppercase;
             letter-spacing: -0.3px;
         }
 
-        .hero-canchi { margin-top: 2px; font-size: 16px; font-weight: 600; line-height: 22px; color: #2F6B52; }
-        .hero-date { margin-top: 4px; font-size: 16px; line-height: 22px; color: #33453D; }
+        .hero-canchi { margin-top: var(--space-2); color: var(--color-vanhan-text-kicker); }
+        .hero-date { margin-top: var(--space-4); color: var(--color-vanhan-text-quote); }
 
         .hero-rating {
-            margin-top: 10px;
+            margin-top: var(--space-10);
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: 700;
+            gap: var(--space-10);
         }
 
-        .hero-rating .stars { gap: 5px; }
-        .rt-good { color: var(--green); }
-        .rt-normal { color: #D98A00; }
-        .rt-bad { color: var(--red); }
+        .hero-rating .new-vanhan-stars { gap: var(--space-5); }
 
-        .hero-body { padding: 14px 16px 16px; }
+        /* Rating level text colors (this screen's palette, see hand-off notes) */
+        .level-good { color: var(--color-vanhan-primary); }
+        .level-normal { color: var(--color-vanhan-level-normal-text); }
+        .level-bad { color: var(--color-vanhan-level-bad); }
 
-        /* Palace of the month: icon + eyebrow label + palace name */
-        .palace { display: flex; align-items: flex-start; gap: 12px; }
+        .hero-body { padding: var(--space-14) var(--space-16) var(--space-16); }
+
+        /* new/VanHanMonthPalace: icon + eyebrow label + palace name */
+        .new-vanhan-month-palace { display: flex; align-items: flex-start; gap: var(--space-12); }
         .palace-ic { width: 48px; height: 48px; flex-shrink: 0; }
-        .palace-lbl { font-size: 13px; font-weight: 700; line-height: 18px; letter-spacing: 0.6px; text-transform: uppercase; color: #2F6B52; }
-        .palace-name { margin-top: 2px; font-size: 22px; font-weight: 700; line-height: 28px; color: var(--text); }
-        .palace-val { margin-top: 4px; font-size: 16px; line-height: 24px; color: #333333; }
+        .palace-lbl { letter-spacing: 0.6px; color: var(--color-vanhan-text-kicker); }
+        .palace-name { margin-top: var(--space-2); color: var(--color-text-label); }
+        .palace-val { margin-top: var(--space-4); color: var(--color-text-body); }
 
-        /* Caveat quote shown for some months (e.g. month 1) */
-        .hero-note {
-            margin-top: 12px;
-            padding: 10px 12px;
-            border-left: 3px solid #B7791F;
-            background: #FFF8E8;
-            border-radius: 0 8px 8px 0;
-            font-size: 16px;
+        /* new/VanHanNote: caveat quote shown for some months (e.g. month 1) */
+        .new-vanhan-note {
+            margin-top: var(--space-12);
+            padding: var(--space-10) var(--space-12);
+            border-left: 3px solid var(--color-vanhan-tag-text);
+            background: var(--color-vanhan-note-bg);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
             font-style: italic;
-            line-height: 24px;
-            color: #4A3B1A;
+            color: var(--color-vanhan-note-text);
         }
 
         /* Content blocks, in PDF order */
-        .block { margin: 24px 12px 0; }
+        .block { margin: var(--space-24) var(--space-12) 0; }
 
-        .block-title {
+        /* new/VanHanIconHeading: same look as .intro-title in tuvi_vanhan_ketqua.html */
+        .new-vanhan-icon-heading {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 24px;
-            color: var(--text);
-            margin-bottom: 8px;
+            gap: var(--space-10);
+            color: var(--color-text-label);
+            margin-bottom: var(--space-8);
         }
 
-        .block-title .ic {
+        .new-vanhan-icon-heading .ic {
             width: 32px;
             height: 32px;
             flex-shrink: 0;
-            border-radius: 50%;
-            background: var(--green);
+            border-radius: var(--radius-full);
+            background: var(--color-vanhan-primary);
+            color: var(--color-text-on-primary);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 6px rgba(0, 158, 100, 0.25);
+            box-shadow: var(--shadow-vanhan-icon-badge);
         }
 
-        .block-text { margin: 0; font-size: 16px; line-height: 26px; color: #000; }
+        .block-text { margin: 0; color: var(--color-text-strong); }
 
-        .block-list { margin: 8px 0 0; padding-left: 20px; }
-        .block-list li { font-size: 16px; line-height: 24px; color: #000; }
-        .block-list li + li { margin-top: 6px; }
-        .block-list li::marker { color: var(--green); }
+        .block-list { margin: var(--space-8) 0 0; padding-left: var(--space-20); }
+        .block-list li { color: var(--color-text-strong); }
+        .block-list li + li { margin-top: var(--space-6); }
+        .block-list li::marker { color: var(--color-vanhan-primary); }
 
         /* Thuận lợi / Cần lưu ý: same heading + list style as the life-aspects screen */
-        .h3 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; line-height: 24px; margin: 16px 0 8px; }
-        .h3.good { color: var(--green); }
-        .h3.warn { color: #D9822B; }
-        .pc { margin: 8px 12px 0; }
+        .h3 { display: flex; align-items: center; gap: var(--space-8); margin: var(--space-16) 0 var(--space-8); }
+        .h3.good { color: var(--color-vanhan-primary); }
+        .h3.warn { color: var(--color-vanhan-caution); }
+        .pc { margin: var(--space-8) var(--space-12) 0; }
         .pc .block-list { margin: 0; }
-        .pc .block-list li { color: #333333; }
-        .pc .block-list li + li { margin-top: 4px; }
+        .pc .block-list li { color: var(--color-text-body); }
+        .pc .block-list li + li { margin-top: var(--space-4); }
 
-        /* Advice */
-        .advice {
-            margin: 24px 12px 0;
-            padding: 14px 16px 16px;
-            border-radius: 8px;
-            background: #EAF8F0;
+        /* new/VanHanAdviceBox */
+        .new-vanhan-advice-box {
+            margin: var(--space-24) var(--space-12) 0;
+            padding: var(--space-14) var(--space-16) var(--space-16);
+            border-radius: var(--radius-md);
+            background: var(--color-vanhan-positive-bg);
         }
 
         .box-title {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 18px;
-            font-weight: 700;
-            line-height: 24px;
+            gap: var(--space-8);
+            color: var(--color-vanhan-accent);
         }
 
-        .advice .box-title { color: #00804F; }
+        /* Explore: new/VanHanSectionBand + Section Header + Card wrapping new/VanHanExploreGrid (same as result screen) */
+        .new-vanhan-section-band { margin-top: var(--space-24); height: 8px; background: var(--color-vanhan-band-bg); }
+        .section-title { margin: var(--space-20) var(--space-12) var(--space-14); }
+        .explore-card { margin: 0 var(--space-12) var(--space-28); }
 
-
-        /* Explore (same block as result screen) */
-        .section-title { font-size: 22px; font-weight: 600; line-height: 26px; margin: 20px 12px 14px; }
-        .section-band { margin-top: 24px; height: 8px; background: #EEF2F1; }
-
-        .card {
-            margin: 0 12px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .explore {
+        .new-vanhan-explore-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            row-gap: 14px;
-            padding: 16px 0 14px;
-            margin-bottom: 28px;
+            row-gap: var(--space-14);
+            padding: var(--space-16) 0 var(--space-14);
         }
 
-        .exp-item {
+        .new-vanhan-explore-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: var(--space-12);
             text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 21px;
-            color: var(--text);
+            color: var(--color-text-label);
             cursor: pointer;
         }
 
-        .exp-item img { width: 52px; height: 52px; display: block; }
+        .new-vanhan-explore-item img { width: 52px; height: 52px; display: block; }
     </style>
 </head>
 
 <body>
     <div class="phone-mockup">
         <div class="screen">
-            <div class="topbar">
-                <div class="status-bar">
+            <div class="new-vanhan-navbar" data-component="new/VanHanNavBar">
+                <div class="status-bar text-status-time">
                     <span>9:41</span>
                     <span class="status-icons">
-                        <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
-                        <svg width="15" height="11" viewBox="0 0 15 11" fill="#fff"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
-                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="#fff" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="#fff"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="#fff" fill-opacity=".4"/></svg>
+                        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+                        <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="currentColor"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="currentColor" fill-opacity=".4"/></svg>
                     </span>
                 </div>
                 <div class="btn-back" onclick="history.back()"><img src="assets/vanhan_v3/btn_back.svg" width="12.5" height="21" alt="Quay lại"></div>
-                <div class="topbar-title">Vận hạn 12 tháng âm lịch 2027</div>
+                <div class="topbar-title text-navbar-title">Vận hạn 12 tháng âm lịch 2027</div>
             </div>
 
             <div class="scroll" id="scroll">
                 <!-- Month picker -->
-                <div class="month-bar">
+                <div class="new-vanhan-month-picker" data-component="new/VanHanMonthPicker">
                     <div class="months" id="months"></div>
                 </div>
 
                 <!-- 1. Month heading + palace of the month -->
-                <div class="hero">
+                <div class="new-vanhan-month-card" data-component="new/VanHanMonthCard">
                     <div class="hero-head">
                         <div class="hero-badges" id="hBadges"></div>
-                        <div class="hero-title" id="hTitle"></div>
-                        <div class="hero-canchi" id="hCanChi"></div>
-                        <div class="hero-date" id="hDate"></div>
-                        <div class="hero-rating" id="hRating"></div>
+                        <div class="hero-title text-title-xl-extrabold" id="hTitle"></div>
+                        <div class="hero-canchi text-label-md-semibold" id="hCanChi"></div>
+                        <div class="hero-date text-label-md-regular" id="hDate"></div>
+                        <div class="hero-rating text-rating-label" id="hRating"></div>
                     </div>
                     <div class="hero-body">
-                        <div class="palace">
+                        <div class="new-vanhan-month-palace" data-component="new/VanHanMonthPalace">
                             <img class="palace-ic" id="hPalaceIc" width="48" height="48" alt="">
                             <div>
-                                <div class="palace-lbl">Tháng này động cung</div>
-                                <div class="palace-name" id="hPalace"></div>
-                                <div class="palace-val" id="hDong"></div>
+                                <div class="palace-lbl text-overline-sm">Tháng này động cung</div>
+                                <div class="palace-name text-heading-card-bold" id="hPalace"></div>
+                                <div class="palace-val text-body-md-regular" id="hDong"></div>
                             </div>
                         </div>
-                        <div class="hero-note" id="hNote"></div>
+                        <div class="new-vanhan-note text-body-md-regular" data-component="new/VanHanNote" id="hNote"></div>
                     </div>
                 </div>
 
                 <!-- 3. Tháng này chị cần chú ý điều gì? -->
                 <div class="block">
-                    <div class="block-title">
-                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span>
+                    <div class="new-vanhan-icon-heading text-body-lg-bold" data-component="new/VanHanIconHeading">
+                        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></span>
                         Tháng này chị cần chú ý điều gì?
                     </div>
-                    <p class="block-text" id="chuDong"></p>
+                    <p class="block-text text-body-md-relaxed" id="chuDong"></p>
                 </div>
 
                 <!-- 4–5. Thuận lợi / Cần lưu ý -->
                 <div class="pc">
-                    <div class="h3 good"><img src="assets/vanhan_v3/i_thuanloi.svg" width="16" height="16" alt="">Điểm thuận lợi</div>
+                    <div class="h3 good text-body-md-semibold"><img src="assets/vanhan_v3/i_thuanloi.svg" width="16" height="16" alt="">Điểm thuận lợi</div>
                     <ul class="block-list" id="goodList"></ul>
-                    <div class="h3 warn"><img src="assets/vanhan_v3/i_batloi_cam.svg" width="16" height="14.6" alt="">Điều cần lưu ý</div>
+                    <div class="h3 warn text-body-md-semibold"><img src="assets/vanhan_v3/i_batloi_cam.svg" width="16" height="14.6" alt="">Điều cần lưu ý</div>
                     <ul class="block-list" id="warnList"></ul>
                 </div>
 
                 <!-- 6. Lời khuyên trong tháng -->
-                <div class="advice">
-                    <div class="box-title"><img src="assets/vanhan_v3/i_ketluan.svg" width="16" height="18.5" alt="">Lời khuyên trong tháng</div>
+                <div class="new-vanhan-advice-box" data-component="new/VanHanAdviceBox">
+                    <div class="box-title text-body-lg-bold"><img src="assets/vanhan_v3/i_ketluan.svg" width="16" height="18.5" alt="">Lời khuyên trong tháng</div>
                     <ul class="block-list" id="adviceList"></ul>
                 </div>
 
 
                 <!-- Explore more -->
-                <div class="section-band"></div>
-                <div class="section-title">Khám phá thêm</div>
-                <div class="card explore">
-                    <div class="exp-item" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
-                    <div class="exp-item" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
-                    <div class="exp-item"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                <div class="new-vanhan-section-band" data-component="new/VanHanSectionBand"></div>
+                <div class="section-title text-heading-card-relaxed" data-component="Section Header">Khám phá thêm</div>
+                <div class="lv-card explore-card" data-component="Card">
+                    <div class="new-vanhan-explore-grid" data-component="new/VanHanExploreGrid">
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
+                        <div class="new-vanhan-explore-item text-label-sm-semibold" data-component="new/VanHanExploreItem"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -435,39 +402,34 @@
     <script>
         // 12 lunar months of 2027 - verbatim from vanhan_KhachHang_2027.pdf, section 8 "Luận vận hạn 12 tháng"
         // type drives colors: good = thuận, normal = đan xen, bad = cần thận trọng (same as tuvi_vanhan_ketqua.html)
-        // palace = active palace of the month; dong = short meaning of that palace; chuDong = "Tháng này chị cần chú ý điều gì?" (PDF: "Việc chị cần chủ động lo liệu")
+        // palace = active palace of the month; dong = short meaning of that palace; chuDong = "Tháng này chị cần chú ý điều gì?" (PDF: "Trọng tâm tháng" description)
         const MONTHS = [
             {
                 n: 1, canChi: 'Nhâm Dần', date: '06/02 – 07/03/2027', stars: 4, type: 'good',
                 palace: 'Tật Ách', palaceDesc: 'Liên quan đến sức khỏe, trở ngại và áp lực.',
                 note: 'Cả năm, sức khỏe ở mức “Không thuận lợi”, tháng này chỉ thuận hơn tương đối trong năm, chưa nên xem là thời điểm chắc chắn để quyết việc lớn.',
                 dong: 'Chủ về sức khỏe, bệnh tật, tinh thần và việc chăm sóc sức khỏe.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Mệnh, báo hiệu tháng này chị cần chú ý nhiều hơn đến bản thân, sức khỏe, diện mạo, suy nghĩ, quyết định và những thay đổi trong cuộc sống cá nhân.',
+                chuDong: 'Tháng này những việc về sức khỏe, bệnh tật, thể trạng, tinh thần và việc điều trị, chăm sóc sức khỏe nổi lên rõ nhất.',
                 good: [
                     'Được người chăm sóc kịp thời.',
                     'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi, tiếng nói và vai trò được nâng lên, dễ được tin tưởng giao việc quan trọng.',
-                    'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả.',
-                    'Được ghi nhận, giữ được tiếng tốt, ham học hỏi.',
-                    'Cẩn trọng, giữ được sự ổn định, biết tích lũy cho mình.'
+                    'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả.'
                 ],
                 warn: [
                     'Tâm trạng dễ nặng nề.',
                     'Dễ hao hụt tài lực, hứa hẹn suông hoặc cảm giác hụt hẫng.',
                     'Dễ có sóng gió, áp lực hoặc việc bất ngờ phát sinh phải xử lý gấp, dễ có cạnh tranh, va chạm trực diện, phải quyết liệt mới giữ được phần mình (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Dễ vướng hiểu lầm, việc trì trệ hoặc phải lo nghĩ nhiều hơn thường lệ, việc dễ chậm, dây dưa, phải làm đi làm lại mới xong.',
-                    'Dễ gặp việc gấp, áp lực, cần cẩn thận va chạm (mức độ được giảm nhẹ nhờ chính tinh sáng).'
+                    'Dễ vướng hiểu lầm, việc trì trệ hoặc phải lo nghĩ nhiều hơn thường lệ, việc dễ chậm, dây dưa, phải làm đi làm lại mới xong.'
                 ],
                 advice: [
-                    'Ngủ đủ, ăn uống điều độ, thấy cơ thể có dấu hiệu bất thường thì nên đi khám sớm.',
-                    'Cẩn thận khi lái xe, đi xa hoặc di chuyển lúc vội, giữ sức trước những việc gấp phát sinh.',
-                    'Ưu tiên làm chắc, tích lũy dần thay vì mở rộng vội.'
+                    'Ngủ đủ, ăn uống điều độ, thấy cơ thể có dấu hiệu bất thường thì nên đi khám sớm.'
                 ]
             },
             {
                 n: 2, canChi: 'Quý Mão', date: '08/03 – 06/04/2027', stars: 4, type: 'good',
                 palace: 'Tài Bạch', palaceDesc: 'Liên quan đến thu nhập, tiền bạc và tài chính.',
                 dong: 'Chủ về thu nhập, tiền bạc, chi tiêu, tích lũy và đầu tư.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Phụ Mẫu, báo hiệu tháng này chị cần chú ý nhiều hơn đến cha mẹ, sức khỏe và cuộc sống của cha mẹ, quan hệ với cha mẹ và người lớn trong gia đình.',
+                chuDong: 'Tháng này những việc về thu nhập, tiền bạc, tài sản, chi tiêu, tích lũy, đầu tư và kinh doanh nổi lên rõ nhất.',
                 good: [
                     'Tiền vào thuận, có thêm nguồn thu hoặc khoản lợi bất ngờ.',
                     'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi.',
@@ -475,21 +437,19 @@
                 ],
                 warn: [
                     'Dễ có sóng gió, áp lực hoặc việc bất ngờ phát sinh phải xử lý gấp (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Sức khỏe cha mẹ cần được quan tâm hơn: dễ va chạm nhẹ, cần cẩn thận khi đi lại (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Sức khỏe cha mẹ cần được quan tâm hơn: dễ căng thẳng, ngủ không sâu giấc.'
+                    'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự (mức độ được giảm nhẹ nhờ chính tinh sáng).'
                 ],
                 advice: [
                     'Kiểm soát chi tiêu, thận trọng với khoản chi lớn và các thỏa thuận tiền bạc.',
-                    'Giữ bình tĩnh khi có bất đồng, tránh tranh luận hơn thua hoặc để chuyện nhỏ trở thành mâu thuẫn lớn.',
-                    'Thận trọng khi phân chia lợi ích, thỏa thuận tiền bạc, tránh nóng vội khi có tranh chấp.'
+                    'Cẩn thận khi lái xe, đi xa hoặc di chuyển lúc vội, giữ sức trước những việc gấp phát sinh.',
+                    'Giữ bình tĩnh khi có bất đồng, tránh tranh luận hơn thua hoặc để chuyện nhỏ trở thành mâu thuẫn lớn.'
                 ]
             },
             {
                 n: 3, canChi: 'Giáp Thìn', date: '07/04 – 05/05/2027', stars: 5, type: 'good',
                 palace: 'Tử Tức', palaceDesc: 'Liên quan đến con cái, việc học của con và thành quả.',
                 dong: 'Chủ về con cái, sức khỏe và quan hệ với con cái.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Phúc Đức, báo hiệu tháng này chị cần chú ý nhiều hơn đến đời sống tinh thần, gia đình, họ hàng, dòng họ và nền nếp gia đình.',
+                chuDong: 'Tháng này những việc về con cái, việc sinh con, sức khỏe và cuộc sống của con cái, quan hệ với con cái và thế hệ sau nổi lên rõ nhất.',
                 good: [
                     'Con gặp thầy giỏi, người tốt nâng đỡ, con cái có tin vui, thành quả tốt.',
                     'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi.',
@@ -512,18 +472,15 @@
                 n: 4, canChi: 'Ất Tỵ', date: '06/05 – 04/06/2027', stars: 1, type: 'bad',
                 palace: 'Phu Thê', palaceDesc: 'Liên quan đến hôn nhân, tình cảm và bạn đời.',
                 dong: 'Chủ về tình yêu, hôn nhân, vợ chồng và đời sống tình cảm.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Điền Trạch, báo hiệu tháng này chị cần chú ý nhiều hơn đến nhà cửa, nơi ở, bất động sản, tài sản cố định và môi trường sống, có sự biến động, thay đổi về nhà cửa, nơi ở.',
+                chuDong: 'Tháng này những việc về tình yêu, người yêu, hôn nhân, vợ chồng và đời sống tình cảm như lập gia đình, kết hôn, có người yêu nổi lên rõ nhất.',
                 good: [
                     'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả, tiếng nói và vai trò được nâng lên, dễ được tin tưởng giao việc quan trọng.',
-                    'Biết giữ của, tích lũy dần dần, mọi việc chắc chắn nhưng có phần khép kín.',
-                    'Giấy tờ nhà đất suôn sẻ.',
-                    'Chủ đề thay đổi nơi ở, sửa chữa hoặc giao dịch tài sản có thể đáng chú ý hơn trong năm.'
+                    'Biết giữ của, tích lũy dần dần, mọi việc chắc chắn nhưng có phần khép kín.'
                 ],
                 warn: [
                     'Dễ tủi thân, nhạy cảm, dễ thấy trống trải, lời hứa khó giữ.',
                     'Dễ có chuyện buồn phiền, lo toan liên quan đến gia đạo, người thân.',
                     'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Giao dịch nhà đất kéo dài.',
                     'Cung Phu Thê gặp Tuần, phần nào kìm bớt mặt xấu của các chính tinh hãm, nên những trở ngại thường không bộc phát mạnh.'
                 ],
                 advice: [
@@ -536,13 +493,12 @@
                 n: 5, canChi: 'Bính Ngọ', date: '05/06 – 03/07/2027', stars: 2, type: 'bad',
                 palace: 'Huynh Đệ', palaceDesc: 'Liên quan đến anh chị em và người ngang hàng.',
                 dong: 'Chủ về anh chị em và sự hỗ trợ giữa người thân ngang hàng.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Quan Lộc, báo hiệu tháng này chị cần chú ý nhiều hơn đến công việc, sự nghiệp, chức vụ, vị trí, trách nhiệm và môi trường làm việc, có sự biến động, thay đổi công việc.',
+                chuDong: 'Tháng này những việc về anh chị em, quan hệ giữa anh chị em, sự hỗ trợ và những việc phát sinh giữa người thân ngang hàng nổi lên rõ nhất.',
                 good: [
                     'Có người trong anh chị em đứng ra lo việc chung, trong anh chị em có người có địa vị đứng ra giúp.',
                     'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi.',
                     'Dễ có người giúp đỡ, lời giới thiệu hoặc cơ hội qua các mối quan hệ.',
-                    'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả.',
-                    'Công việc ổn định, làm chắc, ít thay đổi.'
+                    'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả.'
                 ],
                 warn: [
                     'Dễ hao tốn vì anh chị em.',
@@ -550,7 +506,6 @@
                     'Dễ có chuyện buồn phiền, lo toan liên quan đến gia đạo, người thân.',
                     'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự.',
                     'Dễ có cạnh tranh, va chạm trực diện, phải quyết liệt mới giữ được phần mình.',
-                    'Dễ có tranh luận, thị phi nơi làm việc (mức độ được giảm nhẹ nhờ chính tinh sáng).',
                     'Cung Huynh Đệ gặp Tuần, phần nào kìm bớt mặt xấu của các chính tinh hãm, nên những trở ngại thường không bộc phát mạnh.'
                 ],
                 advice: [
@@ -563,81 +518,74 @@
                 n: 6, canChi: 'Đinh Mùi', date: '04/07 – 01/08/2027', stars: 4, type: 'good',
                 palace: 'Mệnh', palaceDesc: 'Liên quan đến bản thân, trạng thái và năng lực.',
                 dong: 'Chủ về bản thân, sức khỏe, suy nghĩ và quyết định cá nhân.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Nô Bộc, báo hiệu tháng này chị cần chú ý nhiều hơn đến bạn bè, đồng nghiệp, đối tác, khách hàng, người hỗ trợ và các mối quan hệ xã hội.',
+                chuDong: 'Tháng này những việc về bản thân, sức khỏe, diện mạo, suy nghĩ, quyết định và những thay đổi trong cuộc sống cá nhân nổi lên rõ nhất.',
                 good: [
                     'Được ghi nhận, giữ được tiếng tốt, ham học hỏi.',
                     'Cẩn trọng, giữ được sự ổn định, biết tích lũy cho mình.',
                     'Tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.',
-                    'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả, tiếng nói và vai trò được nâng lên, dễ được tin tưởng giao việc quan trọng.',
-                    'Được bạn bè giới thiệu cơ hội.'
+                    'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả, tiếng nói và vai trò được nâng lên, dễ được tin tưởng giao việc quan trọng.'
                 ],
                 warn: [
                     'Dễ gặp việc gấp, áp lực, cần cẩn thận va chạm (mức độ được giảm nhẹ nhờ chính tinh sáng).',
                     'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Dễ có chuyện buồn phiền, lo toan liên quan đến gia đạo, người thân.',
-                    'Dễ có thị phi trong các mối quan hệ.',
-                    'Dễ cạnh tranh, bất hòa với đồng nghiệp, đối tác.'
+                    'Dễ có chuyện buồn phiền, lo toan liên quan đến gia đạo, người thân.'
                 ],
                 advice: [
                     'Giữ sức khỏe và tinh thần ổn định, cân nhắc kỹ trước những quyết định của bản thân.',
-                    'Hoàn thiện hồ sơ, giấy tờ và giữ uy tín bằng việc làm đến nơi đến chốn.',
-                    'Sắp xếp lịch đi lại hợp lý, chuẩn bị kỹ trước các thay đổi.'
+                    'Ưu tiên làm chắc, tích lũy dần thay vì mở rộng vội.',
+                    'Hoàn thiện hồ sơ, giấy tờ và giữ uy tín bằng việc làm đến nơi đến chốn.'
                 ]
             },
             {
                 n: 7, canChi: 'Mậu Thân', date: '02/08 – 31/08/2027', stars: 3, type: 'normal',
                 palace: 'Phụ Mẫu', palaceDesc: 'Liên quan đến cha mẹ, người lớn và cấp trên.',
                 dong: 'Chủ về cha mẹ, sức khỏe của cha mẹ và người lớn trong nhà.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Thiên Di, báo hiệu tháng này chị cần chú ý nhiều hơn đến việc đi lại, ra ngoài, môi trường bên ngoài, giao tiếp và các mối quan hệ xã hội.',
+                chuDong: 'Tháng này những việc về cha mẹ, sức khỏe và cuộc sống của cha mẹ, quan hệ với cha mẹ và người lớn trong gia đình nổi lên rõ nhất.',
                 good: [
-                    'Dễ gặp quý nhân đứng đầu nâng đỡ, cơ hội đứng ra nắm việc then chốt, tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.',
-                    'Có nhiều chuyến đi, di chuyển nhiều, chủ động lịch trình, đi xa có vai trò.'
+                    'Dễ gặp quý nhân đứng đầu nâng đỡ, cơ hội đứng ra nắm việc then chốt, tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.'
                 ],
                 warn: [
                     'Sức khỏe cha mẹ cần được quan tâm hơn: dễ va chạm nhẹ, cần cẩn thận khi đi lại (mức độ được giảm nhẹ nhờ chính tinh sáng).',
                     'Sức khỏe cha mẹ cần được quan tâm hơn: dễ căng thẳng, ngủ không sâu giấc.',
                     'Tâm trạng chùng xuống, hay buồn lo, việc dễ dang dở gây tiếc nuối, dễ có chuyện buồn phiền, lo toan liên quan đến gia đạo, người thân (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự.',
-                    'Có chuyến đi vì việc buồn.'
+                    'Dễ vướng thị phi, lời ra tiếng vào, phải tranh luận để bảo vệ danh dự.'
                 ],
                 advice: [
                     'Dành thời gian hỏi han, chăm lo cha mẹ, việc giấy tờ nên chuẩn bị sớm.',
-                    'Giữ liên lạc với các mối quan hệ, cơ hội dễ đến qua lời giới thiệu.',
-                    'Chủ động tìm gặp người có kinh nghiệm, vị thế để xin ý kiến, nhờ hỗ trợ.'
+                    'Thận trọng khi phân chia lợi ích, thỏa thuận tiền bạc, tránh nóng vội khi có tranh chấp.',
+                    'Giữ liên lạc với các mối quan hệ, cơ hội dễ đến qua lời giới thiệu.'
                 ]
             },
             {
                 n: 8, canChi: 'Kỷ Dậu', date: '01/09 – 29/09/2027', stars: 2, type: 'bad',
                 palace: 'Phúc Đức', palaceDesc: 'Liên quan đến tinh thần, phúc phần và họ hàng.',
                 dong: 'Chủ về đời sống tinh thần, gia đình, họ hàng và dòng họ.',
-                dongNote: 'Trong tháng, cung Phúc Đức không có sao lưu nhập cung nên ít phát sinh việc mới, chủ yếu giữ nhịp như cũ.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Tật Ách, báo hiệu tháng này chị cần chú ý nhiều hơn đến sức khỏe, bệnh tật, thể trạng, tinh thần và việc điều trị, chăm sóc sức khỏe.',
+                dongNote: 'Trong tháng, mặt này khá yên, ít có việc mới phát sinh.',
+                chuDong: 'Tháng này những việc về đời sống tinh thần, gia đình, họ hàng, dòng họ và nền nếp gia đình nổi lên rõ nhất.',
                 good: [
                     'Di chuyển, đi lại nhiều, bận rộn hơn, có dịp tạo thêm thành quả, tiếng nói và vai trò được nâng lên, dễ được tin tưởng giao việc quan trọng.',
-                    'Tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.',
-                    'Được người chăm sóc kịp thời.'
+                    'Tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.'
                 ],
                 warn: [
                     'Dễ có chuyện buồn phiền, lo toan liên quan đến gia đạo, người thân, tâm trạng chùng xuống, hay buồn lo, việc dễ dang dở gây tiếc nuối.',
-                    'Tâm trạng dễ nặng nề.',
                     'Cung Phúc Đức gặp Triệt, phần nào kìm bớt mặt xấu của các chính tinh hãm, nên những trở ngại thường không bộc phát mạnh.'
                 ],
                 advice: [
                     'Quan tâm đến gia đình, họ hàng, việc gì chưa rõ nên tìm hiểu kỹ trước khi đứng ra giải quyết.',
-                    'Tận dụng cơ hội làm ăn, nguồn thu mới nhưng vẫn tính toán kỹ trước khi xuống tiền.'
+                    'Tận dụng cơ hội làm ăn, nguồn thu mới nhưng vẫn tính toán kỹ trước khi xuống tiền.',
+                    'Sắp xếp lịch đi lại hợp lý, chuẩn bị kỹ trước các thay đổi.'
                 ]
             },
             {
                 n: 9, canChi: 'Canh Tuất', date: '30/09 – 28/10/2027', stars: 3, type: 'normal',
                 palace: 'Điền Trạch', palaceDesc: 'Liên quan đến nhà cửa, nơi ở và tài sản.',
                 dong: 'Chủ về nhà cửa, nơi ở, bất động sản và tài sản cố định.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Tài Bạch, báo hiệu tháng này chị cần chú ý nhiều hơn đến thu nhập, tiền bạc, tài sản, chi tiêu, tích lũy, đầu tư và kinh doanh.',
+                chuDong: 'Tháng này những việc về nhà cửa, nơi ở, bất động sản, tài sản cố định và môi trường sống, có sự biến động, thay đổi về nhà cửa, nơi ở nổi lên rõ nhất.',
                 good: [
-                    'Thủ tục, giấy tờ nhà đất được thuận.',
+                    'Giấy tờ nhà đất suôn sẻ.',
                     'Chủ đề thay đổi nơi ở, sửa chữa hoặc giao dịch tài sản có thể đáng chú ý hơn trong năm.',
                     'Tiếng nói và vai trò được nâng lên, dễ được tin tưởng giao việc quan trọng, dễ gặp quý nhân đứng đầu nâng đỡ, cơ hội đứng ra nắm việc then chốt.',
-                    'Tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến, dễ có người giúp đỡ, lời giới thiệu hoặc cơ hội qua các mối quan hệ.',
-                    'Tiền vào thuận, có thêm nguồn thu hoặc khoản lợi bất ngờ.'
+                    'Tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến, dễ có người giúp đỡ, lời giới thiệu hoặc cơ hội qua các mối quan hệ.'
                 ],
                 warn: [
                     'Giao dịch nhà đất kéo dài.',
@@ -647,25 +595,23 @@
                 ],
                 advice: [
                     'Việc nhà cửa, tài sản nên kiểm tra kỹ giấy tờ và tính toán chi phí trước khi quyết.',
-                    'Chủ động dự phòng thời gian cho công việc và lịch trình, tránh sắp xếp quá sát.'
+                    'Chủ động tìm gặp người có kinh nghiệm, vị thế để xin ý kiến, nhờ hỗ trợ.'
                 ]
             },
             {
                 n: 10, canChi: 'Tân Hợi', date: '29/10 – 27/11/2027', stars: 4, type: 'good',
                 palace: 'Quan Lộc', palaceDesc: 'Liên quan đến công việc, sự nghiệp và chức vụ.',
                 dong: 'Chủ về công việc, sự nghiệp, chức vụ và môi trường làm việc.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Tử Tức, báo hiệu tháng này chị cần chú ý nhiều hơn đến con cái, việc sinh con, sức khỏe và cuộc sống của con cái, quan hệ với con cái và thế hệ sau.',
+                chuDong: 'Tháng này những việc về công việc, sự nghiệp, chức vụ, vị trí, trách nhiệm và môi trường làm việc, có sự biến động, thay đổi công việc nổi lên rõ nhất.',
                 good: [
                     'Công việc ổn định, làm chắc, ít thay đổi.',
                     'Tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.',
-                    'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi.',
-                    'Con gặp thầy giỏi, người tốt nâng đỡ, con cái có tin vui, thành quả tốt.'
+                    'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi.'
                 ],
                 warn: [
                     'Dễ có tranh luận, thị phi nơi làm việc (mức độ được giảm nhẹ nhờ chính tinh sáng).',
                     'Dễ có sóng gió, áp lực hoặc việc bất ngờ phát sinh phải xử lý gấp (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Tâm trạng chùng xuống, hay buồn lo, việc dễ dang dở gây tiếc nuối, dễ hao hụt tài lực, hứa hẹn suông hoặc cảm giác hụt hẫng.',
-                    'Con dễ buồn, nhạy cảm (mức độ được giảm nhẹ nhờ chính tinh sáng).'
+                    'Tâm trạng chùng xuống, hay buồn lo, việc dễ dang dở gây tiếc nuối, dễ hao hụt tài lực, hứa hẹn suông hoặc cảm giác hụt hẫng.'
                 ],
                 advice: [
                     'Làm chắc việc được giao, giữ quan hệ tốt với cấp trên và đồng nghiệp.',
@@ -676,7 +622,7 @@
                 n: 11, canChi: 'Nhâm Tý', date: '28/11 – 27/12/2027', stars: 3, type: 'normal',
                 palace: 'Nô Bộc', palaceDesc: 'Liên quan đến bạn bè, đồng nghiệp và đối tác.',
                 dong: 'Chủ về bạn bè, đồng nghiệp, đối tác và các mối quan hệ xã hội.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Phu Thê, báo hiệu tháng này chị cần chú ý nhiều hơn đến tình yêu, người yêu, hôn nhân, vợ chồng và đời sống tình cảm như lập gia đình, kết hôn, có người yêu.',
+                chuDong: 'Tháng này những việc về bạn bè, đồng nghiệp, đối tác, khách hàng, người hỗ trợ và các mối quan hệ xã hội nổi lên rõ nhất.',
                 good: [
                     'Được bạn bè giới thiệu cơ hội.',
                     'Dễ gặp quý nhân đứng đầu nâng đỡ, cơ hội đứng ra nắm việc then chốt, tiền bạc, cơ hội làm ăn và những khoản lợi bất ngờ dễ tìm đến.',
@@ -687,8 +633,7 @@
                     'Dễ cạnh tranh, bất hòa với đồng nghiệp, đối tác.',
                     'Tâm trạng chùng xuống, hay buồn lo, việc dễ dang dở gây tiếc nuối, dễ hao hụt tài lực, hứa hẹn suông hoặc cảm giác hụt hẫng (mức độ được giảm nhẹ nhờ chính tinh sáng).',
                     'Dễ có sóng gió, áp lực hoặc việc bất ngờ phát sinh phải xử lý gấp (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Dễ vướng hiểu lầm, việc trì trệ hoặc phải lo nghĩ nhiều hơn thường lệ, việc dễ chậm, dây dưa, phải làm đi làm lại mới xong.',
-                    'Dễ tủi thân, nhạy cảm, dễ thấy trống trải, lời hứa khó giữ.'
+                    'Dễ vướng hiểu lầm, việc trì trệ hoặc phải lo nghĩ nhiều hơn thường lệ, việc dễ chậm, dây dưa, phải làm đi làm lại mới xong.'
                 ],
                 advice: [
                     'Chọn lọc các mối quan hệ, rõ ràng trong hợp tác và chuyện tiền bạc với người ngoài.',
@@ -699,19 +644,16 @@
                 n: 12, canChi: 'Quý Sửu', date: '28/12/2027 – 25/01/2028', stars: 1, type: 'bad',
                 palace: 'Thiên Di', palaceDesc: 'Liên quan đến môi trường bên ngoài, đi lại và xã hội.',
                 dong: 'Chủ về đi lại, môi trường bên ngoài và giao tiếp xã hội.',
-                chuDong: 'Lưu Thái Tuế tháng nhập cung Huynh Đệ, báo hiệu tháng này chị cần chú ý nhiều hơn đến anh chị em, quan hệ giữa anh chị em, sự hỗ trợ và những việc phát sinh giữa người thân ngang hàng.',
+                chuDong: 'Tháng này những việc về việc đi lại, ra ngoài, môi trường bên ngoài, giao tiếp và các mối quan hệ xã hội nổi lên rõ nhất.',
                 good: [
                     'Có nhiều chuyến đi, di chuyển nhiều, chủ động lịch trình, đi xa có vai trò.',
                     'Uy tín, danh tiếng được ghi nhận, giấy tờ, thi cử, học hành thuận lợi.',
-                    'Biết giữ của, tích lũy dần dần, mọi việc chắc chắn nhưng có phần khép kín.',
-                    'Có người trong anh chị em đứng ra lo việc chung, được anh chị em có vị thế hỗ trợ.'
+                    'Biết giữ của, tích lũy dần dần, mọi việc chắc chắn nhưng có phần khép kín.'
                 ],
                 warn: [
                     'Có chuyến đi vì việc buồn.',
                     'Tâm trạng chùng xuống, hay buồn lo, việc dễ dang dở gây tiếc nuối, dễ hao hụt tài lực, hứa hẹn suông hoặc cảm giác hụt hẫng.',
-                    'Dễ có sóng gió, áp lực hoặc việc bất ngờ phát sinh phải xử lý gấp (mức độ được giảm nhẹ nhờ chính tinh sáng).',
-                    'Dễ hao tốn vì anh chị em.',
-                    'Anh chị em dễ hiểu lầm nhau, việc chung với anh chị em chậm, kéo dài.'
+                    'Dễ có sóng gió, áp lực hoặc việc bất ngờ phát sinh phải xử lý gấp (mức độ được giảm nhẹ nhờ chính tinh sáng).'
                 ],
                 advice: [
                     'Chuẩn bị kỹ trước khi đi xa, giữ chừng mực trong giao tiếp bên ngoài.',
@@ -752,16 +694,16 @@
             return s;
         }
 
-        const listHTML = items => items.map(t => `<li>${t}</li>`).join('');
+        const listHTML = items => items.map(t => `<li class="text-body-md-regular">${t}</li>`).join('');
 
         function renderPills() {
             const wrap = document.getElementById('months');
             wrap.innerHTML = MONTHS.map(m => `
-                <div class="m-pill ${m.n === current ? 'active' : ''}" onclick="selectMonth(${m.n})">
-                    ${m.n === CURRENT_MONTH ? '<span class="now-dot">Hiện tại</span>' : ''}
-                    <span class="lbl">Tháng</span>
-                    <span class="num">${m.n}</span>
-                    <span class="stars">${starsHTML(m.stars, m.n === current ? 9 : 8)}</span>
+                <div class="new-vanhan-month-pill ${m.n === current ? 'active' : ''}" data-component="new/VanHanMonthPill" onclick="selectMonth(${m.n})">
+                    ${m.n === CURRENT_MONTH ? '<span class="now-dot text-micro-badge">Hiện tại</span>' : ''}
+                    <span class="lbl ${m.n === current ? 'text-body-sm-tight-semibold' : 'text-footnote-semibold'}">Tháng</span>
+                    <span class="num ${m.n === current ? 'text-heading-section' : 'text-heading-card'}">${m.n}</span>
+                    <span class="new-vanhan-stars" data-component="new/VanHanStarRating">${starsHTML(m.stars, m.n === current ? 9 : 8)}</span>
                 </div>`).join('');
             const active = wrap.querySelector('.active');
             wrap.scrollLeft = active.offsetLeft - wrap.offsetLeft - (wrap.clientWidth - active.offsetWidth) / 2;
@@ -772,12 +714,12 @@
             renderPills();
 
             document.getElementById('hBadges').innerHTML =
-                m.n === CURRENT_MONTH ? '<span class="badge now">Tháng hiện tại</span>' : '';
+                m.n === CURRENT_MONTH ? '<span class="new-vanhan-status-badge now text-badge" data-component="new/VanHanStatusBadge">Tháng hiện tại</span>' : '';
             document.getElementById('hTitle').textContent = `Tháng ${m.n} âm lịch`;
             document.getElementById('hCanChi').textContent = m.canChi;
             document.getElementById('hDate').textContent = `${m.date} dương lịch`;
             document.getElementById('hRating').innerHTML =
-                `<span class="stars">${starsHTML(m.stars, 18)}</span><span class="rt-${m.type}">${RATING[m.stars]}</span>`;
+                `<span class="new-vanhan-stars" data-component="new/VanHanStarRating">${starsHTML(m.stars, 18)}</span><span class="level-${m.type}">${RATING[m.stars]}</span>`;
             document.getElementById('hPalace').textContent = m.palace;
             document.getElementById('hDong').textContent = m.dong;
             const ic = document.getElementById('hPalaceIc');
