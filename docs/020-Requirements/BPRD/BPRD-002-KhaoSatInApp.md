@@ -5,9 +5,9 @@ status: draft
 project: Lich_Viet
 owner: "@product-team"
 tags: [khao-sat, in-app-survey, feedback, user-research, platform]
-linked-to: [[Requirements-MOC]]
+linked-to: [[Requirements-MOC]], [[Story-GopY]]
 created: 2026-09-16
-updated: 2026-10-01
+updated: 2026-10-13
 ---
 # BPRD: Khảo Sát Người Dùng Trong App (In-app Survey)
 
@@ -17,7 +17,7 @@ updated: 2026-10-01
 | ------------------- | -------------------------------------------------- |
 | Tên dự án        | Khảo sát người dùng trong app (In-app Survey) |
 | Người phụ trách | Đỗ Thị Hường                                  |
-| Phiên bản         | v1.4                                               |
+| Phiên bản         | v1.5                                               |
 | Trạng thái        | Đang cập nhật                                   |
 
 ## Nhật ký thay đổi
@@ -29,6 +29,7 @@ updated: 2026-10-01
 | 2026-09-18       | v1.2        | Đỗ Thị Hường   | Bổ sung điều kiện 9: khoảng cách tối thiểu giữa 2 khảo sát của cùng một tính năng                                                                                                  |
 | 2026-10-01       | v1.3        | Đỗ Thị Hường   | Bổ sung hình thức khảo sát Inline ở cuối màn kết quả thuộc dạng Entry (cố định/cuộn cuối màn kết quả kèm nút đánh giá nhanh)                                              |
 | 2026-10-01       | v1.4        | Đỗ Thị Hường   | Quy chuẩn nguyên tắc gửi dữ liệu thời gian thực cho tất cả popup khảo sát: cứ trả lời/chọn xong câu nào là ghi nhận ngay câu đó về hệ thống, không chờ trả lời xong hết mới gửi |
+| 2026-10-13       | v1.5        | Đỗ Thị Hường   | Bổ sung màn Góp ý (sidebar) vào phạm vi lưu trữ phản hồi dùng chung, liên kết tới [[Story-GopY]] |
 
 ---
 
@@ -70,6 +71,7 @@ updated: 2026-10-01
 * Bộ dạng câu hỏi chuẩn: chọn 1, chọn nhiều, thang điểm (sao/1–5/1–10), câu hỏi mở.
 * Cấu hình chiến dịch qua remote config: bật/tắt, đối tượng, thời gian chạy, cỡ mẫu.
 * Lưu trữ phản hồi và tracking sự kiện phục vụ báo cáo.
+* Lưu trữ góp ý từ màn **Góp ý với Lịch Việt** (mở từ sidebar). Màn này dùng chung hệ thống lưu phản hồi của khảo sát, không áp dụng luật hiển thị và cấu hình chiến dịch của tài liệu này. Chi tiết xem [[Story-GopY]].
 
 **Ngoài phạm vi (Out-of-scope):**
 

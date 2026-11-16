@@ -18,5 +18,5 @@ created: 2026-04-16
 - [[Spec-DesignBrief-KichHoatNangLuong-Result]] - Yêu cầu thiết kế Figma cho màn hình Kết quả Luận giải Bát tự.
 
 ## Tài sản & Hệ thống
-- [[Design-System]] - Token nền tảng (Typography, Màu sắc, Chuyển động).
+- [[Design-System]] - Token và component chung (đồng bộ từ Figma), quy ước đặt tên, liên kết tới bộ code demo `prototype/design-system/`.
 - [[Wireframes]] (Sắp có)

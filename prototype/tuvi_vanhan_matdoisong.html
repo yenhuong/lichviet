@@ -6,51 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Các mặt trong đời sống - Lịch Việt</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="design-system/components.css">
     <style>
-        /* Tokens: values from docs/040-Design/Design-System/Design-System.md.
-           Feature exceptions (Tử vi vận hạn tone): --green-dark, --orange*, tinted bg/lines. */
-        :root {
-            /* Design System */
-            --green: #009E64;          /* color/status/success */
-            --blue: #007AFF;           /* color/primary */
-            --danger: #FF3333;         /* color/status/danger */
-            --text: #111111;           /* color/text/primary */
-            --text-body: #333333;      /* color/text/body */
-            --text-2: #666666;         /* color/text/secondary */
-            --text-3: #8F9AA9;         /* color/text/tertiary */
-            --border: #E6E6E6;         /* color/border/card */
-            --divider: #EBEBEB;        /* color/border/divider */
-            --bg-subtle: #FBFBFB;      /* color/bg/subtle */
-            --bg-muted: #E9ECF1;       /* color/bg/muted */
-            --green-chip: #D7F5EA;     /* color/chip/success-bg */
-            --green-line: #C2EADB;     /* color/chip/success-border */
-            --danger-bg: #FFEBEB;      /* color/calendar/sunday-bg */
-            --tint-bg: #F6FEFF;        /* color/bg/horoscope */
-            --tint-line: #D0E3E6;      /* color/border/horoscope */
-            /* Feature exceptions (propose to designer) */
-            --green-dark: #00804F;
-            --green-bg: #EEF9F3;
-            --orange: #D9822B;
-            --orange-bg: #FFF6EC;
-            --orange-line: #F3DDB5;
-            --danger-line: #F6CFCF;
-            --blue-bg: #E3EFFF;
-        }
+        /* Screen CSS: tokens only (design-system/tokens.css). Raw values left on purpose:
+           phone mockup chrome, sizes (width/height), absolute positions and inline artwork. */
 
         * { box-sizing: border-box; }
 
         body {
+            /* Page backdrop outside the phone (mockup chrome) */
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: -apple-system, "SF Pro Display", "SF UI Display", "Inter", sans-serif;
-            color: var(--text);
+            font-family: var(--font-family);
+            color: var(--color-text-primary);
         }
 
-        /* Phone mockup (same frame as tuvi_vanhan_ketqua.html) */
+        /* Phone mockup (chrome, same frame as tuvi_vanhan_ketqua.html) */
         .phone-mockup {
             width: 414px;
             height: 896px;
@@ -63,8 +38,8 @@
         .screen {
             width: 100%;
             height: 100%;
-            background: #fff;
-            border-radius: 44px;
+            background: var(--color-bg-surface);
+            border-radius: 44px; /* phone chrome */
             overflow: hidden;
             position: relative;
             display: flex;
@@ -74,13 +49,13 @@
         .scroll { flex: 1; overflow-y: auto; scrollbar-width: none; }
         .scroll::-webkit-scrollbar { display: none; }
 
-        /* Top bar (feature gradient) */
-        .topbar {
+        /* new/VanHanNavBar */
+        .new-vanhan-navbar {
             height: 97px;
             flex-shrink: 0;
             position: relative;
-            background: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
-            color: #fff;
+            background: var(--gradient-vanhan-navbar);
+            color: var(--color-text-on-primary);
         }
 
         .status-bar {
@@ -88,23 +63,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 22px 0 32px;
-            font-size: 14px;
-            font-weight: 500;
+            padding: 0 var(--space-22) 0 var(--space-32);
         }
 
-        .status-icons { display: flex; gap: 4px; align-items: center; }
+        .status-icons { display: flex; gap: var(--space-4); align-items: center; }
 
-        /* title/sm 18/26 Semibold */
         .topbar-title {
             position: absolute;
             left: 0;
             right: 0;
             top: 58px;
             text-align: center;
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 26px;
         }
 
         .btn-back {
@@ -120,152 +89,161 @@
             z-index: 2;  /* keep above the full-width title, which otherwise swallows the tap */
         }
 
-        /* Aspect tabs */
-        .tabs {
+        /* new/VanHanAspectTabs: horizontal scroller of new/VanHanAspectTab (Default | Active) */
+        .new-vanhan-aspect-tabs {
             flex-shrink: 0;
             display: flex;
-            gap: 8px;
-            padding: 12px;
+            gap: var(--space-8);
+            padding: var(--space-12);
             overflow-x: auto;
             scrollbar-width: none;
-            background: var(--tint-bg);
-            border-bottom: 1px solid var(--tint-line);
+            background: var(--color-vanhan-profile-bg);
+            border-bottom: 1px solid var(--color-vanhan-profile-border);
         }
 
-        .tabs::-webkit-scrollbar { display: none; }
+        .new-vanhan-aspect-tabs::-webkit-scrollbar { display: none; }
 
-        .tab {
+        .new-vanhan-aspect-tab {
             flex-shrink: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: var(--space-10);
             height: 56px;
-            padding: 0 16px 0 12px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            padding: 0 var(--space-16) 0 var(--space-12);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-card);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-vanhan-tab);
             cursor: pointer;
         }
 
-        .tab.active { background: var(--green-bg); border-color: var(--green); }
+        .new-vanhan-aspect-tab.active { background: var(--color-vanhan-bg); border-color: var(--color-vanhan-primary); }
 
         .tab-ic { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
         .tab-ic img { max-width: 26px; max-height: 26px; }
         .tab-txt { display: flex; flex-direction: column; }
-        .tab-name { font-size: 16px; font-weight: 600; line-height: 20px; color: var(--text); white-space: nowrap; }  /* body/md-semibold, tight */
-        .tab.active .tab-name { color: var(--green); }
-        .tab-sub { font-size: 14px; line-height: 18px; color: var(--text-2); white-space: nowrap; }  /* body/sm-tight */
+        .tab-name { color: var(--color-text-primary); white-space: nowrap; }
+        .new-vanhan-aspect-tab.active .tab-name { color: var(--color-vanhan-primary); }
+        .tab-sub { color: var(--color-text-secondary); white-space: nowrap; }
 
-        .lv-good { color: var(--green); }
-        .lv-mid { color: var(--blue); }
-        .lv-warn, .lv-bad { color: var(--danger); }
+        /* Rating level text colors (this screen's palette, see hand-off notes) */
+        .level-good { color: var(--color-vanhan-primary); }
+        .level-mid { color: var(--color-primary); }
+        .level-warn { color: var(--color-status-danger); }
 
-        /* Hero */
-        .hero {
+        /* new/VanHanAspectHero */
+        .new-vanhan-aspect-hero {
             position: relative;
             overflow: hidden;
-            margin: 16px 12px 0;
-            padding: 18px 16px;
-            background: linear-gradient(135deg, var(--green-bg) 0%, var(--green-chip) 100%);
-            border: 1px solid var(--green-line);
-            border-radius: 16px;
+            margin: var(--space-16) var(--space-12) 0;
+            padding: var(--space-18) var(--space-16);
+            background: var(--gradient-vanhan-hero);
+            border: 1px solid var(--color-chip-success-border);
+            border-radius: var(--radius-lg);
         }
 
         .hero-art { position: absolute; right: 0; bottom: 0; width: 96px; height: 70px; pointer-events: none; }
-        .hero > *:not(.hero-art) { position: relative; z-index: 1; }
-        .hero-label { font-size: 16px; font-weight: 600; line-height: 24px; color: var(--green-dark); }  /* body/md-semibold */
-        .hero-title { margin-top: 8px; padding-right: 48px; font-size: 20px; font-weight: 700; line-height: 28px; color: var(--green-dark); text-transform: uppercase; }  /* title/md-bold */
-        .hero-rating { margin-top: 10px; display: flex; align-items: center; gap: 10px; }
-        .lv-pill { height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; line-height: 20px; }  /* body/sm-semibold */
-        .lv-pill.lv-good { background: var(--green-chip); }
-        .lv-pill.lv-mid { background: var(--blue-bg); }
-        .lv-pill.lv-warn, .lv-pill.lv-bad { background: var(--danger-bg); }
-        .stars { display: inline-flex; gap: 4px; align-items: center; }
+        .new-vanhan-aspect-hero > *:not(.hero-art) { position: relative; z-index: 1; }
+        .hero-label { color: var(--color-vanhan-accent); }
+        .hero-title { margin-top: var(--space-8); padding-right: 48px; /* keep clear of the artwork */ color: var(--color-vanhan-accent); text-transform: uppercase; }
+        .hero-rating { margin-top: var(--space-10); display: flex; align-items: center; gap: var(--space-10); }
+
+        /* new/VanHanLevelPill (good | mid | normal | bad) */
+        .new-vanhan-level-pill { height: 28px; padding: 0 var(--space-12); border-radius: var(--radius-full); display: inline-flex; align-items: center; }
+        .new-vanhan-level-pill.good { background: var(--color-chip-success-bg); color: var(--color-vanhan-primary); }
+        .new-vanhan-level-pill.mid { background: var(--color-vanhan-info-bg); color: var(--color-primary); }
+        .new-vanhan-level-pill.normal { background: var(--color-vanhan-caution-bg); color: var(--color-vanhan-caution); }
+        .new-vanhan-level-pill.bad { background: var(--color-vanhan-danger-bg); color: var(--color-status-danger); }
+
+        /* new/VanHanStarRating */
+        .new-vanhan-stars { display: inline-flex; gap: var(--space-4); align-items: center; }
+        .new-vanhan-stars img { display: block; }
 
         /* Sections */
-        .sec { padding: 20px 16px 0; }
-        .sec + .sec { margin-top: 20px; border-top: 1px solid var(--divider); }
-        .sec-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; line-height: 28px; color: var(--text); margin-bottom: 12px; }  /* title/md */
-        .sec-ic { width: 32px; height: 32px; border-radius: 999px; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .p { font-size: 16px; line-height: 24px; color: var(--text-body); margin: 0; }  /* body/md-regular */
+        .sec { padding: var(--space-20) var(--space-16) 0; }
+        .sec + .sec { margin-top: var(--space-20); border-top: 1px solid var(--color-border-divider); }
+        .sec + .sec.sec-flush { margin-top: 0; border-top: none; }
 
-        /* 3-year trend: read-only strip, current year tinted */
-        .trend { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-bottom: 12px; padding: 4px; background: var(--bg-subtle); border: 1px solid var(--divider); border-radius: 16px; }
-        .tr-col { padding: 10px 8px; text-align: center; border-radius: 12px; }
-        .tr-col.now { background: var(--green-bg); }
-        .tr-cap { font-size: 14px; line-height: 20px; color: var(--text-3); margin-bottom: 2px; }  /* body/sm-regular */
-        .tr-col.now .tr-cap { color: var(--green); font-weight: 600; }
-        .tr-year { font-size: 16px; font-weight: 600; line-height: 24px; color: #555555; }  /* body/md-semibold */
-        .tr-col.now .tr-year { color: var(--green); }
-        .tr-col .stars { margin-top: 4px; }
-        .tr-lbl { margin-top: 4px; font-size: 14px; font-weight: 600; line-height: 20px; }  /* body/sm-semibold */
-        .tr-verdict { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px 0 12px; margin: 0 0 12px; border-radius: 999px; font-size: 16px; font-weight: 600; line-height: 24px; }
-        .tr-verdict svg { flex-shrink: 0; }
-        .tr-verdict.up { background: var(--green-chip); color: var(--green); }
-        .tr-verdict.same { background: var(--blue-bg); color: var(--blue); }
-        .tr-verdict.down { background: var(--danger-bg); color: var(--danger); }
-        .next-yr { margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--divider); }
-        .next-yr-t { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; line-height: 24px; color: var(--text); margin-bottom: 4px; }
-        .next-yr-t svg { width: 16px; height: 16px; color: var(--green); }
+        /* new/VanHanSectionTitle */
+        .new-vanhan-section-title { display: flex; align-items: center; gap: var(--space-10); color: var(--color-text-primary); margin-bottom: var(--space-12); }
+        .sec-ic { width: 32px; height: 32px; border-radius: var(--radius-full); background: var(--color-vanhan-primary); color: var(--color-text-on-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .p { color: var(--color-text-body); margin: 0; }
+
+        /* new/VanHanTrendStrip: 3 read-only new/VanHanTrendYear cells, current year tinted */
+        .new-vanhan-trend-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-12); padding: var(--space-4); background: var(--color-bg-subtle); border: 1px solid var(--color-border-divider); border-radius: var(--radius-lg); }
+        .new-vanhan-trend-year { padding: var(--space-10) var(--space-8); text-align: center; border-radius: var(--radius-sm); }
+        .new-vanhan-trend-year.now { background: var(--color-vanhan-bg); }
+        .tr-cap { color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
+        .new-vanhan-trend-year.now .tr-cap { color: var(--color-vanhan-primary); }
+        .tr-year { color: var(--color-vanhan-text-muted); }
+        .new-vanhan-trend-year.now .tr-year { color: var(--color-vanhan-primary); }
+        .new-vanhan-trend-year .new-vanhan-stars { margin-top: var(--space-4); }
+        .tr-lbl { margin-top: var(--space-4); }
+
+        /* new/VanHanTrendVerdict (up | same | down) */
+        .new-vanhan-trend-verdict { display: inline-flex; align-items: center; gap: var(--space-8); height: 32px; padding: 0 var(--space-16) 0 var(--space-12); margin: 0 0 var(--space-12); border-radius: var(--radius-full); }
+        .new-vanhan-trend-verdict svg { flex-shrink: 0; }
+        .new-vanhan-trend-verdict.up { background: var(--color-chip-success-bg); color: var(--color-vanhan-primary); }
+        .new-vanhan-trend-verdict.same { background: var(--color-vanhan-info-bg); color: var(--color-primary); }
+        .new-vanhan-trend-verdict.down { background: var(--color-vanhan-danger-bg); color: var(--color-status-danger); }
+        .next-yr { margin-top: var(--space-16); padding-top: var(--space-12); border-top: 1px dashed var(--color-border-divider); }
+        .next-yr-t { display: flex; align-items: center; gap: var(--space-8); color: var(--color-text-primary); margin-bottom: var(--space-4); }
+        .next-yr-t svg { width: 16px; height: 16px; color: var(--color-vanhan-primary); }
 
         /* Good / caution lists */
-        .h3 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; line-height: 24px; margin: 16px 0 8px; }  /* body/md-semibold */
-        .h3.good { color: var(--green); }
-        .h3.warn { color: var(--orange); }
-        .list { margin: 0; padding-left: 20px; }
-        .list li { font-size: 16px; line-height: 24px; color: var(--text-body); }
-        .list li + li { margin-top: 4px; }
-        .list li::marker { color: var(--green); }
+        .h3 { display: flex; align-items: center; gap: var(--space-8); margin: var(--space-16) 0 var(--space-8); }
+        .h3.good { color: var(--color-vanhan-primary); }
+        .h3.warn { color: var(--color-vanhan-caution); }
+        .list { margin: 0; padding-left: var(--space-20); }
+        .list li { color: var(--color-text-body); }
+        .list li + li { margin-top: var(--space-4); }
+        .list li::marker { color: var(--color-vanhan-primary); }
 
-        /* Advice card */
-        .sub-h { font-size: 16px; font-weight: 600; line-height: 24px; color: var(--text); margin-bottom: 8px; }  /* body/md-semibold */
-        .sub-h ~ .sub-h { margin-top: 16px; }
-        .adv { background: var(--green-bg); border: 1px solid var(--green-line); border-radius: 12px; padding: 12px 16px; }
-        .adv-t { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--text); }  /* title/sm */
-        .adv-d { font-size: 16px; line-height: 24px; color: var(--text); }
-        .adv-t + .adv-d { margin-top: 8px; }
+        /* new/VanHanAdviceCard */
+        .sub-h { color: var(--color-text-primary); margin-bottom: var(--space-8); }
+        .sub-h ~ .sub-h { margin-top: var(--space-16); }
+        .new-vanhan-advice-card { background: var(--color-vanhan-bg); border: 1px solid var(--color-chip-success-border); border-radius: var(--radius-sm); padding: var(--space-12) var(--space-16); }
+        .adv-t { color: var(--color-text-primary); }
+        .adv-d { color: var(--color-text-primary); }
+        .adv-t + .adv-d { margin-top: var(--space-8); }
 
-        /* Timing tile */
-        .when { display: flex; flex-direction: column; gap: 8px; }
-        /* Same surface for every month; month type shown only by the tag */
-        .wt { padding: 12px 16px; border-radius: 12px; border: 1px solid var(--green-line); background: var(--green-bg); cursor: pointer; }
-        .wt:active { background: var(--green-chip); }
-        .wt-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-        .wt-m { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--orange); }  /* title/sm */
-        .wt-tag { flex-shrink: 0; height: 28px; padding: 0 12px; border-radius: 999px; display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; line-height: 20px; }  /* body/sm-semibold */
-        .wt-tag.good { background: var(--green-chip); color: var(--green); }
-        .wt-tag.normal { background: var(--orange-bg); color: var(--orange); }
-        .wt-tag.bad { background: var(--danger-bg); color: var(--danger); }
-        .wt-s { margin-top: 2px; font-size: 16px; line-height: 24px; color: var(--text-2); }
-        .wt-n { margin-top: 8px; font-size: 16px; line-height: 24px; color: var(--text-body); }
-        .wt-link { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--divider); display: flex; align-items: center; justify-content: space-between; font-size: 16px; font-weight: 600; line-height: 24px; color: var(--green-dark); text-decoration: none; cursor: pointer; }
+        /* new/VanHanMonthTile: same surface for every month; month type shown only by the level pill */
+        .when { display: flex; flex-direction: column; gap: var(--space-8); }
+        .new-vanhan-month-tile { padding: var(--space-12) var(--space-16); border-radius: var(--radius-sm); border: 1px solid var(--color-chip-success-border); background: var(--color-vanhan-bg); cursor: pointer; }
+        .new-vanhan-month-tile:active { background: var(--color-chip-success-bg); }
+        .wt-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); }
+        .wt-m { color: var(--color-vanhan-caution); }
+        .wt-head .new-vanhan-level-pill { flex-shrink: 0; }
+        .wt-s { margin-top: var(--space-2); color: var(--color-text-secondary); }
+        .wt-n { margin-top: var(--space-8); color: var(--color-text-body); }
+        .wt-link { margin-top: var(--space-16); padding-top: var(--space-12); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; justify-content: space-between; color: var(--color-vanhan-accent); text-decoration: none; cursor: pointer; }
 
-        /* Q&A accordion */
-        .qa { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .qa-item + .qa-item { border-top: 1px solid var(--border); }
-        .qa-q { display: flex; align-items: center; gap: 10px; padding: 12px 16px; font-size: 16px; font-weight: 600; line-height: 24px; cursor: pointer; }
+        /* new/VanHanAccordion of new/VanHanAccordionItem (Closed | Open) */
+        .new-vanhan-accordion { border: 1px solid var(--color-border-card); border-radius: var(--radius-sm); overflow: hidden; }
+        .new-vanhan-accordion-item + .new-vanhan-accordion-item { border-top: 1px solid var(--color-border-card); }
+        .qa-q { display: flex; align-items: center; gap: var(--space-10); padding: var(--space-12) var(--space-16); cursor: pointer; }
         .qa-q span { flex: 1; }
-        .qa-q svg { transition: transform .2s; flex-shrink: 0; }
-        .qa-item.open .qa-q svg { transform: rotate(180deg); }
-        .qa-a { display: none; padding: 0 16px 12px; font-size: 16px; line-height: 24px; color: var(--text-body); }
-        .qa-item.open .qa-a { display: block; }
+        .qa-q svg { transition: transform .2s; flex-shrink: 0; color: var(--color-vanhan-text-caption); }
+        .new-vanhan-accordion-item.open .qa-q svg { transform: rotate(180deg); }
+        .qa-a { display: none; padding: 0 var(--space-16) var(--space-12); color: var(--color-text-body); }
+        .new-vanhan-accordion-item.open .qa-a { display: block; }
 
-        /* "Other" tab */
-        .notice { display: flex; gap: 10px; align-items: flex-start; background: var(--green-bg); border: 1px solid var(--green-line); border-radius: 12px; padding: 12px 16px; font-size: 16px; line-height: 24px; }
-        .palace { border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-        .palace + .palace { margin-top: 12px; }
-        .palace-name { font-size: 18px; font-weight: 600; line-height: 26px; color: var(--text); }  /* title/sm */
-        .palace-sub { font-size: 16px; line-height: 24px; color: var(--text-2); margin-top: 2px; }
-        .palace .p { margin-top: 10px; }
-        .palace .h3 { margin-top: 12px; }
+        /* "Other" tab: new/VanHanNotice + new/VanHanPalaceCard */
+        .new-vanhan-notice { display: flex; gap: var(--space-10); align-items: flex-start; background: var(--color-vanhan-bg); border: 1px solid var(--color-chip-success-border); border-radius: var(--radius-sm); padding: var(--space-12) var(--space-16); }
+        .new-vanhan-palace-card { border: 1px solid var(--color-border-card); border-radius: var(--radius-sm); padding: var(--space-16); }
+        .new-vanhan-palace-card + .new-vanhan-palace-card { margin-top: var(--space-12); }
+        .palace-name { color: var(--color-text-primary); }
+        .palace-sub { color: var(--color-text-secondary); margin-top: var(--space-2); }
+        .new-vanhan-palace-card .p { margin-top: var(--space-10); }
+        .new-vanhan-palace-card .h3 { margin-top: var(--space-12); }
 
-        /* Explore more (same as result screen) */
-        .kp-band { margin-top: 32px; height: 8px; background: var(--bg-muted); }
-        .kp-title { font-size: 24px; font-weight: 600; line-height: 24px; margin: 20px 12px 18px; }  /* heading/section */
-        .kp-card { margin: 0 12px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 16px; padding: 16px 0; }
-        .kp-item { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; font-size: 14px; font-weight: 500; line-height: 21px; color: #272727; cursor: pointer; }  /* label/sm-medium */
-        .kp-item img { width: 52px; height: 52px; display: block; }
+        /* Explore more: new/VanHanSectionBand + Section Header + Card wrapping new/VanHanExploreGrid */
+        .new-vanhan-section-band { margin-top: var(--space-32); height: 8px; background: var(--color-bg-muted); }
+        .section-title { margin: var(--space-20) var(--space-12) var(--space-18); color: var(--color-text-primary); }
+        .explore-card { margin: 0 var(--space-12); }
+        .new-vanhan-explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); row-gap: var(--space-16); padding: var(--space-16) 0; }
+        .new-vanhan-explore-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-12); text-align: center; color: var(--color-text-label); cursor: pointer; }
+        .new-vanhan-explore-item img { width: 52px; height: 52px; display: block; }
 
         .bottom-space { height: 32px; }
     </style>
@@ -274,34 +252,36 @@
 <body>
     <div class="phone-mockup">
         <div class="screen">
-            <div class="topbar">
-                <div class="status-bar">
+            <div class="new-vanhan-navbar" data-component="new/VanHanNavBar">
+                <div class="status-bar text-status-time">
                     <span>9:41</span>
                     <span class="status-icons">
-                        <svg width="17" height="11" viewBox="0 0 17 11" fill="#fff"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
-                        <svg width="15" height="11" viewBox="0 0 15 11" fill="#fff"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
-                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="#fff" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="#fff"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="#fff" fill-opacity=".4"/></svg>
+                        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+                        <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="currentColor"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="currentColor" fill-opacity=".4"/></svg>
                     </span>
                 </div>
                 <div class="btn-back" onclick="goBack()"><img src="assets/vanhan_v3/btn_back.svg" width="12.5" height="21" alt="Quay lại"></div>
-                <div class="topbar-title">Các mặt trong đời sống</div>
+                <div class="topbar-title text-title-sm">Các mặt trong đời sống</div>
             </div>
 
-            <div class="tabs" id="tabs"></div>
+            <div class="new-vanhan-aspect-tabs" data-component="new/VanHanAspectTabs" id="tabs"></div>
 
             <div class="scroll" id="scroll">
                 <div id="content"></div>
 
                 <!-- Explore more: same block as tuvi_vanhan_ketqua.html -->
-                <div class="kp-band"></div>
-                <div class="kp-title">Khám phá thêm</div>
-                <div class="kp-card">
-                    <div class="kp-item" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
-                    <div class="kp-item" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
-                    <div class="kp-item" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
-                    <div class="kp-item" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
-                    <div class="kp-item" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
-                    <div class="kp-item"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                <div class="new-vanhan-section-band" data-component="new/VanHanSectionBand"></div>
+                <div class="lv-home-section-title section-title" data-component="Section Header">Khám phá thêm</div>
+                <div class="lv-card explore-card" data-component="Card">
+                    <div class="new-vanhan-explore-grid" data-component="new/VanHanExploreGrid">
+                        <div class="new-vanhan-explore-item text-label-sm-medium" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_vanhan.html'"><img src="assets/vanhan_v3/kp_vanhan.png" alt="">Vận Hạn<br>Năm 2027</div>
+                        <div class="new-vanhan-explore-item text-label-sm-medium" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_tongquan.html'"><img src="assets/vanhan_v3/kp_tongquan.png" alt="">Tử Vi<br>Tổng Quan</div>
+                        <div class="new-vanhan-explore-item text-label-sm-medium" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_taichinh.html'"><img src="assets/vanhan_v3/kp_taichinh.png" alt="">Tài Chính<br>&amp; Đầu Tư</div>
+                        <div class="new-vanhan-explore-item text-label-sm-medium" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_nghenghiep.html'"><img src="assets/vanhan_v3/kp_nghenghiep.png" alt="">Nghề Nghiệp &amp;<br>Sự Nghiệp</div>
+                        <div class="new-vanhan-explore-item text-label-sm-medium" data-component="new/VanHanExploreItem" onclick="window.location.href='tuvi_tinhduyen.html'"><img src="assets/vanhan_v3/kp_tinhduyen.png" alt="">Tư Vấn<br>Tình Duyên</div>
+                        <div class="new-vanhan-explore-item text-label-sm-medium" data-component="new/VanHanExploreItem"><img src="assets/vanhan_v3/kp_laso.png" alt="">Lá Số<br>Tử Vi</div>
+                    </div>
                 </div>
                 <div class="bottom-space"></div>
             </div>
@@ -310,12 +290,13 @@
 
     <script>
         // Level label + class per star count (same scale as the result screen)
+        // c = text color class, p = new/VanHanLevelPill variant
         const LEVEL = {
-            1: { t: 'Xấu', c: 'lv-bad' },
-            2: { t: 'Không thuận lợi', c: 'lv-warn' },
-            3: { t: 'Trung bình', c: 'lv-mid' },
-            4: { t: 'Tốt', c: 'lv-good' },
-            5: { t: 'Rất tốt', c: 'lv-good' }
+            1: { t: 'Xấu', c: 'level-warn', p: 'bad' },
+            2: { t: 'Không thuận lợi', c: 'level-warn', p: 'bad' },
+            3: { t: 'Trung bình', c: 'level-mid', p: 'mid' },
+            4: { t: 'Tốt', c: 'level-good', p: 'good' },
+            5: { t: 'Rất tốt', c: 'level-good', p: 'good' }
         };
 
         // Content condensed from vanhan_KhachHang_2027.pdf (section 4, 6, 7)
@@ -537,7 +518,7 @@
         const IC = 'assets/vanhan_v3/';
         const ICON_GOOD = `<img src="${IC}i_thuanloi.svg" width="16" height="16" alt="">`;
         const ICON_WARN = `<img src="${IC}i_batloi_cam.svg" width="16" height="14.6" alt="">`;
-        const CHEVRON ='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6D6E6F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+        const CHEVRON ='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
         const SEC_IC = {
             compare: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M7 16v-3"/><path d="M12 16V9"/><path d="M17 16V5"/></svg>',
             how: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2.5" width="6" height="3" rx="1"/><path d="M9 11h6"/><path d="M9 15h6"/></svg>',
@@ -547,7 +528,7 @@
             next: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>'
         };
 
-        // Soft misty mountains with a path to a flag on the peak (decorative)
+        // Soft misty mountains with a path to a flag on the peak (decorative inline artwork, raw colors kept)
         const HERO_ART = `<svg class="hero-art" viewBox="0 0 150 110" aria-hidden="true">
             <path d="M0 110 L0 92 C18 86 30 80 44 84 C58 88 70 78 84 80 L150 76 L150 110 Z" fill="#C9EBD8" opacity=".6"/>
             <path d="M22 110 C40 96 56 84 70 70 C82 58 92 44 104 30 C108 26 112 26 116 30 C126 44 136 58 150 66 L150 110 Z" fill="#A9DEC1" opacity=".75"/>
@@ -564,18 +545,19 @@
             for (let i = 1; i <= 5; i++) {
                 s += `<img src="${IC}${i <= count ? 'star_on' : 'star_off'}.svg" width="${w.toFixed(1)}" height="${h}" alt="">`;
             }
-            return `<span class="stars">${s}</span>`;
+            return `<span class="new-vanhan-stars" data-component="new/VanHanStarRating">${s}</span>`;
         }
 
-        const secTitle = (ic, t) => `<div class="sec-title"><span class="sec-ic">${SEC_IC[ic]}</span>${t}</div>`;
-        const list = items => `<ul class="list">${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+        const levelPill = (variant, text) => `<span class="new-vanhan-level-pill ${variant} text-body-sm-semibold" data-component="new/VanHanLevelPill">${text}</span>`;
+        const secTitle = (ic, t) => `<div class="new-vanhan-section-title text-title-md" data-component="new/VanHanSectionTitle"><span class="sec-ic">${SEC_IC[ic]}</span>${t}</div>`;
+        const list = items => `<ul class="list">${items.map(i => `<li class="text-body-md-regular">${i}</li>`).join('')}</ul>`;
 
         function renderTabs(active) {
             document.getElementById('tabs').innerHTML = ASPECTS.map(a => {
                 const sub = a.other ? 'Các cung còn lại' : `<span class="${LEVEL[a.stars].c}">${LEVEL[a.stars].t}</span>`;
-                return `<div class="tab ${a.key === active ? 'active' : ''}" data-key="${a.key}" onclick="selectTab('${a.key}')">
+                return `<div class="new-vanhan-aspect-tab ${a.key === active ? 'active' : ''}" data-component="new/VanHanAspectTab" data-key="${a.key}" onclick="selectTab('${a.key}')">
                     <span class="tab-ic"><img src="${IC}${a.icon}" alt=""></span>
-                    <span class="tab-txt"><span class="tab-name">${a.name}</span><span class="tab-sub">${sub}</span></span>
+                    <span class="tab-txt"><span class="tab-name text-tab-label">${a.name}</span><span class="tab-sub text-body-sm-tight">${sub}</span></span>
                 </div>`;
             }).join('');
         }
@@ -590,66 +572,66 @@
                 : ['Giảm rõ', 'down'];
             const arrow = { up: 'M12 19V5M6 11l6-6 6 6', same: 'M5 12h14M13 6l6 6-6 6', down: 'M12 5v14M6 13l6 6 6-6' }[cls];
             const svg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="${arrow}"/></svg>`;
-            return `<div class="tr-verdict ${cls}">${svg}${txt} so với năm 2026</div>`;
+            return `<div class="new-vanhan-trend-verdict ${cls} text-body-md-semibold" data-component="new/VanHanTrendVerdict">${svg}${txt} so với năm 2026</div>`;
         }
+
+        const MONTH_TAG = { good: 'Tháng tốt', normal: 'Tháng bình thường', bad: 'Tháng cần thận trọng' };
 
         function renderAspect(a) {
             const lv = LEVEL[a.stars];
             const years = [2026, 2027, 2028];
             let h = `
-                <div class="hero">
+                <div class="new-vanhan-aspect-hero" data-component="new/VanHanAspectHero">
                     ${HERO_ART}
-                    <div class="hero-label">${a.name} năm 2027 của chị</div>
-                    <div class="hero-title">${a.title}</div>
-                    <div class="hero-rating">${starsHTML(a.stars, 18)}<span class="lv-pill ${lv.c}">${lv.t}</span></div>
+                    <div class="hero-label text-body-md-semibold">${a.name} năm 2027 của chị</div>
+                    <div class="hero-title text-title-md-bold">${a.title}</div>
+                    <div class="hero-rating">${starsHTML(a.stars, 18)}${levelPill(lv.p, lv.t)}</div>
                 </div>
 
                 <div class="sec">
                     ${secTitle('compare', `Diễn biến ${a.name.toLowerCase()} qua 3 năm`)}
-                    <div class="trend">${a.trend.map((s, i) => `
-                        <div class="tr-col ${i === 1 ? 'now' : ''}">
-                            <div class="tr-cap">${['Năm trước', 'Năm nay', 'Năm sau'][i]}</div>
-                            <div class="tr-year">Năm ${years[i]}</div>
+                    <div class="new-vanhan-trend-strip" data-component="new/VanHanTrendStrip">${a.trend.map((s, i) => `
+                        <div class="new-vanhan-trend-year ${i === 1 ? 'now' : ''}" data-component="new/VanHanTrendYear">
+                            <div class="tr-cap ${i === 1 ? 'text-body-sm-semibold' : 'text-body-sm-regular'}">${['Năm trước', 'Năm nay', 'Năm sau'][i]}</div>
+                            <div class="tr-year text-body-md-semibold">Năm ${years[i]}</div>
                             ${starsHTML(s, 12)}
-                            <div class="tr-lbl ${LEVEL[s].c}">${LEVEL[s].t}</div>
+                            <div class="tr-lbl text-body-sm-semibold ${LEVEL[s].c}">${LEVEL[s].t}</div>
                         </div>`).join('')}
                     </div>
                     ${trendVerdict(a)}
-                    <p class="p">${a.compare}</p>
+                    <p class="p text-body-md-regular">${a.compare}</p>
                     <div class="next-yr">
-                        <div class="next-yr-t">${SEC_IC.next}Nhìn sang năm 2028</div>
-                        <p class="p">${a.next}</p>
+                        <div class="next-yr-t text-body-md-semibold">${SEC_IC.next}Nhìn sang năm 2028</div>
+                        <p class="p text-body-md-regular">${a.next}</p>
                     </div>
                 </div>
 
                 <div class="sec">
                     ${secTitle('how', `${a.name} năm nay thế nào?`)}
-                    <p class="p">${a.summary}</p>
-                    <div class="h3 good">${ICON_GOOD}Điểm thuận lợi</div>
+                    <p class="p text-body-md-regular">${a.summary}</p>
+                    <div class="h3 good text-body-md-semibold">${ICON_GOOD}Điểm thuận lợi</div>
                     ${list(a.good)}
-                    <div class="h3 warn">${ICON_WARN}Điều cần lưu ý</div>
+                    <div class="h3 warn text-body-md-semibold">${ICON_WARN}Điều cần lưu ý</div>
                     ${list(a.warn)}
                 </div>
 
                 <div class="sec">
                     ${secTitle('advice', 'Chị nên làm gì trong năm nay?')}
-                    <div class="sub-h">Lời khuyên dành cho chị</div>
-                    <div class="adv">
-                        ${a.adviceTitle ? `<div class="adv-t">${a.adviceTitle}</div>` : ''}
-                        <div class="adv-d">${a.advice}</div>
+                    <div class="sub-h text-body-md-semibold">Lời khuyên dành cho chị</div>
+                    <div class="new-vanhan-advice-card" data-component="new/VanHanAdviceCard">
+                        ${a.adviceTitle ? `<div class="adv-t text-title-sm">${a.adviceTitle}</div>` : ''}
+                        <div class="adv-d text-body-md-regular">${a.advice}</div>
                     </div>
-                    <div class="sub-h">Thời điểm đáng chú ý</div>
+                    <div class="sub-h text-body-md-semibold">Thời điểm đáng chú ý</div>
                     <div class="when">${a.when.map(w => `
-                        <div class="wt" onclick="goMonth('${w.m}')">
-                            <div class="wt-body">
+                        <div class="new-vanhan-month-tile" data-component="new/VanHanMonthTile" onclick="goMonth('${w.m}')">
                                 <div class="wt-head">
-                                    <span class="wt-m">${w.m} âm lịch</span>
-                                    <span class="wt-tag ${w.type}">${{ good: 'Tháng tốt', normal: 'Tháng bình thường', bad: 'Tháng cần thận trọng' }[w.type]}</span>
+                                    <span class="wt-m text-title-sm">${w.m} âm lịch</span>
+                                    ${levelPill(w.type, MONTH_TAG[w.type])}
                                 </div>
-                                ${w.solar ? `<div class="wt-s">${w.solar} dương lịch</div>` : ''}
-                                <div class="wt-n">${w.note}</div>
-                                <span class="wt-link">Xem vận hạn ${w.m.toLowerCase()}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
-                            </div>
+                                ${w.solar ? `<div class="wt-s text-body-md-regular">${w.solar} dương lịch</div>` : ''}
+                                <div class="wt-n text-body-md-regular">${w.note}</div>
+                                <span class="wt-link text-body-md-semibold">Xem vận hạn ${w.m.toLowerCase()}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>
                         </div>`).join('')}
                     </div>
                 </div>`;
@@ -658,10 +640,10 @@
                 h += `
                 <div class="sec">
                     ${secTitle('extra', a.extra.title)}
-                    <div class="qa">${a.extra.qa.map(([q, ans], i) => `
-                        <div class="qa-item ${i === 0 ? 'open' : ''}">
-                            <div class="qa-q" onclick="this.parentElement.classList.toggle('open')"><span>${q}</span>${CHEVRON}</div>
-                            <div class="qa-a">${ans}</div>
+                    <div class="new-vanhan-accordion" data-component="new/VanHanAccordion">${a.extra.qa.map(([q, ans], i) => `
+                        <div class="new-vanhan-accordion-item ${i === 0 ? 'open' : ''}" data-component="new/VanHanAccordionItem">
+                            <div class="qa-q text-body-md-semibold" onclick="this.parentElement.classList.toggle('open')"><span>${q}</span>${CHEVRON}</div>
+                            <div class="qa-a text-body-md-regular">${ans}</div>
                         </div>`).join('')}
                     </div>
                 </div>`;
@@ -673,18 +655,18 @@
         function renderOther(a) {
             return `
                 <div class="sec">
-                    <div class="notice">${ICON_GOOD}<span>${a.notice}</span></div>
+                    <div class="new-vanhan-notice text-body-md-regular" data-component="new/VanHanNotice">${ICON_GOOD}<span>${a.notice}</span></div>
                 </div>
-                <div class="sec" style="border-top:none;margin-top:0">
+                <div class="sec sec-flush">
                     ${secTitle('extra', 'Diễn biến các cung còn lại')}
                     ${a.palaces.map(p => `
-                        <div class="palace">
-                            <div class="palace-name">${p.name}</div>
-                            <div class="palace-sub">${p.sub}</div>
-                            <p class="p">${p.base}</p>
-                            ${p.good.length ? `<div class="h3 good">${ICON_GOOD}Điểm thuận lợi</div>${list(p.good)}` : ''}
-                            ${p.warn.length ? `<div class="h3 warn">${ICON_WARN}Điều cần lưu ý</div>${list(p.warn)}` : ''}
-                            <p class="p"><b>Nhìn chung:</b> ${p.sum}</p>
+                        <div class="new-vanhan-palace-card" data-component="new/VanHanPalaceCard">
+                            <div class="palace-name text-title-sm">${p.name}</div>
+                            <div class="palace-sub text-body-md-regular">${p.sub}</div>
+                            <p class="p text-body-md-regular">${p.base}</p>
+                            ${p.good.length ? `<div class="h3 good text-body-md-semibold">${ICON_GOOD}Điểm thuận lợi</div>${list(p.good)}` : ''}
+                            ${p.warn.length ? `<div class="h3 warn text-body-md-semibold">${ICON_WARN}Điều cần lưu ý</div>${list(p.warn)}` : ''}
+                            <p class="p text-body-md-regular"><b>Nhìn chung:</b> ${p.sum}</p>
                         </div>`).join('')}
                 </div>`;
         }
@@ -708,7 +690,7 @@
             document.getElementById('content').innerHTML = a.other ? renderOther(a) : renderAspect(a);
             document.getElementById('scroll').scrollTop = 0;
             const wrap = document.getElementById('tabs');
-            const el = wrap.querySelector('.tab.active');
+            const el = wrap.querySelector('.new-vanhan-aspect-tab.active');
             wrap.scrollLeft = el.offsetLeft - wrap.offsetLeft - (wrap.clientWidth - el.offsetWidth) / 2;
             history.replaceState(null, '', `?tab=${a.key}`);
         }

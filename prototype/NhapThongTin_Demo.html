@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nhập thông tin</title>
+<link rel="stylesheet" href="design-system/components.css">
+<style>
+  /* Screen-specific layout — tokens only */
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; gap: var(--space-16); padding: var(--space-24) var(--space-16); box-sizing: border-box; background: var(--color-bg-muted); font-family: var(--font-family); color: var(--color-text-primary); }
+
+  .phone { position: relative; width: 390px; height: 844px; max-width: 100%; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--color-bg-surface); }
+  .screen-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: var(--space-24); padding: var(--space-24) var(--space-16); }
+  .form { display: flex; flex-direction: column; gap: var(--space-20); }
+  .field { display: flex; flex-direction: column; gap: var(--space-8); }
+  .field__label { margin: 0; color: var(--color-text-secondary); }
+  .phone .lv-scrim { position: absolute; }
+  /* Demo-only state switcher, outside the phone frame */
+  .states { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-8); }
+  .states a { padding: var(--space-4) var(--space-12); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--color-text-secondary); text-decoration: none; }
+  .states a.is-active { background: var(--color-primary); color: var(--color-text-on-primary); }
+
+  /* new/Text Field — temporary component, not in Figma yet (State: Placeholder | Filled) */
+  .new-text-field {
+    display: block; width: 100%; box-sizing: border-box;
+    padding: var(--space-16); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);
+    background: var(--color-bg-subtle); color: var(--color-text-primary);
+    font: 500 16px/24px var(--font-family); outline: none;
+  }
+  .new-text-field::placeholder { color: var(--color-text-tertiary); }
+  .new-text-field:focus { border-color: var(--color-primary); }
+
+  /* new/Wheel Picker — temporary component, not in Figma yet (Columns: 2 | 3) */
+  .new-wheel-picker { display: flex; gap: var(--space-8); }
+  .new-wheel-picker__col { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
+  .new-wheel-picker__head { margin: 0 0 var(--space-4); text-align: center; color: var(--color-text-tertiary); }
+  .new-wheel-picker__item { padding: var(--space-8) 0; border: 0; border-radius: var(--radius-md); background: none; color: var(--color-text-tertiary); font: 400 16px/24px var(--font-family); cursor: pointer; }
+  .new-wheel-picker__item.is-selected { background: var(--color-bg-muted); color: var(--color-text-primary); font: 600 16px/24px var(--font-family); }
+</style>
+</head>
+<body>
+
+<nav class="states text-caption" aria-label="Trạng thái demo">
+  <a href="#state=empty">1. Chưa nhập</a>
+  <a href="#state=filled">2. Đã nhập đủ</a>
+  <a href="#state=date-picker">3. Chọn ngày sinh</a>
+  <a href="#state=time-picker">4. Chọn giờ sinh</a>
+</nav>
+
+<div class="phone">
+  <header class="lv-navbar" data-component="Navigation Bar">
+    <div class="lv-navbar__status"></div>
+    <div class="lv-navbar__bar">
+      <button class="lv-navbar__back" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <h1 class="lv-navbar__title">Nhập thông tin</h1>
+      <span class="lv-navbar__spacer"></span>
+    </div>
+  </header>
+
+  <main class="screen-body">
+    <div class="lv-section-header" data-component="Form/Section Header">
+      <svg class="lv-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="6.5" r="3.5"/><path d="M3 17.5c1.2-3.2 3.8-5 7-5s5.8 1.8 7 5" stroke-linecap="round"/></svg>
+      <h2 class="lv-section-header__title">Thông tin của bạn</h2>
+    </div>
+
+    <div class="form">
+      <div class="field">
+        <label class="field__label text-body-sm-semibold" for="name">Họ và tên</label>
+        <input id="name" class="new-text-field" data-component="new/Text Field" type="text" placeholder="Nhập họ và tên" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <p class="field__label text-body-sm-semibold">Ngày sinh</p>
+        <button id="dob" class="lv-select" data-component="Form/Select" type="button"><span class="lv-select__value">Chọn ngày sinh</span><svg class="lv-icon" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <div class="field">
+        <p class="field__label text-body-sm-semibold">Giờ sinh</p>
+        <button id="tob" class="lv-select" data-component="Form/Select" type="button"><span class="lv-select__value">Chọn giờ sinh</span><svg class="lv-icon" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </main>
+
+  <div class="lv-action-bar" data-component="Bottom Action Bar">
+    <button id="submit" class="lv-button" data-component="Button" type="button" disabled>Xem kết quả</button>
+    <span class="lv-action-bar__home-indicator"></span>
+  </div>
+
+  <div id="sheet" class="lv-scrim" hidden>
+    <div class="lv-bottom-sheet" data-component="Bottom Sheet">
+      <div class="lv-bottom-sheet__header" data-component="Bottom Sheet/Header">
+        <span class="lv-bottom-sheet__spacer"></span>
+        <h2 id="sheet-title" class="lv-bottom-sheet__title">Chọn ngày sinh</h2>
+        <button id="sheet-close" class="lv-bottom-sheet__close" aria-label="Đóng"><svg class="lv-icon" viewBox="0 0 20 20" fill="none"><path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="lv-bottom-sheet__content">
+        <div id="picker" class="new-wheel-picker" data-component="new/Wheel Picker"></div>
+        <button id="sheet-done" class="lv-button lv-button--block" data-component="Button" type="button">Xong</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const FILLED = { name: 'Nguyễn Văn An', dob: [15, 8, 1990], tob: [8, 30] };
+  const range = (from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i);
+  const pad = n => String(n).padStart(2, '0');
+
+  const PICKERS = {
+    dob: { title: 'Chọn ngày sinh', cols: [['Ngày', range(1, 31)], ['Tháng', range(1, 12)], ['Năm', range(1940, 2026)]], format: v => v.map(pad).join('/') },
+    tob: { title: 'Chọn giờ sinh', cols: [['Giờ', range(0, 23)], ['Phút', range(0, 59)]], format: v => v.map(pad).join(':') },
+  };
+
+  const el = id => document.getElementById(id);
+  const data = { name: '', dob: null, tob: null };
+  let openPicker = null, draft = [];
+
+  function render() {
+    el('name').value = data.name;
+    for (const key of ['dob', 'tob']) {
+      const btn = el(key);
+      btn.classList.toggle('is-filled', !!data[key]);
+      btn.querySelector('.lv-select__value').textContent = data[key] ? PICKERS[key].format(data[key]) : PICKERS[key].title;
+    }
+    el('submit').disabled = !(data.name.trim() && data.dob && data.tob);
+    el('sheet').hidden = !openPicker;
+    if (openPicker) renderPicker();
+  }
+
+  // Shows 5 rows around the selected value; tap a row to select it
+  function renderPicker() {
+    const cfg = PICKERS[openPicker];
+    el('sheet-title').textContent = cfg.title;
+    el('picker').innerHTML = cfg.cols.map(([head, values], c) => {
+      const idx = values.indexOf(draft[c]);
+      const start = Math.min(Math.max(idx - 2, 0), values.length - 5);
+      const rows = values.slice(start, start + 5).map(v =>
+        `<button type="button" class="new-wheel-picker__item${v === draft[c] ? ' is-selected' : ''}" data-col="${c}" data-val="${v}">${pad(v)}</button>`).join('');
+      return `<div class="new-wheel-picker__col"><p class="new-wheel-picker__head text-caption">${head}</p>${rows}</div>`;
+    }).join('');
+  }
+
+  function open(key) {
+    openPicker = key;
+    draft = (data[key] || FILLED[key]).slice();
+    render();
+  }
+
+  function applyState(hash = location.hash) {
+    const state = (String(hash).match(/state=([\w-]+)/) || [])[1] || 'empty';
+    const filled = state === 'filled';
+    Object.assign(data, { name: filled ? FILLED.name : '', dob: filled ? FILLED.dob : null, tob: filled ? FILLED.tob : null });
+    openPicker = null;
+    document.querySelectorAll('.states a').forEach(a => a.classList.toggle('is-active', a.hash === '#state=' + state));
+    if (state === 'date-picker') open('dob');
+    else if (state === 'time-picker') open('tob');
+    else render();
+  }
+
+  el('name').addEventListener('input', e => { data.name = e.target.value; render(); });
+  el('dob').addEventListener('click', () => open('dob'));
+  el('tob').addEventListener('click', () => open('tob'));
+  el('picker').addEventListener('click', e => {
+    const item = e.target.closest('[data-col]');
+    if (!item) return;
+    draft[item.dataset.col] = Number(item.dataset.val);
+    renderPicker();
+  });
+  el('sheet-done').addEventListener('click', () => { data[openPicker] = draft.slice(); openPicker = null; render(); });
+  el('sheet-close').addEventListener('click', () => { openPicker = null; render(); });
+  el('sheet').addEventListener('click', e => { if (e.target === el('sheet')) { openPicker = null; render(); } });
+  // Some previews (e.g. editor webviews) don't fire hashchange, so switch state on click too
+  document.querySelectorAll('.states a').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    try { history.replaceState(null, '', a.hash); } catch (_) { /* sandboxed preview */ }
+    applyState(a.hash);
+  }));
+  window.addEventListener('hashchange', () => applyState());
+  applyState();
+</script>
+</body>
+</html>

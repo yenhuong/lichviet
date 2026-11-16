@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chi tiết ngày vía</title>
+<link rel="stylesheet" href="design-system/components.css?v=20261105-4">
+<style>
+  /* Screen-specific layout — tokens only. Demo: Chi tiết ngày vía (Vía Phật A Di Đà). Not in Figma yet. */
+  :root { --new-color-merit-text: #9a5b13; --new-color-merit-bg: #fff6e6; --new-color-merit-border: #fbe3b8; --new-color-countdown-text: #8a5a3b; }
+
+  body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; gap: var(--space-16); padding: var(--space-24) var(--space-16); box-sizing: border-box; background: var(--color-bg-muted); font-family: var(--font-family); }
+  .phone { position: relative; width: 414px; height: 896px; max-width: 100%; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--color-bg-subtle); }
+  .screen-body { flex: 1; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; padding-bottom: var(--space-32); }
+  .screen-body::-webkit-scrollbar { display: none; }
+  .gutter { padding: 0 var(--space-16); }
+
+  /* Demo state switcher */
+  .states { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+  .states a { padding: var(--space-4) var(--space-12); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--color-text-strong); text-decoration: none; }
+  .state-anchor { position: fixed; top: 0; left: 0; }
+  .only-today { display: none !important; }
+  body:has([id="state=hom-nay"]:target) .only-today { display: revert !important; }
+  body:has([id="state=hom-nay"]:target) .only-upcoming { display: none !important; }
+
+  /* new/Observance Image — full-width observance image, no app bar */
+  .new-obs-image { position: relative; flex: none; }
+  .new-obs-image__img { display: block; width: 100%; height: 260px; object-fit: cover; object-position: center; }
+  /* AI-generated image (Figma generate_image, gpt-image-2.5-flare, file "Lich Phat Giao - Assets"), recomposed 828x520: Buddha kept below the 48px status bar, nothing cropped. Pending advisor approval */
+  .new-obs-image__back { position: absolute; top: calc(var(--space-32) + var(--space-20)); left: var(--space-16); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-on-image); border-radius: var(--radius-full); background: var(--color-bg-on-image-button); color: var(--color-text-on-primary); }
+  .new-obs-image__back svg { width: 20px; height: 20px; }
+  .new-obs-image__status { position: absolute; top: 0; left: 0; right: 0; }
+  .new-obs-image__type { position: absolute; left: var(--space-16); bottom: var(--space-12); padding: var(--space-2) var(--space-12); border-radius: var(--radius-full); background: var(--color-calendar-sunday-bg); color: var(--color-text-promo-gold); border: 1px solid var(--color-border-promo-gold); }
+
+  /* new/Observance Info — name, lunar/solar date, countdown */
+  .new-obs-info { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-16) var(--space-16) 0; }
+  .new-obs-info__name { margin: 0; color: var(--color-text-strong); }
+  .new-obs-info__dates { display: flex; align-items: flex-start; gap: var(--space-8); }
+  .new-obs-info__date-icon { width: 24px; height: 24px; flex: none; margin-top: var(--space-2); color: var(--new-color-merit-text); }
+  .new-obs-info__dates p { display: flex; flex-direction: column; margin: 0; }
+  .new-obs-info__lunar { color: var(--color-text-strong); }
+  .new-obs-info__solar { display: flex; align-items: center; gap: var(--space-8); color: var(--color-text-secondary); }
+  .new-day-tag { display: inline-flex; align-items: baseline; gap: var(--space-4); padding: 0 var(--space-8); border: 1px solid var(--new-color-merit-border); border-radius: var(--radius-full); background: var(--new-color-merit-bg); color: var(--new-color-merit-text); white-space: nowrap; }
+  .new-day-tag b { font-weight: 700; }
+
+  /* Sections */
+  .section { margin-top: var(--space-24); }
+  .section__title { margin: 0 0 var(--space-12); color: var(--color-text-strong); }
+
+  /* new/Holy Name — framed Buddha name + caption, faint lotus line art in bottom corners */
+  .new-holy-name { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; gap: var(--space-12); padding: var(--space-16); border: 1px solid var(--new-color-merit-border); border-radius: var(--radius-md); background: radial-gradient(120% 90% at 50% 0%, var(--color-bg-surface) 0%, var(--new-color-merit-bg) 70%); text-align: center; }
+  .new-holy-name__lotus { position: absolute; bottom: calc(var(--space-12) * -1); width: 88px; height: 66px; color: var(--new-color-merit-text); opacity: 0.18; pointer-events: none; }
+  .new-holy-name__lotus--left { left: calc(var(--space-16) * -1); transform: rotate(12deg); }
+  .new-holy-name__lotus--right { right: calc(var(--space-16) * -1); transform: rotate(-12deg); }
+  .new-holy-name__text, .new-holy-name__caption { position: relative; }
+  .new-holy-name__text { margin: 0; color: var(--new-color-merit-text); }
+  .new-holy-name__caption { margin: 0; color: var(--new-color-countdown-text); }
+
+  /* Meaning */
+  .meaning p { margin: 0; color: var(--color-text-body); }
+  .meaning__lead b { font-weight: 600; color: var(--color-text-strong); }
+
+
+  /* All list descriptions on this screen at 16px (same values as .text-body-md-regular). Proposed for the Menu Row component in Figma */
+  .screen-body .lv-menu-row__desc { font: 400 16px/24px var(--font-family); }
+  .screen-body .lv-menu-row__icon { width: 48px; height: 48px; }
+  .screen-body .lv-menu-row__title { font: 600 18px/27px var(--font-family); } /* same values as .text-body-lg-semibold */
+
+  /* Explore more */
+  /* Practice grid: 2 columns, icon on top, label below */
+  .new-practice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); }
+  .new-practice-tile { display: flex; flex-direction: column; align-items: center; gap: var(--space-8); padding: var(--space-16) var(--space-12); text-align: center; text-decoration: none; }
+  .new-practice-tile__icon { width: 48px; height: 48px; flex: none; display: block; object-fit: cover; }
+  .new-practice-tile__label { color: var(--color-text-label); }
+  .explore__group { margin: var(--space-16) 0 var(--space-8); color: var(--color-text-secondary); }
+  .explore__group:first-of-type { margin-top: 0; }
+  .lv-menu-row__desc:has(.new-day-tag) { display: flex; align-items: center; gap: var(--space-8); }
+  .new-date-badge { width: 48px; height: 48px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--color-border-promo-gold); border-radius: var(--radius-md); background: var(--color-calendar-sunday-bg); color: var(--color-text-promo-gold); }
+
+</style>
+</head>
+<body>
+<i class="state-anchor" id="state=hom-nay"></i>
+
+<nav class="states text-caption" aria-label="Trạng thái demo">
+  <a href="#">1. Sắp tới</a>
+  <a href="#state=hom-nay">2. Hôm nay</a>
+  <a href="TrangChu_2026.html#state=phat-giao">← Trang chủ</a>
+</nav>
+
+<div class="phone">
+  <main class="screen-body">
+    <!-- 01 · Ảnh ngày vía (full chiều rộng, không appbar) -->
+    <div class="new-obs-image" data-component="new/Observance Image">
+      <img class="new-obs-image__img" src="assets/trangchu/pg-via-a-di-da.jpg?v=4" alt="Đức Phật A Di Đà">
+      <div class="lv-status-bar new-obs-image__status" data-component="Light Status Bar">
+        <p class="lv-status-bar__time">9:41</p>
+        <div class="lv-status-bar__icons">
+          <img src="assets/trangchu/a-status-cellular.svg" width="19" height="12" alt="">
+          <img src="assets/trangchu/a-status-wifi.svg" width="17" height="12" alt="">
+          <span class="lv-status-bar__battery"><img src="assets/trangchu/a-status-battery-cap.svg" width="1" height="4" alt=""></span>
+        </div>
+      </div>
+      <a class="new-obs-image__back" data-component="new/Back Button On Image" href="TrangChu_2026.html#state=phat-giao" aria-label="Quay lại"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <span class="new-obs-image__type text-body-md-semibold" data-component="new/Observance Type Tag">Ngày vía</span>
+    </div>
+
+    <!-- 01 · Thông tin ngày lễ -->
+    <section class="new-obs-info" data-component="new/Observance Info">
+      <h1 class="new-obs-info__name text-title-lg">Vía Phật A Di Đà</h1>
+      <div class="new-obs-info__dates">
+        <svg class="new-obs-info__date-icon" data-component="new/Icon Calendar" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.75" y="5.25" width="16.5" height="15" rx="3" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-width="1.5"/><path d="M3.75 9.75h16.5" stroke="currentColor" stroke-width="1.5"/><path d="M8.25 3.5v3.5M15.75 3.5v3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="8.5" cy="13.5" r="1.1" fill="currentColor"/><circle cx="12" cy="13.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="13.5" r="1.1" fill="currentColor"/><circle cx="8.5" cy="17" r="1.1" fill="currentColor"/><circle cx="12" cy="17" r="1.1" fill="currentColor"/></svg>
+        <p><span class="new-obs-info__lunar text-body-lg-semibold">17 Tháng 11, Bính Ngọ</span><span class="new-obs-info__solar text-body-md-regular">Thứ Sáu, 25/12/2026<span class="new-day-tag only-upcoming text-label-sm-medium" data-component="new/Day Tag">Còn <b>47</b> ngày</span><span class="new-day-tag only-today text-label-sm-medium" data-component="new/Day Tag"><b>Hôm nay</b></span></span></p>
+      </div>
+    </section>
+
+    <!-- 02 · Danh hiệu -->
+    <section class="section gutter">
+      <div class="new-holy-name" data-component="new/Holy Name">
+        <svg class="new-holy-name__lotus new-holy-name__lotus--left" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M32 6c6 8 6 20 0 30-6-10-6-22 0-30Z"/><path d="M32 36c-4-10-12-16-20-16 2 10 10 16 20 16Zm0 0c4-10 12-16 20-16-2 10-10 16-20 16Z"/><path d="M32 38c-8-6-20-8-30-6 6 8 18 10 30 6Zm0 0c8-6 20-8 30-6-6 8-18 10-30 6Z"/><path d="M16 43h32"/></svg>
+        <svg class="new-holy-name__lotus new-holy-name__lotus--right" viewBox="0 0 64 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M32 6c6 8 6 20 0 30-6-10-6-22 0-30Z"/><path d="M32 36c-4-10-12-16-20-16 2 10 10 16 20 16Zm0 0c4-10 12-16 20-16-2 10-10 16-20 16Z"/><path d="M32 38c-8-6-20-8-30-6 6 8 18 10 30 6Zm0 0c8-6 20-8 30-6-6 8-18 10-30 6Z"/><path d="M16 43h32"/></svg>
+        <p class="new-holy-name__text text-title-sm">Nam Mô Tây Phương Cực Lạc Thế Giới<br>Đại Từ Đại Bi A Di Đà Phật</p>
+        <p class="new-holy-name__caption text-label-sm">– Danh hiệu niệm Phật –</p>
+      </div>
+    </section>
+
+    <!-- 02 · Ý nghĩa ngày lễ -->
+    <section class="section gutter meaning">
+      <h3 class="section__title text-title-sm">Ý nghĩa ngày vía</h3>
+      <p class="meaning__lead text-body-md-regular">Đức Phật A Di Đà nổi bật với <b>48 đại nguyện</b> cứu độ chúng sinh về cõi Tây Phương Cực Lạc. Ngày vía là dịp tưởng niệm Ngài, thực hành niệm Phật và nuôi dưỡng lòng từ bi, sự bình an.</p>
+    </section>
+
+    <!-- 03 · Những việc nên làm -->
+    <section class="section gutter practice">
+      <h3 class="section__title text-title-sm">Những việc nên làm trong ngày vía</h3>
+      <div class="new-practice-grid" data-component="new/Practice Grid">
+        <a class="new-practice-tile lv-card" href="#" data-component="new/Practice Tile"><img class="new-practice-tile__icon" src="assets/trangchu/pg-icon-doc-kinh.svg" alt=""><span class="new-practice-tile__label text-body-md-semibold">Tụng Kinh A Di Đà</span></a>
+        <a class="new-practice-tile lv-card" href="#" data-component="new/Practice Tile"><img class="new-practice-tile__icon" src="assets/trangchu/pg-icon-niem-phat.svg" alt=""><span class="new-practice-tile__label text-body-md-semibold">Niệm Phật A Di Đà</span></a>
+        <a class="new-practice-tile lv-card" href="#" data-component="new/Practice Tile"><img class="new-practice-tile__icon" src="assets/trangchu/pg-icon-an-chay.svg" alt=""><span class="new-practice-tile__label text-body-md-semibold">Ăn chay</span></a>
+        <a class="new-practice-tile lv-card" href="#" data-component="new/Practice Tile"><img class="new-practice-tile__icon" src="assets/trangchu/pg-icon-van-khan.png" alt=""><span class="new-practice-tile__label text-body-md-semibold">Lễ Phật tại chùa hoặc tại gia</span></a>
+        <a class="new-practice-tile lv-card" href="#" data-component="new/Practice Tile"><img class="new-practice-tile__icon" src="assets/trangchu/pg-icon-viec-thien.svg" alt=""><span class="new-practice-tile__label text-body-md-semibold">Làm việc thiện</span></a>
+      </div>
+    </section>
+
+    <!-- 04 · Khám phá thêm -->
+    <section class="section gutter explore">
+      <h3 class="section__title text-title-sm">Khám phá thêm</h3>
+      <p class="explore__group text-body-sm-semibold">Bài kinh liên quan</p>
+      <div class="lv-card lv-menu-list" data-component="Home/Menu List">
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><img class="lv-menu-row__icon" src="assets/trangchu/pg-icon-kinh-sach.svg" alt=""><span class="lv-menu-row__text"><span class="lv-menu-row__title">Kinh Vô Lượng Thọ</span><span class="lv-menu-row__desc">Kể về 48 đại nguyện của Đức A Di Đà</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+      </div>
+      <p class="explore__group text-body-sm-semibold">Ngày lễ &amp; vía tiếp theo</p>
+      <div class="lv-card lv-menu-list" data-component="Home/Menu List">
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge text-caption" data-component="new/Date Badge"><b class="text-title-md">8</b>Th 12</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Phật Thích Ca thành đạo</span><span class="lv-menu-row__desc">Thứ Sáu, 15/1/2027<span class="new-day-tag text-label-sm-medium" data-component="new/Day Tag">Còn <b>68</b> ngày</span></span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge text-caption" data-component="new/Date Badge"><b class="text-title-md">1</b>Th 1</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Phật Di Lặc</span><span class="lv-menu-row__desc">Thứ Bảy, 6/2/2027<span class="new-day-tag text-label-sm-medium" data-component="new/Day Tag">Còn <b>90</b> ngày</span></span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+      </div>
+    </section>
+  </main>
+
+</div>
+</body>
+</html>

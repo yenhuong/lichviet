@@ -1,14 +1,15 @@
 ---
-id: US-KHNL-ONBOARDING-01
+id: US-KHNL-ONBOARDING
 type: story
 status: draft
 project: Lich_Viet
 owner: "@product-team"
-tags: [kich-hoat-nang-luong, onboarding, popup, free-user, appopen, cms]
-linked-to: "[[SVP-KHNL-KichHoatNangLuong]]", "[[Stories-MOC]]"
+tags: [kich-hoat-nang-luong, onboarding, popup, free-user, appopen, result-free, cms]
+linked-to: "[[SVP-KHNL-KichHoatNangLuong]]", "[[Story-KichHoatNangLuongResult]]", "[[Stories-MOC]]"
 created: 2026-10-02
+updated: 2026-10-07
 ---
-# User Story: Popup Personalized Insight Onboarding Kích Hoạt Năng Lượng Cá Nhân
+# User Story: Onboarding & Khối Kích Hoạt Năng Lượng Cá Nhân (App Open & Màn Kết Quả Free)
 
 ## US-KHNL-ONBOARDING-01: Hiển thị Popup Personalized Insight Onboarding Kích Hoạt Năng Lượng tại App Open
 
@@ -127,7 +128,7 @@ created: 2026-10-02
   - Đoạn văn mô tả ngắn về ý nghĩa thời điểm năng lượng.
   - Card thông tin người dùng: Tên hiển thị + Ngày sinh Dương lịch (`DD/MM/YYYY`).
   - Khối thời gian: Thẻ ngày đếm ngược hoặc danh sách tối đa 5 ngày kích hoạt.
-  - Khối danh sách 3 - 4 lợi ích chi tiết kèm icon sinh động.
+  - Khối danh sách 3 - 4 lợi ích chi tiết kèm icon sinh động: dữ liệu cá nhân hoá theo can ngày với trạng thái can ngày
   - Nút bấm CTA màu đỏ nổi bật ở đáy Popup.
 - [ ] **Tương tác nút CTA**:
   - Khi người dùng nhấp vào nút CTA (Ví dụ: `"Xem kết quả của bạn"` hoặc `"Xem ngày & cách mang vòng tay"`) ➔ Đóng Popup và chuyển hướng trực tiếp đến **Màn hình Kết quả Luận giải Kích Hoạt Năng Lượng** của chính người dùng đó.
@@ -158,32 +159,130 @@ created: 2026-10-02
 
 ---
 
-### Tracking Events & Analytics (Ghi nhận sự kiện theo từng loại Popup)
+## US-KHNL-ONBOARDING-02: Hiển thị Khối Kích Hoạt Năng Lượng Cá Nhân tại Màn hình Kết quả Free
 
-| Tên sự kiện                    | Thời điểm kích hoạt                                 | Thuộc tính đính kèm (Phân loại chi tiết)                                                                                                                                                                                                                                                                                 |
-| :-------------------------------- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `khnl_onboarding_popup_viewed`  | Popup Onboarding hiển thị thành công tại App Open   | `user_id` / `customer_id`, `popup_id_cms`, `group_type` (nhom_1 / nhom_2), `event_type` (`duong_quy_nhan` \| `am_quy_nhan` \| `tai_loc` \| `thien_ma` \| `vong_tay` \| `qua_cau` \| `thap_van_xuong`), `header_type` (`thoi_diem_vang` \| `dung_bo_lo`), `days_left`, `activation_dates_count` |
-| `khnl_onboarding_popup_clicked` | Người dùng bấm vào nút CTA chính trên Popup      | `user_id` / `customer_id`, `popup_id_cms`, `event_type` (1 trong 7 loại), `target_screen` (`KichHoatNangLuongResult`), `cta_text`                                                                                                                                                                                 |
-| `khnl_onboarding_popup_closed`  | Người dùng bấm nút [<] hoặc back để đóng Popup | `user_id` / `customer_id`, `popup_id_cms`, `event_type` (1 trong 7 loại), `stay_duration_seconds`                                                                                                                                                                                                                     |
+**As a** người dùng Free của ứng dụng Lịch Việt đang xem Màn hình Kết quả Luận giải Kích Hoạt Năng Lượng
+**I want to** thấy khối thông tin thời điểm/ngày kích hoạt năng lượng cá nhân phù hợp cùng khối mở khóa và thẻ ổ khóa thông tin chuyên sâu
+**So that** tôi nhanh chóng nắm bắt ngày tốt kích hoạt năng lượng cá nhân và có động lực mở khóa xem chi tiết giờ phù hợp & hướng dẫn kích hoạt riêng theo lá số của mình.
 
 ---
 
-### Metrics & Key Performance Indicators (Chỉ số Thống kê & Báo cáo theo Từng Loại Popup)
+### Metadata
 
-| Nhóm chỉ số                                  | Tên chỉ số                                                       | Dạng đo lường             | Công thức / Quy cách tính chi tiết                                                                                                                        | Mục tiêu phân tích / Ý nghĩa                                                                       |
-| :---------------------------------------------- | :------------------------------------------------------------------ | :---------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
-| **Số liệu Đếm Tuyệt đối (Volume)** | **Lượt hiển thị theo từng Loại Popup**                  | Số lượt & Số người (UU) | $\text{Count}(khnl\_onboarding\_popup\_viewed \text{ group by } event\_type)$                                                                                | Thống kê số lượt hiển thị thực tế riêng cho từng loại popup kích hoạt (7 loại).           |
-|                                                 | **Lượt nhấp CTA theo từng Loại Popup**                   | Số lượt & Số người (UU) | $\text{Count}(khnl\_onboarding\_popup\_clicked \text{ group by } event\_type)$                                                                               | Thống kê số lượt người dùng nhấp CTA chuyển sang màn kết quả theo từng loại.              |
-| **Tỷ lệ Phễu Chuyển đổi (%)**       | **Tỷ lệ Nhấp CTA theo từng Loại (CTR)**                  | Tỷ lệ (%)                   | $\frac{\text{Số lượt nhấp CTA của Loại } i}{\text{Số lượt hiển thị của Loại } i} \times 100\%$                                                  | Đo lường và so sánh tỷ lệ nhấp CTR trực tiếp giữa từng loại popup kích hoạt.              |
-|                                                 | **Tỷ lệ Chuyển đổi Nâng cấp Premium theo từng Loại** | Tỷ lệ (%)                   | $\frac{\text{Số người dùng Free xem Popup Loại } i \text{ mua Premium trong 7 ngày}}{\text{Tổng người dùng Free xem Popup Loại } i} \times 100\%$ | Đánh giá tác động doanh thu chuyển đổi thực tế đóng góp từ từng loại popup kích hoạt. |
+- **Epic/Feature**: [[SVP-KHNL-KichHoatNangLuong#Result-Free|Kích Hoạt Năng Lượng Cá Nhân - Khối Kích Hoạt tại Màn Kết quả Free]]
+- **Priority**: Must Have (Ưu tiên 1)
+- **Estimate**: 3 Story Points (Small - Medium)
+- **Target User**: Người dùng Free đã bổ sung ngày sinh
+- **Trigger Point**:
+  - Nhấp nút CTA từ Popup PIO Onboarding chuyển tới Màn kết quả.
+  - Truy cập trực tiếp Màn hình Kết quả Luận giải Kích Hoạt Năng Lượng (`KichHoatNangLuongResult`) từ Trang chủ, Menu hoặc màn Lá số Bát tự (dù Popup PIO có xuất hiện hay không).
+- **Dependencies**:
+  - Logic Popup PIO tại App Open (`US-KHNL-ONBOARDING-01`)
+  - Màn hình Kết quả Luận giải Kích Hoạt Năng Lượng Free (`Story-KichHoatNangLuongResult`)
+- **Assumptions**:
+  - Khối kích hoạt năng lượng chỉ hiển thị trên màn kết quả của người dùng **tài khoản Free** (chưa mua gói lẻ KHNL hoặc gói Kim cương).
+  - Nếu chuyển từ Popup PIO ➔ Khối kích hoạt hiển thị đúng loại kích hoạt của Popup đó.
+  - Nếu KHÔNG qua Popup PIO (Popup không hiện do tần suất, hoặc vào thẳng màn kết quả) ➔ Khối kích hoạt vẫn hiển thị nếu thông tin cá nhân có sự kiện kích hoạt còn hiệu lực, loại kích hoạt lấy theo quy tắc ưu tiên hệ thống.
+
+---
+
+### INVEST Self-check
+
+| Tiêu chí            | ✅/⚠️ | Ghi chú                                                                                                                                            |
+| :-------------------- | :-----: | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **I**ndependent |   ✅   | Hiển thị độc lập trên màn kết quả Free, không làm gián đoạn phần hiển thị lá số Tứ trụ và biểu đồ ngũ hành.              |
+| **N**egotiable  |   ✅   | Định dạng tiêu đề, danh sách ngày và hình ảnh minh họa tinh chỉnh phù hợp theo từng loại kích hoạt.                              |
+| **V**aluable    |   ✅   | Tăng tính liền mạch từ Popup sang Màn kết quả, thúc đẩy hành vi mở khóa Premium của người dùng Free ngay cả khi chưa xem Popup. |
+| **E**stimable   |   ✅   | Đã làm rõ quy tắc hiển thị, các kịch bản reset/xóa khối cũ và cấu trúc các thành phần UI.                                        |
+| **S**mall       |   ✅   | Gói gọn trong khối Banner Kích hoạt & Khối Mở khóa/Thẻ khóa tại màn Kết quả Free.                                                     |
+| **T**estable    |   ✅   | Có đầy đủ kịch bản test: nhấp CTA popup, vào thẳng màn kết quả khi không có popup, đổi thông tin hồ sơ và nhận popup mới.    |
+
+---
+
+### Tiêu chí nghiệm thu (Acceptance Criteria)
+
+#### AC1: Logic hiển thị & Reset Khối Kích Hoạt ở Màn hình Kết quả Free
+
+- [ ] **Đối tượng áp dụng**: Chỉ hiển thị cho **trường hợp Màn hình Kết quả Free** (người dùng chưa nâng cấp gói Premium KHNLCN hoặc gói Kim cương). Người dùng đã có quyền Premium sẽ không hiển thị khối kích hoạt Onboarding này (hiển thị giao diện luận giải chi tiết Premium).
+- [ ] **Kịch bản 1 (Chuyển từ Popup PIO)**: Người dùng nhận Popup PIO Kích hoạt tại App Open ➔ Nhấn nút CTA trên Popup để sang Màn hình Kết quả: Hiển thị khối kích hoạt tương ứng với loại kích hoạt vừa hiện ở Popup PIO.
+- [ ] **Kịch bản 2 (Vào Màn kết quả thông thường khi KHÔNG hiển thị Popup)**: Trường hợp Popup PIO **không hiển thị** (do chưa mở app đúng thời điểm, bị giới hạn tần suất $X$ ngày, hoặc người dùng chủ động vào màn kết quả từ Trang chủ / Menu / Tử vi...):
+  - Màn hình Kết quả Free **vẫn tiếp tục hiển thị Khối Kích Hoạt Năng Lượng**, nếu hệ thống tính toán xác định người dùng có sự kiện kích hoạt năng lượng phù hợp và còn hiệu lực.
+  - Loại kích hoạt hiển thị được xác định tự động theo đúng quy tắc ưu tiên hệ thống (ưu tiên Nhóm 1 gần nhất theo thứ tự `Dương quý nhân` > `Âm quý nhân` > `Tài lộc` > `Thiên mã`; nếu không có Nhóm 1 mới xét xoay vòng Nhóm 2).
+- [ ] **Kịch bản 3 (Vào lại Màn kết quả thông thường sau khi đã xem)**: Sau khi đã xem màn kết quả, nếu người dùng thoát ra rồi truy cập lại Màn hình Kết quả thông thường: Màn hình **vẫn tiếp tục hiển thị khối kích hoạt đó**, nếu thỏa mãn đồng thời 2 điều kiện:
+  1. Thông tin đầu vào người xem (Họ tên, Ngày sinh, Giờ sinh, Giới tính) chưa thay đổi.
+  2. Sự kiện kích hoạt đó vẫn còn hiệu lực (chưa qua ngày kết thúc đợt kích hoạt).
+- [ ] **Kịch bản 4 (Thay đổi thông tin người xem / profile)**: Nếu người dùng đổi sang xem lá số của người khác HOẶC thay đổi bất kỳ thông tin nào ảnh hưởng đến kết quả luận giải (như ngày sinh, giờ sinh, giới tính...):
+  - **Hệ thống KHÔNG hiển thị khối kích hoạt cũ**.
+  - Nếu thông tin mới có sự kiện kích hoạt phù hợp còn hiệu lực ➔ Hệ thống tính toán và hiển thị **khối kích hoạt mới tương ứng** với thông tin vừa đổi.
+- [ ] **Kịch bản 5 (Nhận Popup Kích hoạt mới)**: Khi người dùng nhận được Popup kích hoạt mới phù hợp với thông tin cá nhân hiện tại ➔ Màn hình Kết quả hiển thị **khối kích hoạt mới tương ứng** với Popup mới đó.
+
+#### AC2: Quy định Tiêu đề, Ảnh minh họa & Ngày kích hoạt theo Nhóm
+
+- [ ] **Khối kích hoạt hiển thị theo loại kích hoạt phù hợp**:
+  - Khi chuyển từ Popup PIO ➔ Đồng bộ chính xác theo loại kích hoạt từ Popup PIO.
+  - Khi không qua Popup PIO ➔ Lấy theo loại kích hoạt ưu tiên nhất còn hiệu lực tính toán từ engine Bát tự.
+- [ ] **Quy cách Tiêu đề chính theo Nhóm kích hoạt**:
+  - **Nhóm 1 (Có linh vật đặt: Tài lộc / Thiên lộc, Dương quý nhân, Âm quý nhân, Thiên mã)**:
+    - Format tiêu đề: `THỜI ĐIỂM VÀNG KÍCH HOẠT {TÊN_LOẠI}` (In hoa, chữ đỏ/cam nổi bật).
+    - Ví dụ: `THỜI ĐIỂM VÀNG KÍCH HOẠT TÀI LỘC`, `THỜI ĐIỂM VÀNG KÍCH HOẠT DƯƠNG QUÝ NHÂN`...
+  - **Nhóm 2 (Không có linh vật đặt / Gợi ý vật phẩm cân bằng: Vòng tay, Quả cầu, Tháp văn xương)**:
+    - Format tiêu đề: `NGÀY KÍCH HOẠT {TÊN_LOẠI} CỦA BẠN` (In hoa, chữ đỏ/cam nổi bật).
+    - Ví dụ: `NGÀY KÍCH HOẠT VÒNG TAY CỦA BẠN`, `NGÀY KÍCH HOẠT QUẢ CẦU CỦA BẠN`...
+- [ ] **Ảnh minh họa khối Kích hoạt**:
+  - Hiển thị hình ảnh minh họa vật phẩm/linh vật tương ứng với loại kích hoạt ở góc trên bên phải (Ví dụ: Hũ tiền vàng phong thủy cho Tài lộc, Vòng tay phong thủy cho Vòng tay, Quả cầu phong thủy cho Quả cầu, Tháp văn xương cho Tháp văn xương...).
+- [ ] **Hiển thị Ngày kích hoạt (Không đếm ngược số ngày)**:
+  - KHÔNG hiển thị đếm ngược số ngày (như `"Chỉ còn X ngày"`) như ở Popup PIO.
+  - **Trường hợp có 1 ngày kích hoạt**:
+    - Tiêu đề phụ: `NGÀY KÍCH HOẠT CỦA BẠN SẮP ĐẾN` (hoặc `NGÀY KÍCH HOẠT CỦA BẠN`).
+    - Ngày kích hoạt: Hiển thị 1 ngày duy nhất dạng `DD/MM/YYYY` (Ví dụ: `10/10/2026`).
+  - **Trường hợp có nhiều ngày kích hoạt**:
+    - Hiển thị danh sách các thẻ ngày kích hoạt (dạng badge/button bo góc, tối đa **5 ngày** kích hoạt sắp tới gần nhất).
+    - Ví dụ: Thẻ `08/10/2026` (nổi bật/highlight), `12/10/2026`, `17/10/2026`, `23/10/2026`, `28/10/2026`.
+
+#### AC3: Quy định Khối Mở khóa Premium & Thẻ Ổ khóa Chuyên sâu
+
+- [ ] **Cấu trúc Khối Mở khóa (Unlock Block)**:
+  - Đặt ngay bên dưới Khối Ngày Kích hoạt.
+  - Tiêu đề khối: `Mở khóa` kèm huy hiệu `[PREMIUM]` màu vàng.
+  - Hiển thị 3 ý quyền lợi kèm dấu tích vàng `✔` và chữ màu đỏ/nâu nổi bật:
+    1. `Phân tích Lá số, xác định Ngũ hành cần bổ sung`
+    2. `Chọn sản phẩm kích hoạt năng lượng cá nhân`
+    3. **`Xem giờ và hướng dẫn cách kích hoạt chi tiết`** *(Dòng mới được bổ sung ngay bên dưới ý thứ 2)*.
+  - Bên phải khối hiển thị hình ảnh nhân vật vui vẻ cầm chìa khóa vàng mở khóa.
+- [ ] **Cấu trúc Thẻ Ổ khóa Kết quả dành riêng (Locked Result Card)**:
+  - Nằm ngay dưới khối Mở khóa Premium.
+  - Giao diện dạng thẻ nền vàng nhạt, viền xanh/vàng tinh tế.
+  - Vị trí bên trái: Icon **Ổ khóa vàng** nằm trong hình vuông nổi bật.
+  - Dòng 1 (Tiêu đề): `KẾT QUẢ DÀNH RIÊNG CHO BẠN` (In hoa, màu nâu/đỏ đậm).
+  - Dòng 2 (Nội dung khoá): `Giờ phù hợp và cách kích hoạt riêng theo lá số của bạn`.
+
+---
+
+### Tracking Events & Analytics (Ghi nhận sự kiện cho Khối Kích Hoạt Màn Kết Quả Free)
+
+| Tên sự kiện                          | Thời điểm kích hoạt                                                         | Thuộc tính đính kèm (Phân loại chi tiết)                                                                                                                                                                                                                                       |
+| :-------------------------------------- | :------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `khnl_result_activation_block_viewed` | Khối kích hoạt hiển thị thành công tại Màn kết quả Free               | `user_id`, `group_type` (`nhom_1` \| `nhom_2`), `event_type` (`duong_quy_nhan` \| `am_quy_nhan` \| `tai_loc` \| `thien_ma` \| `vong_tay` \| `qua_cau` \| `thap_van_xuong`), `activation_dates_count`, `entry_source` (`popup_pio` \| `direct_reentry`) |
+| `khnl_result_unlock_block_clicked`    | Người dùng nhấp vào khối Mở khóa hoặc thẻ Ổ khóa tại Màn kết quả | `user_id`, `event_type`, `clicked_element` (`unlock_checklist` \| `locked_card` \| `cta_sticky_button`)                                                                                                                                                                    |
+
+---
+
+### Metrics & Key Performance Indicators (Chỉ số Màn Kết Quả Free)
+
+| Nhóm chỉ số                    | Tên chỉ số                                             | Dạng đo lường             | Công thức / Quy cách tính chi tiết                                                                                                    | Mục tiêu phân tích / Ý nghĩa                                                                      |
+| :-------------------------------- | :-------------------------------------------------------- | :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
+| **Volume**                  | **Lượt xem Khối Kích Hoạt ở Màn Kết Quả**  | Số lượt & Số người (UU) | $\text{Count}(khnl\_result\_activation\_block\_viewed)$                                                                                  | Thống kê quy mô người dùng tiếp cận khối kích hoạt tại màn kết quả.                      |
+| **Phễu Chuyển đổi (%)** | **Tỷ lệ Click Mở khóa từ Màn Kết Quả Free** | Tỷ lệ (%)                   | $\frac{\text{Số người nhấp mở khóa ở Màn Kết Quả}}{\text{Tổng người xem Khối Kích Hoạt ở Màn Kết Quả}} \times 100\%$ | Đo lường mức độ quan tâm đối với tính năng xem giờ và hướng dẫn kích hoạt chi tiết. |
 
 ---
 
 ### Notes / Assumptions / Dependencies
 
-- **Thiết kế giao diện**: Tuân thủ chính xác các layout thiết kế đính kèm (Ảnh 1: Thiên Mã - Thời điểm vàng; Ảnh 2: Thiên Lộc - Đừng bỏ lỡ; Ảnh 3: Vòng tay - Danh sách 5 ngày).
-- **Ràng buộc hiệu năng**: Việc gọi API kiểm tra điều kiện tại `appopen` phải thực hiện async, không làm tăng thời gian khởi động (splash screen) của ứng dụng.
+- **Thiết kế giao diện tham chiếu**:
+  - Nhóm 1 (Tài lộc - 1 ngày kích hoạt): Header `"THỜI ĐIỂM VÀNG KÍCH HOẠT TÀI LỘC"`, ngày `10/10/2026`, khối Mở khóa (3 tích vàng), Thẻ ổ khóa `Giờ phù hợp và cách kích hoạt riêng theo lá số của bạn`.
+  - Nhóm 2 (Vòng tay - Nhiều ngày kích hoạt): Header `"NGÀY KÍCH HOẠT VÒNG TAY CỦA BẠN"`, danh sách 5 ngày `08/10/2026`, `12/10/2026`, `17/10/2026`, `23/10/2026`, `28/10/2026`.
 - **Tài liệu liên quan**:
-  - Tài liệu Kế hoạch tổng thể: [[SVP-KHNL-KichHoatNangLuong]]
-  - User Story Màn kết quả KHNL: [[Story-KichHoatNangLuongResult]]
+  - User Story Popup App Open: `US-KHNL-ONBOARDING-01`
+  - User Story Màn kết quả KHNL Free gốc: [[Story-KichHoatNangLuongResult]]
+  - Kế hoạch tổng thể KHNL: [[SVP-KHNL-KichHoatNangLuong]]
   - Map of Content User Stories: [[Stories-MOC]]

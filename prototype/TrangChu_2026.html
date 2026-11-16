@@ -51,8 +51,8 @@
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-header { order: 1; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-week { order: 2; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-hero { order: 4; }
-  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 8; }
-  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 8; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-banner { order: 5; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-features { order: 6; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-term { order: 12; }
@@ -76,6 +76,8 @@
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero { height: auto; padding-bottom: var(--space-24); color: var(--color-text-on-primary); text-shadow: var(--new-shadow-text-on-image); }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__score-value { color: var(--new-color-text-score); }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__bg { object-position: right top; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__bg.only-pg { filter: saturate(0.9); }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, var(--new-color-hero-calm-veil) 0%, var(--new-color-hero-calm-veil-soft) 55%, transparent 100%), linear-gradient(180deg, transparent 55%, var(--new-color-hero-calm-veil-soft) 100%); }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__lunar { margin-top: var(--space-12); }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .lv-today-hero__date { width: auto; text-align: left; color: var(--color-text-on-primary); text-shadow: var(--new-shadow-text-on-image); }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .video__head { justify-content: space-between; align-items: center; margin-bottom: var(--space-16); }
@@ -86,13 +88,13 @@
 
 
   /* Temporary tokens for Phật giáo hero: observance name color, soft text shadow */
-  :root { --new-color-text-observance: #ffc6d6; --new-shadow-text-observance: 0 1px 2px rgba(110, 0, 40, 0.75), 0 0 6px rgba(110, 0, 40, 0.35); --new-color-text-score: #f5e100; --new-shadow-text-on-image: 0 1px 2px rgba(0, 0, 0, 0.45); --new-color-goal-active: #6b57e6; --new-color-goal-active-track: #e4defa; --new-color-merit-text: #9a5b13; --new-color-merit-bg: #fff6e6; --new-color-merit-border: #fbe3b8; }
+  :root { --new-color-hero-calm-veil: rgba(52, 30, 16, 0.55); --new-color-hero-calm-veil-soft: rgba(52, 30, 16, 0.25); --new-color-text-observance: #ffc6d6; --new-shadow-text-observance: 0 1px 2px rgba(110, 0, 40, 0.75), 0 0 6px rgba(110, 0, 40, 0.35); --new-color-text-score: #f5e100; --new-shadow-text-on-image: 0 1px 2px rgba(0, 0, 0, 0.45); --new-color-goal-active: #a8455f; --new-color-goal-active-track: #f1dde3; --new-color-lotus-bg: #fbeff2; --new-color-merit-text: #9a5b13; --new-color-merit-bg: #fff6e6; --new-color-merit-border: #fbe3b8; --new-color-countdown-text: #8a5a3b; --new-color-countdown-bg: #f8f0e7; --new-color-countdown-border: #e9d6c1; --new-color-countdown-soon: #a8455f; --new-color-done-bg: #f2fbf7; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .only-default { display: none; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-header { order: 1; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-week { order: 2; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-hero { order: 4; }
-  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 8; }
-  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 8; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-banner { order: 5; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-features { order: 6; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-term { order: 12; }
@@ -117,8 +119,8 @@
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-header { order: 1; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-week { order: 2; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-hero { order: 4; }
-  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 8; }
-  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-upcoming { order: 9; }
+  body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-journey { order: 8; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-banner { order: 5; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-features { order: 6; }
   body:not(:has(#s-screen:checked), :has(#s-init:checked):has([id="state=screen"]:target), :has(#s-full:checked), :has(#s-init:checked):has([id="state=full"]:target)) .phone .o-term { order: 12; }
@@ -146,7 +148,7 @@
   .new-hero-observance p { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; }
   .new-hero-observance b { color: var(--new-color-text-observance); font: 600 16px/18px var(--font-family); text-shadow: var(--new-shadow-text-observance); }
   /* new/Hero Quote — Buddhist teaching for today's observance on Home/Today Hero — temporary */
-  .new-hero-quote { display: flex; flex-direction: column; gap: var(--space-2); max-width: 290px; margin: var(--space-8) 0 0; }
+  .new-hero-quote { display: flex; flex-direction: column; gap: var(--space-2); max-width: 330px; margin: var(--space-8) 0 0; }
   .new-hero-quote q { color: var(--color-text-on-primary); font: italic 500 16px/24px var(--font-family); }
   .new-hero-quote cite { color: var(--color-text-on-primary); font: 400 14px/18px var(--font-family); font-style: normal; opacity: 0.85; }
 
@@ -155,38 +157,49 @@
   .journey .lv-card { margin-top: var(--space-18); }
   .journey__action { display: flex; justify-content: flex-end; }
   .new-journey { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-16); }
-  .new-journey__summary { position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: var(--space-16); grid-template-rows: auto auto auto; row-gap: var(--space-4); margin: calc(var(--space-16) * -1) calc(var(--space-16) * -1) 0; padding: var(--space-16); border-radius: var(--radius-md) var(--radius-md) 0 0; background: linear-gradient(90deg, var(--color-chip-success-bg), var(--new-color-merit-bg)); overflow: hidden; }
-  .new-journey__summary-art { position: absolute; right: -14px; bottom: -22px; width: 92px; height: 92px; opacity: 0.55; pointer-events: none; }
-  .new-journey-stat { position: relative; z-index: 1; display: grid; grid-row: span 3; grid-template-rows: subgrid; margin: 0; }
-  .new-journey-stat--seed { padding-left: var(--space-16); border-left: 1px solid var(--color-chip-success-border); }
+  .new-journey__summary { position: relative; display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-16); grid-template-rows: auto auto auto; row-gap: var(--space-4); margin: 0; }
+  .new-journey__footer { display: flex; flex-direction: column; gap: var(--space-16); margin: 0 calc(var(--space-16) * -1) calc(var(--space-16) * -1); padding: var(--space-16); border-radius: 0 0 var(--radius-md) var(--radius-md); background: var(--color-bg-subtle); }
+  .new-journey__period { position: relative; z-index: 1; grid-column: 1 / -1; margin: 0 0 var(--space-4); color: var(--color-text-strong); font: 600 16px/22px var(--font-family); }
+  .new-journey-stat { position: relative; z-index: 1; display: grid; grid-row: span 2; grid-template-rows: subgrid; margin: 0; }
   .new-journey-stat__label { white-space: nowrap; color: var(--color-text-body); font: 500 16px/22px var(--font-family); }
   .new-journey-stat__value { display: flex; align-items: baseline; gap: var(--space-4); white-space: nowrap; color: var(--color-text-secondary); font: 500 16px/22px var(--font-family); }
-  .new-journey-stat__value b { color: var(--color-chip-success-text); font: 700 32px/36px var(--font-family); }
+  .new-journey-stat__value b { color: var(--new-color-goal-active); font: 700 32px/36px var(--font-family); }
   .new-journey-stat--seed .new-journey-stat__value { color: var(--new-color-merit-text); }
   .new-journey-stat--seed .new-journey-stat__value b { color: var(--new-color-merit-text); }
-  .new-journey-stat .new-journey-progress { margin-top: var(--space-4); }
+  .new-journey-stat__value img { align-self: center; flex: none; }
   .new-journey-progress { display: block; height: 6px; border-radius: var(--radius-full); background: var(--color-bg-surface); overflow: hidden; }
-  .new-journey-progress i { display: block; height: 100%; border-radius: inherit; background: var(--color-chip-success-text); }
+  .new-journey-progress i { display: block; height: 100%; border-radius: inherit; background: var(--new-color-goal-active); }
   .new-journey-goal .new-journey-progress { background: var(--new-color-goal-active-track); }
-  .new-journey-goal .new-journey-progress i { background: var(--new-color-goal-active); }
   .new-journey__subhead { display: flex; align-items: center; justify-content: space-between; }
   .new-journey__subhead h3 { margin: 0; color: var(--color-text-strong); font: 600 20px/26px var(--font-family); }
-  .new-journey__subhead span { color: var(--color-chip-success-text); font: 600 16px/22px var(--font-family); }
+  .new-journey__subhead span { color: var(--new-color-merit-text); font: 500 16px/22px var(--font-family); }
+  .new-journey__note { display: flex; align-items: flex-start; gap: var(--space-8); margin: var(--space-8) 0 0; color: var(--color-text-secondary); font: 400 16px/22px var(--font-family); }
   .new-journey__goals { display: flex; flex-direction: column; margin: calc(var(--space-12) * -1) 0 0; padding: 0; list-style: none; }
   .new-journey-goal { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--color-border-divider); }
+  .new-journey__sown { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-12) var(--space-16); border-radius: var(--radius-sm); background: var(--new-color-done-bg); }
+  .new-journey__sown-title { margin: 0; color: var(--color-text-strong); font: 500 16px/22px var(--font-family); }
+  .new-journey__sown-title b { color: var(--color-status-success); font-weight: 700; }
+  .new-journey__sown-list { display: flex; flex-direction: column; gap: var(--space-8); margin: 0; padding: 0; list-style: none; }
+  .new-journey__sown-list li { display: flex; align-items: center; gap: var(--space-8); color: var(--color-text-body); font: 400 16px/22px var(--font-family); }
+  .new-journey__sown-list img { width: 16px; height: 16px; flex: none; opacity: 0.7; }
   .new-journey-goal:last-child { border-bottom: 0; padding-bottom: 0; }
   .new-journey-goal__icon { width: 48px; height: 48px; flex: none; }
   .new-journey-goal__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-2); }
   .new-journey-goal__title { color: var(--color-text-strong); font: 600 18px/24px var(--font-family); }
   .new-journey-goal__desc { color: var(--color-text-secondary); font: 400 16px/22px var(--font-family); }
   .new-journey-goal .new-journey-progress { margin-top: var(--space-4); }
-  .new-journey-goal__done { width: 28px; height: 28px; flex: none; }
   .new-journey-goal__cta { display: inline-flex; align-items: center; gap: var(--space-4); flex: none; padding: var(--space-8) var(--space-12); border: 1px solid var(--new-color-goal-active); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--new-color-goal-active); font: 700 16px/22px var(--font-family); text-decoration: none; }
+  .new-journey-goal__cta--primary { background: var(--new-color-goal-active); color: var(--color-text-on-primary); box-shadow: 0 2px 6px rgba(168, 69, 95, 0.3); }
 
   /* new/Date Badge — lunar date in Home/Menu Row (Type: Chay | Vía) — temporary */
   .new-date-badge { width: 52px; height: 52px; flex: none; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--color-chip-success-border); border-radius: var(--radius-md); background: var(--color-chip-success-bg); color: var(--color-chip-success-text); }
   .new-date-badge--via { border-color: var(--color-border-promo-gold); background: var(--color-calendar-sunday-bg); color: var(--color-text-promo-gold); }
   .new-date-badge b { font: 700 20px/22px var(--font-family); }
+  /* new/Countdown — days left until an observance (State: Default | Sắp tới ≤ 7 ngày) — temporary */
+  .upcoming .lv-menu-row__desc { display: flex; align-items: center; gap: var(--space-8); }
+  .new-countdown { display: inline-flex; align-items: baseline; gap: var(--space-4); padding: 0 var(--space-8); border: 1px solid var(--new-color-countdown-border); border-radius: var(--radius-full); background: var(--new-color-countdown-bg); color: var(--new-color-countdown-text); font: 500 14px/22px var(--font-family); white-space: nowrap; }
+  .new-countdown b { font: 700 16px/22px var(--font-family); }
+  .new-countdown--soon { border-color: var(--new-color-countdown-soon); background: var(--new-color-countdown-soon); color: var(--color-text-on-primary); }
 
 
   /* new/Choice Chip — single-select chip in the mode sheet (State: Default | Selected) — temporary */
@@ -304,9 +317,9 @@
     <section class="gutter upcoming only-pg o-upcoming">
       <h2 class="lv-home-section-title">Ngày lễ &amp; vía Phật giáo sắp tới</h2>
       <div class="lv-card lv-menu-list" data-component="Home/Menu List">
-        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">5</b>Th 10</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Tổ Bồ Đề Đạt Ma</span><span class="lv-menu-row__desc">Thứ Sáu, 13/11 · còn 5 ngày</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
-        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">15</b>Th 10</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Rằm tháng Mười · Lễ Hạ nguyên</span><span class="lv-menu-row__desc">Thứ Hai, 23/11 · còn 15 ngày</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
-        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">17</b>Th 11</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Phật A Di Đà</span><span class="lv-menu-row__desc">Thứ Sáu, 25/12 · còn 47 ngày</span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">5</b>Th 10</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Tổ Bồ Đề Đạt Ma</span><span class="lv-menu-row__desc">Thứ Sáu, 13/11<span class="new-countdown new-countdown--soon" data-component="new/Countdown">Còn <b>5</b> ngày</span></span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="#" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">15</b>Th 10</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Rằm tháng Mười · Lễ Hạ nguyên</span><span class="lv-menu-row__desc">Thứ Hai, 23/11<span class="new-countdown" data-component="new/Countdown">Còn <b>15</b> ngày</span></span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
+        <a class="lv-menu-row" href="ChiTietNgayVia.html" data-component="Home/Menu Row"><span class="new-date-badge new-date-badge--via text-caption" data-component="new/Date Badge"><b class="text-title-md">17</b>Th 11</span><span class="lv-menu-row__text"><span class="lv-menu-row__title">Vía Phật A Di Đà</span><span class="lv-menu-row__desc">Thứ Sáu, 25/12<span class="new-countdown" data-component="new/Countdown">Còn <b>47</b> ngày</span></span></span><img class="lv-menu-row__chevron" src="assets/trangchu/d-icon-chevron-more.svg" alt=""></a>
         <div class="upcoming__action">
           <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem tất cả ngày lễ &amp; vía<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
         </div>
@@ -316,7 +329,7 @@
     <!-- Today hero -->
     <section class="lv-today-hero o-hero" data-component="Home/Today Hero">
       <img class="lv-today-hero__bg only-default" src="assets/trangchu/a-hero-day-bg.png" alt="">
-      <img class="lv-today-hero__bg only-pg" src="assets/trangchu/pg-hero-bg-4.jpg" alt="">
+      <img class="lv-today-hero__bg only-pg" src="assets/trangchu/pg-hero-bg-wood.jpg" alt="">
       <div class="lv-today-hero__content">
         <p class="lv-today-hero__weekday"><span class="only-default">Thứ Ba</span><span class="only-pg">Chủ Nhật</span></p>
         <div class="lv-today-hero__date-row">
@@ -333,7 +346,7 @@
           <p class="lv-today-hero__score-value">68%</p>
           <button class="lv-ghost-button only-default" data-component="Home/Ghost Button">Xem thêm</button>
         </div>
-        <p class="new-hero-quote only-pg" data-component="new/Hero Quote"><q>Nghe danh hiệu Ta, mọi bệnh khổ tiêu trừ, thân tâm an lạc.</q><cite>Kinh Dược Sư · Đại nguyện thứ 7</cite></p>
+        <p class="new-hero-quote only-pg" data-component="new/Hero Quote"><q>Nghe danh hiệu Ta, mọi bệnh khổ tiêu trừ,<br>thân tâm an lạc.</q><cite>Kinh Dược Sư · Đại nguyện thứ 7</cite></p>
         <p class="lv-today-hero__todo only-default">Nên làm: <span>Mua sắm, Cầu an, Xuất hành</span></p>
       </div>
     </section>
@@ -368,7 +381,7 @@
       <a class="lv-card lv-feature-tile only-default" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-tien-bac.svg" alt=""><span class="lv-feature-tile__label">Tiền Bạc<br>&amp; Đầu Tư</span></a>
       <a class="lv-card lv-feature-tile only-default" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-tinh-duyen.svg" alt=""><span class="lv-feature-tile__label">Xem<br>Tình Duyên</span></a>
       <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-tu-tap.svg" alt=""><span class="lv-feature-tile__label">Tu Tập</span></a>
-      <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-kinh-sach.svg" alt=""><span class="lv-feature-tile__label">Kinh Sách</span></a>
+      <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-kinh-sach.svg" alt=""><span class="lv-feature-tile__label">Tụng Kinh</span></a>
       <a class="lv-card lv-feature-tile only-pg" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-chon-ngay-tot.svg" alt=""><span class="lv-feature-tile__label">Xem<br>Ngày Tốt</span></a>
       <a class="lv-card lv-feature-tile only-pg" href="KichHoatNangLuong_Intro.html" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/pg-icon-kich-hoat-nang-luong.svg" alt=""><span class="lv-feature-tile__label">Kích Hoạt<br>Năng Lượng</span></a>
       <a class="lv-card lv-feature-tile" href="#" data-component="Home/Feature Tile"><img class="lv-feature-tile__icon" src="assets/trangchu/b-icon-xem-tat-ca.svg" alt=""><span class="lv-feature-tile__label">Xem<br>Tất Cả</span></a>
@@ -506,49 +519,44 @@
     <!-- Phật giáo: user's practice journey -->
     <section class="gutter journey only-pg o-journey">
       <h2 class="lv-home-section-title">Hành trình tu tập của bạn</h2>
+      <p class="new-journey__note">Mỗi ngày một chút, vun bồi điều thiện lành</p>
       <div class="lv-card new-journey" data-component="new/Practice Journey">
-        <div class="new-journey__summary">
-          <p class="new-journey-stat">
-            <span class="new-journey-stat__label">Mục tiêu hôm nay</span>
-            <span class="new-journey-stat__value"><b>3/5</b>hoàn thành</span>
-            <span class="new-journey-progress"><i style="width: 60%"></i></span>
-          </p>
-          <p class="new-journey-stat new-journey-stat--seed">
-            <span class="new-journey-stat__label">Hạt thiện lành đã gieo</span>
-            <span class="new-journey-stat__value"><b>1.280</b>hạt</span>
-          </p>
-          <img class="new-journey__summary-art" src="assets/trangchu/pg-sen.png" alt="">
-        </div>
-        <div class="new-journey__subhead"><h3>Mục tiêu hôm nay</h3><span>Còn 2 mục tiêu</span></div>
+        <div class="new-journey__subhead"><h3>Tu tập hôm nay</h3><span>Còn 2 việc</span></div>
         <ul class="new-journey__goals">
           <li class="new-journey-goal">
             <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-doc-kinh.svg" alt="">
-            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Đọc kinh 15 phút</span><span class="new-journey-goal__desc">Đã thực hiện 5/15 phút</span><span class="new-journey-progress"><i style="width: 33%"></i></span></span>
-            <a class="new-journey-goal__cta" href="#"><img src="assets/trangchu/pg-icon-play.svg" width="12" height="12" alt="">Tiếp tục</a>
+            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Tụng kinh 15 phút</span><span class="new-journey-goal__desc">Đã tụng 5 phút</span><span class="new-journey-progress"><i style="width: 33%"></i></span></span>
+            <a class="new-journey-goal__cta new-journey-goal__cta--primary" href="#"><img src="assets/trangchu/pg-icon-play-white.svg" width="12" height="12" alt="">Tiếp tục</a>
           </li>
           <li class="new-journey-goal">
             <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-tri-chu.svg" alt="">
             <span class="new-journey-goal__text"><span class="new-journey-goal__title">Trì chú Đại Bi 7 biến</span><span class="new-journey-goal__desc">Chưa thực hiện</span></span>
             <a class="new-journey-goal__cta" href="#"><img src="assets/trangchu/pg-icon-play.svg" width="12" height="12" alt="">Bắt đầu</a>
           </li>
-          <li class="new-journey-goal">
-            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-niem-phat.svg" alt="">
-            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Niệm Phật 1.000 câu</span><span class="new-journey-goal__desc">Đã hoàn thành</span></span>
-            <img class="new-journey-goal__done" src="assets/trangchu/pg-icon-check-done.svg" alt="Đã hoàn thành">
-          </li>
-          <li class="new-journey-goal">
-            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-trang-hat.svg" alt="">
-            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Đếm tràng hạt 108 lượt</span><span class="new-journey-goal__desc">Đã hoàn thành</span></span>
-            <img class="new-journey-goal__done" src="assets/trangchu/pg-icon-check-done.svg" alt="Đã hoàn thành">
-          </li>
-          <li class="new-journey-goal">
-            <img class="new-journey-goal__icon" src="assets/trangchu/pg-icon-an-chay.svg" alt="">
-            <span class="new-journey-goal__text"><span class="new-journey-goal__title">Ăn chay</span><span class="new-journey-goal__desc">Đã hoàn thành</span></span>
-            <img class="new-journey-goal__done" src="assets/trangchu/pg-icon-check-done.svg" alt="Đã hoàn thành">
-          </li>
         </ul>
-        <div class="journey__action">
-          <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem hành trình tu tập<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+        <div class="new-journey__sown">
+          <p class="new-journey__sown-title">Hôm nay bạn đã tu tập <b>3 việc</b></p>
+          <ul class="new-journey__sown-list">
+            <li><img src="assets/trangchu/pg-icon-check-done.svg" width="16" height="16" alt="">Niệm Phật 1.000 câu</li>
+            <li><img src="assets/trangchu/pg-icon-check-done.svg" width="16" height="16" alt="">Đếm tràng hạt 108 lượt</li>
+            <li><img src="assets/trangchu/pg-icon-check-done.svg" width="16" height="16" alt="">Ăn chay</li>
+          </ul>
+        </div>
+        <div class="new-journey__footer">
+          <div class="new-journey__summary">
+            <p class="new-journey__period">Kết quả tu tập tháng 11 dương lịch</p>
+            <p class="new-journey-stat">
+              <span class="new-journey-stat__label">Đã tu tập</span>
+              <span class="new-journey-stat__value"><b>12</b>ngày</span>
+            </p>
+            <p class="new-journey-stat new-journey-stat--seed">
+              <span class="new-journey-stat__label">Hạt thiện lành đã gieo</span>
+              <span class="new-journey-stat__value"><b>100</b>hạt<img src="assets/trangchu/pg-icon-hat-thien.svg" width="24" height="24" alt=""></span>
+            </p>
+          </div>
+          <div class="journey__action">
+            <a class="lv-pill-button" href="#" data-component="Home/Pill Button">Xem hành trình tu tập<img src="assets/trangchu/c-icon-chevron-double-circle.svg" alt=""></a>
+          </div>
         </div>
       </div>
     </section>

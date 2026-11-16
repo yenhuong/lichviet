@@ -21,6 +21,8 @@ Tài liệu này dùng để index các tài liệu thuộc thư mục `docs/022
 - [[Story-KichHoatNangLuongResultPremium]] - User stories cho màn Kết quả luận giải lá số Bát tự (người dùng Premium)
 - [[Story-MuaSamDungThanLinhVat]] - User stories cho khối Dụng thần & Linh vật trên màn Mua sắm
 - [[Story-KhaoSatInline-KichHoatNangLuong]] - User story cho Khảo sát Inline tại màn Kết quả Kích Hoạt Năng Lượng (tập Free & Pro)
-- [[Story-OnboardingKichHoatNangLuong]] - User story cho Popup Personalized Insight Onboarding Kích Hoạt Năng Lượng Cá Nhân tại App Open
-
-
+- [[Story-OnboardingKichHoatNangLuong]] - User story cho Popup Personalized Insight Onboarding Kích Hoạt Năng Lượng tại App Open & Khối Kích Hoạt tại Màn kết quả Free
+- [[Story-GopY]] - User story cho màn Góp ý với Lịch Việt (chọn tính năng, nhập nội dung, đính kèm ảnh)
+- [[Story-BanTinThang]] - User stories cho màn Bản tin đầu tháng (Bản tin tháng - Phase 1 của BPRD-003)
+- [[Story-TrangChuKhoiTieuDiem]] - User stories cho Khối Tiêu điểm trên Trang chủ (thứ tự card, card Bản tin tháng, logic chọn điểm nhấn hằng ngày)
+- [[Story-KichHoatHocTap]] - User stories cho tính năng Kích hoạt Trí tuệ & Công danh (Tháp Văn Xương) - 5 màn

@@ -16,12 +16,12 @@ Tài liệu này định nghĩa các user story cho **khối Dụng thần & Lin
 
 **Prototype tham chiếu**: [[MuaSam_V2.html]] (`prototype/MuaSam_V2.html`), [[DonHangCuaToi.html]] (`prototype/DonHangCuaToi.html`)
 
-Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) giúp người dùng khám phá các linh vật phong thủy hợp với lá số Bát tự của mình. Khối gồm phần giới thiệu lợi ích, hai nhóm linh vật để khám phá (Linh vật hộ thân và Linh vật đặt), lối vào danh sách "Vật phẩm của tôi", và phần chi tiết giải mã Bát tự kèm hướng dẫn sử dụng cho từng linh vật đã sở hữu.
+Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) giúp người dùng khám phá các linh vật phong thủy hợp với lá số Bát tự của mình. Khối gồm tiêu đề, khung "Bạn sẽ khám phá" kèm nút xem gợi ý, lối vào "Đơn hàng của tôi" và "Vật phẩm của tôi", và phần chi tiết giải mã Bát tự kèm hướng dẫn sử dụng cho từng linh vật đã sở hữu.
 
 > **Phạm vi tài liệu gồm các thành phần chính:**
 >
-> - **Khối giới thiệu**: tiêu đề, khối "Lợi ích bạn nhận được" (4 lợi ích), 2 thẻ linh vật (Hộ thân / Đặt).
-> - **Lối vào "Vật phẩm của tôi"**: nút hàng ngang mở danh sách linh vật người dùng đã sở hữu.
+> - **Khối giới thiệu**: tiêu đề, khung "Bạn sẽ khám phá" (4 mục), nút "Xem gợi ý của bạn".
+> - **Lối vào "Đơn hàng của tôi" / "Vật phẩm của tôi"**: nhóm 2 dòng ngay dưới khối giới thiệu.
 > - **Danh sách "Vật phẩm của tôi"**: overlay (MuaSam) hoặc màn hình độc lập (DonHangCuaToi) hiển thị các linh vật đã có.
 > - **Chi tiết giải mã Bát tự & HDSD**: bottom sheet mở từ nút "Xem chi tiết" của mỗi linh vật.
 
@@ -31,7 +31,7 @@ Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) gi�
 
 **User Story**
 **As a** người dùng Lịch Việt đang ở màn hình Mua sắm
-**I want to** xem khối giới thiệu Dụng thần & Linh vật với tiêu đề, các lợi ích và hai nhóm linh vật
+**I want to** xem khối giới thiệu Dụng thần & Linh vật với tiêu đề, những gì sẽ khám phá và nút xem gợi ý
 **So that** tôi hiểu được giá trị của việc dùng linh vật hợp Bát tự và biết mình có thể khám phá thêm
 
 **INVEST Self-check**
@@ -49,24 +49,20 @@ Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) gi�
 
 **1. Phần tiêu đề và minh hoạ (Happy path)**
 
-- [ ] Hiển thị tiêu đề khối `"Khám phá Dụng Thần & Linh Vật của riêng bạn"`, trong đó cụm `"Dụng Thần"` và `"& Linh Vật"` được làm nổi bật.
-- [ ] Hiển thị hình minh hoạ ở góc phải tiêu đề.
+- [ ] Hiển thị tiêu đề khối `"Khám phá DỤNG THẦN & LINH VẬT của riêng bạn"`, trong đó cụm `"DỤNG THẦN"` và `"& LINH VẬT"` in hoa màu đỏ nổi bật; bên phải là hình minh hoạ linh vật.
 
-**2. Khối "Lợi ích bạn nhận được" (Happy path)**
+**2. Khung "BẠN SẼ KHÁM PHÁ" (Happy path)**
 
-- [ ] Hiển thị tiêu đề `"Lợi ích bạn nhận được"`.
-- [ ] Hiển thị đủ 4 lợi ích, mỗi lợi ích gồm biểu tượng, tiêu đề và mô tả ngắn:
-  - [ ] **Xác định Dụng thần**: giúp cân bằng Ngũ hành trong Bát tự của bạn
-  - [ ] **Kích hoạt tài lộc**: Giúp mở rộng nguồn thu tài chính
-  - [ ] **Quý nhân hỗ trợ**: Giúp thu hút mối quan hệ hỗ trợ bạn
-  - [ ] **Gợi ý linh vật phù hợp**: Giúp kích hoạt, thu hút may mắn
+- [ ] Hiển thị khung `"BẠN SẼ KHÁM PHÁ"` gồm 4 mục có icon:
+  - [ ] **Dụng thần**: `"Biết yếu tố bạn cần bổ sung để cân bằng Ngũ hành."`
+  - [ ] **Linh vật**: `"Khám phá linh vật phù hợp với Dụng Thần của bạn và lý do lựa chọn."`
+  - [ ] **Cách ứng dụng**: `"Biết cách đặt, mang theo và sử dụng linh vật phù hợp."`
+  - [ ] **Lộc – Mã – Quý Nhân**: `"Biết cách ứng dụng linh vật để hỗ trợ tài lộc, sự nghiệp và các mối quan hệ."`
 
-**3. Hai thẻ linh vật (Happy path & Interaction)**
+**3. Nút xem gợi ý (Happy path & Interaction)**
 
-- [ ] Hiển thị thẻ **Linh vật hộ thân** kèm ảnh, mô tả `"Mang theo bên mình để bảo vệ và cân bằng năng lượng."` và nút `"Khám phá"`.
-- [ ] Hiển thị thẻ **Linh vật đặt** kèm ảnh, mô tả `"Đặt tại nơi làm việc, nhà ở để hỗ trợ tài lộc và vượng khí."` và nút `"Khám phá"`.
-- [ ] Bấm nút `"Khám phá"` trên thẻ Linh vật hộ thân → điều hướng tới màn nhập thông tin của người dùng (để luận giải Bát tự và gợi ý linh vật phù hợp).
-- [ ] Bấm nút `"Khám phá"` trên thẻ Linh vật đặt → điều hướng tới màn nhập thông tin của người dùng (để luận giải Bát tự và gợi ý linh vật phù hợp).
+- [ ] Cuối khung hiển thị nút `"XEM GỢI Ý CỦA BẠN"` kèm mũi tên.
+- [ ] Bấm nút → chuyển tới màn nhập thông tin (theo [[Story-KichHoatNangLuong]] US-02).
 
 **4. Trạng thái hiển thị (Edge case)**
 
@@ -96,7 +92,8 @@ Khối Dụng thần & Linh vật đóng vai trò điểm vào (entry point) gi�
 
 **1. Lối vào từ khối Dụng thần & Linh vật — overlay (Happy path)**
 
-- [ ] **Khi người dùng đã mua thành công ít nhất 1 linh vật**: ngay dưới hai thẻ linh vật, hiển thị nút hàng ngang có biểu tượng và nhãn `"Vật phẩm của tôi"` kèm mũi tên chỉ sang phải.
+- [ ] Ngay dưới khung `"BẠN SẼ KHÁM PHÁ"`, hiển thị nhóm 2 dòng có icon và mũi tên sang phải: `"Đơn hàng của tôi"` (bấm → mở màn Đơn hàng của tôi) và `"Vật phẩm của tôi"`.
+- [ ] **Khi người dùng đã mua thành công ít nhất 1 linh vật**: hiển thị dòng `"Vật phẩm của tôi"`.
 - [ ] **Khi người dùng chưa mua thành công linh vật nào**: ẩn hoàn toàn nút `"Vật phẩm của tôi"` (không hiển thị nút rỗng hay dẫn tới danh sách trống).
 - [ ] Bấm vào nút → mở danh sách "Vật phẩm của tôi" dạng overlay toàn màn hình.
 

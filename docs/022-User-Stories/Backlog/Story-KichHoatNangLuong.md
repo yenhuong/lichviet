@@ -41,16 +41,15 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 **1. Nội dung giới thiệu (Happy path)**
 
 - [ ] Màn hình hiển thị tiêu đề chính `"KÍCH HOẠT"` và `"NĂNG LƯỢNG CÁ NHÂN"`.
-- [ ] Hiển thị hình ảnh sơ đồ ngũ hành minh họa.
-- [ ] Hiển thị mô tả tính năng: "Hệ thống sẽ phân tích bản đồ ngũ hành dựa trên ngày giờ sinh để giúp bạn hiểu rõ điểm mạnh, điểm cần cân bằng và gợi ý phương pháp kích hoạt năng lượng phù hợp dành riêng cho bạn"
-- [ ] Hiển thị khung `"KẾT QUẢ BẠN NHẬN ĐƯỢC"` gồm đúng 6 lợi ích kèm icon:
+- [ ] Hiển thị hình minh họa sơ đồ ngũ hành (Kim, Thủy, Mộc, Hỏa, Thổ) với nhân vật ở giữa.
+- [ ] Hiển thị mô tả tính năng: `"Dựa trên ngày giờ sinh, Lịch Việt xác định Dụng Thần và yếu tố bạn cần bổ sung để cân bằng Ngũ Hành. Từ đó, gợi ý linh vật và cách kích hoạt năng lượng cá nhân dành riêng cho bạn"`, trong đó cụm `"dành riêng cho bạn"` in đậm màu đỏ.
+- [ ] Hiển thị khung `"BẠN SẼ KHÁM PHÁ"` gồm 4 mục kèm icon:
 
-  - [ ] **Dụng thần**: `"Xác định năng lượng chủ đạo phù hợp với bản thân."`
-  - [ ] **Màu sắc hỗ trợ**: `"Màu sắc giúp cân bằng năng lượng và thu hút vận may."`
-  - [ ] **Linh vật phù hợp**: `"Linh vật phù hợp giúp kích hoạt năng lượng tích cực."`
-  - [ ] **Phương thức kích hoạt**: `"Gợi ý phương pháp kích hoạt năng lượng hiệu quả cho bạn."`
-  - [ ] **Quý nhân**: `"Xác định và thu hút những mối quan hệ hỗ trợ bạn."`
-  - [ ] **Tài lộc**: `"Gợi ý cách thu hút tài lộc, cải thiện cuộc sống và sự nghiệp."`
+  - [ ] **Xác Định Dụng Thần Của Bạn**: `"Để chọn đúng năng lượng cần bổ sung, giúp cân bằng Ngũ Hành, hỗ trợ công việc, tài lộc và các mối quan hệ."`
+  - [ ] **Gợi Ý Linh Vật Phù Hợp**: `"Chọn đúng linh vật và vật phẩm theo Dụng Thần, giúp bổ sung năng lượng cần thiết, cân bằng Ngũ Hành và hỗ trợ vận trình hanh thông."`
+  - [ ] **Màu Sắc Hỗ Trợ**: `"Chọn màu sắc theo Dụng Thần, giúp bổ sung năng lượng, cân bằng Ngũ Hành trong cuộc sống hằng ngày."`
+  - [ ] **Biết Cách Kích Hoạt**: `"Xem ngày giờ và vị trí đặt Linh vật để kích hoạt Lộc – Mã – Quý Nhân, hỗ trợ tài lộc, mở ra cơ hội mới và gia tăng sự trợ giúp từ Quý Nhân."`
+- [ ] Banner video `"TÍNH NĂNG MỚI – KÍCH HOẠT NĂNG LƯỢNG CÁ NHÂN"` kèm nút `"XEM VIDEO"` nằm dưới nút CTA, chỉ hiển thị khi video được cấu hình trong config.
 
 **2. Hành vi cuộn và thanh tiêu đề (Interaction)**
 
@@ -60,8 +59,9 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 
 **3. Điều hướng (Happy path & Edge case)**
 
-- [ ] Nút CTA cố định ở đáy hiển thị nhãn `"Khám phá bản đồ ngũ hành của bạn"`.
+- [ ] Nút CTA nằm dưới khung `"BẠN SẼ KHÁM PHÁ"`, hiển thị nhãn `"Kích hoạt năng lượng của bạn"`.
 - [ ] Bấm nút CTA → điều hướng sang màn hình nhập thông tin (`KichHoatNangLuong_Input.html`).
+- [ ] Bấm vào bất kỳ vị trí nào trên banner video → mở màn phát video toàn màn hình.
 - [ ] Bấm nút quay lại (mũi tên) ở góc trên → quay về màn hình trước đó.
 
 ---
@@ -192,4 +192,51 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 - [ ] Hiển thị tiêu đề lớn: `"Linh vật hộ thân của bạn"`.
 - [ ] Bên trái hiển thị hình ảnh linh vật (`mascot_trau.png`).
 - [ ] Bên phải hiển thị tên linh vật in hoa `"TRÂU"` kèm dòng chữ mô tả `"Biểu tượng của sức mạnh bền bỉ"`.
+
+---
+
+## US-06: Vào thẳng màn tổng quan khi đã từng xem kết quả
+
+**User Story**
+**As a** người dùng đã xem kết quả kích hoạt năng lượng ít nhất 1 lần
+**I want to** vào tính năng là thấy ngay thông tin đã xem gần nhất và nút xem lại kết quả, không phải qua màn giới thiệu
+**So that** tôi xem lại kết quả hoặc đổi thông tin nhanh hơn
+
+**INVEST Self-check**
+
+| Tiêu chí            | Đánh giá | Ghi chú                                                              |
+| --------------------- | ----------- | --------------------------------------------------------------------- |
+| **I**ndependent | ✅          | Chỉ phụ thuộc cờ "đã xem kết quả" và thông tin xem gần nhất. |
+| **N**egotiable  | ✅          | Bố cục khối thông tin, banner có thể tinh chỉnh.              |
+| **V**aluable    | ✅          | Rút ngắn luồng cho người dùng quay lại, tăng tần suất sử dụng. |
+| **E**stimable   | ✅          | Màn tĩnh + điều kiện điều hướng, dễ ước lượng.                 |
+| **S**mall       | ✅          | Hoàn thành trong vài giờ làm việc.                               |
+| **T**estable    | ✅          | Kiểm thử bằng tài khoản chưa xem / đã xem kết quả.             |
+
+### Tiêu chí nghiệm thu
+
+**1. Điều kiện hiển thị (Happy path & Edge case)**
+
+- [ ] Người dùng chưa từng xem kết quả → vào tính năng hiển thị màn giới thiệu (US-01).
+- [ ] Người dùng đã xem kết quả ít nhất 1 lần → vào tính năng hiển thị thẳng màn tổng quan, bỏ qua màn giới thiệu.
+
+**2. Nội dung màn tổng quan (Happy path)**
+
+- [ ] Phần đầu hiển thị tiêu đề `"KÍCH HOẠT"` / `"NĂNG LƯỢNG CÁ NHÂN"` và nút quay lại.
+- [ ] Khung `"BẠN SẼ KHÁM PHÁ"` gồm 3 mục kèm icon:
+  - [ ] **Dụng Thần**: `"Yếu tố cần bổ sung để cân bằng Ngũ hành"`
+  - [ ] **Linh Vật Phù Hợp**: `"Gợi ý linh vật theo Dụng Thần"`
+  - [ ] **Cách kích hoạt**: `"Hướng dẫn cách đặt/mang theo và sử dụng phù hợp"`
+- [ ] Thẻ thông tin hiển thị thông tin xem gần nhất: Họ tên kèm icon chỉnh sửa; Ngày sinh dương lịch `DD/MM/YYYY` và ngày âm lịch tương ứng `"DD/MM/YYYY (Âm Lịch)"`; Giờ sinh `HH:MM` và tên giờ can chi (ví dụ `"Giờ Mão"`); Giới tính.
+- [ ] Nút chính `"Xem kết quả của bạn"`.
+- [ ] Nút phụ `"Vật phẩm của tôi"` chỉ hiển thị khi người dùng đã mua ít nhất 1 vật phẩm.
+- [ ] Banner video `"TÍNH NĂNG MỚI – KÍCH HOẠT NĂNG LƯỢNG CÁ NHÂN"` kèm nút `"XEM VIDEO"`, chỉ hiển thị khi video được cấu hình trong config.
+
+**3. Điều hướng (Interaction)**
+
+- [ ] Bấm icon chỉnh sửa → mở màn nhập thông tin (US-02), các trường điền sẵn thông tin trên thẻ.
+- [ ] Bấm `"Xem kết quả của bạn"` → mở màn kết quả luận giải theo thông tin trên thẻ.
+- [ ] Bấm `"Vật phẩm của tôi"` → mở màn danh sách vật phẩm của người dùng.
+- [ ] Bấm vào bất kỳ vị trí nào trên banner video → mở màn phát video toàn màn hình.
+- [ ] Bấm nút quay lại → về màn hình trước đó.
 

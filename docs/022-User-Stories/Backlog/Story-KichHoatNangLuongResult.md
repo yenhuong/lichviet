@@ -5,7 +5,7 @@ status: draft
 project: Lich_Viet
 created: 2026-07-23
 tags: [kich-hoat-nang-luong, bat-tu, ngu-hanh, result, freemium, paywall]
-linked-to: [[Story-KichHoatNangLuong]]
+linked-to: [[Story-KichHoatNangLuong]], [[Story-OnboardingKichHoatNangLuong]]
 ---
 # User Stories - Màn hình Kết quả luận giải lá số Bát tự (người dùng Free)
 
@@ -149,20 +149,27 @@ Người dùng Free được xem miễn phí toàn bộ lá số Bát tự (tứ
 
 **1. Hiển thị khối mở khoá (Happy path)**
 
-- [ ] Sau phần nhận định miễn phí, hiển thị khối mở khoá có huy hiệu `"PREMIUM"`.
-- [ ] Hiển thị tiêu đề `"Mở khoá luận giải chuyên sâu"` và mô tả `"Xem đầy đủ phân tích và gợi ý phù hợp theo lá số của bạn."`.
-- [ ] Hiển thị nhóm `"Bản phân tích dành riêng cho bạn"` (kèm biểu tượng khoá) gồm 3 mục:
-  - [ ] **Chân dung năng lượng của bạn**: mô tả điểm mạnh tự nhiên và điểm cần chú ý để phát triển cân bằng.
-  - [ ] **Bản đồ ngũ hành cá nhân**: ngũ hành nào đang vượng, đang thiếu và tác động tới công việc, tài chính, sức khỏe, quan hệ.
-  - [ ] **Hướng phát triển phù hợp**: gợi ý hướng đi, phát triển công việc và xây nền tảng tài chính ổn định.
-- [ ] Hiển thị nhóm `"Giải pháp kích hoạt theo lá số"` (kèm biểu tượng khoá) gồm:
-  - [ ] Bên phải nhóm hiển thị **ảnh minh hoạ con giáp** theo tuổi (con giáp cầm tinh) của người dùng, tương ứng địa chi năm sinh.
-  - [ ] **Linh vật đặt** kèm 4 gợi ý: `LỘC`, `MÃ`, `ÂM QUÝ NHÂN`, `DƯƠNG QUÝ NHÂN`, mỗi gợi ý có mô tả ngắn.
-  - [ ] **Linh vật hộ thân**: mô tả giúp cân bằng năng lượng, tăng an tâm và hỗ trợ hoá giải điều chưa thuận.
+- [ ] Sau phần nhận định miễn phí, hiển thị khối mở khoá gồm phần đầu và 2 nhóm nội dung.
+- [ ] **Phần đầu**: tiêu đề `"Mở khóa"` kèm huy hiệu `"PREMIUM"`, 2 dòng quyền lợi có dấu tích `"Phân tích Lá số, xác định Ngũ hành cần bổ sung"` và `"Chọn sản phẩm kích hoạt năng lượng cá nhân"`; bên phải là hình nhân vật cầm chìa khoá.
+- [ ] Nhóm `"Kết quả dành riêng cho bạn"` kèm icon khoá và ảnh cuộn giấy Lịch Việt, gồm 4 mục có icon:
+  - [ ] **Dụng thần**: `"Biết yếu tố bạn cần bổ sung để cân bằng Ngũ hành."`
+  - [ ] **Linh vật**: `"Khám phá linh vật phù hợp với Dụng Thần của bạn và lý do lựa chọn."`
+  - [ ] **Lộc – Mã – Quý Nhân**: `"Biết cách ứng dụng linh vật để hỗ trợ tài lộc, sự nghiệp và các mối quan hệ."`
+  - [ ] **Màu sắc hỗ trợ**: `"Biết màu sắc phù hợp ứng dụng trong cuộc sống hằng ngày"`
+- [ ] Nhóm `"Giải pháp kích hoạt dành cho bạn"` kèm icon khoá và **ảnh minh hoạ con giáp** theo tuổi người dùng (tương ứng địa chi năm sinh), gồm 5 mục có icon:
+  - [ ] **LINH VẬT ĐẶT**: `"Linh vật được đặt ở vị trí phù hợp trong không gian sống hoặc làm việc, mang ý nghĩa hỗ trợ Tài Lộc, mở rộng cơ hội và tăng cường trợ giúp từ Quý Nhân"`, kèm 4 gợi ý có icon:
+    - `LỘC`: `"Kích hoạt tài lộc, duy trì dòng tiền bền vững"`
+    - `MÃ`: `"Kích hoạt cơ hội, mở rộng kết nối phát triển"`
+    - `DƯƠNG QUÝ NHÂN`: `"Kết nối người trao đổi cơ hội, thuận lợi phát triển"`
+    - `ÂM QUÝ NHÂN`: `"Kết nối quý nhân, thuận lợi mọi việc"`
+  - [ ] **LINH VẬT HỘ THÂN**: `"Linh vật mang theo bên mình, được lựa chọn hỗ trợ cân bằng năng lượng và hóa giải những yếu tố chưa thuận lợi."`
+  - [ ] **VÒNG TAY HỘ THÂN**: `"Chọn vòng tay theo Dụng Thần và năng lượng cần bổ sung. Hỗ trợ cân bằng trong quá trình sử dụng hằng ngày."`
+  - [ ] **QUẢ CẦU NGŨ HÀNH**: `"Xác định màu sắc và Ngũ Hành phù hợp. Giúp bổ sung yếu tố năng lượng mà bạn đang cần."`
+  - [ ] **THÁP VĂN XƯƠNG**: `"Chọn Tháp theo Dụng Thần. Hỗ trợ cân bằng Ngũ Hành và nuôi dưỡng tập trung, hanh thông."`
 
 **2. Nút mở khoá cố định đáy màn (Interaction)**
 
-- [ ] Nút CTA cố định đáy màn hiển thị nhãn `"Mở khoá luận giải chuyên sâu"`
+- [ ] Nút CTA cố định đáy màn hiển thị nhãn `"Mở khóa phân tích chi tiết"`
 - [ ] Khi cuộn tới vùng khối mở khoá → nút CTA đáy màn hiện lên (hiệu ứng trượt vào).
 - [ ] Khi cuộn ra khỏi vùng khối mở khoá → nút CTA đáy màn ẩn đi.
 - [ ] Bấm nút CTA → hiển thị popup mua gói lẻ kích hoạt năng lượng cá nhân inapp luôn của hệ thống.

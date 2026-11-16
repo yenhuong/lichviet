@@ -10,6 +10,8 @@ Tài liệu này dùng để quản lý mục lục các tài liệu yêu cầu 
 
 - [[BPRD-001-KichHoatNangLuong]] - Tính năng Kích Hoạt Năng Lượng Cá Nhân (Bát tự phong thủy)
 - [[BPRD-002-KhaoSatInApp]] - Khảo sát người dùng trong app (nền tảng dùng chung cho mọi tính năng)
+- [[BPRD-004-KichHoatTriTueCongDanh]] - Tính năng Kích Hoạt Trí Tuệ & Công Danh (Tháp Văn Xương)
+- [[BPRD-005-LichPhatGiao]] - Lịch Phật giáo (Đại thừa) giai đoạn 1: ngày chay, ngày vía, nhắc nhở, niệm Phật, tu tập
 
 ## 020.3 - Kế hoạch khảo sát in-app (Survey Plan - SVP)
 
