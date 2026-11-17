@@ -222,13 +222,11 @@
         .new-vanhan-factor-tile:active { background: var(--color-vanhan-surface-tint); }
         .fx-name { color: var(--color-vanhan-primary); }
         .fx-desc { margin-top: var(--space-2); color: var(--color-text-label); }
-        /* new/VanHanAdviceCard: action advice for the year (separate block, not a scored factor) */
-        .intro-title.advice-sub { margin: var(--space-28) var(--space-16) var(--space-12); }
-        .advice-sub .advice-ic { display: inline-flex; flex-shrink: 0; color: var(--color-vanhan-primary); }
-        .new-vanhan-advice-card { margin: 0 var(--space-12); padding: var(--space-16); background: var(--color-vanhan-surface-tint); border: 1px solid var(--color-vanhan-border); border-radius: var(--radius-md); box-shadow: var(--shadow-vanhan-tile); cursor: pointer; }
-        .new-vanhan-advice-card:active { background: var(--color-vanhan-hero-bg); }
+        /* new/VanHanAdviceCard: action advice for the year, no frame: text + CTA sit directly under the block header */
+        .new-vanhan-advice-card { margin: 0 var(--space-16); }
         .new-vanhan-advice-card .ac-desc { color: var(--color-text-strong); }
-        .new-vanhan-advice-card .ac-more { margin-top: var(--space-12); padding-top: var(--space-12); border-top: 1px solid var(--color-vanhan-border); display: flex; align-items: center; justify-content: flex-end; gap: var(--space-6); color: var(--color-vanhan-primary); }
+        /* Advice CTA spans the full card width, with side padding so the label does not hug the edges */
+        .new-vanhan-advice-card .new-vanhan-detail-button { width: 100%; padding: 0 var(--space-20); box-sizing: border-box; gap: var(--space-12); }
 
         .fx-rate { margin-top: auto; padding-top: var(--space-10); display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-4) var(--space-6); }
 
@@ -365,32 +363,6 @@
             border-top: 1px solid var(--color-vanhan-divider);
             gap: var(--space-10);
         }
-
-        /* Opportunities / cautions nested under the year comparison */
-        .yc-subgroup {
-            margin-top: var(--space-14);
-            padding-left: var(--space-12);
-        }
-
-        .yc-h3 {
-            display: flex;
-            align-items: center;
-            gap: var(--space-6);
-            margin-bottom: var(--space-6);
-        }
-
-        .yc-h3.good { color: var(--color-vanhan-primary); }
-        .yc-h3.warn { color: var(--color-vanhan-negative); }
-        .yc-sum { margin: 0; color: var(--color-text-strong); }
-        .yc-chips { display: flex; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-10); }
-
-        /* new/VanHanAspectChip (good | warn) */
-        .new-vanhan-aspect-chip { display: inline-flex; align-items: center; gap: var(--space-6); padding: var(--space-8) var(--space-10); border-radius: var(--radius-20); text-decoration: none; border: 1px solid; }
-        .new-vanhan-aspect-chip img { width: 20px; height: 20px; object-fit: contain; }
-        .new-vanhan-aspect-chip.good { background: var(--color-vanhan-positive-bg); border-color: var(--color-vanhan-border); color: var(--color-vanhan-accent); }
-        .new-vanhan-aspect-chip.warn { background: var(--color-vanhan-negative-bg); border-color: var(--color-vanhan-negative-border); color: var(--color-vanhan-negative-strong); }
-        .yc-chip-chev { margin-left: var(--space-2); }
-        .yc-chips + .yc-h3 { margin-top: var(--space-18); }
 
         /* new/VanHanMonthHighlight: notable months, two columns */
         .yc-months { display: grid; grid-template-columns: 1fr 1.25fr; gap: var(--space-10); }
@@ -687,23 +659,14 @@
                 <!-- Year overview: rating + summary + key aspects (single star scale) -->
                 <div class="new-vanhan-year-card" data-component="new/VanHanYearCard">
                     <div class="yc-head">
-                        <div class="kw-label text-label-lg-semibold">Tổng quan năm 2027 của chị</div>
+                        <div class="kw-label text-label-lg-semibold">Tổng quan năm 2027 của bạn</div>
                         <div class="kw-title text-title-xl-extrabold">Tương đối thuận lợi</div>
                         <div class="kw-rating"><span class="new-vanhan-stars kw-stars" data-component="new/VanHanStarRating" data-stars="3" data-size="20"></span></div>
                         <div class="kw-tagline text-body-md-regular"><svg class="q-ic" width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><g fill="currentColor"><circle cx="4.4" cy="9.6" r="3.4"/><circle cx="13.4" cy="9.6" r="3.4"/></g><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M1.2 9.4C1 5.4 3 2.4 6.8 1.2"/><path d="M10.2 9.4C10 5.4 12 2.4 15.8 1.2"/></g></svg>Nghiêng nhẹ về phía thuận, giữ nhịp đều là có thêm kết quả.</div>
                     </div>
                     <div class="yc-body">
                         <div class="intro-title text-body-lg-bold"><span class="trend-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>Nhỉnh hơn năm 2026</div>
-                        <p class="year-intro text-body-md-relaxed">Bước vào năm 2027 Đinh Mùi, chị 47 tuổi âm lịch, đang ở năm thứ năm của đại vận 43–52 tuổi. So với năm 2026, vận trình năm nay nhỉnh hơn một chút, nhịp sống dễ chịu hơn. Tuy vậy, vẫn có những mặt thuận lợi và những điều chị cần lưu ý.</p>
-                        <!-- Sub-content of the year comparison -->
-                        <div class="yc-subgroup">
-                            <div class="yc-h3 good text-label-md-bold"><img src="assets/vanhan_v3/i_thuanloi.svg" width="16" height="16" alt="">Điểm thuận lợi</div>
-                            <p class="yc-sum text-body-md-regular">Công việc được ghi nhận, có thêm trách nhiệm; tài chính có cơ hội tăng thu và tích lũy.</p>
-                            <div class="yc-chips"><a class="new-vanhan-aspect-chip good text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=congviec"><img src="assets/vanhan_v3/i_congviec.svg" width="20" height="20" alt="">Công việc<span class="yc-chip-chev text-icon-chevron">›</span></a><a class="new-vanhan-aspect-chip good text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=taichinh"><img src="assets/vanhan_v3/i_tailoc.svg" width="20" height="20" alt="">Tài chính<span class="yc-chip-chev text-icon-chevron">›</span></a></div>
-                            <div class="yc-h3 warn text-label-md-bold"><img src="assets/vanhan_v3/i_batloi_soft.svg?v=3" width="16" height="14.6" alt="">Điều cần lưu ý</div>
-                            <p class="yc-sum text-body-md-regular">Sức khỏe dễ mệt mỏi, căng thẳng; quan hệ dễ phát sinh hiểu lầm, thị phi.</p>
-                            <div class="yc-chips"><a class="new-vanhan-aspect-chip warn text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=suckhoe"><img src="assets/vanhan_v3/i_suckhoe.svg" width="20" height="20" alt="">Sức khỏe<span class="yc-chip-chev text-icon-chevron">›</span></a><a class="new-vanhan-aspect-chip warn text-subhead-semibold" data-component="new/VanHanAspectChip" href="tuvi_vanhan_matdoisong.html?tab=quanhe"><img src="assets/vanhan_v3/i_nguoithan.svg" width="20" height="20" alt="">Quan hệ xã hội<span class="yc-chip-chev text-icon-chevron">›</span></a></div>
-                        </div>
+                        <p class="year-intro text-body-md-relaxed">Bước vào năm 2027 Đinh Mùi, bạn 47 tuổi âm lịch, đang ở năm thứ năm của đại vận 43–52 tuổi. Năm nay vận trình ở mức trung bình khá, khởi sắc hơn năm 2026 một chút. Đây là năm bạn nên giữ nhịp ổn định, vừa tận dụng thuận lợi trong công việc và tài chính, vừa để ý hơn đến sức khỏe và các mối quan hệ.</p>
                         <div class="intro-title yc-sub text-body-lg-bold"><span class="trend-up"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="3" stroke="currentColor" stroke-width="2"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="2"/><path d="M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 11.4l1.3 2.6 2.8.4-2 2 .5 2.8L12 17.9l-2.6 1.3.5-2.8-2-2 2.8-.4z" fill="#FFD25E"/></svg></span>Tháng âm lịch đáng chú ý</div>
                         <div class="yc-months">
                             <div class="new-vanhan-month-highlight good" data-component="new/VanHanMonthHighlight" onclick="goNotableMonth([3])"><span class="ym-lbl text-subhead-regular">Tháng tốt nhất</span><span class="ym-val text-body-lg-bold">Tháng 3</span></div>
@@ -712,22 +675,30 @@
                     </div>
                 </div>
 
-                <!-- Factors behind this year's fortune (PDF sections 2-5) -->
+                <!-- Factors behind this year's fortune (PDF sections 1-5) -->
                 <div class="blk-sep"></div>
-                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M11 7.2L6.2 15.8"/><path d="M13 7.2l4.8 8.6"/><path d="M7.5 18h9"/></svg></span><div class="blk-title text-heading-block">Điều gì ảnh hưởng đến vận hạn của chị?</div></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M11 7.2L6.2 15.8"/><path d="M13 7.2l4.8 8.6"/><path d="M7.5 18h9"/></svg></span><div class="blk-title text-heading-block">Điều gì ảnh hưởng đến vận hạn của bạn?</div></div>
                 <div class="fx-grid">
+                    <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="window.location.href='tuvi_menhgoc_detail.html'">
+                        <div class="fx-body">
+                            <div class="fx-name text-body-lg-bold">Mệnh gốc của bạn</div>
+                            <div class="fx-desc text-body-md-regular">Tính cách, điểm mạnh và những điều bạn cần lưu ý</div>
+                            <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="4" data-size="14"></span><span class="level-good">Tốt</span></div>
+                        </div>
+                        <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
+                    </div>
                     <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="window.location.href='tuvi_daivan_detail.html'">
                         <div class="fx-body">
                             <div class="fx-name text-body-lg-bold">Đại vận 43–52 tuổi</div>
-                            <div class="fx-desc text-body-md-regular">Giai đoạn 10 năm này ảnh hưởng thế nào đến năm 2027 của chị</div>
+                            <div class="fx-desc text-body-md-regular">Ảnh hưởng của Đại vận đến năm 2027</div>
                             <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="3" data-size="14"></span><span class="level-mid">Trung bình</span></div>
                         </div>
                         <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                     </div>
                     <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="comingSoon()">
                         <div class="fx-body">
-                            <div class="fx-name text-body-lg-bold">Chị trong năm 2027</div>
-                            <div class="fx-desc text-body-md-regular">Những thay đổi trong suy nghĩ và cách ứng xử của chị</div>
+                            <div class="fx-name text-body-lg-bold">Bạn trong năm 2027</div>
+                            <div class="fx-desc text-body-md-regular">Những thay đổi trong suy nghĩ và cách ứng xử của bạn</div>
                             <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="2" data-size="14"></span><span class="level-warn">Không thuận lợi</span></div>
                         </div>
                         <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
@@ -735,29 +706,33 @@
                     <div class="new-vanhan-factor-tile" data-component="new/VanHanFactorTile" onclick="comingSoon()">
                         <div class="fx-body">
                             <div class="fx-name text-body-lg-bold">Hoàn cảnh bên ngoài</div>
-                            <div class="fx-desc text-body-md-regular">Những tác động từ bên ngoài đến chị trong năm 2027</div>
+                            <div class="fx-desc text-body-md-regular">Những tác động từ bên ngoài đến bạn trong năm 2027</div>
                             <div class="fx-rate text-subhead-semibold"><span class="new-vanhan-stars" data-component="new/VanHanStarRating" data-stars="2" data-size="14"></span><span class="level-warn">Không thuận lợi</span></div>
                         </div>
                         <div class="chev"><img src="assets/vanhan_v3/i_chev.svg" width="8" height="14" alt=""></div>
                     </div>
                 </div>
 
-                <!-- Advice: sub-heading + card (separate from the 3 scored factors) -->
-                <div class="intro-title advice-sub text-body-lg-bold"><span class="advice-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z" fill="#FFD25E" stroke="#FFD25E"/></svg></span>Chị nên chủ động làm gì?</div>
-                <div class="new-vanhan-advice-card" data-component="new/VanHanAdviceCard" onclick="comingSoon()">
-                    <div class="ac-desc text-body-md-regular">Tận dụng cơ hội học tập, mở rộng quan hệ và chủ động phòng tránh rủi ro.</div>
-                    <div class="ac-more text-label-md-semibold">Xem lời khuyên dành cho chị<span class="text-icon-chevron">›</span></div>
+                <!-- Advice: own block, same level as "Điều gì ảnh hưởng" -->
+                <div class="blk-sep"></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg></span><div class="blk-title text-heading-block">Bạn nên chủ động làm gì?</div></div>
+                <div class="new-vanhan-advice-card" data-component="new/VanHanAdviceCard">
+                    <div class="ac-desc text-body-md-regular">Năm 2027, bạn nên tập trung học hỏi, nâng cao năng lực và mở rộng các mối quan hệ để đón nhận cơ hội. Đồng thời, cần thận trọng trong giao tiếp, tránh tranh cãi và những va chạm không đáng có.</div>
+                    <div class="new-vanhan-detail-button text-button-cta" data-component="new/VanHanDetailButton" onclick="comingSoon()">
+                        Xem lời khuyên dành cho bạn
+                        <img src="assets/vanhan_v3/i_tieptuc.svg" width="18.4" height="18" alt="">
+                    </div>
                 </div>
 
                 <!-- Aspect details: 8 aspects, data from engine (same star scale as overview card) -->
                 <div class="blk-sep"></div>
-                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader" id="aspects"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div class="blk-title text-heading-block">Năm 2027, từng mặt cuộc sống của chị ra sao?</div></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader" id="aspects"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div class="blk-title text-heading-block">Năm 2027, từng mặt cuộc sống của bạn ra sao?</div></div>
                 <div class="lv-card card-inset" data-component="Card" id="aspectList"></div>
 
                 <!-- 12 lunar months -->
                 <!-- Divider: whole-year content above, month-by-month below -->
                 <div class="blk-sep"></div>
-                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span><div class="blk-title text-heading-block">Khám phá vận hạn của chị qua 12 tháng âm lịch năm 2027</div></div>
+                <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span><div class="blk-title text-heading-block">Vận hạn 12 tháng âm lịch của bạn trong năm 2027</div></div>
                 <div class="mcard">
                     <div class="rhythm-head">
                         <span class="new-vanhan-chart-legend text-caption-regular" data-component="new/VanHanChartLegend">

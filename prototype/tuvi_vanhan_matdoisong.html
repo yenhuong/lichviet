@@ -171,7 +171,7 @@
 
         /* new/VanHanTrendStrip: 3 read-only new/VanHanTrendYear cells, current year tinted */
         .new-vanhan-trend-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-12); padding: var(--space-4); background: var(--color-bg-subtle); border: 1px solid var(--color-border-divider); border-radius: var(--radius-lg); }
-        .new-vanhan-trend-year { padding: var(--space-10) var(--space-8); text-align: center; border-radius: var(--radius-sm); }
+        .new-vanhan-trend-year { padding: var(--space-10) var(--space-4); text-align: center; border-radius: var(--radius-sm); }
         .new-vanhan-trend-year.now { background: var(--color-vanhan-bg); }
         .tr-cap { color: var(--color-text-tertiary); margin-bottom: var(--space-2); }
         .new-vanhan-trend-year.now .tr-cap { color: var(--color-vanhan-primary); }
@@ -179,6 +179,8 @@
         .new-vanhan-trend-year.now .tr-year { color: var(--color-vanhan-primary); }
         .new-vanhan-trend-year .new-vanhan-stars { margin-top: var(--space-4); }
         .tr-lbl { margin-top: var(--space-4); }
+        /* Single-line labels: keep them from wrapping when exported to Figma (font metrics differ) */
+        .tr-cap, .tr-year, .tr-lbl, .new-vanhan-trend-verdict { white-space: nowrap; }
 
         /* new/VanHanTrendVerdict (up | same | down) */
         .new-vanhan-trend-verdict { display: inline-flex; align-items: center; gap: var(--space-8); height: 32px; padding: 0 var(--space-16) 0 var(--space-12); margin: 0 0 var(--space-12); border-radius: var(--radius-full); }
@@ -305,8 +307,8 @@
                 key: 'congviec', name: 'Công việc', icon: 'i_congviec.svg', stars: 3,
                 title: 'Giữ nhịp, chờ thời cơ',
                 trend: [1, 3, 3],
-                compare: 'Từ năm 2026 sang 2027, công việc của chị có bước chuyển rõ rệt, từ mức “Xấu” lên “Trung bình”. Những nỗ lực âm thầm năm trước nay đã bắt đầu đơm hoa, thời điểm đẹp để chị mạnh dạn bước tới.',
-                summary: 'Năm 2027, công việc của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
+                compare: 'Từ năm 2026 sang 2027, công việc của bạn có bước chuyển rõ rệt, từ mức “Xấu” lên “Trung bình”. Những nỗ lực âm thầm năm trước nay đã bắt đầu đơm hoa, thời điểm đẹp để bạn mạnh dạn bước tới.',
+                summary: 'Năm 2027, công việc của bạn có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
                 good: [
                     'Môi trường năm nay mang lại cho công việc những điểm thuận lợi: năng lực được ghi nhận, thuận thi cử, bằng cấp, hồ sơ, được giới thiệu cơ hội việc làm, dự án qua quan hệ, nhiều dịp đi công tác, có thể đổi vị trí hoặc nơi làm.',
                     'Xét riêng cung Quan Lộc, Liêm Trinh (miếu) và Thiên Phủ (vượng) cùng ĐV. Hóa Lộc từ cung Tài Bạch (tam hợp) chiếu về, L. Lộc Tồn nhập cung kết hợp với ĐV. Lộc Tồn từ tam hợp chiếu về, là dấu hiệu thuận lợi: công việc mang lại lợi ích rõ, dễ có thêm việc, thêm thu nhập từ nghề, công việc ổn định, làm chắc, ít thay đổi.'
@@ -324,8 +326,8 @@
                 key: 'taichinh', name: 'Tài chính', icon: 'i_tailoc.svg', stars: 3,
                 title: 'Thu chi cân bằng',
                 trend: [2, 3, 4],
-                compare: 'Từ năm 2026 sang 2027, tài chính của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”. Đà thuận đang đến, chị nên chủ động tận dụng để tiến thêm một bước.',
-                summary: 'Năm 2027, tài chính của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định. Nguồn tiền chính vẫn là các khoản thu cố định hằng tháng, ngoài ra chị có thể có thêm các khoản thưởng, lợi nhuận hoặc khoản lợi bất ngờ.',
+                compare: 'Từ năm 2026 sang 2027, tài chính của bạn sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”. Đà thuận đang đến, bạn nên chủ động tận dụng để tiến thêm một bước.',
+                summary: 'Năm 2027, tài chính của bạn có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định. Nguồn tiền chính vẫn là các khoản thu cố định hằng tháng, ngoài ra bạn có thể có thêm các khoản thưởng, lợi nhuận hoặc khoản lợi bất ngờ.',
                 good: [
                     'Môi trường năm nay mang lại cho tài chính những điểm thuận lợi: uy tín tài chính tốt, giấy tờ tiền bạc rõ ràng, dễ được hỗ trợ vốn, được giới thiệu mối làm ăn, tiền đến nhờ các mối quan hệ, tiền đến từ việc đi lại, làm ăn xa hoặc nguồn thu thay đổi.',
                     'Xét riêng cung Tài Bạch, Liêm Trinh (miếu) và Thiên Phủ (vượng) trong cung gặp ĐV. Hóa Lộc nhập cung, L. Lộc Tồn từ cung Quan Lộc (tam hợp) chiếu về kết hợp với ĐV. Lộc Tồn từ tam hợp chiếu về, là dấu hiệu thuận lợi: tiền vào thuận, có thêm nguồn thu hoặc khoản lợi bất ngờ, tiền giữ được, tích lũy dần, chi tiêu chắc chắn.'
@@ -340,7 +342,7 @@
                 extra: {
                     title: 'Góc nhìn về đầu tư',
                     qa: [
-                        ['Năm nay có nên đầu tư không?', 'Năm nay chưa có tín hiệu thuận rõ cho việc đầu tư thêm. Chị nên ưu tiên giữ ổn định các khoản đang có và củng cố nguồn thu chính, mọi quyết định cần dựa vào khả năng tài chính và thông tin thực tế.'],
+                        ['Năm nay có nên đầu tư không?', 'Năm nay chưa có tín hiệu thuận rõ cho việc đầu tư thêm. Bạn nên ưu tiên giữ ổn định các khoản đang có và củng cố nguồn thu chính, mọi quyết định cần dựa vào khả năng tài chính và thông tin thực tế.'],
                         ['Kênh nào hợp: tích lũy an toàn hay mạo hiểm?', 'Năm nay hợp hướng tích lũy an toàn như gửi tiết kiệm. Các kênh mạo hiểm cần cân nhắc kỹ trước khi tham gia.'],
                         ['Cần tránh điều gì?', 'Nên thận trọng với việc vay để đầu tư và cảnh giác với các lời mời lợi nhuận cao. Giữ vững những gì đang có là ưu tiên của năm.'],
                         ['Hợp tác, góp vốn có thuận không?', 'Năm nay chưa có tín hiệu thuận rõ cho việc góp vốn mới. Nếu có lời mời, nên kiểm tra kỹ đối tác, điều khoản và nghĩa vụ, không cần vội quyết.'],
@@ -353,8 +355,8 @@
                 key: 'tinhcam', name: 'Tình cảm', icon: 'i_tinhduyen.svg', stars: 3,
                 title: 'Êm đềm, có lúc gợn sóng',
                 trend: [2, 3, 3],
-                compare: 'Từ năm 2026 sang 2027, chuyện tình cảm của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
-                summary: 'Năm 2027, chuyện tình cảm của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
+                compare: 'Từ năm 2026 sang 2027, chuyện tình cảm của bạn sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
+                summary: 'Năm 2027, chuyện tình cảm của bạn có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
                 good: [
                     'Môi trường năm nay mang lại cho chuyện tình cảm những điểm thuận lợi: hai người tôn trọng, nể và hiểu nhau hơn, người lớn tán thành, có người đứng ra vun đắp.',
                     'Xét riêng cung Phu Thê, L. Lộc Tồn từ cung Quan Lộc xung chiếu về kết hợp với ĐV. Lộc Tồn ở cung Mệnh, là dấu hiệu thuận lợi: quan hệ bền, êm, có phần trầm lặng.'
@@ -373,8 +375,8 @@
                 key: 'giadao', name: 'Gia đạo', icon: 'i_giadao.svg', stars: 3,
                 title: 'Bình yên, giản dị',
                 trend: [2, 3, 4],
-                compare: 'Từ năm 2026 sang 2027, gia đạo của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
-                summary: 'Năm 2027, gia đạo của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định. Chuyện anh chị em năm nay là điểm động, vừa có cơ hội vừa có việc phải lo.',
+                compare: 'Từ năm 2026 sang 2027, gia đạo của bạn sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
+                summary: 'Năm 2027, gia đạo của bạn có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định. Chuyện anh chị em năm nay là điểm động, vừa có cơ hội vừa có việc phải lo.',
                 good: [
                     'Môi trường năm nay mang lại cho gia đạo những điểm thuận lợi: gia đình êm ấm, được nể trọng, có người ngoài giúp việc nhà, người nhà đi xa hoặc có thay đổi nơi ở.',
                     'Xét riêng cung Tử Tức, Thái Âm (miếu) và Thiên Mã trong cung gặp L. Thiên Khôi và L. Hóa Lộc nhập cung, là dấu hiệu thuận lợi: con gặp thầy giỏi, người tốt nâng đỡ, con cái có tin vui, thành quả tốt.'
@@ -395,7 +397,7 @@
                     qa: [
                         ['Sức khỏe, tinh thần của cha mẹ năm nay?', 'Cha mẹ năm nay có thể mệt mỏi hoặc nhiều lo nghĩ. Những cuộc gọi hỏi thăm, những bữa cơm cùng nhau sẽ có ý nghĩa hơn thường lệ.'],
                         ['Có việc gì cần lo cho cha mẹ?', 'Năm nay cần lo cho cha mẹ vì sức khỏe cha mẹ cần được quan tâm hơn. Nên dành thời gian chăm lo sức khỏe và các việc giấy tờ, nhà cửa của cha mẹ.'],
-                        ['Thời điểm nào nên dành thời gian cho cha mẹ?', 'Không có tháng nào nổi bật riêng. Chị nên giữ lịch thăm hỏi cha mẹ đều đặn quanh năm.'],
+                        ['Thời điểm nào nên dành thời gian cho cha mẹ?', 'Không có tháng nào nổi bật riêng. Bạn nên giữ lịch thăm hỏi cha mẹ đều đặn quanh năm.'],
                         ['Hiếu thuận thế nào cho hợp?', 'Hiếu thuận không chỉ là lo vật chất. Hãy hỏi chuyện xưa của cha mẹ, ghi lại những lời dặn, đó cũng là cách hiểu thêm về gốc rễ của chính mình.']
                     ]
                 },
@@ -405,8 +407,8 @@
                 key: 'suckhoe', name: 'Sức khỏe', icon: 'i_suckhoe.svg', stars: 2,
                 title: 'Dành thời gian cho bản thân',
                 trend: [3, 2, 1],
-                compare: 'Từ năm 2026 sang 2027, sức khỏe của chị chậm lại đôi chút, từ mức “Trung bình” xuống “Không thuận lợi”. Đây là lúc đi chậm mà chắc, giữ thành quả đã có thay vì dàn trải.',
-                summary: 'Năm 2027, sức khỏe của chị có cả thuận lợi và trở ngại, nhưng khó khăn có phần nổi bật hơn. Thể trạng nền ở mức trung bình, điều cần đề phòng chủ yếu đến từ trạng thái cá nhân, nên giữ sức, tránh làm quá sức và cẩn thận khi đi lại.',
+                compare: 'Từ năm 2026 sang 2027, sức khỏe của bạn chậm lại đôi chút, từ mức “Trung bình” xuống “Không thuận lợi”. Đây là lúc đi chậm mà chắc, giữ thành quả đã có thay vì dàn trải.',
+                summary: 'Năm 2027, sức khỏe của bạn có cả thuận lợi và trở ngại, nhưng khó khăn có phần nổi bật hơn. Thể trạng nền ở mức trung bình, điều cần đề phòng chủ yếu đến từ trạng thái cá nhân, nên giữ sức, tránh làm quá sức và cẩn thận khi đi lại.',
                 good: [
                     'Xét riêng cung Tật Ách, Thiên Cơ (vượng) cùng L. Hóa Khoa từ cung Điền Trạch (tam hợp) chiếu về, là dấu hiệu thuận lợi: thuận gặp thầy giỏi thuốc hay, bệnh nhẹ dễ chóng khỏi. Bên cạnh đó, Lộc Tồn trong cung gặp L. Thiên Việt nhập cung, cho thấy được người chăm sóc kịp thời.'
                 ],
@@ -432,8 +434,8 @@
                 key: 'quanhe', name: 'Quan hệ xã hội', icon: 'i_nguoithan.svg', stars: 2,
                 title: 'Chọn bạn mà chơi',
                 trend: [3, 2, 4],
-                compare: 'Từ năm 2026 sang 2027, quan hệ xã hội của chị chậm lại đôi chút, từ mức “Trung bình” xuống “Không thuận lợi”.',
-                summary: 'Năm 2027, các mối quan hệ của chị vẫn có điểm tựa, song dễ gặp trở ngại. Chị nên ưu tiên giữ ổn định, những thay đổi lớn hãy cân nhắc kỹ hoặc để sang thời điểm thuận lợi hơn.',
+                compare: 'Từ năm 2026 sang 2027, quan hệ xã hội của bạn chậm lại đôi chút, từ mức “Trung bình” xuống “Không thuận lợi”.',
+                summary: 'Năm 2027, các mối quan hệ của bạn vẫn có điểm tựa, song dễ gặp trở ngại. Bạn nên ưu tiên giữ ổn định, những thay đổi lớn hãy cân nhắc kỹ hoặc để sang thời điểm thuận lợi hơn.',
                 good: [
                     'Môi trường năm nay mang lại cho các mối quan hệ những điểm thuận lợi: được bạn bè, đồng nghiệp tin tưởng, được bạn bè giới thiệu cơ hội, quen thêm người mới ở nơi khác.',
                     'Xét riêng cung Nô Bộc, Thái Âm (miếu) và Thiên Mã cùng L. Hóa Lộc từ cung Tử Tức (tam hợp) chiếu về, là dấu hiệu thuận lợi: quan hệ mang lại lợi ích, có đối tác tốt.'
@@ -445,14 +447,14 @@
                 adviceTitle: 'Chọn lọc quan hệ, cẩn trọng khi hợp tác',
                 advice: 'Hợp tác, góp vốn hay nghe lời hứa đều cần cẩn trọng, người hay gây thị phi thì nên tránh xa.',
                 when: [{ m: 'Tháng 11', solar: '28/11 – 27/12', type: 'good', note: 'Tháng khá tốt cho các mối quan hệ. Nên chọn lọc các mối quan hệ, rõ ràng trong hợp tác và chuyện tiền bạc với người ngoài.' }],
-                next: 'Quan hệ xã hội hứa hẹn bước lên rõ rệt (“Tốt”): những gì chị gieo hôm nay sẽ có mùa gặt đẹp.'
+                next: 'Quan hệ xã hội hứa hẹn bước lên rõ rệt (“Tốt”): những gì bạn gieo hôm nay sẽ có mùa gặt đẹp.'
             },
             {
                 key: 'nhacua', name: 'Nhà cửa, tài sản', icon: 'i_nhacua.svg', stars: 3,
                 title: 'Ổn định, chưa biến động',
                 trend: [3, 3, 4],
-                compare: 'Từ năm 2026 sang 2027, nhà cửa, tài sản của chị vẫn ổn định ở mức “Trung bình”. Những điều đã làm tốt năm trước tiếp tục là chỗ dựa, năm nay thích hợp để đào sâu và làm cho vững.',
-                summary: 'Năm 2027, nhà cửa, tài sản của chị tốt xấu đan xen, không nghiêng hẳn về bên nào. Năm nay có biến động về nhà cửa, nơi ở, chị nên giữ nhịp đều, phát huy điểm thuận lợi và gỡ sớm những chỗ vướng.',
+                compare: 'Từ năm 2026 sang 2027, nhà cửa, tài sản của bạn vẫn ổn định ở mức “Trung bình”. Những điều đã làm tốt năm trước tiếp tục là chỗ dựa, năm nay thích hợp để đào sâu và làm cho vững.',
+                summary: 'Năm 2027, nhà cửa, tài sản của bạn tốt xấu đan xen, không nghiêng hẳn về bên nào. Năm nay có biến động về nhà cửa, nơi ở, bạn nên giữ nhịp đều, phát huy điểm thuận lợi và gỡ sớm những chỗ vướng.',
                 good: [
                     'Môi trường năm nay mang lại cho nhà cửa, tài sản những điểm thuận lợi: giấy tờ nhà đất thuận lợi, có người mách mối mua bán nhà đất, chủ đề thay đổi nơi ở, sửa chữa hoặc giao dịch tài sản có thể đáng chú ý hơn trong năm.',
                     'Xét riêng cung Điền Trạch, Thái Âm (miếu) và Thiên Mã cùng L. Hóa Lộc từ cung Tử Tức xung chiếu về, là dấu hiệu thuận lợi: nhà đất có lộc, thuận mua sắm, tích lũy tài sản.'
@@ -468,9 +470,9 @@
                     title: 'Góc nhìn về nhà cửa, tài sản',
                     qa: [
                         ['Sửa chữa, cải tạo nhà cửa?', 'Năm nay có thể sửa chữa nhưng nên làm từng phần, dự trù chi phí phát sinh và theo sát quá trình thi công.'],
-                        ['Mua bán, chuyển đổi bất động sản?', 'Có tín hiệu dịch chuyển liên quan đến nhà đất, chị có thể nảy sinh ý định thay đổi hoặc chuyển đổi tài sản. Nếu thực hiện, nên tính toán kỹ và đi từng bước, không vội vàng.'],
+                        ['Mua bán, chuyển đổi bất động sản?', 'Có tín hiệu dịch chuyển liên quan đến nhà đất, bạn có thể nảy sinh ý định thay đổi hoặc chuyển đổi tài sản. Nếu thực hiện, nên tính toán kỹ và đi từng bước, không vội vàng.'],
                         ['Tích lũy tài sản hay ưu tiên giữ tiền?', 'Năm nay nên cân đối giữa tích lũy tài sản và giữ tiền, luôn để một phần dự phòng.'],
-                        ['Cần kiểm tra kỹ điều gì trước khi giao dịch?', 'Giấy tờ, thủ tục năm nay nhìn chung thuận lợi. Dù vậy, chị vẫn nên đọc kỹ điều khoản và giữ đầy đủ chứng từ trước khi ký.']
+                        ['Cần kiểm tra kỹ điều gì trước khi giao dịch?', 'Giấy tờ, thủ tục năm nay nhìn chung thuận lợi. Dù vậy, bạn vẫn nên đọc kỹ điều khoản và giữ đầy đủ chứng từ trước khi ký.']
                     ]
                 },
                 next: 'Nhà cửa, tài sản có xu hướng sáng hơn (“Tốt”).'
@@ -479,8 +481,8 @@
                 key: 'dilai', name: 'Đi lại, xuất hành', icon: 'i_dilai.svg', stars: 3,
                 title: 'Đi lại bình thường',
                 trend: [2, 3, 4],
-                compare: 'Từ năm 2026 sang 2027, chuyện đi lại của chị sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
-                summary: 'Năm 2027, chuyện đi lại của chị có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
+                compare: 'Từ năm 2026 sang 2027, chuyện đi lại của bạn sáng hơn, từ mức “Không thuận lợi” lên “Trung bình”.',
+                summary: 'Năm 2027, chuyện đi lại của bạn có cả thuận lợi và trở ngại, nhưng nhìn chung vẫn giữ được nhịp ổn định.',
                 good: [
                     'Môi trường năm nay mang lại cho chuyện đi lại những điểm thuận lợi: đi xa được tiếp đón, giấy tờ đi lại thuận, đi xa có người dẫn đường, giới thiệu, có nhiều chuyến đi, di chuyển nhiều.'
                 ],
@@ -499,7 +501,7 @@
                 palaces: [
                     {
                         name: 'Cung Mệnh', sub: 'Bản thân, trạng thái, năng lực',
-                        base: 'Chị là người cương nghị, thực tế, chính trực, trọng nghĩa; đôi lúc thích ăn thua, hành động theo cảm hứng.',
+                        base: 'Bạn là người cương nghị, thực tế, chính trực, trọng nghĩa; đôi lúc thích ăn thua, hành động theo cảm hứng.',
                         good: ['Cẩn trọng, giữ được sự ổn định, biết tích lũy cho mình.', 'Được ghi nhận, giữ được tiếng tốt, ham học hỏi.'],
                         warn: ['Dễ gặp việc gấp, áp lực, cần cẩn thận va chạm.'],
                         sum: 'Có nhiều điều kiện thuận lợi, song cần để ý những điểm vướng để không mất đi sự chủ động.'
@@ -572,7 +574,7 @@
                 : ['Giảm rõ', 'down'];
             const arrow = { up: 'M12 19V5M6 11l6-6 6 6', same: 'M5 12h14M13 6l6 6-6 6', down: 'M12 5v14M6 13l6 6 6-6' }[cls];
             const svg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="${arrow}"/></svg>`;
-            return `<div class="new-vanhan-trend-verdict ${cls} text-body-md-semibold" data-component="new/VanHanTrendVerdict">${svg}${txt} so với năm 2026</div>`;
+            return `<div class="new-vanhan-trend-verdict ${cls} text-body-md-semibold" data-component="new/VanHanTrendVerdict">${svg}<span>${txt} so với năm 2026</span></div>`;
         }
 
         const MONTH_TAG = { good: 'Tháng tốt', normal: 'Tháng bình thường', bad: 'Tháng cần thận trọng' };
@@ -583,7 +585,7 @@
             let h = `
                 <div class="new-vanhan-aspect-hero" data-component="new/VanHanAspectHero">
                     ${HERO_ART}
-                    <div class="hero-label text-body-md-semibold">${a.name} năm 2027 của chị</div>
+                    <div class="hero-label text-body-md-semibold">${a.name} năm 2027 của bạn</div>
                     <div class="hero-title text-title-md-bold">${a.title}</div>
                     <div class="hero-rating">${starsHTML(a.stars, 18)}${levelPill(lv.p, lv.t)}</div>
                 </div>
@@ -616,8 +618,8 @@
                 </div>
 
                 <div class="sec">
-                    ${secTitle('advice', 'Chị nên làm gì trong năm nay?')}
-                    <div class="sub-h text-body-md-semibold">Lời khuyên dành cho chị</div>
+                    ${secTitle('advice', 'Bạn nên làm gì trong năm nay?')}
+                    <div class="sub-h text-body-md-semibold">Lời khuyên dành cho bạn</div>
                     <div class="new-vanhan-advice-card" data-component="new/VanHanAdviceCard">
                         ${a.adviceTitle ? `<div class="adv-t text-title-sm">${a.adviceTitle}</div>` : ''}
                         <div class="adv-d text-body-md-regular">${a.advice}</div>
