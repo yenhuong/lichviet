@@ -240,7 +240,8 @@
         .pal-ic { width: 32px; height: 32px; flex-shrink: 0; }
         .pal-list { margin-top: var(--space-8); }
         .pal-list .list li + li { margin-top: var(--space-8); }
-        .pal-dot { color: var(--color-text-secondary); }
+        .pal-meta + .pal-vol { margin-top: calc(-1 * var(--space-4)); }
+        .pal-vol { color: var(--color-text-body); margin-bottom: var(--space-8); }
         .pal-sub-h { margin-top: var(--space-20); margin-bottom: 0; }
         .pal-sub-h + .when { margin-top: var(--space-8); }
 
@@ -676,7 +677,8 @@
                 <div class="sec">
                     <div class="new-vanhan-section-title text-title-md" data-component="new/VanHanSectionTitle"><img class="pal-ic" src="${IC}cung/${p.icon}" width="32" height="32" alt="">${p.name}</div>
                     ${p.moving
-                        ? `<div class="pal-meta text-body-md-regular">${starsHTML(p.stars, 14)}<span class="text-body-md-semibold ${LEVEL[p.stars].c}">${LEVEL[p.stars].t}</span><span class="pal-dot">·</span><span>Mức biến động: <b>${p.volatility}</b></span></div>
+                        ? `<div class="pal-meta text-body-md-regular">${starsHTML(p.stars, 14)}<span class="text-body-md-semibold ${LEVEL[p.stars].c}">${LEVEL[p.stars].t}</span></div>
+                           <div class="pal-vol text-body-md-regular">Mức biến động: <b>${p.volatility}</b></div>
                            <p class="p text-body-md-regular">${p.desc}</p>
                            <div class="sub-h pal-sub-h text-body-md-semibold">Vấn đề trong năm</div>`
                         : `<div class="palace-sub text-body-md-regular">${p.sub}</div>`}
