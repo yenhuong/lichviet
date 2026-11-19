@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Vận Hạn 2026 - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Source: Figma "Lich Viet App" node 59925:82901 (DangNhap_Tu Vi Van Han), frame 414x896.
+         Extra section "Hoan canh hien tai" is not in Figma yet; styled with the same card/label tokens. -->
+    <style>
+        :root {
+            --green: #009E64;
+            --green-base: #099A65;
+            --green-light: #F3FCF8;
+            --text-black: #000000;
+            --text-dark: #333333;
+            --text-gray: #666666;
+            --text-muted: #999999;
+            --card-border: #E6E6E6;
+            --divider: #E4E4E4;
+            --radio-border: #D0D1D2;
+            --font: -apple-system, "SF Pro Text", "SF UI Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: var(--font);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Phone mockup (desktop preview only) ===== */
+        .phone-mockup {
+            position: relative;
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-sizing: content-box;
+            box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.25), 0 0 0 12px #111;
+        }
+
+        .screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 44px;
+            overflow: hidden;
+            background: #FFFFFF;
+        }
+
+        /* Scroll container; Figma background (clouds + mascot baked in) scrolls with content */
+        .scroll {
+            position: absolute;
+            inset: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #FFFFFF url("assets/tuvi_vanhan_input/bg.jpg") no-repeat top center / 100% auto;
+        }
+
+        /* ===== Status bar (Light Status Bar) ===== */
+        .status-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 44px;
+            z-index: 20;
+            pointer-events: none;
+        }
+        .sb-time {
+            position: absolute;
+            left: 23px; top: 16px;
+            width: 60px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: -0.28px;
+            color: var(--text-gray);
+        }
+        .sb-cell { position: absolute; left: 324px; top: 17.7px; }
+        .sb-wifi { position: absolute; left: 348.5px; top: 17.3px; }
+        .sb-battery {
+            position: absolute;
+            right: 17px; top: 17.33px;
+            width: 22px; height: 11.333px;
+        }
+        .sb-battery-border {
+            position: absolute; inset: 0;
+            border: 1px solid #666; border-radius: 2.667px; opacity: 0.35;
+        }
+        .sb-battery-fill {
+            position: absolute; left: 2px; top: 2px;
+            width: 18px; height: 7.333px;
+            background: #666; border-radius: 1.333px;
+        }
+        .sb-battery-cap { position: absolute; right: -2.33px; top: 3.67px; }
+
+        /* ===== Collapsing app bar: transparent over hero, turns into VanHanNavBar on scroll ===== */
+        .appbar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 97px;                   /* status 44 + bar 53, same as tuvi_vanhan_ketqua.html */
+            z-index: 16;
+            pointer-events: none;
+        }
+        .appbar-bg {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, #40B15C 0%, #169172 12%, #148371 65%, #136175 118%);
+            opacity: 0;
+            transition: opacity .2s ease;
+        }
+        .appbar-title {
+            position: absolute;
+            left: 56px; right: 56px; top: 60px;
+            text-align: center;
+            font-size: 17px;
+            line-height: 21px;
+            font-weight: 600;
+            color: #FFFFFF;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity .2s ease, transform .2s ease;
+        }
+        .appbar.is-solid .appbar-bg { opacity: 1; }
+        .appbar.is-solid .appbar-title { opacity: 1; transform: none; }
+        /* Status bar + back icon switch to white on the green bar */
+        .sb-time, .sb-battery-border, .sb-battery-fill { transition: color .2s, border-color .2s, background .2s; }
+        .appbar.is-solid ~ .status-bar .sb-time { color: #FFFFFF; }
+        .appbar.is-solid ~ .status-bar .sb-battery-border { border-color: #FFFFFF; }
+        .appbar.is-solid ~ .status-bar .sb-battery-fill { background: #FFFFFF; }
+        .appbar.is-solid ~ .status-bar img,
+        .appbar.is-solid ~ .back-btn img { filter: brightness(0) invert(1); }
+
+        /* ===== Back chevron (fixed, stays visible while scrolling) ===== */
+        .back-btn {
+            position: absolute;
+            left: 17px; top: 60px;          /* chevron itself at x=29, y=70 */
+            width: 36px; height: 40px;
+            padding: 10px 12px;
+            z-index: 21;
+            cursor: pointer;
+        }
+        .back-btn:active { opacity: 0.5; }
+
+        /* ===== Content (positions follow Figma y-coordinates) ===== */
+        .content {
+            padding: 225px 0 115px;         /* title top = 225; bottom clears the pinned action bar (91px) */
+        }
+
+        .title {
+            margin: 0 16px;                 /* Figma uses 14.61% with SF font; widened so fallback fonts don't wrap */
+            white-space: nowrap;            /* keep the 2-line break exactly as in Figma */
+            font-size: 24px;
+            line-height: 36px;
+            font-weight: 700;
+            color: var(--green);
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            margin: 12px 24px 0;            /* top = 309 */
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        /* ===== Form card (Rectangle Copy 48) ===== */
+        .card {
+            margin: 24px 20px 0;            /* top = 381 */
+            background: #FFFFFF;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .row {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            padding: 0 20px;
+        }
+        .row + .row { border-top: 1px solid var(--divider); }
+
+        .row-icon { width: 24px; height: 24px; flex-shrink: 0; margin-right: 16px; }
+        .row-icon img { display: block; }
+
+        .row-label {
+            font-size: 14px;
+            line-height: 28px;
+            color: var(--text-gray);
+        }
+        .row--gender .row-label { width: 111px; flex-shrink: 0; }
+
+        /* Gender radios */
+        .radio {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 500;
+            color: var(--text-black);
+        }
+        .radio input { position: absolute; opacity: 0; width: 0; height: 0; }
+        .radio-dot {
+            position: relative;
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 1px solid var(--radio-border);
+            background: #FFFFFF;
+            flex-shrink: 0;
+        }
+        .radio input:checked + .radio-dot { background: var(--green); border-color: var(--green); }
+        .radio input:checked + .radio-dot::after {
+            content: "";
+            position: absolute;
+            left: 50%; top: 50%;
+            width: 12px; height: 12px;
+            margin: -6px 0 0 -6px;
+            border-radius: 50%;
+            background: #FFFFFF;
+        }
+        .radio-spacer { flex: 1; }
+
+        /* Date / time pickers */
+        .picker { cursor: pointer; }
+        .picker-value {
+            flex: 1;
+            text-align: right;
+            margin-right: 12px;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 500;
+            color: var(--text-black);
+        }
+        .picker-arrow { transform: scaleY(-1); flex-shrink: 0; }
+        .picker input {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+
+        /* ===== Situation card (not in Figma yet) ===== */
+        .situation-head { padding: 14px 20px 12px; }
+        .situation-title {
+            margin: 0;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        .situation-title span { font-size: 14px; font-weight: 400; color: var(--text-muted); }
+        .situation-note { margin: 2px 0 0; font-size: 14px; line-height: 20px; color: var(--text-gray); }
+        .situation .row { border-top: 1px solid var(--divider); }
+        .picker-value.is-placeholder { color: var(--text-muted); font-weight: 400; }
+        .picker select {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+            font-size: 16px;                /* avoid iOS zoom on focus */
+        }
+
+        /* Pinned bottom action bar holding the CTA */
+        .action-bar {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            z-index: 10;
+            padding: 12px 42px 34px;        /* 34px = home indicator safe area */
+            background: #FFFFFF;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .cta {
+            display: block;
+            width: 100%;
+            height: 45px;
+            margin: 0;
+            padding: 0 0 3px;
+            border: none;
+            border-radius: 21px;
+            background: var(--green-base);
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .cta span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 42px;
+            border-radius: 21px;
+            background: linear-gradient(173.49deg, #009E64 3.82%, #06B675 25.3%, #009E64 87.6%);
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            text-shadow: 0 1px 0 #01955F;
+        }
+        .cta:active span { filter: brightness(0.95); }
+
+        /* ===== Benefits ===== */
+        .benefits-title {
+            margin: 24px 28px 0 48px;
+            font-size: 18px;
+            line-height: 27px;
+            font-weight: 500;
+            color: var(--green);
+            text-align: center;
+        }
+        .benefits {
+            list-style: none;
+            margin: 5px 17px 0 20px;
+            padding: 0;
+        }
+        .benefits li {
+            display: flex;
+            font-size: 15px;
+            line-height: 32px;
+            color: var(--text-black);
+        }
+        .benefits .tick {
+            width: 16px; height: 16px;
+            margin: 7px 12px 0 0;
+            flex-shrink: 0;
+            padding: 1px 0 1px 1px;         /* svg 15x14 inside 16x16 (inset 6.25%) */
+        }
+        .benefits .tick img { display: block; }
+
+        /* Home indicator (mockup only) */
+        .home-indicator {
+            position: absolute;
+            left: 50%; bottom: 10px;
+            width: 150px; height: 5px;
+            margin-left: -75px;
+            border-radius: 2.5px;
+            background: #DFDFDF;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        /* ===== Real device / WebView ===== */
+        @media (max-width: 500px) {
+            body { display: block; background: #FFFFFF; }
+            .phone-mockup {
+                width: 100%; height: 100vh;
+                padding: 0; border-radius: 0;
+                box-shadow: none; background: none;
+            }
+            .screen { border-radius: 0; }
+            .status-bar, .home-indicator { display: none; }
+            .action-bar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="screen">
+            <!-- Collapsing app bar (must precede .status-bar / .back-btn for sibling selectors) -->
+            <div class="appbar" id="appbar">
+                <div class="appbar-bg"></div>
+                <div class="appbar-title">Tử vi vận hạn</div>
+            </div>
+
+            <!-- Status bar -->
+            <div class="status-bar">
+                <div class="sb-time">9:41</div>
+                <img class="sb-cell" src="assets/tuvi_vanhan_input/sb_cell.svg" width="18.7686" height="10.667" alt="">
+                <img class="sb-wifi" src="assets/tuvi_vanhan_input/sb_wifi.svg" width="16.8604" height="10.9652" alt="">
+                <div class="sb-battery">
+                    <div class="sb-battery-border"></div>
+                    <div class="sb-battery-fill"></div>
+                    <img class="sb-battery-cap" src="assets/tuvi_vanhan_input/sb_cap.svg" width="1.32804" height="4" alt="">
+                </div>
+            </div>
+
+            <div class="back-btn" onclick="history.back()">
+                <img src="assets/tuvi_vanhan_input/back.svg" width="12.5" height="21" alt="Quay lại">
+            </div>
+
+            <div class="scroll" id="scroll">
+
+                <div class="content">
+                    <h1 class="title">Xem trọn bộ vận hạn<br>năm 2026 của bạn</h1>
+                    <p class="subtitle">Dự báo chi tiết từng tháng.<br>Giúp bạn chủ động quyết định tránh rủi ro</p>
+
+                    <!-- Birth info card -->
+                    <div class="card">
+                        <div class="row row--gender">
+                            <div class="row-icon"><img src="assets/tuvi_vanhan_input/i_gioitinh.svg" width="24" height="24" alt=""></div>
+                            <div class="row-label">Giới tính</div>
+                            <label class="radio">
+                                <input type="radio" name="gender" value="nam" checked>
+                                <span class="radio-dot"></span>
+                                <span>Nam</span>
+                            </label>
+                            <div class="radio-spacer"></div>
+                            <label class="radio">
+                                <input type="radio" name="gender" value="nu">
+                                <span class="radio-dot"></span>
+                                <span>Nữ</span>
+                            </label>
+                        </div>
+
+                        <label class="row picker">
+                            <div class="row-icon"><img src="assets/tuvi_vanhan_input/i_ngaysinh.svg" width="24" height="24" alt=""></div>
+                            <div class="row-label">Ngày sinh</div>
+                            <div class="picker-value" id="date-display"></div>
+                            <img class="picker-arrow" src="assets/tuvi_vanhan_input/arrow.svg" width="12" height="7.2" alt="">
+                            <input type="date" id="birthdate" onchange="handleDateChange(this)">
+                        </label>
+
+                        <label class="row picker">
+                            <div class="row-icon"><img src="assets/tuvi_vanhan_input/i_gio.svg" width="24" height="24" alt=""></div>
+                            <div class="row-label">Giờ sinh</div>
+                            <div class="picker-value" id="time-display"></div>
+                            <img class="picker-arrow" src="assets/tuvi_vanhan_input/arrow.svg" width="12" height="7.2" alt="">
+                            <input type="time" id="birthtime" onchange="handleTimeChange(this)">
+                        </label>
+                    </div>
+
+                    <!-- Situation card (optional) -->
+                    <div class="card situation">
+                        <div class="situation-head">
+                            <h2 class="situation-title">Hoàn cảnh hiện tại <span>(không bắt buộc)</span></h2>
+                            <p class="situation-note">Giúp luận giải sát với bạn hơn</p>
+                        </div>
+
+                        <label class="row picker">
+                            <div class="row-label">Hôn nhân</div>
+                            <div class="picker-value is-placeholder" id="marital-display">Chọn</div>
+                            <img class="picker-arrow" src="assets/tuvi_vanhan_input/arrow.svg" width="12" height="7.2" alt="">
+                            <select id="marital" onchange="handleSelectChange(this)">
+                                <option value="">Không chọn</option>
+                                <option value="doc_than">Độc thân</option>
+                                <option value="hen_ho">Đang hẹn hò</option>
+                                <option value="ket_hon">Đã kết hôn</option>
+                                <option value="ly_hon">Đã ly hôn</option>
+                            </select>
+                        </label>
+
+                        <label class="row picker">
+                            <div class="row-label">Con cái</div>
+                            <div class="picker-value is-placeholder" id="children-display">Chọn</div>
+                            <img class="picker-arrow" src="assets/tuvi_vanhan_input/arrow.svg" width="12" height="7.2" alt="">
+                            <select id="children" onchange="handleSelectChange(this)">
+                                <option value="">Không chọn</option>
+                                <option value="chua_co">Chưa có con</option>
+                                <option value="da_co">Đã có con</option>
+                            </select>
+                        </label>
+
+                        <label class="row picker">
+                            <div class="row-label">Công việc</div>
+                            <div class="picker-value is-placeholder" id="job-display">Chọn</div>
+                            <img class="picker-arrow" src="assets/tuvi_vanhan_input/arrow.svg" width="12" height="7.2" alt="">
+                            <select id="job" onchange="handleSelectChange(this)">
+                                <option value="">Không chọn</option>
+                                <option value="di_lam">Đi làm công ty</option>
+                                <option value="kinh_doanh">Kinh doanh/Tự do</option>
+                                <option value="hoc_sinh">Học sinh, sinh viên</option>
+                                <option value="nghi_huu">Nghỉ hưu/Nội trợ</option>
+                                <option value="tim_viec">Đang tìm việc</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <h2 class="benefits-title">Năm 2026 của bạn có gì đáng chú ý?</h2>
+                    <ul class="benefits">
+                        <li><span class="tick"><img src="assets/tuvi_vanhan_input/tick.svg" width="15" height="14" alt=""></span>Năm nay thuận lợi hay nhiều biến động</li>
+                        <li><span class="tick"><img src="assets/tuvi_vanhan_input/tick.svg" width="15" height="14" alt=""></span>Tháng nào nên nắm cơ hội, tháng nào cần cẩn trọng</li>
+                        <li><span class="tick"><img src="assets/tuvi_vanhan_input/tick.svg" width="15" height="14" alt=""></span>Công việc, tài lộc, tình duyên, sức khỏe cần chú ý gì</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="cta" onclick="submitForm()"><span>Xem vận hạn của bạn</span></button>
+            </div>
+
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <script>
+        // Solid app bar once the big title (y=225..297) has scrolled under the bar (bottom y=97)
+        const scrollEl = document.getElementById('scroll');
+        const appbar = document.getElementById('appbar');
+        scrollEl.addEventListener('scroll', () => {
+            appbar.classList.toggle('is-solid', scrollEl.scrollTop > 150);
+        }, { passive: true });
+
+        function handleDateChange(input) {
+            const display = document.getElementById('date-display');
+            if (input.value) {
+                const [y, m, d] = input.value.split('-');
+                display.textContent = `${d}/${m}/${y}`;
+            } else {
+                display.textContent = '';
+            }
+        }
+
+        function handleTimeChange(input) {
+            document.getElementById('time-display').textContent = input.value || '';
+        }
+
+        // Optional selects: show chosen label, or placeholder "Chọn" when cleared
+        function handleSelectChange(select) {
+            const display = document.getElementById(select.id + '-display');
+            const chosen = select.value !== '';
+            display.textContent = chosen ? select.options[select.selectedIndex].text : 'Chọn';
+            display.classList.toggle('is-placeholder', !chosen);
+        }
+
+        function getGroupValue(key) {
+            return document.getElementById(key).value;
+        }
+
+        function submitForm() {
+            const dateVal = document.getElementById('birthdate').value;
+            const timeVal = document.getElementById('birthtime').value;
+            const genderVal = document.querySelector('input[name="gender"]:checked').value;
+
+            if (!dateVal) { alert('Vui lòng chọn Ngày sinh để xem vận hạn!'); return; }
+            if (!timeVal) { alert('Vui lòng chọn Giờ sinh để xem vận hạn!'); return; }
+
+            try {
+                localStorage.setItem('user_vanhan_gender', genderVal);
+                localStorage.setItem('user_vanhan_dob', dateVal);
+                localStorage.setItem('user_vanhan_tob', timeVal);
+                ['marital', 'children', 'job'].forEach(k => localStorage.setItem('user_vanhan_' + k, getGroupValue(k)));
+            } catch (e) {}
+
+            window.location.href = 'tuvi_vanhan_ketqua.html';
+        }
+    </script>
+</body>
+
+</html>

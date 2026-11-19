@@ -608,6 +608,20 @@
         }
 
         .new-vanhan-explore-item img { width: 52px; height: 52px; display: block; }
+        /* new/VanHanProfilePrompt: above the life aspects list; asks for job / marital / children to personalize the readings */
+        .new-vanhan-profile-prompt { margin: var(--space-24) var(--space-12) 0; padding: var(--space-16); border-radius: var(--radius-sm); background: var(--color-vanhan-surface-tint); border: 1px solid var(--color-vanhan-header-border); }
+        .pp-head { display: flex; align-items: center; gap: var(--space-8); color: var(--color-text-primary); }
+        .pp-head svg { flex-shrink: 0; color: var(--color-vanhan-primary); }
+        .pp-desc { margin-top: var(--space-4); color: var(--color-text-secondary); }
+        .pp-btn { width: fit-content; padding: 0 var(--space-20); margin: var(--space-16) 0 0 auto; /* hugs its label, right-aligned */ height: 44px; display: flex; align-items: center; justify-content: center; gap: var(--space-4); border: 1px solid var(--color-vanhan-primary); border-radius: var(--radius-full); background: var(--color-bg-surface); color: var(--color-vanhan-primary); cursor: pointer; }
+        .pp-btn:active { background: var(--color-vanhan-bg); }
+        /* Has-info state: one row per field (name, chosen value) */
+        .pp-info { margin-top: var(--space-12); display: flex; flex-direction: column; gap: var(--space-12); }
+        .pp-row { display: flex; align-items: center; gap: var(--space-12); }
+        .pp-name { flex: 1; color: var(--color-text-body); }
+        .pp-val { text-align: right; color: var(--color-text-primary); }
+        .pp-val.empty { color: var(--color-text-tertiary); }
+
     </style>
 </head>
 
@@ -724,6 +738,11 @@
                     </div>
                 </div>
 
+                <div class="blk-sep"></div>
+                <!-- Profile prompt (own block, between advice and aspects): extra info personalizes the Công việc / Tình cảm / Gia đạo readings -->
+                <!-- Rendered by renderProfilePrompt(): empty = prompt + "Bổ sung thông tin"; has info = chosen values + "Cập nhật" -->
+                <div class="new-vanhan-profile-prompt" data-component="new/VanHanProfilePrompt" id="profilePrompt"></div>
+
                 <!-- Aspect details: 8 aspects, data from engine (same star scale as overview card) -->
                 <div class="blk-sep"></div>
                 <div class="new-vanhan-block-header" data-component="new/VanHanBlockHeader" id="aspects"><span class="blk-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><div class="blk-title text-heading-block">Năm 2027, từng mặt cuộc sống của bạn ra sao?</div></div>
@@ -784,6 +803,7 @@
         </div>
     </div>
 
+    <script src="vanhan_profile.js"></script>
     <script>
         // 12 lunar months of 2027 (stars + rhythm from engine output; descriptions are placeholders)
         // type: good = thuận, normal = đan xen, bad = thận trọng
@@ -905,6 +925,31 @@
         renderStars();
         renderAspects();
         renderMonths();
+        // ---- Profile block (data + getVal from vanhan_profile.js); editing happens on tuvi_vanhan_bosung.html ----
+        const CHEV_R = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+        function openProfileScreen() { window.location.href = 'tuvi_vanhan_bosung.html'; }
+
+        // new/VanHanProfilePrompt: prompt when nothing is saved, otherwise the saved info + "Cập nhật"
+        const SPARKLE = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M10 3l1.8 5.2L17 10l-5.2 1.8L10 17l-1.8-5.2L3 10l5.2-1.8z"/><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z"/></svg>';
+        function renderProfilePrompt() {
+            const vals = Object.entries(FIELDS).map(([aspect, F]) => [F, F.label(getVal(aspect))]);
+            const box = document.getElementById('profilePrompt');
+            box.dataset.state = vals.some(([, l]) => l) ? 'filled' : 'empty';
+            if (box.dataset.state === 'empty') {
+                box.innerHTML = `<div class="pp-head text-title-sm">${SPARKLE}Thêm thông tin, luận giải sát hơn</div>
+                    <div class="pp-desc text-body-md-regular">Chia sẻ công việc, tình trạng hôn nhân và con cái để luận giải các mặt cuộc sống và những tháng liên quan sát hơn với hoàn cảnh thực tế của bạn.</div>
+                    <div class="pp-btn text-body-md-semibold" data-component="new/VanHanProfileButton" onclick="openProfileScreen()">Bổ sung thông tin${CHEV_R}</div>`;
+                return;
+            }
+            box.innerHTML = `<div class="pp-head text-title-sm">${SPARKLE}Thông tin bổ sung của bạn</div>
+                <div class="pp-info">${vals.map(([F, l]) => `<div class="pp-row">
+                        <span class="pp-name text-body-md-regular">${F.name}</span>
+                        <span class="pp-val ${l ? '' : 'empty'} text-body-md-semibold">${l ? esc(l) : 'Chưa chọn'}</span>
+                    </div>`).join('')}</div>
+                <div class="pp-btn text-body-md-semibold" data-component="new/VanHanProfileButton" onclick="openProfileScreen()">Cập nhật thông tin${CHEV_R}</div>`;
+        }
+        renderProfilePrompt();
+        window.addEventListener('pageshow', renderProfilePrompt);   // refresh after returning from tuvi_vanhan_bosung.html (bfcache)
     </script>
 </body>
 

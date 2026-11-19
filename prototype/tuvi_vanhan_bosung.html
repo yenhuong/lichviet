@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bổ sung thông tin - Lịch Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="design-system/components.css">
+    <style>
+        /* Screen CSS: tokens only (design-system/tokens.css). Raw values left on purpose:
+           phone mockup chrome, sizes (width/height), absolute positions and inline artwork. */
+
+        * { box-sizing: border-box; }
+
+        body {
+            /* Page backdrop outside the phone (mockup chrome) */
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: var(--font-family);
+            color: var(--color-text-primary);
+        }
+
+        /* Phone mockup (chrome, same frame as tuvi_vanhan_ketqua.html) */
+        .phone-mockup {
+            width: 414px;
+            height: 896px;
+            background: #1F1F1F;
+            border-radius: 56px;
+            padding: 12px;
+            box-shadow: 0 0 0 2px #333, 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 0 12px #111;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-surface);
+            border-radius: 44px; /* phone chrome */
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scroll { flex: 1; overflow-y: auto; scrollbar-width: none; }
+        .scroll::-webkit-scrollbar { display: none; }
+
+        /* new/VanHanNavBar */
+        .new-vanhan-navbar {
+            height: 97px;
+            flex-shrink: 0;
+            position: relative;
+            background: var(--gradient-vanhan-navbar);
+            color: var(--color-text-on-primary);
+        }
+
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-22) 0 var(--space-32);
+        }
+
+        .status-icons { display: flex; gap: var(--space-4); align-items: center; }
+
+        .topbar-title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 58px;
+            text-align: center;
+        }
+
+        .btn-back {
+            position: absolute;
+            left: 20px;
+            top: 58px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;  /* keep above the full-width title, which otherwise swallows the tap */
+        }
+
+        /* Intro: one line on why the info is asked */
+        .bs-intro { padding: var(--space-16) var(--space-16) 0; text-align: center; color: var(--color-text-primary); }
+
+        /* One section per field: question + option rows */
+        .bs-sec { padding: var(--space-24) var(--space-16) 0; }
+        .bs-sec:last-child { padding-bottom: var(--space-24); }
+        .pf-q { display: flex; align-items: center; gap: var(--space-8); color: var(--color-text-primary); }
+        .pf-opts { margin-top: var(--space-12); border: 1px solid var(--color-border-card); border-radius: var(--radius-sm); overflow: hidden; }   /* all options of a question in one frame */
+        /* new/VanHanChoiceRow (Default | Selected): one option per row, green check on the right when selected */
+        .new-vanhan-choice-row { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); color: var(--color-text-primary); cursor: pointer; }
+        .new-vanhan-choice-row + .new-vanhan-choice-row { border-top: 1px solid var(--color-border-divider); }
+        .new-vanhan-choice-row span { flex: 1; }
+        .new-vanhan-choice-row:active { background: var(--color-bg-subtle); }
+        .new-vanhan-choice-row.selected { background: var(--color-bg-subtle); color: var(--color-vanhan-primary); }
+        .new-vanhan-choice-row svg { flex-shrink: 0; }
+        /* new/VanHanJobMoreButton: right-aligned outline pill under the job rows, opens the job list sheet */
+        .new-vanhan-job-more { width: fit-content; margin: var(--space-16) 0 0 auto; padding: 0 var(--space-16); height: 44px; display: flex; align-items: center; justify-content: center; gap: var(--space-4); border: 1px solid var(--color-vanhan-primary); border-radius: var(--radius-full); color: var(--color-vanhan-primary); cursor: pointer; }
+        .new-vanhan-job-more:active { background: var(--color-vanhan-bg); }
+
+        /* Bottom Action Bar: "Xác nhận" (feature tone green) */
+        .lv-action-bar { flex-shrink: 0; border-top: 1px solid var(--color-border-divider); }
+        .bs-confirm { background: var(--color-vanhan-primary); text-transform: none; }
+        .bs-confirm:active { background: var(--color-vanhan-accent); }
+
+        /* Bottom Sheet "Chọn công việc". DS scrim is position: fixed, keep it inside the phone */
+        .screen .lv-scrim { position: absolute; z-index: 10; }
+        .job-sheet .lv-bottom-sheet__title { color: var(--color-text-primary); }
+        /* Job list view: search + grouped rows */
+        .job-search-wrap { position: relative; display: block; }
+        .job-search-wrap[hidden] { display: none; }
+        .job-search-ic { position: absolute; left: var(--space-12); top: 50%; transform: translateY(-50%); color: var(--color-text-tertiary); pointer-events: none; }
+        .job-search { width: 100%; box-sizing: border-box; padding: var(--space-12) var(--space-16) var(--space-12) 40px; /* room for the search icon */ border: 1px solid var(--color-border-default); border-radius: var(--radius-md); background: var(--color-bg-subtle); color: var(--color-text-primary); outline: none; }
+        .job-search:focus { border-color: var(--color-vanhan-primary); }
+        .job-list { max-height: 620px; overflow-y: auto; scrollbar-width: none; margin: calc(-1 * var(--space-8)) calc(-1 * var(--space-16)) 0; }
+        .job-list[hidden] { display: none; }
+        .job-list::-webkit-scrollbar { display: none; }
+        .job-list.tall { height: 620px; }   /* job list: fixed so the sheet does not shrink while filtering */
+        /* new/VanHanJobRow (Default | Selected) */
+        .new-vanhan-job-row { display: flex; align-items: center; gap: var(--space-12); padding: var(--space-14) var(--space-16); border-bottom: 1px solid var(--color-border-divider); color: var(--color-text-primary); cursor: pointer; }
+        .new-vanhan-job-row span { flex: 1; }
+        .new-vanhan-job-row.selected { color: var(--color-vanhan-primary); }
+        .new-vanhan-job-row svg { flex-shrink: 0; }
+        /* new/VanHanJobGroupHeader: sticky group caption inside the job list */
+        .job-group { position: sticky; top: 0; z-index: 1; padding: var(--space-10) var(--space-16); background: var(--color-vanhan-bg); border-bottom: 1px solid var(--color-chip-success-border); color: var(--color-vanhan-accent); text-transform: uppercase; }
+        .job-group ~ .new-vanhan-job-row:not(.flat) { padding-left: var(--space-32); }   /* indent options under their group header */
+        .job-empty { padding: var(--space-24) var(--space-16); text-align: center; color: var(--color-text-secondary); }
+    </style>
+</head>
+
+<body>
+    <div class="phone-mockup">
+        <div class="screen">
+            <div class="new-vanhan-navbar" data-component="new/VanHanNavBar">
+                <div class="status-bar text-status-time">
+                    <span>9:41</span>
+                    <span class="status-icons">
+                        <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+                        <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M7.5 2.3c2 0 3.8.8 5.2 2.1l1.1-1.1C12.1 1.6 9.9.7 7.5.7S2.9 1.6 1.2 3.3l1.1 1.1C3.7 3.1 5.5 2.3 7.5 2.3zm0 3.2c1.1 0 2.2.4 3 1.2l1.1-1.1C10.5 4.5 9.1 3.9 7.5 3.9s-3 .6-4.1 1.7l1.1 1.1c.8-.8 1.9-1.2 3-1.2zm0 3.2c-.4 0-.8.2-1.1.5l1.1 1.1 1.1-1.1c-.3-.3-.7-.5-1.1-.5z"/></svg>
+                        <svg width="25" height="12" viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-opacity=".35"/><rect x="2" y="2" width="18" height="8" rx="1.3" fill="currentColor"/><rect x="23" y="4" width="1.3" height="4" rx=".6" fill="currentColor" fill-opacity=".4"/></svg>
+                    </span>
+                </div>
+                <div class="btn-back" onclick="goBack()"><img src="assets/vanhan_v3/btn_back.svg" width="12.5" height="21" alt="Quay lại"></div>
+                <div class="topbar-title text-title-sm">Bổ sung thông tin</div>
+            </div>
+
+            <div class="scroll" id="scroll">
+                <div class="bs-intro text-body-md-medium">Thêm thông tin để luận giải sát hơn với hoàn cảnh thực tế của bạn</div>
+                <div id="form"></div>
+            </div>
+
+            <div class="lv-action-bar" data-component="Bottom Action Bar">
+                <button class="lv-button bs-confirm" data-component="Button" onclick="confirmProfile()">Xác nhận</button>
+                <span class="lv-action-bar__home-indicator"></span>
+            </div>
+
+            <!-- Bottom Sheet "Chọn công việc": full grouped list with search; picking returns to the form -->
+            <div class="lv-scrim" id="job-scrim" hidden onclick="if (event.target === this) closeJobSheet()">
+                <div class="lv-bottom-sheet job-sheet" data-component="Bottom Sheet">
+                    <div class="lv-bottom-sheet__header" data-component="Bottom Sheet/Header">
+                        <span class="lv-bottom-sheet__spacer"></span>
+                        <h2 class="lv-bottom-sheet__title">Chọn công việc</h2>
+                        <button class="lv-bottom-sheet__close" onclick="closeJobSheet()" aria-label="Đóng"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+                    </div>
+                    <label class="job-search-wrap" data-component="new/VanHanSearchField">
+                        <svg class="job-search-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                        <input class="job-search text-body-md-regular" id="job-search" type="text" placeholder="Tìm kiếm công việc của bạn" oninput="renderJobList()">
+                    </label>
+                    <div class="job-list tall" id="job-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="vanhan_profile.js"></script>
+    <script>
+        // Choices are kept on this screen and saved only on "Xác nhận"; back = discard
+        const IC = 'assets/vanhan_v3/';
+        const CHECK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+        const CHEV_R = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+        const pend = {};
+        Object.keys(FIELDS).forEach(a => { pend[a] = getVal(a); });
+
+        // One section per field; options as rows with a green check
+        function renderForm() {
+            const row = (aspect, k, label) => {
+                const on = pend[aspect] === k;
+                return `<div class="new-vanhan-choice-row ${on ? 'selected' : ''} text-body-md-medium" data-component="new/VanHanChoiceRow" onclick="pick('${aspect}', '${k}')"><span>${label}</span>${on ? CHECK : ''}</div>`;
+            };
+            document.getElementById('form').innerHTML = Object.entries(FIELDS).map(([aspect, F]) => {
+                const rows = F.main().map(([k, l]) => row(aspect, k, l));
+                const cur = pend[aspect];
+                if (F.more && cur && !F.main().some(([k]) => k === cur)) rows.push(row(aspect, cur, esc(F.label(cur))));   // job picked from the full list
+                if (getVal(aspect)) rows.push(row(aspect, '', 'Không chọn'));   // already saved: allow clearing it
+                return `<div class="bs-sec">
+                        <div class="pf-q text-title-sm"><img src="${IC}${F.icon}" width="22" height="22" alt="">${F.question}</div>
+                        <div class="pf-opts">${rows.join('')}</div>
+                        ${F.more ? `<div class="new-vanhan-job-more text-body-md-semibold" data-component="new/VanHanJobMoreButton" onclick="openJobSheet()">Chọn công việc khác${CHEV_R}</div>` : ''}
+                    </div>`;
+            }).join('');
+        }
+
+        function pick(aspect, k) { pend[aspect] = k; renderForm(); }
+
+        function openJobSheet() {
+            document.getElementById('job-search').value = '';
+            renderJobList();
+            document.getElementById('job-scrim').hidden = false;
+            const list = document.getElementById('job-list'), on = list.querySelector('.new-vanhan-job-row.selected');   // bring the current value into view
+            list.scrollTop = on ? on.offsetTop - list.offsetTop - 48 : 0;
+        }
+        function closeJobSheet() { document.getElementById('job-scrim').hidden = true; }
+
+        function renderJobList() {
+            const val = pend.congviec;
+            const row = (k, label, on, flat) => `<div class="new-vanhan-job-row ${on ? 'selected' : ''} ${flat ? 'flat' : ''} text-body-md-regular" data-component="new/VanHanJobRow" onclick="closeJobSheet(); pick('congviec', '${k}')"><span>${label}</span>${on ? CHECK : ''}</div>`;
+            const q = document.getElementById('job-search').value.trim();
+            const norm = t => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase();
+            let h = '';
+            JOB_GROUPS.forEach(g => {
+                const hits = g.items.filter(([k, label]) => !q || norm(label).includes(norm(q)) || norm(g.name).includes(norm(q)));
+                if (!hits.length) return;
+                if (g.name) h += `<div class="job-group text-body-md-semibold" data-component="new/VanHanJobGroupHeader">${g.name}</div>`;
+                h += hits.map(([k, label]) => row(k, label, k === val, !g.name)).join('');
+            });
+            document.getElementById('job-list').innerHTML = h || `<div class="job-empty text-body-md-regular">Không tìm thấy công việc phù hợp. Bạn có thể chọn “Khác”.</div>`;
+        }
+
+        // Save all 3 fields ('' = "Không chọn" / not answered -> removed), then back to the result screen
+        function confirmProfile() {
+            try {
+                Object.entries(pend).forEach(([aspect, k]) => {
+                    const key = 'user_vanhan_' + FIELDS[aspect].field;
+                    if (k) localStorage.setItem(key, k); else localStorage.removeItem(key);
+                });
+            } catch (e) {}
+            goBack();
+        }
+
+        function goBack() {
+            const fromSameSite = document.referrer && new URL(document.referrer).origin === location.origin;
+            if (fromSameSite && history.length > 1) history.back();
+            else window.location.href = 'tuvi_vanhan_ketqua.html';
+        }
+
+        renderForm();
+    </script>
+</body>
+
+</html>

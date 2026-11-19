@@ -293,9 +293,11 @@
                 </div>
                 <div class="bottom-space"></div>
             </div>
+
         </div>
     </div>
 
+    <script src="vanhan_profile.js"></script>
     <script>
         // Level label + class per star count (same scale as the result screen)
         // c = text color class, p = new/VanHanLevelPill variant
@@ -587,7 +589,20 @@
 
         const MONTH_TAG = { good: 'Tháng tốt', normal: 'Tháng bình thường', bad: 'Tháng cần thận trọng' };
 
+        // Apply the personalized note (before the closing "Nhìn chung" group) and advice for the aspect's profile field
+        function withProfile(a) {
+            const F = FIELDS[a.key];
+            if (!F) return a;
+            const val = getVal(a.key);
+            if (!F.label(val)) return a;
+            const rd = F.reading(val);
+            const body = a.body.slice();
+            body.splice(body.length - 1, 0, `${rd.lead}, ${rd.clause}`);
+            return rd.advice ? { ...a, body, adviceTitle: rd.adviceTitle, advice: rd.advice } : { ...a, body };
+        }
+
         function renderAspect(a) {
+            a = withProfile(a);
             const lv = LEVEL[a.stars];
             const years = [2026, 2027, 2028];
             let h = `
