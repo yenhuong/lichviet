@@ -4,6 +4,8 @@ type: story
 status: draft
 project: Lich_Viet
 created: 2026-07-23
+updated: 2026-11-17
+version: 2.0
 tags: [kich-hoat-nang-luong, bat-tu, ngu-hanh, result, freemium, paywall]
 linked-to: [[Story-KichHoatNangLuong]], [[Story-OnboardingKichHoatNangLuong]]
 ---
@@ -17,14 +19,27 @@ Tài liệu này định nghĩa các user story cho màn hình **Kết quả lu�
 
 **Prototype tham chiếu**: [[KichHoatNangLuong_Result.html]] (`prototype/KichHoatNangLuong_Result.html`)
 
-Người dùng Free được xem miễn phí toàn bộ lá số Bát tự (tứ trụ), cách cục và biểu đồ ngũ hành cùng phần nhận định cơ bản. Các nội dung luận giải chuyên sâu và giải pháp kích hoạt được hiển thị dưới dạng khối giới thiệu khoá lại, kèm nút mở khoá dẫn tới luồng nâng cấp gói.
+Người dùng Free được xem miễn phí toàn bộ lá số Bát tự (tứ trụ), cách cục, biểu đồ ngũ hành và kết luận về bản mệnh. Các nội dung luận giải chuyên sâu và giải pháp kích hoạt được hiển thị dưới dạng khối giới thiệu khoá lại, kèm nút mở khoá dẫn tới luồng nâng cấp gói.
 
 > **Hai trường hợp dữ liệu đầu vào chỉ ảnh hưởng tới bảng lá số Tứ trụ:**
 >
 > - **TH1 - Đủ năm, tháng, ngày, giờ sinh**: bảng lá số lập đủ **4 trụ** (Năm, Tháng, Ngày, Giờ).
 > - **TH2 - Thiếu giờ sinh**: bảng lá số chỉ lập **3 trụ** (Năm, Tháng, Ngày), ẩn cột trụ Giờ.
 >
-> Các khối còn lại (thông tin người xem, cách cục, biểu đồ ngũ hành, nhận định) hiển thị và tính toán **như nhau** ở cả hai trường hợp — điểm khác biệt duy nhất là cột trụ Giờ trong bảng lá số.
+> Các khối còn lại (thông tin người xem, cách cục, biểu đồ ngũ hành, kết luận bản mệnh) hiển thị và tính toán **như nhau** ở cả hai trường hợp — điểm khác biệt duy nhất là cột trụ Giờ trong bảng lá số.
+
+---
+
+## Lịch sử thay đổi (Changelog)
+
+| Version | Ngày      | Nội dung thay đổi               |
+| ------- | ---------- | ---------------------------------- |
+| 1.0     | 2026-07-23 | Bản khởi tạo — US-01 → US-03. |
+| 2.0     | 2026-11-17 | Sửa US-02, US-03.                 |
+
+> Version của file đi theo version tính năng Kích hoạt năng lượng. Bản cũ tra cứu qua `git log`/`git diff`.
+
+**Quy ước nhãn thay đổi trên từng AC**: 🆕 **`[v2.0 – Mới]`** AC thêm mới · ✏️ **`[v2.0 – Sửa]`** AC sửa nội dung. AC bị bỏ được xoá khỏi story (bản cũ xem qua git).
 
 ---
 
@@ -92,7 +107,7 @@ Người dùng Free được xem miễn phí toàn bộ lá số Bát tự (tứ
 
 **User Story**
 **As a** người dùng Lịch Việt tài khoản miễn phí (Free) đang xem kết quả lá số Bát tự
-**I want to** xem biểu đồ ngũ hành cùng phần nhận định được tính đúng theo bản mệnh của tôi
+**I want to** xem biểu đồ ngũ hành cùng kết luận về trạng thái bản mệnh được tính đúng theo lá số của tôi
 **So that** tôi hiểu được điểm mạnh, điểm yếu trong cấu trúc ngũ hành và định hướng cân bằng bản mệnh
 
 **INVEST Self-check**
@@ -110,20 +125,24 @@ Người dùng Free được xem miễn phí toàn bộ lá số Bát tự (tứ
 
 **1. Hiển thị biểu đồ và bảng ngũ hành (Happy path)**
 
-- [ ] Hiển thị tiêu đề `"Biểu đồ Ngũ hành"` kèm đoạn mô tả ý nghĩa.
+- [ ] Hiển thị tiêu đề `"Biểu đồ Ngũ hành"`
 - [ ] Hiển thị biểu đồ cột thể hiện tỷ lệ phần trăm của 10 Thiên can, cho phép cuộn ngang khi vượt bề rộng màn hình.
 - [ ] Hiển thị bảng chi tiết ngũ hành gồm các hàng Thần, Can, Thiên can, Địa chi, Trạng thái, Trường sinh.
+- [ ] Dưới bảng hiển thị hàng % của 5 Ngũ hành — Kim, Thủy, Mộc, Hỏa, Thổ — mỗi hành gồm icon, giá trị % và tên hành, màu theo hành: Kim (xám), Thủy (xanh dương), Mộc (xanh lá), Hỏa (đỏ), Thổ (vàng nâu); bên dưới là dòng mô tả cố định `"Từ lá số Bát Tự của bạn, Lịch Việt phân tích điểm Mạnh – Yếu của 5 Ngũ hành để xác định trạng thái năng lượng trong mệnh cục."`.
 
 **2. Cách tính tỷ lệ ngũ hành (Happy path)**
 
 - [ ] Tỷ lệ ngũ hành trong biểu đồ và bảng được tính nhất quán, **không thay đổi** theo việc có hay thiếu giờ sinh (biểu đồ ngũ hành hiển thị và tính giống nhau ở cả hai trường hợp).
 - [ ] Tổng tỷ lệ các thành phần trong biểu đồ luôn hợp lệ (cộng lại đạt 100%).
 
-**3. Khối nhận định từ ngũ hành (Happy path)**
+**3. Kết luận về bản mệnh (Happy path)**
 
-- [ ] Hiển thị khối `"Nhận định từ ngũ hành"` nêu Nhật chủ và tháng sinh (ví dụ `"Nhật chủ Giáp · Sinh tháng Tý"`).
-- [ ] Khối nhận định hiển thị mục `"Chân dung năng lực"` kèm nội dung mô tả.
-- [ ] Khối nhận định hiển thị mục `"Điểm cần lưu ý"` kèm nội dung mô tả.
+- [ ] ✏️ **`[v2.0 – Sửa]`** Hiển thị khối `"KẾT LUẬN VỀ BẢN MỆNH"` (đầu khối nền vàng nhạt, hoạ tiết mây hai góc) gồm dòng `"[Can ngày] - [Trạng thái]"` in hoa (ví dụ `"TÂN KIM - RẤT YẾU"`) và đoạn mô tả `"Can ngày của bạn là [Can ngày]. Qua phân tích sự tương quan giữa các Ngũ hành, bản mệnh được đánh giá ở trạng thái [Trạng thái] và cần xác định yếu tố bổ trợ phù hợp."`; Can ngày và Trạng thái động theo lá số.
+- [ ] 🆕 **`[v2.0 – Mới]`** Ngay dưới hiển thị tiêu đề `"Trạng thái này có thể ảnh hưởng đến bạn như thế nào?"`, đoạn mô tả theo trạng thái (ví dụ `"Can chi ngày quá yếu, bản mệnh có thể thiếu sự nâng đỡ để phát huy những năng lực lợi thế sẵn có"`) và 3 mục có icon, phân cách bằng đường kẻ; mỗi mục gồm nhãn xanh lá đậm và nội dung theo trạng thái:
+  - **Công việc** — ví dụ `"Chủ động, thẳng thắn và có định hướng rõ và có thể phát triển tốt khi có định hướng và nguồn lực phù hợp, nhưng đôi khi nóng lòng thúc đẩy tiến độ; dễ quá tải nếu tự gánh việc khó."`
+  - **Nội lực** — ví dụ `"kiên trì theo mục tiêu và có khả năng tích lũy kinh nghiệm từng bước, nhưng đôi khi khó chấp nhận lối đi khác; cần tránh tự đánh giá thấp bản thân."`
+  - **Các mối quan hệ** — ví dụ `"có trách nhiệm, sẵn lòng bảo vệ và biết lắng nghe và quý trọng sự đồng hành, nhưng đôi khi quá trực diện khi góp ý; cần chủ động bày tỏ nhu cầu hỗ trợ."`
+- [ ] 🆕 **`[v2.0 – Mới]`** Đoạn mô tả và nội dung 3 mục (Công việc, Nội lực, Các mối quan hệ) do server trả về theo trạng thái bản mệnh, lấy từ sheet `Màn mở khoá` trong file dữ liệu Google Sheet.
 
 ---
 
@@ -147,45 +166,41 @@ Người dùng Free được xem miễn phí toàn bộ lá số Bát tự (tứ
 
 ### Tiêu chí nghiệm thu
 
-**1. Hiển thị khối mở khoá (Happy path)**
+**1. Khối dẫn vào phần mở khoá (Happy path)**
 
-- [ ] Sau phần nhận định miễn phí, hiển thị khối mở khoá gồm phần đầu và 2 nhóm nội dung.
-- [ ] **Phần đầu**: tiêu đề `"Mở khóa"` kèm huy hiệu `"PREMIUM"`, 2 dòng quyền lợi có dấu tích `"Phân tích Lá số, xác định Ngũ hành cần bổ sung"` và `"Chọn sản phẩm kích hoạt năng lượng cá nhân"`; bên phải là hình nhân vật cầm chìa khoá.
-- [ ] Nhóm `"Kết quả dành riêng cho bạn"` kèm icon khoá và ảnh cuộn giấy Lịch Việt, gồm 4 mục có icon:
-  - [ ] **Dụng thần**: `"Biết yếu tố bạn cần bổ sung để cân bằng Ngũ hành."`
-  - [ ] **Linh vật**: `"Khám phá linh vật phù hợp với Dụng Thần của bạn và lý do lựa chọn."`
-  - [ ] **Lộc – Mã – Quý Nhân**: `"Biết cách ứng dụng linh vật để hỗ trợ tài lộc, sự nghiệp và các mối quan hệ."`
-  - [ ] **Màu sắc hỗ trợ**: `"Biết màu sắc phù hợp ứng dụng trong cuộc sống hằng ngày"`
-- [ ] Nhóm `"Giải pháp kích hoạt dành cho bạn"` kèm icon khoá và **ảnh minh hoạ con giáp** theo tuổi người dùng (tương ứng địa chi năm sinh), gồm 5 mục có icon:
-  - [ ] **LINH VẬT ĐẶT**: `"Linh vật được đặt ở vị trí phù hợp trong không gian sống hoặc làm việc, mang ý nghĩa hỗ trợ Tài Lộc, mở rộng cơ hội và tăng cường trợ giúp từ Quý Nhân"`, kèm 4 gợi ý có icon:
-    - `LỘC`: `"Kích hoạt tài lộc, duy trì dòng tiền bền vững"`
-    - `MÃ`: `"Kích hoạt cơ hội, mở rộng kết nối phát triển"`
-    - `DƯƠNG QUÝ NHÂN`: `"Kết nối người trao đổi cơ hội, thuận lợi phát triển"`
-    - `ÂM QUÝ NHÂN`: `"Kết nối quý nhân, thuận lợi mọi việc"`
-  - [ ] **LINH VẬT HỘ THÂN**: `"Linh vật mang theo bên mình, được lựa chọn hỗ trợ cân bằng năng lượng và hóa giải những yếu tố chưa thuận lợi."`
-  - [ ] **VÒNG TAY HỘ THÂN**: `"Chọn vòng tay theo Dụng Thần và năng lượng cần bổ sung. Hỗ trợ cân bằng trong quá trình sử dụng hằng ngày."`
-  - [ ] **QUẢ CẦU NGŨ HÀNH**: `"Xác định màu sắc và Ngũ Hành phù hợp. Giúp bổ sung yếu tố năng lượng mà bạn đang cần."`
-  - [ ] **THÁP VĂN XƯƠNG**: `"Chọn Tháp theo Dụng Thần. Hỗ trợ cân bằng Ngũ Hành và nuôi dưỡng tập trung, hanh thông."`
+- [ ] 🆕 **`[v2.0 – Mới]`** Sau khối kết luận bản mệnh, hiển thị khối `"VÌ SAO CẦN XÁC ĐỊNH ĐÚNG DỤNG THẦN?"` (đầu khối nền vàng nhạt, hoạ tiết mây hai góc) với nội dung cố định 3 đoạn:
+  - `"Trong Bát Tự, Dụng Thần được ví như “vị thuốc của bản mệnh”, là yếu tố Ngũ Hành then chốt được xác định thông qua phân tích năm, tháng, ngày và giờ sinh, nhằm tìm ra hướng điều hòa sự mất cân bằng trong lá số."`
+  - `"Dụng Thần giúp xác định yếu tố Ngũ Hành cần bổ trợ dựa trên mối quan hệ sinh – khắc và trạng thái vượng – suy của các hành, từ đó định hướng phương pháp cân bằng phù hợp với bản mệnh."`
+  - `"Tuy nhiên, không phải cứ thiếu hành nào là bổ sung hành đó. Điều quan trọng là xác định đúng Dụng Thần dựa trên cấu trúc tổng thể của lá số Bát Tự để hướng đến sự hài hòa và cân bằng Ngũ Hành."`
+- [ ] 🆕 **`[v2.0 – Mới]`** Dưới khối trên hiển thị khung câu dẫn (chữ đỏ, viền vàng) `"Vậy với [Can ngày] - [Trạng thái], bạn cần bổ trợ Ngũ hành nào và bằng cách nào?"` (ví dụ `"Vậy với Tân Kim - Rất Yếu, …"`).
 
-**2. Nút mở khoá cố định đáy màn (Interaction)**
+**2. Hiển thị khối mở khoá (Happy path)**
 
-- [ ] Nút CTA cố định đáy màn hiển thị nhãn `"Mở khóa phân tích chi tiết"`
+- [ ] ✏️ **`[v2.0 – Sửa]`** **Phần đầu**: tiêu đề `"Mở khóa"` kèm huy hiệu `"PREMIUM"`, dòng `"Kết quả đầy đủ"` và dòng phụ in hoa màu đỏ `"KHÁM PHÁ DỤNG THẦN & GIẢI PHÁP CÁ NHÂN HOÁ DÀNH CHO BẠN"`; bên phải là hình nhân vật cầm chìa khoá.
+- [ ] 🆕 **`[v2.0 – Mới]`** Dưới phần đầu hiển thị khung danh sách 4 mục, phân cách bằng đường kẻ; mỗi mục gồm icon, tiêu đề (xanh lá), mô tả và icon khoá bên phải:
+  - **Dụng thần của bạn là gì?**: `"Xác định Ngũ hành cần bổ trợ để cân bằng và nâng đỡ bản mệnh"`
+  - **Lựa chọn vật phẩm phù hợp**: `"Gợi ý vật phẩm, vòng tay, tháp, quả cầu theo Dụng thần để hỗ trợ điều hoà Ngũ hành"`
+  - **Thời điểm & phương vị phù hợp**: `"Xem ngày giờ, hướng và cách sử dụng để phát huy hiệu quả."`
+  - **Bạn có đủ điều kiện Kích hoạt Lộc-Mã-Quý Nhân?**: `"Đánh giá điều kiện, thời điểm và phương pháp kích hoạt khi phù hợp với bản mệnh"`
+
+**3. Nút mở khoá cố định đáy màn (Interaction)**
+
+- [ ] ✏️ **`[v2.0 – Sửa]`** Nút CTA cố định đáy màn hiển thị nhãn `"Mở khóa Dụng thần & Giải pháp"`.
 - [ ] Khi cuộn tới vùng khối mở khoá → nút CTA đáy màn hiện lên (hiệu ứng trượt vào).
 - [ ] Khi cuộn ra khỏi vùng khối mở khoá → nút CTA đáy màn ẩn đi.
-- [ ] Bấm nút CTA → hiển thị popup mua gói lẻ kích hoạt năng lượng cá nhân inapp luôn của hệ thống.
-- [ ] Mua gói lẻ Kích hoạt năng lượng cá nhân thành công → mở khoá đầy đủ tính năng Kích hoạt năng lượng cá nhân bản Premium trên màn kết quả, load lại trang kết quả
+- [ ] ✏️ **`[v2.0 – Sửa]`** Bấm nút CTA → chuyển tới màn đăng ký dịch vụ chọn Gói Vàng (theo deeplink cấu hình).
+- [ ] ✏️ **`[v2.0 – Sửa]`** Mua Gói Vàng thành công → quay lại màn kết quả, tải lại và hiển thị đầy đủ nội dung bản Premium.
 
-**3. Phân quyền theo hạng tài khoản (Edge case & Negative path)**
+**4. Phân quyền theo hạng tài khoản (Edge case & Negative path)**
 
 - [ ] **Trường hợp tài khoản Free**: toàn bộ nội dung trong khối mở khoá ở trạng thái khoá (không hiển thị nội dung chi tiết đã luận giải), chỉ hiển thị phần giới thiệu quyền lợi.
-- [ ] **Trường hợp đã mua gói lẻ Kích hoạt năng lượng cá nhân**: được dùng đầy đủ tính năng Kích hoạt năng lượng cá nhân bản Premium; ẩn khối mở khoá và nút CTA, hiển thị đầy đủ nội dung luận giải chuyên sâu.
-- [ ] **Trường hợp đã mua gói Kim cương**: mặc nhiên được dùng đầy đủ tính năng Kích hoạt năng lượng cá nhân bản Premium (không cần mua thêm gói lẻ); ẩn khối mở khoá và nút CTA, hiển thị đầy đủ nội dung luận giải chuyên sâu.
-- [ ] Sau khi mua gói thành công (gói lẻ hoặc gói Kim cương) → tải lại màn kết quả và hiển thị nội dung theo quyền Premium.
+- [ ] ✏️ **`[v2.0 – Sửa]`** **Trường hợp đã mua Gói Vàng, gói Kim cương, hoặc đã mua gói lẻ Kích hoạt năng lượng cá nhân trước đây** (app không còn bán gói lẻ cho khách mới): được dùng đầy đủ tính năng Kích hoạt năng lượng cá nhân bản Premium; ẩn khối mở khoá và nút CTA, hiển thị đầy đủ nội dung luận giải chuyên sâu.
 
 **Bảng phân quyền tính năng Kích hoạt năng lượng cá nhân bản Premium theo gói**
 
 | Hạng tài khoản / Gói                              | Được dùng Premium | Hiển thị khối mở khoá & nút CTA |
 | ----------------------------------------------------- | --------------------- | ------------------------------------- |
 | Tài khoản Free (chưa mua gói nào)                | ❌                    | ✅ (khối khoá + CTA)                |
-| Đã mua gói lẻ Kích hoạt năng lượng cá nhân | ✅                    | ❌                                    |
+| Đã mua Gói Vàng                                  | ✅                    | ❌                                    |
+| Đã mua gói lẻ Kích hoạt năng lượng cá nhân (trước đây) | ✅              | ❌                                    |
 | Đã mua gói Kim cương                             | ✅                    | ❌                                    |

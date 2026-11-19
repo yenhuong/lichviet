@@ -4,6 +4,8 @@ type: story
 status: draft
 project: Lich_Viet
 created: 2026-07-16
+updated: 2026-11-17
+version: 2.0
 tags: [kich-hoat-nang-luong, ngu-hanh, input, intro]
 linked-to: [[Story-TuViTaiChinhInput]]
 ---
@@ -15,6 +17,19 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 - Màn nhập thông tin: `KichHoatNangLuong_Input.html`
 
 **Prototype tham chiếu**: [[KichHoatNangLuong_Intro.html]], [[KichHoatNangLuong_Input.html]]
+
+---
+
+## Lịch sử thay đổi (Changelog)
+
+| Version | Ngày      | Nội dung thay đổi                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1.0     | 2026-07-16 | Bản khởi tạo — US-01 → US-06.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| 2.0     | 2026-11-17 | Sửa US-01; xoá US-05 cũ (US-06 → US-05). |
+
+> Version của file đi theo version tính năng Kích hoạt năng lượng. Bản cũ tra cứu qua `git log`/`git diff`.
+
+**Quy ước nhãn thay đổi trên từng AC**: 🆕 **`[v2.0 – Mới]`** AC thêm mới · ✏️ **`[v2.0 – Sửa]`** AC sửa nội dung. AC bị bỏ được xoá khỏi story (bản cũ xem qua git).
 
 ---
 
@@ -40,16 +55,16 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 
 **1. Nội dung giới thiệu (Happy path)**
 
-- [ ] Màn hình hiển thị tiêu đề chính `"KÍCH HOẠT"` và `"NĂNG LƯỢNG CÁ NHÂN"`.
+- [ ] ✏️ **`[v2.0 – Sửa]`** Header hiển thị tiêu đề `"KÍCH HOẠT"`, dòng phụ `"Năng lượng cá nhân"` có hoạ tiết trang trí hai bên, và 2 dòng tagline `"Khám phá Ngũ hành bản mệnh"` / `"Tìm phương pháp cân bằng phù hợp"`.
 - [ ] Hiển thị hình minh họa sơ đồ ngũ hành (Kim, Thủy, Mộc, Hỏa, Thổ) với nhân vật ở giữa.
-- [ ] Hiển thị mô tả tính năng: `"Dựa trên ngày giờ sinh, Lịch Việt xác định Dụng Thần và yếu tố bạn cần bổ sung để cân bằng Ngũ Hành. Từ đó, gợi ý linh vật và cách kích hoạt năng lượng cá nhân dành riêng cho bạn"`, trong đó cụm `"dành riêng cho bạn"` in đậm màu đỏ.
-- [ ] Hiển thị khung `"BẠN SẼ KHÁM PHÁ"` gồm 4 mục kèm icon:
+- [ ] ✏️ **`[v2.0 – Sửa]`** Dưới hình minh hoạ hiển thị câu hỏi (chữ đỏ, căn giữa) `"Bạn đã rất nỗ lực nhưng công việc, tài chính và cuộc sống vẫn chưa như mong đợi?"` và đoạn mô tả `"Theo Bát tự, sự cân bằng Ngũ hành có thể giúp lý giải những thăng trầm trong cuộc sống. Khám phá bản mệnh để tìm ra yếu tố cần bổ trợ và phương pháp cân bằng phù hợp."`.
+- [ ] ✏️ **`[v2.0 – Sửa]`** Hiển thị khung danh sách 4 mục, mỗi mục gồm icon, tiêu đề và mô tả, phân cách bằng đường kẻ:
 
-  - [ ] **Xác Định Dụng Thần Của Bạn**: `"Để chọn đúng năng lượng cần bổ sung, giúp cân bằng Ngũ Hành, hỗ trợ công việc, tài lộc và các mối quan hệ."`
-  - [ ] **Gợi Ý Linh Vật Phù Hợp**: `"Chọn đúng linh vật và vật phẩm theo Dụng Thần, giúp bổ sung năng lượng cần thiết, cân bằng Ngũ Hành và hỗ trợ vận trình hanh thông."`
-  - [ ] **Màu Sắc Hỗ Trợ**: `"Chọn màu sắc theo Dụng Thần, giúp bổ sung năng lượng, cân bằng Ngũ Hành trong cuộc sống hằng ngày."`
-  - [ ] **Biết Cách Kích Hoạt**: `"Xem ngày giờ và vị trí đặt Linh vật để kích hoạt Lộc – Mã – Quý Nhân, hỗ trợ tài lộc, mở ra cơ hội mới và gia tăng sự trợ giúp từ Quý Nhân."`
-- [ ] Banner video `"TÍNH NĂNG MỚI – KÍCH HOẠT NĂNG LƯỢNG CÁ NHÂN"` kèm nút `"XEM VIDEO"` nằm dưới nút CTA, chỉ hiển thị khi video được cấu hình trong config.
+  - [ ] 🆕 **`[v2.0 – Mới]`** **Khám phá trạng thái Ngũ hành**: `"Kim-Mộc-Thuỷ-Hoả-Thổ trong bản mệnh của bạn đang tương tác như thế nào?"`
+  - [ ] 🆕 **`[v2.0 – Mới]`** **Xác định Dụng Thần cần bổ trợ**: `"Ngũ hành nào cần được bổ sung để điều hoà năng lượng và hỗ trợ phát triển thuận lợi?"`
+  - [ ] 🆕 **`[v2.0 – Mới]`** **Lựa chọn phương pháp cân bằng**: `"Khám phá các vật phẩm, vòng tay, tháp, quả cầu hợp với Dụng Thần để cân bằng Ngũ hành."`
+  - [ ] 🆕 **`[v2.0 – Mới]`** **Bạn có thể kích hoạt Lộc – Mã – Quý Nhân?**: `"Sau khi cân bằng Ngũ hành, xem bạn có đủ điều kiện kích hoạt hay không. Cùng ngày giờ và hướng đặt phù hợp."`
+- [ ] Banner video `"TÍNH NĂNG MỚI – KÍCH HOẠT NĂNG LƯỢNG CÁ NHÂN"`, chỉ hiển thị khi video được cấu hình trong config.
 
 **2. Hành vi cuộn và thanh tiêu đề (Interaction)**
 
@@ -59,7 +74,7 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 
 **3. Điều hướng (Happy path & Edge case)**
 
-- [ ] Nút CTA nằm dưới khung `"BẠN SẼ KHÁM PHÁ"`, hiển thị nhãn `"Kích hoạt năng lượng của bạn"`.
+- [ ] Nút CTA `"Kích hoạt năng lượng của bạn"` pin cố định ở cuối màn
 - [ ] Bấm nút CTA → điều hướng sang màn hình nhập thông tin (`KichHoatNangLuong_Input.html`).
 - [ ] Bấm vào bất kỳ vị trí nào trên banner video → mở màn phát video toàn màn hình.
 - [ ] Bấm nút quay lại (mũi tên) ở góc trên → quay về màn hình trước đó.
@@ -177,25 +192,7 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 
 ---
 
-## US-05: Xem thông tin Linh vật hộ thân trên màn hình kết quả
-
-**User Story**
-**As a** người dùng xem kết quả luận giải Bát tự
-**I want to** xem khối thông tin Linh vật hộ thân ngay dưới khối Dụng thần
-**So that** tôi biết được linh vật may mắn của bản thân cùng ý nghĩa biểu tượng của nó
-
-### Tiêu chí nghiệm thu
-
-**1. Hiển thị khối Linh vật hộ thân (Happy path)**
-
-- [ ] Khối Linh vật hộ thân hiển thị ngay bên dưới khối Dụng thần và đường phân cách section.
-- [ ] Hiển thị tiêu đề lớn: `"Linh vật hộ thân của bạn"`.
-- [ ] Bên trái hiển thị hình ảnh linh vật (`mascot_trau.png`).
-- [ ] Bên phải hiển thị tên linh vật in hoa `"TRÂU"` kèm dòng chữ mô tả `"Biểu tượng của sức mạnh bền bỉ"`.
-
----
-
-## US-06: Vào thẳng màn tổng quan khi đã từng xem kết quả
+## US-05: Vào thẳng màn tổng quan khi đã từng xem kết quả
 
 **User Story**
 **As a** người dùng đã xem kết quả kích hoạt năng lượng ít nhất 1 lần
@@ -204,14 +201,14 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 
 **INVEST Self-check**
 
-| Tiêu chí            | Đánh giá | Ghi chú                                                              |
-| --------------------- | ----------- | --------------------------------------------------------------------- |
-| **I**ndependent | ✅          | Chỉ phụ thuộc cờ "đã xem kết quả" và thông tin xem gần nhất. |
-| **N**egotiable  | ✅          | Bố cục khối thông tin, banner có thể tinh chỉnh.              |
+| Tiêu chí            | Đánh giá | Ghi chú                                                                   |
+| --------------------- | ----------- | -------------------------------------------------------------------------- |
+| **I**ndependent | ✅          | Chỉ phụ thuộc cờ "đã xem kết quả" và thông tin xem gần nhất.   |
+| **N**egotiable  | ✅          | Bố cục khối thông tin, banner có thể tinh chỉnh.                    |
 | **V**aluable    | ✅          | Rút ngắn luồng cho người dùng quay lại, tăng tần suất sử dụng. |
-| **E**stimable   | ✅          | Màn tĩnh + điều kiện điều hướng, dễ ước lượng.                 |
-| **S**mall       | ✅          | Hoàn thành trong vài giờ làm việc.                               |
-| **T**estable    | ✅          | Kiểm thử bằng tài khoản chưa xem / đã xem kết quả.             |
+| **E**stimable   | ✅          | Màn tĩnh + điều kiện điều hướng, dễ ước lượng.               |
+| **S**mall       | ✅          | Hoàn thành trong vài giờ làm việc.                                   |
+| **T**estable    | ✅          | Kiểm thử bằng tài khoản chưa xem / đã xem kết quả.               |
 
 ### Tiêu chí nghiệm thu
 
@@ -239,4 +236,3 @@ Tài liệu này định nghĩa các user story cho hai màn hình thuộc tính
 - [ ] Bấm `"Vật phẩm của tôi"` → mở màn danh sách vật phẩm của người dùng.
 - [ ] Bấm vào bất kỳ vị trí nào trên banner video → mở màn phát video toàn màn hình.
 - [ ] Bấm nút quay lại → về màn hình trước đó.
-
