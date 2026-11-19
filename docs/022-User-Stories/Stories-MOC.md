@@ -25,4 +25,7 @@ Tài liệu này dùng để index các tài liệu thuộc thư mục `docs/022
 - [[Story-GopY]] - User story cho màn Góp ý với Lịch Việt (chọn tính năng, nhập nội dung, đính kèm ảnh)
 - [[Story-BanTinThang]] - User stories cho màn Bản tin đầu tháng (Bản tin tháng - Phase 1 của BPRD-003)
 - [[Story-TrangChuKhoiTieuDiem]] - User stories cho Khối Tiêu điểm trên Trang chủ (thứ tự card, card Bản tin tháng, logic chọn điểm nhấn hằng ngày)
+- [[Story-TuViVanHanKetQua]] - User stories cho màn Kết quả & Bổ sung thông tin Tử vi vận hạn
+- [[Story-TuViVanHanChiTietNam]] - User stories cho các màn Chi tiết tổng quan năm Tử vi vận hạn (Yếu tố ảnh hưởng, Các mặt trong đời sống, Lời khuyên)
+- [[Story-TuViVanHanThang]] - User stories cho màn Vận hạn tháng Tử vi vận hạn
 - [[Story-KichHoatHocTap]] - User stories cho tính năng Kích hoạt Trí tuệ & Công danh (Tháp Văn Xương) - 5 màn
