@@ -12,6 +12,7 @@ Tài liệu này dùng để quản lý mục lục các tài liệu yêu cầu 
 - [[BPRD-002-KhaoSatInApp]] - Khảo sát người dùng trong app (nền tảng dùng chung cho mọi tính năng)
 - [[BPRD-004-KichHoatTriTueCongDanh]] - Tính năng Kích Hoạt Trí Tuệ & Công Danh (Tháp Văn Xương)
 - [[BPRD-005-LichPhatGiao]] - Lịch Phật giáo (Đại thừa) giai đoạn 1: ngày chay, ngày vía, nhắc nhở, niệm Phật, tu tập
+- [[BPRD-006-NangCapTuVi]] - Nâng cấp tính năng Tử vi (tài liệu chung, chia giai đoạn); GĐ1: Tử vi vận hạn
 
 ## 020.3 - Kế hoạch khảo sát in-app (Survey Plan - SVP)
 

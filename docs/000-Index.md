@@ -13,6 +13,7 @@ updated: 2026-04-21
 - [[Requirements-MOC]]
 - [[BRD-001-PushNotificationCaNhanHoa]]
 - [[BPRD-001-KichHoatNangLuong]]
+- [[BPRD-006-NangCapTuVi]]
 
 ## 022 - User Stories
 - [[Stories-MOC]]
